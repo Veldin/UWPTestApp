@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +28,20 @@ namespace UWPTestApp
         public MainPage()
         {
             this.InitializeComponent();
+
+            Debug.WriteLine("MainPage");
+
+
+        }
+
+
+        private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
+        {
+            Debug.WriteLine("draw");
+
+            args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
+
+            args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
         }
     }
 }

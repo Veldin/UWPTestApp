@@ -1,0 +1,1 @@
+C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\UWPTestApp.csproj;x86
