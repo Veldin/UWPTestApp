@@ -213,3 +213,4 @@ C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\obj\x86\Debug\qualifiers.txt
 C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\obj\x86\Debug\qualifiers.txt.intermediate
 C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\obj\x86\Debug\ProjectArchitectures.txt
+C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\obj\x86\Debug\UWPTestApp.csprojResolveAssemblyReference.cache

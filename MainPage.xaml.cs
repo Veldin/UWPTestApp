@@ -25,23 +25,28 @@ namespace UWPTestApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        Engine engine;
+
         public MainPage()
         {
+            engine = new Engine();
+
+
             this.InitializeComponent();
 
             Debug.WriteLine("MainPage");
 
-
+            engine.Run();
         }
 
 
         private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            Debug.WriteLine("draw");
-
-            args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
-
-            args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
+            engine.DrawEvent(sender, args);
+            
+            //Examples to test drawing
+            //args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
+            //args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
         }
     }
 }
