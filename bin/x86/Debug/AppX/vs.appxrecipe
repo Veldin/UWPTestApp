@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-30T00:54:47.511</Modified>
+      <Modified>2018-04-30T21:49:06.971</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\UWPTestApp.exe">
       <PackagePath>entrypoint\UWPTestApp.exe</PackagePath>
-      <Modified>2018-04-30T00:54:47.206</Modified>
+      <Modified>2018-04-30T21:49:06.142</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Veldin\.nuget\packages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -543,7 +543,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\UWPTestApp.xr.xml">
       <PackagePath>UWPTestApp.xr.xml</PackagePath>
-      <Modified>2018-04-29T23:18:37.290</Modified>
+      <Modified>2018-04-30T21:41:22.839</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -552,11 +552,11 @@
     <AppxPackagedFile Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-29T23:42:17.262</Modified>
+      <Modified>2018-04-30T21:49:06.656</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\Core\UWPTestApp.exe">
       <PackagePath>UWPTestApp.exe</PackagePath>
-      <Modified>2018-04-30T00:54:47.508</Modified>
+      <Modified>2018-04-30T21:49:06.966</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

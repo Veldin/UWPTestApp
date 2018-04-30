@@ -10,12 +10,12 @@
 
     >
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:ConnectionId='1' x:Name="grid"                                           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"                         ManipulationMode="All">
 
 
-        <canvas:CanvasControl x:ConnectionId='1' x:Name="canvas"                    Width="800" Height="600" ClearColor="CornFlowerBlue"/>
+        <canvas:CanvasControl x:ConnectionId='2' x:Name="canvas"                    Width="800" Height="600" ClearColor="CornFlowerBlue"/>
 
-        <Grid Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />
+        <Grid x:ConnectionId='3'                                           Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />
 
     </Grid>
     

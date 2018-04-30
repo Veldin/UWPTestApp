@@ -39,6 +39,25 @@ namespace UWPTestApp
             engine.Run();
         }
 
+        private void Grid_OnLoaded(object sender, RoutedEventArgs e)
+
+        {
+            Debug.WriteLine("Grid_OnLoaded");
+     
+
+        }
+
+        private void Grid_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            //handling code here
+            Debug.WriteLine("keyUp");
+        }
+
+        private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            //handling code here
+            Debug.WriteLine("keyDown");
+        }
 
         private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {

@@ -16,7 +16,7 @@ namespace UWPTestApp
     {
 
         //Arraylist with all the gameObjects in the current game
-        private ArrayList gameOjects;
+        private ArrayList gameObjects;
 
         //Holder for the canvasControl
         private CanvasControl canvasControl;
@@ -32,8 +32,14 @@ namespace UWPTestApp
 
         public Engine()
         {
-            gameOjects = new ArrayList();
-            gameOjects.Add(new GameObject("player", 50, 50, 10, 10));
+            gameObjects = new ArrayList();
+
+
+            gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10));
+
+            gameObjects.Add(new GameObject("A guy", 50, 100, 50, 100));
+
+            gameObjects.Add(new GameObject("A guy", 100, 50, 100, 50));
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -69,8 +75,12 @@ namespace UWPTestApp
 
         private void Logic()
         {
-            Debug.WriteLine("Doing the logic!" + delta);
 
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.addFromLeft( delta / 9000 );
+                gameObject.addFromTop(delta / 9000);
+            }
         }
 
         //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
@@ -81,13 +91,23 @@ namespace UWPTestApp
 
         public void DrawEvent(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            Debug.WriteLine("Doing the drawing!" + delta);
 
-            //Set the canvasControl used!
+            //Set the canvasControl that called this method so we know what to Invalidate later.
             canvasControl = sender;
 
             //Draw the frame on this DrawingSession.
             args.DrawingSession.DrawEllipse(delta/10, delta / 10, 80, 30, Colors.Black, 3);
+
+            foreach (GameObject gameObject in gameObjects)
+            {
+
+                //Rect Initializes a struct that has the specified from left, from top, width, and height.
+                args.DrawingSession.DrawRectangle(
+                    new Windows.Foundation.Rect(gameObject.getFromLeft(), gameObject.getFromTop(), gameObject.getWith(), gameObject.getHeight()), 
+                    Colors.Red
+                );
+
+            }
         }
 
     }
