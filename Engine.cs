@@ -34,12 +34,16 @@ namespace UWPTestApp
         {
             gameObjects = new ArrayList();
 
+            //gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10));
 
-            gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10));
+            gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10, 0 , 10 , 0, -10));
 
-            gameObjects.Add(new GameObject("A guy", 50, 100, 50, 100));
 
-            gameObjects.Add(new GameObject("A guy", 100, 50, 100, 50));
+            gameObjects.Add(new GameObject("B guy", 50, 50, 250, 250, 0, 10, 0, -10));
+
+            //gameObjects.Add(new GameObject("B guy", 50, 100, 50, 100));
+
+            //gameObjects.Add(new GameObject("C guy", 100, 50, 100, 50));
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -75,12 +79,32 @@ namespace UWPTestApp
 
         private void Logic()
         {
-
-            foreach (GameObject gameObject in gameObjects)
+            //Check if there are objects in the arraylist to apply logic on
+            if (gameObjects.Count < 1)
             {
-                gameObject.addFromLeft( delta / 9000 );
-                gameObject.addFromTop(delta / 9000);
+                return;
             }
+
+            //Apply the logic to all the bameObjects CURRENTLY in the Arraylist.
+            //The new ArrayList makes a copy so the original arraylist can be modivied in this loop
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+                Debug.Write("");
+
+                if (gameObject.Tag.Equals("A guy"))
+                {
+                    gameObject.addFromLeft((float)((delta / 1000) * 0.05));
+                    gameObject.addFromTop((float)((delta / 1000) * 0.05));
+                }
+                
+
+                gameObject.onTick(gameObjects, delta);
+
+                foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                {
+                    gameObject.isColliding(gameObjectCheck);
+                }
+             }
         }
 
         //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
@@ -98,16 +122,48 @@ namespace UWPTestApp
             //Draw the frame on this DrawingSession.
             args.DrawingSession.DrawEllipse(delta/10, delta / 10, 80, 30, Colors.Black, 3);
 
-            foreach (GameObject gameObject in gameObjects)
+            //Check if there are objects in the arraylist to draw
+            if (gameObjects.Count < 1)
+            {
+                return;
+            }
+
+            /* DRAWING THE SPRITES */
+            //Draw all the gameObjects CURRENTLY in the Arraylist.
+            //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
 
-                //Rect Initializes a struct that has the specified from left, from top, width, and height.
+                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
                 args.DrawingSession.DrawRectangle(
-                    new Windows.Foundation.Rect(gameObject.getFromLeft(), gameObject.getFromTop(), gameObject.getWith(), gameObject.getHeight()), 
+                    new Windows.Foundation.Rect(
+                        gameObject.FromLeft + gameObject.FromLeftDrawOffset, 
+                        gameObject.FromTop + gameObject.FromTopDrawOffset, 
+                        gameObject.Width + gameObject.WidthDrawOffset, 
+                        gameObject.Height + gameObject.HeightDrawOffset
+                    ),
+                    Colors.Green
+                );
+
+                //Debug.WriteLine(gameObject.Height + " + " + gameObject.HeightDrawOffset + " = " + (gameObject.Height + gameObject.HeightDrawOffset) );
+            }
+
+
+            /* DRAWING THE HITBOXES */
+            //Draw all the gameObjects CURRENTLY in the Arraylist.
+            //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+
+                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
+                args.DrawingSession.DrawRectangle(
+                    new Windows.Foundation.Rect(gameObject.FromLeft, gameObject.FromTop, gameObject.Width, gameObject.Height),
                     Colors.Red
                 );
 
             }
+            
+
         }
 
     }
