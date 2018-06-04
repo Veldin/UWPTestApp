@@ -10,7 +10,7 @@
 
     >
 
-    <Grid x:ConnectionId='1' x:Name="grid"                                           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"                         ManipulationMode="All">
+    <Grid x:ConnectionId='1' x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"                         ManipulationMode="All">
 
 
         <canvas:CanvasControl x:ConnectionId='2' x:Name="canvas"                    Width="800" Height="600" ClearColor="CornFlowerBlue"/>

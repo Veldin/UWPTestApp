@@ -10,8 +10,8 @@ namespace UWPTestApp
 {
     class GameObject
     {
-        //Tag given to this object by the engine to do sertain tasks.
-        private String tag;
+        //Tags given to this object by the engine to do sertain tasks.
+        private ArrayList tags;
 
         //Location where this gameObject is within the game.
         //This is also used for the hitbox 
@@ -21,7 +21,7 @@ namespace UWPTestApp
         private float fromTop;
 
         //Objects can be facing left or right
-        Boolean isFacingLeft;
+        private Boolean isFacingLeft;
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
@@ -32,10 +32,14 @@ namespace UWPTestApp
         private float fromLeftDrawOffset;
         private float fromTopDrawOffset;
 
+        //The movement speed of an object.
+
         public GameObject(String tag, float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
 
-            this.tag = tag;
+            tags = new ArrayList();
+            AddTag(tag);
+
             this.width = width;
             this.height = height;
             this.fromLeft = fromLeft;
@@ -50,10 +54,28 @@ namespace UWPTestApp
         }
 
         //Getters and setters for the tag
-        public string Tag
+        public void AddTag(string tag)
         {
-            get { return tag; }
-            set { tag = value; }
+            tags.Add(tag);
+        }
+
+
+        public Boolean HasTag(string tag)
+        {
+
+            if (tags.IndexOf(tag) > -1)
+                return true;
+            return false;
+        }
+
+        public Boolean RemoveTag(string tag)
+        {
+            if (HasTag(tag))
+            {
+                tags.Remove(tag);
+                return true;
+            }
+            return false;
         }
 
         //Getters and setters for the fields that have to do with positioning of the GameOgject.
@@ -84,10 +106,10 @@ namespace UWPTestApp
 
         //Methods to add ammounts to fields that have to do with positioning of the GameOgject.
         //They also return the new number so we can use them to calculate with instandly.
-        public float addWidth(float width) { this.width += width; return this.width; }
-        public float addHeight(float height) { this.height += height; return this.height; }
-        public float addFromTop(float fromTop) { this.fromTop += fromTop; return this.fromTop; }
-        public float addFromLeft(float fromLeft) { this.fromLeft += fromLeft; return this.fromLeft; }
+        public float AddWidth(float width) { this.width += width; return this.width; }
+        public float AddHeight(float height) { this.height += height; return this.height; }
+        public float AddFromTop(float fromTop) { this.fromTop += fromTop; return this.fromTop; }
+        public float AddFromLeft(float fromLeft) { this.fromLeft += fromLeft; return this.fromLeft; }
 
         //Getters and setters for the fields that have to do with positioning in the canvas.
         public float WidthDrawOffset
@@ -114,6 +136,22 @@ namespace UWPTestApp
             set { fromLeftDrawOffset = value; }
         }
 
+        //functions to check if an object is facing left or right.
+        public Boolean IsFacingLeft()
+        {
+            return isFacingLeft;
+        }
+
+        public void FaceLeft()
+        {
+            isFacingLeft = true;
+        }
+
+        public void FaceRight()
+        {
+            isFacingLeft = false;
+        }
+
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
         public Boolean onTick(ArrayList gameObjects, float delta)
@@ -134,12 +172,22 @@ namespace UWPTestApp
                 gameObject.fromLeft + gameObject.Width > fromLeft && gameObject.fromLeft + gameObject.width < fromLeft + width &&
                 gameObject.fromTop + gameObject.Height > fromTop && gameObject.fromTop + gameObject.Height < fromTop + width
             ){
-                Debug.WriteLine("True");
                 return true;
             }
 
             //gameObjects.Add(new GameObject("CREATED GUY", 50, 50, 10, 10));
             return false;
+        }
+
+        public Boolean CollitionEffect(GameObject gameObject)
+        {
+            gameObject.AddFromTop(1);
+
+            //Check if its still coliding and repeat the effect
+            if (isColliding(gameObject))
+                CollitionEffect(gameObject);
+
+            return true;
         }
 
     }

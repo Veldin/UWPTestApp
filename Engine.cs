@@ -3,11 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Windows.System;
 using Windows.UI;
-using System.Threading; //Note that the Thread Class does not exist in UWP
 
 namespace UWPTestApp
 {
@@ -17,6 +15,7 @@ namespace UWPTestApp
 
         //Arraylist with all the gameObjects in the current game
         private ArrayList gameObjects;
+        private HashSet<String> pressedKeys;
 
         //Holder for the canvasControl
         private CanvasControl canvasControl;
@@ -33,6 +32,7 @@ namespace UWPTestApp
         public Engine()
         {
             gameObjects = new ArrayList();
+            pressedKeys = new HashSet<String>();
 
             //gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10));
 
@@ -79,22 +79,24 @@ namespace UWPTestApp
 
         private void Logic()
         {
+
+
+
             //Check if there are objects in the arraylist to apply logic on
-            if (gameObjects.Count < 1)
-            {
-                return;
-            }
 
             //Apply the logic to all the bameObjects CURRENTLY in the Arraylist.
             //The new ArrayList makes a copy so the original arraylist can be modivied in this loop
             foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
-                Debug.Write("");
 
-                if (gameObject.Tag.Equals("A guy"))
+             
+
+                if (gameObject.HasTag("A guy") && IsKeyPressed("test"))
                 {
-                    gameObject.addFromLeft((float)((delta / 1000) * 0.05));
-                    gameObject.addFromTop((float)((delta / 1000) * 0.05));
+                    Debug.WriteLine("gg");
+
+                    gameObject.AddFromLeft((float)((delta / 1000) * 0.05));
+                    gameObject.AddFromTop((float)((delta / 1000) * 0.05));
                 }
                 
 
@@ -102,7 +104,10 @@ namespace UWPTestApp
 
                 foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                 {
-                    gameObject.isColliding(gameObjectCheck);
+                    if (gameObject.isColliding(gameObjectCheck))
+                    {
+                        gameObject.CollitionEffect(gameObjectCheck);
+                    }
                 }
              }
         }
@@ -164,6 +169,23 @@ namespace UWPTestApp
             }
             
 
+        }
+
+        public void KeyDown(String virtualKey)
+        {
+            Debug.WriteLine("adding " +virtualKey);
+            pressedKeys.Add(virtualKey);
+        }
+
+        public void KeyUp(String virtualKey)
+        {
+            Debug.WriteLine("removing " + virtualKey);
+            pressedKeys.Remove(virtualKey);
+        }
+
+        public Boolean IsKeyPressed(String virtualKey)
+        {
+            return pressedKeys.Contains(virtualKey);
         }
 
     }

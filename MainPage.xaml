@@ -10,7 +10,7 @@
 
     >
 
-    <Grid x:Name="grid" KeyUp="Grid_KeyUp" KeyDown="Grid_KeyDown" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All">
+    <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All">
 
 
         <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="CornFlowerBlue"/>

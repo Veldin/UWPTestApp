@@ -31,41 +31,71 @@ namespace UWPTestApp
         {
             engine = new Engine();
 
-
             this.InitializeComponent();
 
             Debug.WriteLine("MainPage");
 
+            Window.Current.CoreWindow.KeyDown += KeyDown;
+            Window.Current.CoreWindow.KeyUp += KeyUP;
+
             engine.Run();
+        }
+
+        void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        {
+            Debug.WriteLine("key down" + args.VirtualKey);
+            engine.KeyDown("test");
+        }
+
+        void KeyUP(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        {
+            Debug.WriteLine("key up");
+            engine.KeyUp("test");
         }
 
         private void Grid_OnLoaded(object sender, RoutedEventArgs e)
 
         {
             Debug.WriteLine("Grid_OnLoaded");
-     
 
-        }
 
-        private void Grid_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            //handling code here
-            Debug.WriteLine("keyUp");
-        }
-
-        private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            //handling code here
-            Debug.WriteLine("keyDown");
         }
 
         private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             engine.DrawEvent(sender, args);
-            
+
             //Examples to test drawing
             //args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
             //args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
         }
     }
+
+    class MyBase
+    {
+        public void MyMethod()
+        {
+            // do something
+            OnMyMethod();
+            // do something
+        }
+
+        protected virtual void OnMyMethod()
+        {
+        }
+    }
+    
+
+    class MyInherited : MyBase
+        {
+            protected override void OnMyMethod()
+            {
+                // do something
+            }
+
+            public int Lololol()
+            {
+                return 0;
+            }
+        }
 }
