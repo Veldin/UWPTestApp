@@ -34,16 +34,8 @@ namespace UWPTestApp
             gameObjects = new ArrayList();
             pressedKeys = new HashSet<String>();
 
-            //gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10));
-
             gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10, 0 , 10 , 0, -10));
-
-
             gameObjects.Add(new GameObject("B guy", 50, 50, 250, 250, 0, 10, 0, -10));
-
-            //gameObjects.Add(new GameObject("B guy", 50, 100, 50, 100));
-
-            //gameObjects.Add(new GameObject("C guy", 100, 50, 100, 50));
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -63,7 +55,7 @@ namespace UWPTestApp
             if (delta > interfal)
             {
                 then = now; //Remember when this frame was.
-
+                
                 Logic(); //Run the logic of the simulation.
 
                 //Only draw the simulation if there is a known canvas.
@@ -79,26 +71,33 @@ namespace UWPTestApp
 
         private void Logic()
         {
-
-
-
             //Check if there are objects in the arraylist to apply logic on
 
             //Apply the logic to all the bameObjects CURRENTLY in the Arraylist.
             //The new ArrayList makes a copy so the original arraylist can be modivied in this loop
             foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
+                Debug.WriteLine("-_-_-_");
 
-             
-
-                if (gameObject.HasTag("A guy") && IsKeyPressed("test"))
+                if (gameObject.HasTag("A guy") && IsKeyPressed("S"))
                 {
-                    Debug.WriteLine("gg");
-
-                    gameObject.AddFromLeft((float)((delta / 1000) * 0.05));
                     gameObject.AddFromTop((float)((delta / 1000) * 0.05));
                 }
+
+                if (gameObject.HasTag("A guy") && IsKeyPressed("W"))
+                {
+                    gameObject.AddFromTop((float)0 - (float)((delta / 1000) * 0.05));
+                }
+
+                if (gameObject.HasTag("A guy") && IsKeyPressed("D"))
+                {
+                    gameObject.AddFromLeft((float)((delta / 1000) * 0.05));
+                }
                 
+                if (gameObject.HasTag("A guy") && IsKeyPressed("A"))
+                {
+                    gameObject.AddFromLeft((float)0 - (float)((delta / 1000) * 0.05));
+                }
 
                 gameObject.onTick(gameObjects, delta);
 

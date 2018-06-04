@@ -32,7 +32,6 @@ namespace UWPTestApp
         private float fromLeftDrawOffset;
         private float fromTopDrawOffset;
 
-        //The movement speed of an object.
 
         public GameObject(String tag, float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
@@ -181,11 +180,16 @@ namespace UWPTestApp
 
         public Boolean CollitionEffect(GameObject gameObject)
         {
+
             gameObject.AddFromTop(1);
 
             //Check if its still coliding and repeat the effect
             if (isColliding(gameObject))
+            {
+                Debug.WriteLine("still touching!");
                 CollitionEffect(gameObject);
+            }
+                
 
             return true;
         }

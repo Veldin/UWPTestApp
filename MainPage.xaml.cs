@@ -43,14 +43,14 @@ namespace UWPTestApp
 
         void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            Debug.WriteLine("key down" + args.VirtualKey);
-            engine.KeyDown("test");
+           // Debug.WriteLine("key down" + args.VirtualKey.ToString());
+            engine.KeyDown(args.VirtualKey.ToString());
         }
 
         void KeyUP(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            Debug.WriteLine("key up");
-            engine.KeyUp("test");
+            //Debug.WriteLine("key up" + args.VirtualKey.ToString()
+            engine.KeyUp(args.VirtualKey.ToString());
         }
 
         private void Grid_OnLoaded(object sender, RoutedEventArgs e)
