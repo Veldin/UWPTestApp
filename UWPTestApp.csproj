@@ -100,11 +100,18 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Pickup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spawner.cs" />
     <Compile Include="Splatter.cs" />
     <Compile Include="Wall.cs" />
+=======
+    <Compile Include="Message.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="SoundExampleOne.cs" />
+>>>>>>> 965930e6d68c689e3f4bef2cdb55f37ce6400f88
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -113,6 +120,7 @@
     <None Include="UWPTestApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Sounds\Weapons\shot_test.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
