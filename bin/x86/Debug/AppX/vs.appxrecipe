@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-06-04T10:51:03.107</Modified>
+      <Modified>2018-06-05T15:30:41.326</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\UWPTestApp.exe">
       <PackagePath>entrypoint\UWPTestApp.exe</PackagePath>
-      <Modified>2018-06-04T10:51:02.414</Modified>
+      <Modified>2018-06-05T15:30:40.980</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Veldin\.nuget\packages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -552,11 +552,11 @@
     <AppxPackagedFile Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-05-24T08:02:15.055</Modified>
+      <Modified>2018-06-05T13:29:49.431</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Veldin\source\repos\UWPTestApp\UWPTestApp\bin\x86\Debug\Core\UWPTestApp.exe">
       <PackagePath>UWPTestApp.exe</PackagePath>
-      <Modified>2018-06-04T10:51:03.099</Modified>
+      <Modified>2018-06-05T15:30:41.323</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

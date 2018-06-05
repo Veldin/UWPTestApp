@@ -14,7 +14,7 @@ namespace UWPTestApp
     {
 
         //Arraylist with all the gameObjects in the current game
-        private ArrayList gameObjects;
+        private List<GameObject> gameObjects;
         private HashSet<String> pressedKeys;
 
         //Holder for the canvasControl
@@ -31,11 +31,19 @@ namespace UWPTestApp
 
         public Engine()
         {
-            gameObjects = new ArrayList();
+            gameObjects = new List<GameObject>();
+
             pressedKeys = new HashSet<String>();
 
-            gameObjects.Add(new GameObject("A guy", 50, 50, 10, 10, 0 , 10 , 0, -10));
-            gameObjects.Add(new GameObject("B guy", 50, 50, 250, 250, 0, 10, 0, -10));
+            //width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
+            gameObjects.Add(new Wall(50, 50, 250, 250, 0 , 10 , 0, -10));
+
+            gameObjects.Add(new Wall(50, 50, 450, 450, 0, 10, 0, -10));
+            //gameObjects.Add(new Splatter(50, 50, 50, 50));
+            //gameObjects.Add(new Spawner(150, 150, 100, 100));
+            //gameObjects.Add(new GameObject("B guy", 50, 50, 250, 250, 0, 10, 0, -10));
+
+            gameObjects[0].AddTag("controllable");
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -50,7 +58,7 @@ namespace UWPTestApp
         //Run() also always recurcifly schedules itself.
         public void Run(){
             now = Stopwatch.GetTimestamp();
-            delta = now - then;
+            delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
 
             if (delta > interfal)
             {
@@ -75,37 +83,38 @@ namespace UWPTestApp
 
             //Apply the logic to all the bameObjects CURRENTLY in the Arraylist.
             //The new ArrayList makes a copy so the original arraylist can be modivied in this loop
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            foreach (GameObject gameObject in new List<GameObject>(gameObjects))
             {
-                Debug.WriteLine("-_-_-_");
 
-                if (gameObject.HasTag("A guy") && IsKeyPressed("S"))
+                if (gameObject.HasTag("controllable") && IsKeyPressed("S"))
                 {
-                    gameObject.AddFromTop((float)((delta / 1000) * 0.05));
+                    gameObject.AddFromTop((float)((delta) * 0.05));
                 }
 
-                if (gameObject.HasTag("A guy") && IsKeyPressed("W"))
+                if (gameObject.HasTag("controllable") && IsKeyPressed("W"))
                 {
-                    gameObject.AddFromTop((float)0 - (float)((delta / 1000) * 0.05));
+                    gameObject.AddFromTop((float)0 - (float)((delta) * 0.05));
                 }
 
-                if (gameObject.HasTag("A guy") && IsKeyPressed("D"))
+                if (gameObject.HasTag("controllable") && IsKeyPressed("D"))
                 {
-                    gameObject.AddFromLeft((float)((delta / 1000) * 0.05));
+                    gameObject.AddFromLeft((float)((delta) * 0.05));
                 }
                 
-                if (gameObject.HasTag("A guy") && IsKeyPressed("A"))
+                if (gameObject.HasTag("controllable") && IsKeyPressed("A"))
                 {
-                    gameObject.AddFromLeft((float)0 - (float)((delta / 1000) * 0.05));
+                    gameObject.AddFromLeft((float)0 - (float)((delta) * 0.05));
                 }
 
-                gameObject.onTick(gameObjects, delta);
+                gameObject.OnTick(gameObjects, delta);
 
                 foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                 {
-                    if (gameObject.isColliding(gameObjectCheck))
+                    if (gameObject.IsColliding(gameObjectCheck))
                     {
-                        gameObject.CollitionEffect(gameObjectCheck);
+                        if (gameObject.HasTag("controllable")){
+                            gameObject.CollitionEffect(gameObjectCheck);
+                        }
                     }
                 }
              }

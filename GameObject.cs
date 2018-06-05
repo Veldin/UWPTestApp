@@ -8,36 +8,35 @@ using System.Threading.Tasks;
 
 namespace UWPTestApp
 {
-    class GameObject
+    public abstract class GameObject
     {
         //Tags given to this object by the engine to do sertain tasks.
-        private ArrayList tags;
+        protected ArrayList tags;
 
         //Location where this gameObject is within the game.
         //This is also used for the hitbox 
-        private float width;
-        private float height;
-        private float fromLeft;
-        private float fromTop;
+        protected float width;
+        protected float height;
+        protected float fromLeft;
+        protected float fromTop;
 
         //Objects can be facing left or right
-        private Boolean isFacingLeft;
+        protected Boolean isFacingLeft;
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
         //The sprite can be more to the left or right then the hitbox.
 
-        private float widthDrawOffset;
-        private float heightDrawOffset;
-        private float fromLeftDrawOffset;
-        private float fromTopDrawOffset;
+        protected float widthDrawOffset;
+        protected float heightDrawOffset;
+        protected float fromLeftDrawOffset;
+        protected float fromTopDrawOffset;
 
 
-        public GameObject(String tag, float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
+        public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
 
             tags = new ArrayList();
-            AddTag(tag);
 
             this.width = width;
             this.height = height;
@@ -153,13 +152,9 @@ namespace UWPTestApp
 
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
-        public Boolean onTick(ArrayList gameObjects, float delta)
-        {
-            //gameObjects.Add(new GameObject("CREATED GUY", 50, 50, 10, 10));
-            return true;
-        }
+        public abstract Boolean OnTick(List<GameObject> gameObjects, float delta);
 
-        public Boolean isColliding(GameObject gameObject)
+        public Boolean IsColliding(GameObject gameObject)
         {
             //Check if you are comparing to youself.
             if (this == gameObject)
@@ -167,32 +162,27 @@ namespace UWPTestApp
                 return false;
             }
 
-            if (
-                gameObject.fromLeft + gameObject.Width > fromLeft && gameObject.fromLeft + gameObject.width < fromLeft + width &&
-                gameObject.fromTop + gameObject.Height > fromTop && gameObject.fromTop + gameObject.Height < fromTop + width
-            ){
-                return true;
-            }
+            //if (
+                //Left and Right
+            //    FromLeft > gameObject.FromLeft || FromLeft + Width < gameObject.FromLeft
+
+                
+                //gameObject.fromLeft + gameObject.Width > fromLeft && gameObject.fromLeft + gameObject.width < fromLeft + width &&
+                //gameObject.fromTop + gameObject.Height > fromTop && gameObject.fromTop + gameObject.Height < fromTop + width
+            //){
+
+            //    return true;
+            //}
+
+            Debug.WriteLine(FromLeft > gameObject.FromLeft);
+            Debug.WriteLine(FromLeft < gameObject.FromLeft);
+            Debug.WriteLine("__");
 
             //gameObjects.Add(new GameObject("CREATED GUY", 50, 50, 10, 10));
             return false;
         }
 
-        public Boolean CollitionEffect(GameObject gameObject)
-        {
-
-            gameObject.AddFromTop(1);
-
-            //Check if its still coliding and repeat the effect
-            if (isColliding(gameObject))
-            {
-                Debug.WriteLine("still touching!");
-                CollitionEffect(gameObject);
-            }
-                
-
-            return true;
-        }
+        public abstract Boolean CollitionEffect(GameObject gameObject);
 
     }
 }
