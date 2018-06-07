@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Windows.UI.Xaml.Controls;
 
-public interface MovableObject : GameObject
+namespace UWPTestApp
 {
-    float GetMovementSpeed();
-    void PlayMoveSound();
-    void PlayDeathsound();
+    public interface MovableObject
+    {
+        float GetMovementSpeed();
+        void PlayMoveSound();
+        void PlayDeathSound();
 
-    void SetMovementSpeed(float speed);
-    void SetMoveSound(MediaElement moveSound);
-    void SetDeathSound(MediaElement deathSound);
+        void SetMovementSpeed(float speed);
+        void SetMoveSound(MediaElement moveSound);
+        void SetDeathSound(MediaElement deathSound);
+    }
 }

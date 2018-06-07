@@ -1,4 +1,6 @@
 ﻿using System;
+using UWPTestApp;
+using Windows.UI.Xaml.Controls;
 
 public class TextBox : MovableObject
 {
@@ -12,13 +14,38 @@ public class TextBox : MovableObject
         this.duration = duration;
     }
 
-    public void MovableObject.SetMovementSpeed(float speed)
+    void MovableObject.SetMovementSpeed(float speed)
     {
         movementSpeed = speed;
     }
 
-    public float MovableObject.GetMovementSpeed()
+    float MovableObject.GetMovementSpeed()
     {
         return movementSpeed;
+    }
+
+    public void PlayMoveSound()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void PlayDeathsound()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetMoveSound(MediaElement moveSound)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetDeathSound(MediaElement deathSound)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void PlayDeathSound()
+    {
+        throw new NotImplementedException();
     }
 }
