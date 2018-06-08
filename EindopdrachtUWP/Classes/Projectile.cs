@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using UWPTestApp;
+using Windows.UI.Xaml.Controls;
 
-public class Projectile : MovableObject
+public class Projectile : GameObject, MovableObject
 {
     float shotFromTop;
     float shotFromLeft;
@@ -9,7 +12,8 @@ public class Projectile : MovableObject
     MediaElement moveSound;
     MediaElement deathSound;
 
-    Projectile()
+    Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
+        : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
         damage = 20;
         shotFromTop = 540;
@@ -20,7 +24,7 @@ public class Projectile : MovableObject
     {
         if (gameObject.HasTag("iets"))
         {
-            PlayHitSound();
+            // PlayHitSound();
         }
 
         return true;
@@ -28,7 +32,7 @@ public class Projectile : MovableObject
 
     public void SetNewTarget()
     {
-        Target target = new Target();
+        
     }
 
     public float GetShotFromTop()
@@ -46,32 +50,32 @@ public class Projectile : MovableObject
         return true;
     }   
 
-    public void MovableObject.SetMovementSpeed(float speed)
+    void MovableObject.SetMovementSpeed(float speed)
     {
         movementSpeed = speed;
     }
 
-    public float MovableObject.GetMovementSpeed()
+    float MovableObject.GetMovementSpeed()
     {
         return movementSpeed;
     }
 
-    public void MovableObject.SetMoveSound(MediaElement moveSound)
+    void MovableObject.SetMoveSound(MediaElement moveSound)
     {
         this.moveSound = moveSound;
     }
 
-    public void MovableObject.PlayMoveSound()
+    void MovableObject.PlayMoveSound()
     {
         
     }
 
-    public void MovableObject.SetDeathSound(MediaElement deathSound)
+    void MovableObject.SetDeathSound(MediaElement deathSound)
     {
         this.deathSound = deathSound;
     }
 
-    public void MovableObject.PlayDeathSound()
+    void MovableObject.PlayDeathSound()
     {
         
     }

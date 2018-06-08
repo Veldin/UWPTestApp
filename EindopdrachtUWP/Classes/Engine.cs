@@ -185,6 +185,7 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
+            Debug.WriteLine(virtualKey);
         }
 
         public void KeyUp(String virtualKey)

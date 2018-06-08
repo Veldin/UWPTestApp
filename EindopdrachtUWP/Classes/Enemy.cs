@@ -1,13 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using UWPTestApp;
+using Windows.UI.Xaml.Controls;
 
-public class Enemy
+public class Enemy : GameObject, MovableObject, Targetable
 {
     int lifePoints;
     int power;
-    String type;
+    String enemyType;
+    private MediaElement deathSound;
+    private float movementSpeed;
+    private MediaElement moveSound;
 
-    Enemy()
+    Enemy(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
+        : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
+        AddTag("hostile");
     }
 
     public void SetLifePoints(int life)
@@ -30,53 +38,53 @@ public class Enemy
         return power;
     }
 
-    public void SetType(String Type)
+    public void SetType(String type)
     {
-        this.type = type;
+        enemyType = type;
     }
 
-    public String GetType()
+    public String GetEnemyType()
     {
-        return type;
+        return enemyType;
     }
 
-    public void MovableObject.SetMovementSpeed(float speed)
+    void MovableObject.SetMovementSpeed(float speed)
     {
         movementSpeed = speed;
     }
 
-    public float MovableObject.GetMovementSpeed()
+    float MovableObject.GetMovementSpeed()
     {
         return movementSpeed;
     }
 
-    public void MovableObject.SetMoveSound(MediaElement moveSound)
+    void MovableObject.SetMoveSound(MediaElement moveSound)
     {
         this.moveSound = moveSound;
     }
 
-    public void MovableObject.PlayMoveSound()
+    void MovableObject.PlayMoveSound()
     {
 
     }
 
-    public void MovableObject.SetDeathSound(MediaElement deathSound)
+    void MovableObject.SetDeathSound(MediaElement deathSound)
     {
         this.deathSound = deathSound;
     }
 
-    public void MovableObject.PlayDeathSound()
+    void MovableObject.PlayDeathSound()
     {
-
+        //iets 
     }
 
     public override Boolean CollitionEffect(GameObject gameObject)
     {
-        if (gameObject.HasTag("iets"))
-        {
-            PlayHitSound();
-        }
+        throw new NotImplementedException();
+    }
 
-        return true;
+    public override bool OnTick(List<GameObject> gameObjects, float delta)
+    {
+        throw new NotImplementedException();
     }
 }

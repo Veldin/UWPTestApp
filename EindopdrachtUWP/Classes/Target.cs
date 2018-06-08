@@ -1,4 +1,5 @@
 ﻿using System;
+using UWPTestApp;
 
 public class Target
 {
@@ -17,7 +18,7 @@ public class Target
         this.fromLeft = fromLeft;
     }
 
-    public void SetTarget(GameObject target)
+    public void SetTarget(Targetable target)
     {
         this.target = target;
     }
@@ -34,11 +35,28 @@ public class Target
 
     public float GetFromTop()
     {
-        return fromTop;
+        if (target == null)
+        {
+            return fromTop;
+        }
+        return 0;
     }
 
     public float GetFromLeft()
     {
-        return fromLeft;
+        if (target == null)
+        {
+            return fromLeft;
+        }
+        return 0;
+    }
+
+    public Targetable GetTarget()
+    {
+        if (target != null)
+        {
+            return target;
+        }
+        return null;
     }
 }
