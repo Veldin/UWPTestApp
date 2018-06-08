@@ -13,6 +13,9 @@ namespace UWPTestApp
         //Tags given to this object by the engine to do sertain tasks.
         protected ArrayList tags;
 
+        //Target!
+        private Target target;
+
         //Location where this gameObject is within the game.
         //This is also used for the hitbox 
         protected float width;
@@ -150,6 +153,13 @@ namespace UWPTestApp
             isFacingLeft = false;
         }
 
+        
+        public Target Target
+        {
+            get { return target; }
+            set { target = value; }
+        }
+
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
         public abstract Boolean OnTick(List<GameObject> gameObjects, float delta);
@@ -162,9 +172,9 @@ namespace UWPTestApp
                 return false;
             }
 
-            if (FromLeft < gameObject.FromLeft + width  && FromLeft + Width > gameObject.FromLeft)
+            if (FromLeft < gameObject.FromLeft + gameObject.width  && FromLeft + Width > gameObject.FromLeft)
             {
-                if (FromTop < gameObject.FromTop + width && FromTop + Width > gameObject.FromTop)
+                if (FromTop < gameObject.FromTop + gameObject.width && FromTop + Width > gameObject.FromTop)
                 {
                     return true;
                 }

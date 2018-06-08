@@ -3,16 +3,16 @@ using UWPTestApp;
 
 public class Target
 {
-    float fromTop;
-    float fromLeft;
-    Targetable target;
+    public float fromTop;
+    public float fromLeft;
+    public Targetable target;
 
-    Target(Targetable target)
+    public Target(Targetable target)
     {
         this.target = target;
     }
 
-    Target(float fromTop, float fromLeft)
+    public Target(float fromLeft, float fromTop)
     {
         this.fromTop = fromTop;
         this.fromLeft = fromLeft;
@@ -21,6 +21,12 @@ public class Target
     public void SetTarget(Targetable target)
     {
         this.target = target;
+    }
+
+    public void SetTarget(float fromLeft, float fromTop)
+    {
+        this.fromTop = fromTop;
+        this.fromLeft = fromLeft;
     }
 
     public void SetFromLeft(float fromLeft)
@@ -33,30 +39,24 @@ public class Target
         this.fromTop = fromTop;
     }
 
-    public float GetFromTop()
+    public float FromTop()
     {
         if (target == null)
         {
             return fromTop;
         }
-        return 0;
+        return target.FromTop();
     }
 
-    public float GetFromLeft()
+    public float FromLeft()
     {
         if (target == null)
         {
             return fromLeft;
         }
-        return 0;
+        return target.FromLeft();
     }
 
-    public Targetable GetTarget()
-    {
-        if (target != null)
-        {
-            return target;
-        }
-        return null;
-    }
+
+
 }

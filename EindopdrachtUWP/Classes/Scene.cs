@@ -15,6 +15,11 @@ namespace UWPTestApp
             gameObjects = new List<GameObject>();
         }
 
+        public Scene(List<GameObject> gameObjects)
+        {
+            this.gameObjects = gameObjects;
+        }
+
         public void AddGameObject(GameObject go)
         {
             gameObjects.Add(go);

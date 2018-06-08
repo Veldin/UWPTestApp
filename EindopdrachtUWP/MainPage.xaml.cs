@@ -43,7 +43,6 @@ namespace EindopdrachtUWP
 
         void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            Debug.WriteLine("key down" + args.VirtualKey.ToString());
             engine.KeyDown(args.VirtualKey.ToString());
         }
 
@@ -55,7 +54,6 @@ namespace EindopdrachtUWP
         private void Grid_OnLoaded(object sender, RoutedEventArgs e)
 
         {
-            Debug.WriteLine("Grid_OnLoaded");
 
 
         }
@@ -90,11 +88,6 @@ namespace EindopdrachtUWP
         protected override void OnMyMethod()
         {
             // do something
-        }
-
-        public int Lololol()
-        {
-            return 0;
         }
     }
 }

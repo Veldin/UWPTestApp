@@ -62,8 +62,8 @@ namespace UWPTestApp
                 float spawnFromLeft = FromLeft + (Width / 2) - (spawnSizeWidth / 2);
                 float spawnFromTop = FromTop + (Height / 2) - (spawnSizeHight / 2);
 
-                //TODO: spawn someting else then a wall.
-                gameObjects.Add(new Wall(50, 50, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));
+                //Spawn an anemy
+                gameObjects.Add(new Enemy(10, 10, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));
             }
             else
             {

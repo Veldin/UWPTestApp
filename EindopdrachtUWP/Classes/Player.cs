@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI.Xaml.Controls;
 
@@ -15,8 +16,12 @@ public class Player : GameObject, MovableObject, Targetable
     public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
-        walkSpeed = 20;
-        health = 100;
+
+        AddTag("solid");
+
+        walkSpeed = 200;
+        health = 300;
+        armor = 0;
         armor = 0;
         level = 1;
     }
@@ -37,16 +42,6 @@ public class Player : GameObject, MovableObject, Targetable
     }
 
     public int GetLevel() => level;
-
-    public override Boolean CollitionEffect(GameObject gameObject)
-    {
-        if (gameObject.HasTag("hostile"))
-        {
-            // PlayHitSound();
-        }
-
-        return true;
-    }
 
     float MovableObject.GetMovementSpeed()
     {
@@ -80,6 +75,60 @@ public class Player : GameObject, MovableObject, Targetable
 
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+
+        return true;
+    }
+
+    public override Boolean CollitionEffect(GameObject gameObject)
+    {
+        if (gameObject.HasTag("solid"))
+        {
+            //Check collition from the left or right.
+            if ((gameObject.FromLeft + gameObject.Width) > (FromLeft + Width))
+            {
+                AddFromLeft(-1);
+            }
+
+            if ((gameObject.FromLeft + gameObject.Width) < (FromLeft + Width))
+            {
+                AddFromLeft(1);
+            }
+
+            //Check collition from top or bottom.
+            if ((gameObject.FromTop + gameObject.Height) > (FromTop + Height))
+            {
+                AddFromTop(-1);
+            }
+
+            if ((gameObject.FromTop + gameObject.Height) < (FromTop + Height))
+            {
+                AddFromTop(1);
+            }
+        }
+
+        if (gameObject.HasTag("hostile"))
+        {
+            // PlayHitSound();
+        }
+
+
+        //If a player is coliding with an object their collitionEffect is triggered instandly and not after this resolves.
+        //This is so the collition of the enemy still goes even thought they are not colliding anymore.
+        //This also lets you "push" away your enemies. (Because they act like a solid just apeared in them)
+        gameObject.CollitionEffect(this);
+
+        return true;
+    }
+
+
+    float Targetable.FromTop()
+    {
+        return FromTop;
+    }
+
+    float Targetable.FromLeft()
+    {
+        return FromLeft;
     }
 }

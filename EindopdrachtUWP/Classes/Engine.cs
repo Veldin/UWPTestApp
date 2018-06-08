@@ -16,6 +16,10 @@ namespace UWPTestApp
         private List<GameObject> gameObjects;
         private HashSet<String> pressedKeys;
 
+        //Holds the different scenes in the Engine! If a scene is loaded the objects in the scene are put in the gameObjects array!
+        private List<Scene> scenes;
+        private Scene scene;
+
         //Holder for the canvasControl
         private CanvasControl canvasControl;
 
@@ -32,17 +36,38 @@ namespace UWPTestApp
         {
             gameObjects = new List<GameObject>();
 
+            scenes = new List<Scene>();
+
+            //Add the first scene
+            scenes.Add(
+                new Scene(new List<GameObject>
+                {                    //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0                    new Wall(50, 50, 250, 100, 0, 10, 0, -10),
+                    new Wall(50, 50, 300, 100, 0, 10, 0, -10),
+                    new Wall(50, 50, 350, 100, 0, 10, 0, -10),
+                    new Wall(50, 50, 250, 500, 0, 10, 0, -10),
+                    new Wall(50, 50, 300, 500, 0, 10, 0, -10),
+                    new Wall(50, 50, 350, 500, 0, 10, 0, -10)
+                })
+            );
+
+            //Add the second scene
+            scenes.Add(
+                new Scene(new List<GameObject>
+                {                    //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0                    //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
+                    //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
+                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10)
+                })
+            );
+
             pressedKeys = new HashSet<String>();
 
+            //Load some objects in the game without the use of a scene!
             //width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
-            gameObjects.Add(new Wall(50, 50, 250, 250, 0, 10, 0, -10));
+            gameObjects.Add(new Player(25, 25, 250, 250, 0, 10, 0, -10));
+            gameObjects[0].AddTag("controllable");  //Make the wall controllable
 
-            gameObjects.Add(new Wall(50, 50, 450, 450, 0, 10, 0, -10));
-            //gameObjects.Add(new Splatter(50, 50, 50, 50));
-            //gameObjects.Add(new Spawner(150, 150, 100, 100));
-            //gameObjects.Add(new GameObject("B guy", 50, 50, 250, 250, 0, 10, 0, -10));
-
-            gameObjects[0].AddTag("controllable");
+            LoadScene(0);
+            LoadScene(1);
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -50,6 +75,18 @@ namespace UWPTestApp
 
             //Set then to the current time to know when we started
             then = Stopwatch.GetTimestamp();
+        }
+
+        //Gets the objects of a scene from the scene list on given index.
+        public bool LoadScene(int index)
+        {
+            if (index > -1 && index < scenes.Count)
+            {
+                scene = scenes[index];                      //Set the scene on acive!
+                gameObjects.AddRange(scene.GetScene());     //Add the gameobjects from this scene in the game!
+                return true;
+            }
+            return false;
         }
 
         //Runs the simulation of the gameEngine. 
@@ -185,7 +222,7 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
-            Debug.WriteLine(virtualKey);
+            //Debug.WriteLine(virtualKey);
         }
 
         public void KeyUp(String virtualKey)

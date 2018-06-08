@@ -13,7 +13,7 @@ namespace UWPTestApp
         public Wall(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
-            
+            AddTag("solid"); //Walls are solid, all of the time! (But don't have to be if you remove the tag!)
         }
 
         //Any object can edit the gameObjects of the game while the logic is running.
@@ -25,13 +25,13 @@ namespace UWPTestApp
 
         public override Boolean CollitionEffect(GameObject gameObject)
         {
-            AddFromTop(1);
+            //AddFromTop(1);
 
             //Check if its still coliding and repeat the effect
-            if (IsColliding(gameObject))
-            {
-                CollitionEffect(gameObject);
-            }
+            //if (IsColliding(gameObject))
+            //{
+            //    CollitionEffect(gameObject);
+            //}
 
             return true;
         }
