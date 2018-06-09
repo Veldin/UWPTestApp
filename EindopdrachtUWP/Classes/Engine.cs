@@ -41,7 +41,9 @@ namespace UWPTestApp
             //Add the first scene
             scenes.Add(
                 new Scene(new List<GameObject>
-                {                    //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0                    new Wall(50, 50, 250, 100, 0, 10, 0, -10),
+                {
+                    //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
+                    new Wall(50, 50, 250, 100, 0, 10, 0, -10),
                     new Wall(50, 50, 300, 100, 0, 10, 0, -10),
                     new Wall(50, 50, 350, 100, 0, 10, 0, -10),
                     new Wall(50, 50, 250, 500, 0, 10, 0, -10),
@@ -53,9 +55,15 @@ namespace UWPTestApp
             //Add the second scene
             scenes.Add(
                 new Scene(new List<GameObject>
-                {                    //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0                    //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
+                {
+                    //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
                     //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10)
+                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
+                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
+                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10),
+                    new Enemy(10, 10, 250, 250, 0, 10, 0, -10),
+                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10),
+                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10)
                 })
             );
 
@@ -124,22 +132,22 @@ namespace UWPTestApp
             {
                 
                 //Handle Input
-                if (gameObject.HasTag("controllable") && IsKeyPressed("S"))
+                if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
                 {
                     gameObject.AddFromTop((float)((delta) * 0.05));
                 }
 
-                if (gameObject.HasTag("controllable") && IsKeyPressed("W"))
+                if (gameObject.HasTag("controllable") && (IsKeyPressed("W") || IsKeyPressed("GamepadLeftThumbstickUp")))
                 {
                     gameObject.AddFromTop((float)0 - (float)((delta) * 0.05));
                 }
 
-                if (gameObject.HasTag("controllable") && IsKeyPressed("D"))
+                if (gameObject.HasTag("controllable") && (IsKeyPressed("D") || IsKeyPressed("GamepadLeftThumbstickRight")))
                 {
                     gameObject.AddFromLeft((float)((delta) * 0.05));
                 }
 
-                if (gameObject.HasTag("controllable") && IsKeyPressed("A"))
+                if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
                 {
                     gameObject.AddFromLeft((float)0 - (float)((delta) * 0.05));
                 }
@@ -227,6 +235,7 @@ namespace UWPTestApp
 
         public void KeyUp(String virtualKey)
         {
+            //Debug.WriteLine(virtualKey);
             pressedKeys.Remove(virtualKey);
         }
 

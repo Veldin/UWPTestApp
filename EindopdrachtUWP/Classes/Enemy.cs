@@ -22,7 +22,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         AddTag("solid");
 
         //Default movespeed and lifePoints are both 300. They can be set later on.
-        movementSpeed = 300;
+        movementSpeed = 450;
         lifePoints = 300;
     }
 
@@ -158,36 +158,40 @@ public class Enemy : GameObject, MovableObject, Targetable
         else
         {
             //The difference between the target and this object
-            float topDifference = Target.FromTop() - FromTop;
-            float leftDifference = Target.FromLeft() - FromLeft;
+            float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
+            float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);
 
-            //The absolute (not negative) difference between the target and this object
-            float topDifferenceAbsolute = Target.FromTop() - FromTop;
-            float leftDifferenceAbsolute = Target.FromLeft() - FromLeft;
+            float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
 
-            if (topDifference < 0) {//If difference is negative, make it positive
-                topDifferenceAbsolute = topDifference * -1;
+            float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
+            float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
+            //totalDifference = differenceTop + differenceLeft;
+            //totalDifferenceAbs = differenceTopAbs + differenceLeftAbs;
+
+            float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
+            float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
+
+            if (Target.FromLeft() > FromLeft)
+            {
+                AddFromLeft((moveLeftDistance * delta) / 10000);
+            }
+            else
+            {
+                AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
             }
 
-            if (leftDifference < 0) {//If difference is negative, make it positive
-                leftDifferenceAbsolute = leftDifference * -1;
+            if (Target.FromTop() > FromTop)
+            {
+                AddFromTop((moveTopDistance * delta) / 10000);
             }
-
-
-            float percentComplete = 0;
-            if (topDifference < leftDifferenceAbsolute)
-            {//If difference is negative, make it positive
-                percentComplete = (0.5f + ((100f * leftDifferenceAbsolute) / topDifferenceAbsolute));
+            else
+            {
+                AddFromTop(((moveTopDistance * delta) / 10000) * -1);
             }
+            //AddFromLeft(moveTopDistance * delta / 1000);
+            //AddFromTop(moveLeftDistance * delta / 1000);
 
-            if (topDifference > leftDifferenceAbsolute)
-            {//If difference is negative, make it positive
-                percentComplete = (0.5f + (leftDifferenceAbsolute / (100f * topDifferenceAbsolute)));
-            }
-
-            //var change = ((V2 - V1) / Math.Abs(V1)) * 100;
-            Debug.WriteLine(topDifferenceAbsolute + " - " + leftDifferenceAbsolute + " :percent: " + percentComplete);
-
+            //Debug.WriteLine(" differenceTopPercent: " + (moveTopDistance * delta / 1000) + " - differenceLeftPercent: " + (moveLeftDistance * delta / 1000));
         }
         return true;
     }

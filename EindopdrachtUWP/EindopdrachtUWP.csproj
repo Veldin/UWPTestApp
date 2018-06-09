@@ -103,7 +103,6 @@
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Projectile.cs" />
     <Compile Include="Classes\Scene.cs" />
-    <Compile Include="Classes\SoundExampleOne.cs" />
     <Compile Include="Classes\Spawner.cs" />
     <Compile Include="Classes\Splatter.cs" />
     <Compile Include="Classes\Target.cs" />
