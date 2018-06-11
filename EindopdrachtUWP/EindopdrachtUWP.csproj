@@ -95,6 +95,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\ArrivaGun.cs" />
+    <Compile Include="Classes\Batarang.cs" />
+    <Compile Include="Classes\BulletBill.cs" />
+    <Compile Include="Classes\DessertBeagle.cs" />
+    <Compile Include="Classes\FlameThrower.cs" />
+    <Compile Include="Classes\HomersBullets.cs" />
+    <Compile Include="Classes\KA74.cs" />
+    <Compile Include="Classes\Knettergun.cs" />
+    <Compile Include="Classes\UWP.cs" />
     <Compile Include="Classes\VLEKKannon.cs" />
     <Compile Include="Classes\Weapon.cs" />
     <Compile Include="Classes\Enemy.cs" />

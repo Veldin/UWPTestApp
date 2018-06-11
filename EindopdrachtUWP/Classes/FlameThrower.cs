@@ -30,13 +30,13 @@ namespace EindopdrachtUWP.Classes
             description = "The FlameThrower is a strong weapon that shoots out burning hot flames";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 30;
-            damage = 30;
-            fireTime = 0.1f;
+            clipMax = 50;
+            damage = 10;
+            fireTime = 0.01f;
             critChance = 0.1;
             critMultiplier = 1.5;
             weaponLevel = 1;
-            reloadTime = 1.5f;
+            reloadTime = 1;
         }
 
         public void AddTag(string tag)
@@ -57,6 +57,7 @@ namespace EindopdrachtUWP.Classes
             if (currentClip > 0)
             {
                 fireTimer = 0;
+                new Projectile(4, 2, fromLeft, fromTop, 0, 0, 0, 0, damage);
                 currentClip--;
                 PlayShotSound();
             }
@@ -117,7 +118,7 @@ namespace EindopdrachtUWP.Classes
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 5;
+            damage += 1;
         }
     }
 }

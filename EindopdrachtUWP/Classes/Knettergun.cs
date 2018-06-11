@@ -57,6 +57,10 @@ namespace EindopdrachtUWP.Classes
             if (currentClip > 0)
             {
                 fireTimer = 0;
+                for (int i = 0; i < 6; i++)
+                {
+                    new Projectile(2, 2, fromLeft, fromTop, 0, 0, 0, 0, damage/6);
+                }
                 currentClip--;
                 PlayShotSound();
             }

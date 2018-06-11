@@ -12,12 +12,12 @@ public class Projectile : GameObject, MovableObject
     MediaElement moveSound;
     MediaElement deathSound;
 
-    Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
+    public Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float damage = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
-        damage = 20;
-        shotFromTop = 540;
-        shotFromLeft = 960;
+        shotFromTop = fromTop;
+        shotFromLeft = fromLeft;
+        this.damage = damage;
     }
 
     public override Boolean CollitionEffect(GameObject gameObject)
