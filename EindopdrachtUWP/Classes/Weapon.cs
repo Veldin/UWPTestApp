@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace EindopdrachtUWP.Classes
 {
     public interface Weapon
     {
-        List<String> tags {get; set;}
+        List<String> tags {get;}
         String name { get; set; }
         String description { get; set; }
         int currentClip { get; set; }
