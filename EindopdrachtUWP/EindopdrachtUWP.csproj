@@ -132,6 +132,10 @@
     <None Include="EindopdrachtUWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Sprites\Enemy_Sprites\Enemy_Bottom.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Enemy_Left.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Enemy_Right.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Enemy_Top.png" />
     <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Bottom.png" />
     <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Left.png" />
     <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Right.png" />
