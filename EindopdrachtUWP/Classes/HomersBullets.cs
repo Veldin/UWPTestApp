@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UWPTestApp;
 using Windows.UI.Xaml.Controls;
 
 namespace EindopdrachtUWP.Classes
@@ -37,6 +38,7 @@ namespace EindopdrachtUWP.Classes
             critMultiplier = 2;
             weaponLevel = 1;
             reloadTime = 5;
+            AddTag("homing");
         }
 
         public void AddTag(string tag)
@@ -48,16 +50,17 @@ namespace EindopdrachtUWP.Classes
         public void Display()
         {
             // show sprite
-            throw new NotImplementedException();
         }
 
-        public void Fire(float fromTop, float fromLeft)
+        public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
             if (currentClip > 0)
             {
                 fireTimer = 0;
-                new Projectile(6, 3, fromLeft, fromTop, 0, 0, 0, 0, damage);
+                GameObject project = new Projectile(6, 3, fromLeft, fromTop, 0, 0, 0, 0, damage);
+                project.AddTag("homing");
+                gameObjects.Add(project);
                 currentClip--;
                 PlayShotSound();
             }
@@ -79,13 +82,11 @@ namespace EindopdrachtUWP.Classes
         public void PlayReloadSound()
         {
             // play the sound the gun makes when it reloads
-            throw new NotImplementedException();
         }
 
         public void PlayShotSound()
         {
             // play the sound the gun makes when it fires
-            throw new NotImplementedException();
         }
 
         public void Reload()

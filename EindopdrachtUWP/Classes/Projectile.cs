@@ -30,9 +30,30 @@ public class Projectile : GameObject, MovableObject
         return true;
     }
 
-    public void SetNewTarget()
+    public bool SetNewTarget(List<GameObject> gameObjects)
     {
-        
+        if (HasTag("homing"))
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                Enemy enemy = gameObject as Enemy;
+                if (enemy is Enemy)
+                {
+                    Targetable targetable = enemy as Targetable;
+                    if (targetable is Targetable)
+                    {
+                        if (targetable != null)
+                        {
+                            Target = new Target(targetable);
+                            return true;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public float GetShotFromTop()

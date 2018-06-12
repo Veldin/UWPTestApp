@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UWPTestApp;
 using Windows.UI.Xaml.Controls;
 
 namespace EindopdrachtUWP.Classes
@@ -23,7 +24,7 @@ namespace EindopdrachtUWP.Classes
         float reloadTime { get; set; }
         float reloadTimer { get; set; }
 
-        void Fire(float fromTop, float fromLeft);
+        void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects);
         Boolean RemoveTag(String tag);
         Boolean HasTag(String tag);
         void AddTag(String tag);
