@@ -22,12 +22,22 @@ public class Projectile : GameObject, MovableObject
 
     public override Boolean CollitionEffect(GameObject gameObject)
     {
-        if (gameObject.HasTag("iets"))
+        Targetable targetable = gameObject as Targetable;
+        if (targetable is Targetable)
         {
-            // PlayHitSound();
+            Enemy enemy = gameObject as Enemy;
+            if (enemy is Enemy)
+            {
+                enemy.AddLifePoints(damage);
+                return true;
+            }
+            return false;
+        } else if (gameObject.HasTag("solid")) {
+            AddTag("destroyed");
+            return true;
+        } else {
+            return false;
         }
-
-        return true;
     }
 
     public bool SetNewTarget(List<GameObject> gameObjects)
@@ -46,13 +56,11 @@ public class Projectile : GameObject, MovableObject
                         {
                             Target = new Target(targetable);
                             return true;
-
                         }
                     }
                 }
             }
         }
-
         return false;
     }
 
@@ -88,7 +96,7 @@ public class Projectile : GameObject, MovableObject
 
     void MovableObject.PlayMoveSound()
     {
-        
+        // move sound
     }
 
     void MovableObject.SetDeathSound(MediaElement deathSound)
@@ -98,6 +106,6 @@ public class Projectile : GameObject, MovableObject
 
     void MovableObject.PlayDeathSound()
     {
-        
+        // death sound
     }
 }

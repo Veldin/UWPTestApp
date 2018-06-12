@@ -58,7 +58,7 @@ namespace EindopdrachtUWP.Classes
             if (currentClip > 0)
             {
                 fireTimer = 0;
-                GameObject project = new Projectile(6, 3, fromLeft, fromTop, 0, 0, 0, 0, damage);
+                GameObject project = new Projectile(6, 6, fromLeft, fromTop, 0, 0, 0, 0, damage);
                 project.AddTag("homing");
                 gameObjects.Add(project);
                 currentClip--;

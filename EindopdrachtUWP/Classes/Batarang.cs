@@ -57,7 +57,7 @@ namespace EindopdrachtUWP.Classes
             if (currentClip > 0)
             {
                 fireTimer = 0;
-                gameObjects.Add(new Projectile(10, 5, fromLeft, fromTop, 0, 0, 0, 0, damage));
+                gameObjects.Add(new Projectile(5, 5, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
                 PlayShotSound();
             }

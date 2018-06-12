@@ -8,8 +8,8 @@ public class Enemy : GameObject, MovableObject, Targetable
 {
 
 
-    int lifePoints;
-    int power;
+    float lifePoints;
+    float power;
     String enemyType;
     private MediaElement deathSound;
     private float movementSpeed;
@@ -26,12 +26,17 @@ public class Enemy : GameObject, MovableObject, Targetable
         lifePoints = 300;
     }
 
-    public void SetLifePoints(int life)
+    public void SetLifePoints(float life)
     {
         lifePoints = life;
     }
 
-    public int GetLifePoints()
+    public void AddLifePoints(float life)
+    {
+        lifePoints += life;
+    }
+
+    public float GetLifePoints()
     {
         return lifePoints;
     }
@@ -41,7 +46,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         this.power = power;
     }
 
-    public int GetPower()
+    public float GetPower()
     {
         return power;
     }
