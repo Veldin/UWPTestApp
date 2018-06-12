@@ -132,6 +132,46 @@
     <None Include="EindopdrachtUWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Batarang_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Batarang_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Batarang_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Batarang_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Bullet_Bill_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Bullet_Bill_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Bullet_Bill_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Bullet_Bill_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Dessert_Beagle_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Dessert_Beagle_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Dessert_Beagle_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Dessert_Beagle_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Flamethrower_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Flamethrower_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Flamethrower_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Flamethrower_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Homers_Bullets_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Homers_Bullets_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Homers_Bullets_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Homers_Bullets_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\KA74_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\KA74_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\KA74_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\KA74_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Knetter_Gun_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Knetter_Gun_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Knetter_Gun_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\Knetter_Gun_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\UWP_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\UWP_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\UWP_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\UWP_Top.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\VLEKKannon_Bottom.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\VLEKKannon_Left.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\VLEKKannon_Right.png" />
+    <Content Include="Assets\Sprites\Player_Sprites\VLEKKannon_Top.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -161,7 +201,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Sounds\" />
-    <Folder Include="Assets\Sprites\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
