@@ -163,19 +163,13 @@ namespace UWPTestApp
                 {
                     //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
                     //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(25, 25, 500, 500, 0, 10, 0, -10),
-                    new Enemy(25, 25, 500, 500, 0, 10, 0, -10),
-                    new Enemy(25, 25, 100, 100, 0, 10, 0, -10),
-                    new Enemy(25, 25, 250, 250, 0, 10, 0, -10),
-                    new Enemy(25, 25, 100, 100, 0, 10, 0, -10),
-                    new Enemy(25, 25, 100, 100, 0, 10, 0, -10)
-                    new Enemy(10, 10, 370, 300, 0, 0, 0, 0),
-                    new Enemy(10, 10, 380, 300, 0, 0, 0, 0),
-                    new Enemy(10, 10, 390, 300, 0, 0, 0, 0),
-                    new Enemy(10, 10, 400, 300, 0, 0, 0, 0),
-                    new Enemy(10, 10, 410, 300, 0, 0, 0, 0),
-                    new Enemy(10, 10, 420, 300, 0, 0, 0, 0),
-                    new Enemy(10, 10, 430, 300, 0, 0, 0, 0)
+                    new Enemy(15, 15, 370, 300, 0, 0, 0, 0),
+                    new Enemy(15, 15, 380, 300, 0, 0, 0, 0),
+                    new Enemy(15, 15, 390, 300, 0, 0, 0, 0),
+                    new Enemy(15, 15, 400, 300, 0, 0, 0, 0),
+                    new Enemy(15, 15, 410, 300, 0, 0, 0, 0),
+                    new Enemy(15, 15, 420, 300, 0, 0, 0, 0),
+                    new Enemy(15, 15, 430, 300, 0, 0, 0, 0)
                 })
             );
 
