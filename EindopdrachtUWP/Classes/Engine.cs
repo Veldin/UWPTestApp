@@ -43,12 +43,103 @@ namespace UWPTestApp
                 new Scene(new List<GameObject>
                 {
                     //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
-                    new Wall(50, 50, 250, 100, 0, 10, 0, -10),
-                    new Wall(50, 50, 300, 100, 0, 10, 0, -10),
-                    new Wall(50, 50, 350, 100, 0, 10, 0, -10),
-                    new Wall(50, 50, 250, 500, 0, 10, 0, -10),
-                    new Wall(50, 50, 300, 500, 0, 10, 0, -10),
-                    new Wall(50, 50, 350, 500, 0, 10, 0, -10)
+                    // outer walls
+                    new Wall(900, 100, -49, -99, 0, 0, 0, 0),
+                    new Wall(900, 100, -49, 599, 0, 0, 0, 0),
+                    new Wall(100, 700, -99, -49, 0, 0, 0, 0),
+                    new Wall(100, 700, 799, -49, 0, 0, 0, 0),
+
+                    // garden top left
+                    new Wall(22, 183, 23, 23, 0, 0, 0, 0),
+                    new Wall(183, 22, 23, 23, 0, 0, 0, 0),
+                    new Wall(68, 22, 23, 184, 0, 0, 0, 0),
+                    new Wall(22, 183, 184, 23, 0, 0, 0, 0),
+                    new Wall(45, 68, 115, 23, 0, 0, 0, 0),
+                    new Wall(68, 22, 138, 184, 0, 0, 0, 0),
+                    new Wall(22, 45, 69, 115, 0, 0, 0, 0),
+                    new Wall(68, 22, 138, 138, 0, 0, 0, 0),
+
+                    // bottom rooms
+                    new Wall(22, 68, 23, 414, 0, 0, 0, 0),
+                    new Wall(91, 22, 23, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 92, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 138, 414, 0, 0, 0, 0),
+                    new Wall(91, 22, 138, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 207, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 253, 414, 0, 0, 0, 0),
+                    new Wall(91, 22, 253, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 322, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 368, 414, 0, 0, 0, 0),
+                    new Wall(91, 22, 368, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 437, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 483, 414, 0, 0, 0, 0),
+                    new Wall(91, 22, 483, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 552, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 23, 506, 0, 0, 0, 0),
+                    new Wall(91, 22, 23, 552, 0, 0, 0, 0),
+                    new Wall(22, 68, 92, 506, 0, 0, 0, 0),
+                    new Wall(22, 68, 138, 506, 0, 0, 0, 0),
+                    new Wall(91, 22, 138, 552, 0, 0, 0, 0),
+                    new Wall(22, 68, 207, 506, 0, 0, 0, 0),
+                    new Wall(22, 68, 253, 506, 0, 0, 0, 0),
+                    new Wall(91, 22, 253, 552, 0, 0, 0, 0),
+                    new Wall(22, 68, 322, 506, 0, 0, 0, 0),
+                    new Wall(22, 68, 368, 506, 0, 0, 0, 0),
+                    new Wall(91, 22, 368, 552, 0, 0, 0, 0),
+                    new Wall(22, 68, 437, 506, 0, 0, 0, 0),
+                    new Wall(22, 68, 483, 506, 0, 0, 0, 0),
+                    new Wall(91, 22, 483, 552, 0, 0, 0, 0),
+                    new Wall(22, 68, 552, 506, 0, 0, 0, 0),
+
+                    // room bottom right
+                    new Wall(22, 68, 598, 414, 0, 0, 0, 0),
+                    new Wall(160, 22, 598, 414, 0, 0, 0, 0),
+                    new Wall(22, 160, 736, 414, 0, 0, 0, 0),
+                    new Wall(22, 68, 598, 506, 0, 0, 0, 0),
+                    new Wall(160, 22, 598, 552, 0, 0, 0, 0),
+
+                    //cars
+                    new Wall(72, 30, 628, 280, 0, 0, 0, 0),
+
+                    // houses
+                    new Wall(160, 91, 207, 0, 0, 0, 0, 0),
+                    new Wall(160, 91, 414, 0, 0, 0, 0, 0),
+                    new Wall(160, 91, 621, 0, 0, 0, 0, 0),
+                    new Wall(160, 91, 207, 116, 0, 0, 0, 0),
+                    new Wall(160, 91, 414, 116, 0, 0, 0, 0),
+                    new Wall(160, 91, 621, 116, 0, 0, 0, 0),
+
+                    // lampposts
+                    new Wall(22, 22, 46, 230, 0, 0, 0, 0),
+                    new Wall(22, 22, 161, 230, 0, 0, 0, 0),
+                    new Wall(22, 22, 276, 230, 0, 0, 0, 0),
+                    new Wall(22, 22, 391, 230, 0, 0, 0, 0),
+                    new Wall(22, 22, 506, 230, 0, 0, 0, 0),
+                    new Wall(22, 22, 621, 230, 0, 0, 0, 0),
+                    new Wall(22, 22, 736, 230, 0, 0, 0, 0),
+                    new Wall(22, 22, 46, 368, 0, 0, 0, 0),
+                    new Wall(22, 22, 161, 368, 0, 0, 0, 0),
+                    new Wall(22, 22, 276, 368, 0, 0, 0, 0),
+                    new Wall(22, 22, 391, 368, 0, 0, 0, 0),
+                    new Wall(22, 22, 506, 368, 0, 0, 0, 0),
+                    new Wall(22, 22, 621, 368, 0, 0, 0, 0),
+                    new Wall(22, 22, 736, 368, 0, 0, 0, 0),
+
+                    // extra walls that prevents clipping
+                    new Wall(22, 22, 33, 33, 0, 0, 0, 0),
+                    new Wall(22, 22, 150, 33, 0, 0, 0, 0),
+                    new Wall(2, 2, 206, 90, 0, 0, 0, 0),
+                    new Wall(4, 4, -2, -2, 0, 0, 0, 0),
+                    new Wall(2, 2, 366, -1, 0, 0, 0, 0),
+                    new Wall(2, 2, 573, -1, 0, 0, 0, 0),
+                    new Wall(2, 2, 780, -1, 0, 0, 0, 0),
+                    new Wall(2, 2, 801, -1, 0, 0, 0, 0),
+                    new Wall(2, 2, 44, 435, 0, 0, 0, 0),
+                    new Wall(2, 2, 159, 435, 0, 0, 0, 0),
+                    new Wall(2, 2, 274, 435, 0, 0, 0, 0),
+                    new Wall(2, 2, 389, 435, 0, 0, 0, 0),
+                    new Wall(2, 2, 504, 435, 0, 0, 0, 0),
+                    new Wall(2, 2, 619, 435, 0, 0, 0, 0)
                 })
             );
 
@@ -58,12 +149,6 @@ namespace UWPTestApp
                 {
                     //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
                     //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10),
-                    new Enemy(10, 10, 250, 250, 0, 10, 0, -10),
-                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10),
-                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10)
                 })
             );
 
@@ -71,7 +156,7 @@ namespace UWPTestApp
 
             //Load some objects in the game without the use of a scene!
             //width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
-            gameObjects.Add(new Player(25, 25, 250, 250, 0, 10, 0, -10));
+            gameObjects.Add(new Player(15, 15, 1, 1, 0, 0, 0, 0));
             gameObjects[0].AddTag("controllable");  //Make the wall controllable
 
             LoadScene(0);
