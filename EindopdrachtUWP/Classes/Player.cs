@@ -24,6 +24,8 @@ public class Player : GameObject, MovableObject, Targetable
         armor = 0;
         armor = 0;
         level = 1;
+
+        this.Location = "Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png";
     }
 
     public void IncreaseHealth(int amount)

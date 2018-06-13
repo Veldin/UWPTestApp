@@ -1,11 +1,20 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
+
+
 
 namespace UWPTestApp
 {
@@ -31,6 +40,10 @@ namespace UWPTestApp
         //The max fps we want to run at
         private float fps;  //The set FPS limit
         private float interfal; //Interfal that gets calculated based on the fps
+
+
+        private CanvasBitmap _playerBitmap;
+        private object assetManager;
 
         public Engine()
         {
@@ -58,12 +71,12 @@ namespace UWPTestApp
                 {
                     //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
                     //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10),
-                    new Enemy(10, 10, 250, 250, 0, 10, 0, -10),
-                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10),
-                    new Enemy(10, 10, 100, 100, 0, 10, 0, -10)
+                    new Enemy(25, 25, 500, 500, 0, 10, 0, -10),
+                    new Enemy(25, 25, 500, 500, 0, 10, 0, -10),
+                    new Enemy(25, 25, 100, 100, 0, 10, 0, -10),
+                    new Enemy(25, 25, 250, 250, 0, 10, 0, -10),
+                    new Enemy(25, 25, 100, 100, 0, 10, 0, -10),
+                    new Enemy(25, 25, 100, 100, 0, 10, 0, -10)
                 })
             );
 
@@ -175,14 +188,22 @@ namespace UWPTestApp
             });
         }
 
+        private async Task CreateResourcesAsync(CanvasControl sender)
+        {
+            _playerBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png"));
+        }
+
         public void DrawEvent(CanvasControl sender, CanvasDrawEventArgs args)
         {
-
             //Set the canvasControl that called this method so we know what to Invalidate later.
             canvasControl = sender;
 
             //Draw the frame on this DrawingSession.
             args.DrawingSession.DrawEllipse(delta / 10, delta / 10, 80, 30, Colors.Black, 3);
+
+            //Uri imageuri = new Uri("ms-appx:///Assets/HelloMyNameIs.jpg");
+            //BitmapImage bmp = new BitmapImage(new Uri("ms-appx:///[project-name]/Assets/image.jpg"));
+
 
             //Check if there are objects in the arraylist to draw
             if (gameObjects.Count < 1)
@@ -211,6 +232,31 @@ namespace UWPTestApp
                 //Debug.WriteLine(gameObject.Height + " + " + gameObject.HeightDrawOffset + " = " + (gameObject.Height + gameObject.HeightDrawOffset) );
             }
 
+            /* DRAWING THE SPRITES */
+            //Load the sprite in this canvasControl so it is usable later
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+                if (gameObject.Sprite == null)
+                {
+                    gameObject.CreateResourcesAsync(sender);
+                }
+            }
+
+            //Draw the loaded sprites on the correct location
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+                if (gameObject.Sprite != null)
+                {
+                    args.DrawingSession.DrawImage(
+                    gameObject.Sprite,
+                    new Rect(
+                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
+                        gameObject.FromTop + gameObject.FromTopDrawOffset,
+                        gameObject.Width + gameObject.WidthDrawOffset,
+                        gameObject.Height + gameObject.HeightDrawOffset
+                    ));
+                }
+            }
 
             /* DRAWING THE HITBOXES */
             //Draw all the gameObjects CURRENTLY in the Arraylist.
@@ -225,6 +271,12 @@ namespace UWPTestApp
                 );
 
             }
+            if (_playerBitmap != null)
+            {
+                args.DrawingSession.DrawImage(_playerBitmap, 32, 32);
+            }
+
+            
         }
 
         public void KeyDown(String virtualKey)

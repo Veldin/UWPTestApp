@@ -15,6 +15,8 @@ public class Enemy : GameObject, MovableObject, Targetable
     private float movementSpeed;
     private MediaElement moveSound;
 
+    private String direction;
+
     public Enemy(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
@@ -24,6 +26,8 @@ public class Enemy : GameObject, MovableObject, Targetable
         //Default movespeed and lifePoints are both 300. They can be set later on.
         movementSpeed = 450;
         lifePoints = 300;
+
+        this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
     }
 
     public void SetLifePoints(float life)
@@ -176,28 +180,74 @@ public class Enemy : GameObject, MovableObject, Targetable
             float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
             float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
 
+            Boolean facingTop;
+            Boolean facingLeft;
+
             if (Target.FromLeft() > FromLeft)
             {
                 AddFromLeft((moveLeftDistance * delta) / 10000);
+                facingLeft = true;
             }
             else
             {
                 AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
+                facingLeft = false;
             }
 
             if (Target.FromTop() > FromTop)
             {
                 AddFromTop((moveTopDistance * delta) / 10000);
+                facingTop = true;
             }
             else
             {
                 AddFromTop(((moveTopDistance * delta) / 10000) * -1);
+                facingTop = false;
+            }
+
+            //Get the direction 
+            String newDirection;
+            Boolean directionChanged = false;
+
+            if (moveLeftDistance > moveTopDistance)
+            {
+                if (facingLeft)
+                {
+                    newDirection = "Right";
+                }
+                else
+                {
+                    newDirection = "Left";
+                }
+            }
+            else
+            {
+                if (facingTop)
+                {
+                    newDirection = "Bottom";
+                }
+                else
+                {
+                    newDirection = "Top";
+                }
+            }
+
+            if (newDirection.Equals(direction))
+            {
+                
+            }
+            else
+            {
+                this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_" + newDirection + ".png";
+                this.Sprite = null;
+                direction = newDirection;
             }
             //AddFromLeft(moveTopDistance * delta / 1000);
             //AddFromTop(moveLeftDistance * delta / 1000);
 
             //Debug.WriteLine(" differenceTopPercent: " + (moveTopDistance * delta / 1000) + " - differenceLeftPercent: " + (moveLeftDistance * delta / 1000));
         }
+
         return true;
     }
 

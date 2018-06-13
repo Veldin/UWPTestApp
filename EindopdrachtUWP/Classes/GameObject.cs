@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.Graphics.Canvas.UI.Xaml;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 
 namespace UWPTestApp
 {
@@ -35,10 +39,11 @@ namespace UWPTestApp
         protected float fromLeftDrawOffset;
         protected float fromTopDrawOffset;
 
+        private CanvasBitmap sprite;
+        private String location;
 
         public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
-
             tags = new ArrayList();
 
             this.width = width;
@@ -52,6 +57,28 @@ namespace UWPTestApp
             this.heightDrawOffset = heightDrawOffset;
             this.fromLeftDrawOffset = fromLeftDrawOffset;
             this.fromTopDrawOffset = fromTopDrawOffset;
+
+            this.location = "Assets/StoreLogo.png";
+        }
+
+        //Methods to do with loading sprites
+        public async Task CreateResourcesAsync(CanvasControl sender)
+        {
+            sprite = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///" + location));
+        }
+
+
+        public CanvasBitmap Sprite
+        {
+            get { return sprite; }
+            set { sprite = value; }
+        }
+
+
+        public String Location
+        {
+            get { return location; }
+            set { location = value; }
         }
 
         //Getters and setters for the tag
@@ -137,21 +164,7 @@ namespace UWPTestApp
             set { fromLeftDrawOffset = value; }
         }
 
-        //functions to check if an object is facing left or right.
-        public Boolean IsFacingLeft()
-        {
-            return isFacingLeft;
-        }
 
-        public void FaceLeft()
-        {
-            isFacingLeft = true;
-        }
-
-        public void FaceRight()
-        {
-            isFacingLeft = false;
-        }
 
         
         public Target Target
