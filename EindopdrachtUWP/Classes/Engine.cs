@@ -164,7 +164,7 @@ namespace UWPTestApp
 
             //Load some objects in the game without the use of a scene!
             //width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
-            gameObjects.Add(new Player(15, 15, 1, 1, 0, 0, 0, 0));
+            gameObjects.Add(new Player(15, 15, 656, 312, 0, 0, 0, 0));
             gameObjects[0].AddTag("controllable");  //Make the wall controllable
 
             LoadScene(0);
