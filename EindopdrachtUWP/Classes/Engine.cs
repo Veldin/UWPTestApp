@@ -126,8 +126,9 @@ namespace UWPTestApp
                     new Wall(22, 22, 736, 368, 0, 0, 0, 0),
 
                     // extra walls that prevents clipping
-                    new Wall(22, 22, 33, 33, 0, 0, 0, 0),
-                    new Wall(22, 22, 150, 33, 0, 0, 0, 0),
+                    new Wall(26, 35, 33, 33, 0, 0, 0, 0),
+                    new Wall(35, 26, 33, 33, 0, 0, 0, 0),
+                    new Wall(2, 2, 160, 45, 0, 0, 0, 0),
                     new Wall(2, 2, 206, 90, 0, 0, 0, 0),
                     new Wall(4, 4, -2, -2, 0, 0, 0, 0),
                     new Wall(2, 2, 366, -1, 0, 0, 0, 0),
@@ -149,6 +150,13 @@ namespace UWPTestApp
                 {
                     //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
                     //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
+                    new Enemy(10, 10, 370, 300, 0, 0, 0, 0),
+                    new Enemy(10, 10, 380, 300, 0, 0, 0, 0),
+                    new Enemy(10, 10, 390, 300, 0, 0, 0, 0),
+                    new Enemy(10, 10, 400, 300, 0, 0, 0, 0),
+                    new Enemy(10, 10, 410, 300, 0, 0, 0, 0),
+                    new Enemy(10, 10, 420, 300, 0, 0, 0, 0),
+                    new Enemy(10, 10, 430, 300, 0, 0, 0, 0)
                 })
             );
 
