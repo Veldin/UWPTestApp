@@ -106,7 +106,7 @@ namespace UWPTestApp
             return false;
         }
 
-        //Getters and setters for the fields that have to do with positioning of the GameOgject.
+        //Getters and setters for the fields that have to do with positioning of the GameObject.
         //public float Width { get; set; }
         public float Width
         {
@@ -187,7 +187,7 @@ namespace UWPTestApp
 
             if (FromLeft < gameObject.FromLeft + gameObject.width  && FromLeft + Width > gameObject.FromLeft)
             {
-                if (FromTop < gameObject.FromTop + gameObject.width && FromTop + Width > gameObject.FromTop)
+                if (FromTop < gameObject.FromTop + gameObject.height && FromTop + Height > gameObject.FromTop)
                 {
                     return true;
                 }

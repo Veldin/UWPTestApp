@@ -90,9 +90,7 @@ public class Player : GameObject, MovableObject, Targetable
             if ((gameObject.FromLeft + gameObject.Width) > (FromLeft + Width))
             {
                 AddFromLeft(-1);
-            }
-
-            if ((gameObject.FromLeft + gameObject.Width) < (FromLeft + Width))
+            } else if ((gameObject.FromLeft + gameObject.Width) < (FromLeft + Width))
             {
                 AddFromLeft(1);
             }
@@ -101,9 +99,7 @@ public class Player : GameObject, MovableObject, Targetable
             if ((gameObject.FromTop + gameObject.Height) > (FromTop + Height))
             {
                 AddFromTop(-1);
-            }
-
-            if ((gameObject.FromTop + gameObject.Height) < (FromTop + Height))
+            } else if ((gameObject.FromTop + gameObject.Height) < (FromTop + Height))
             {
                 AddFromTop(1);
             }
@@ -115,7 +111,7 @@ public class Player : GameObject, MovableObject, Targetable
         }
 
 
-        //If a player is coliding with an object their collitionEffect is triggered instandly and not after this resolves.
+        //If a player is coliding with an object their collitionEffect is triggered instantly and not after this resolves.
         //This is so the collition of the enemy still goes even thought they are not colliding anymore.
         //This also lets you "push" away your enemies. (Because they act like a solid just apeared in them)
         gameObject.CollitionEffect(this);
