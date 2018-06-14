@@ -399,7 +399,7 @@ namespace UWPTestApp
                 }
             }
 
-            /* DRAWING THE HITBOXES 
+            //DRAWING THE HITBOXES 
             //Draw all the gameObjects CURRENTLY in the Arraylist.
             //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
             foreach (GameObject gameObject in new ArrayList(gameObjects))
@@ -417,14 +417,13 @@ namespace UWPTestApp
            // {
            //     args.DrawingSession.DrawImage(_playerBitmap, 32, 32);
            // }
-            */
+           
             
         }
 
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
-            Debug.WriteLine(virtualKey);
         }
 
         public void KeyUp(String virtualKey)

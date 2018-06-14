@@ -43,10 +43,10 @@ namespace UWPTestApp
 
             weapons = new List<Weapon>();
 
+            weapons.Add(new DessertBeagle());
             weapons.Add(new BulletBill());
             weapons.Add(new ArrivaGun());
             weapons.Add(new Batarang());
-            weapons.Add(new DessertBeagle());
             weapons.Add(new FlameThrower());
             weapons.Add(new HomersBullets());
             weapons.Add(new KA74());
@@ -145,7 +145,9 @@ namespace UWPTestApp
         {
             this.direction = direction;
 
-            this.activeWeapon.Fire(fromLeft + (width / 2) , fromTop + (height / 2) , gameObjects);
+            
+
+            this.activeWeapon.Fire(fromLeft + (width / 2) , fromTop + (height / 2) , width, height, gameObjects, direction);
 
             return true;
         }

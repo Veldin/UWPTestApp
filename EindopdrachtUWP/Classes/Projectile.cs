@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI.Xaml.Controls;
 
@@ -12,11 +13,11 @@ public class Projectile : GameObject, MovableObject
     MediaElement moveSound;
     MediaElement deathSound;
 
-    public Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float damage = 0)
+    public Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float damage = 0, float shotFromLeft = 0, float shotFromTop = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
-        shotFromTop = fromTop;
-        shotFromLeft = fromLeft;
+        this.shotFromTop = shotFromTop;
+        this.shotFromLeft = shotFromLeft;
         this.damage = damage;
     }
 
@@ -76,6 +77,24 @@ public class Projectile : GameObject, MovableObject
 
     public override Boolean OnTick(List<GameObject> gameObjects, float delta)
     {
+        if (fromLeft > shotFromLeft)
+        {
+            AddFromLeft((movementSpeed * delta) / 10000);
+        }
+        else
+        {
+            AddFromLeft(((movementSpeed * delta) / 10000) * -1);
+        }
+
+        if (fromTop > shotFromTop)
+        {
+            AddFromTop((movementSpeed * delta) / 10000);
+        }
+        else
+        {
+            AddFromTop(((movementSpeed * delta) / 10000) * -1);
+        }
+        
         return true;
     }   
 

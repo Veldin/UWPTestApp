@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UWPTestApp;
 
 namespace EindopdrachtUWP.Classes.Weapons
@@ -36,12 +37,17 @@ namespace EindopdrachtUWP.Classes.Weapons
             clipAmount = 10;
             clipMax = 7;
             damage = 35;
-            fireTime = 0.3f;
+            fireTime = 1000;
             critChance = 0.3;
             critMultiplier = 1.5;
             weaponLevel = 1;
-            reloadTime = 1;
+            reloadTime = 6000;
             shotSound = "Weapon_Sounds\\Dessert_Beagle_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -55,12 +61,31 @@ namespace EindopdrachtUWP.Classes.Weapons
             // show sprite
         }
 
-        public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
+        public void Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects , String direction)
         {
+
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
-                gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage));
+                Debug.WriteLine("Able to fire");
+
+                if (direction == "Top")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft, fromTop - height));
+                }
+                else if (direction == "Bottom")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft, fromTop + height));
+                }
+                else if (direction == "Left")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft - height, fromTop));
+                }
+                else //Right
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft + height, fromTop));
+                }
+                
                 currentClip--;
                 ableToFire = false;
             }
@@ -88,7 +113,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             // reload this weapon, but only if you have enough clips
             if (ableToReload && clipAmount > 0)
             {
-                clipAmount--;
                 currentClip = clipMax;
                 ableToReload = false;
             }
@@ -132,7 +156,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 reloadCooldownDelta = reloadTime;
                 ableToReload = true;
             }
-            else
+            else if(currentClip <= 0)
             {
                 reloadCooldownDelta -= delta;
             }

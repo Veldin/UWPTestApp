@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UWPTestApp;
 
 namespace EindopdrachtUWP.Classes.Weapons
@@ -53,11 +54,15 @@ namespace EindopdrachtUWP.Classes.Weapons
             // show sprite
         }
 
-        public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
+        public void Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
         {
+
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
+
+                Debug.WriteLine("Fire!");
+
                 gameObjects.Add(new Projectile(7, 7, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
                 ableToFire = false;
