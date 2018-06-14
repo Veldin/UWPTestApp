@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UWPTestApp;
-using Windows.UI.Xaml.Controls;
 
 namespace EindopdrachtUWP.Classes
 {
@@ -31,5 +30,6 @@ namespace EindopdrachtUWP.Classes
         void Reload();
         void Display();
         void Upgrade();
+        Boolean OnTick(float cooldownDelta, float delta);
     }
 }
