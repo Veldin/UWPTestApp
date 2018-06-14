@@ -37,6 +37,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             critMultiplier = 2;
             weaponLevel = 1;
             reloadTime = 5;
+            tags = new List<string>();
             AddTag("homing");
         }
 
