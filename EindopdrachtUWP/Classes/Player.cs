@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EindopdrachtUWP.Classes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UWPTestApp;
@@ -26,7 +27,16 @@ public class Player : GameObject, MovableObject, Targetable
         level = 1;
 
         this.Location = "Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png";
+
+        //new BulletBill();
     }
+
+    //Gun stuff
+    private List<Weapon> weapons;
+    private Weapon activeWeapon;
+
+
+    //
 
     public void IncreaseHealth(int amount)
     {
