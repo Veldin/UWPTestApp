@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using UWPTestApp;
-using Windows.UI.Xaml.Controls;
 
-namespace EindopdrachtUWP.Classes
+namespace EindopdrachtUWP.Classes.Weapons
 {
     class ArrivaGun : Weapon
     {
-        public List<string> tags { get => tags; }
-        public string name { get { return name; } set { name = value; } }
-        public string description { get { return description; } set { description = value; } }
-        public int currentClip { get { return currentClip; } set { currentClip = value; } }
-        public int clipAmount { get { return clipAmount; } set { clipAmount = value; } }
-        public int clipMax { get { return clipMax; } set { clipMax = value; } }
-        public int damage { get { return damage; } set { damage = value; } }
-        public float fireTime { get { return fireTime; } set { fireTime = value; } }
-        public float fireTimer { get { return fireTimer; } set { fireTimer = value; } }
-        public double critChance { get { return critChance; } set { critChance = value; } }
-        public double critMultiplier { get { return critMultiplier; } set { critMultiplier = value; } }
-        public int weaponLevel { get { return weaponLevel; } set { weaponLevel = value; } }
-        public String shotSound { get { return shotSound; } set { shotSound = value; } }
-        public String reloadSound { get { return reloadSound; } set { reloadSound = value; } }
-        public float reloadTime { get { return reloadTime; } set { reloadTime = value; } }
-        public float reloadTimer { get { return reloadTimer; } set { reloadTimer = value; } }
+        public List<string> tags { get; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public int currentClip { get; set; }
+        public int clipAmount { get; set; }
+        public int clipMax { get; set; }
+        public int damage { get; set; }
+        public float fireTime { get; set; }
+        public double critChance { get; set; }
+        public double critMultiplier { get; set; }
+        public int weaponLevel { get; set; }
+        public string shotSound { get; set; }
+        public string reloadSound { get; set; }
+        public float reloadTime { get; set; }
+        protected float fireCooldownDelta;      //The remaining delta for shooting
+        protected float reloadCooldownDelta;    //The remaining delta for reloading
+        protected bool ableToFire;              //Boolean to check is you're able to fire again
+        protected bool ableToReload;            //Boolean to check is you're able to reload again
 
-        ArrivaGun()
+        public ArrivaGun()
         {
             // constructor for the ArrivaGun class
             name = "ArrivaGun";
@@ -54,11 +55,11 @@ namespace EindopdrachtUWP.Classes
         public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
-            if (currentClip > 0)
+            if (ableToFire && currentClip > 0)
             {
-                fireTimer = 0;
                 gameObjects.Add(new Projectile(10, 10, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
+                ableToFire = false;
             }
             if (currentClip == 0)
             {
@@ -82,11 +83,11 @@ namespace EindopdrachtUWP.Classes
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (clipAmount > 0)
+            if (ableToReload && clipAmount > 0)
             {
-                reloadTimer = 0;
                 clipAmount--;
                 currentClip = clipMax;
+                ableToReload = false;
             }
         }
 
@@ -109,6 +110,31 @@ namespace EindopdrachtUWP.Classes
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
             damage += 5;
+        }
+
+        public Boolean OnTick(float delta)
+        {
+            if (fireCooldownDelta - delta < 0)
+            {
+                fireCooldownDelta = fireTime;
+                ableToFire = true;
+            }
+            else
+            {
+                fireCooldownDelta -= delta;
+            }
+
+            if (reloadCooldownDelta - delta < 0)
+            {
+                reloadCooldownDelta = reloadTime;
+                ableToReload = true;
+            }
+            else
+            {
+                reloadCooldownDelta -= delta;
+            }
+
+            return true;
         }
     }
 }

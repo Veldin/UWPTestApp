@@ -7,13 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
+    <Viewbox Stretch="Uniform">
+        <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All">
+            <Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600"/>
 
-    <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All">
-        <Image Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600"/>
+            <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent"/>
 
-        <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent"/>
+            <!--<Grid Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />-->
 
-        <!--<Grid Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />-->
-
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Page>
