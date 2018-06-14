@@ -104,6 +104,7 @@
     <Compile Include="Classes\HomersBullets.cs" />
     <Compile Include="Classes\KA74.cs" />
     <Compile Include="Classes\Knettergun.cs" />
+    <Compile Include="Classes\SoundController.cs" />
     <Compile Include="Classes\UWP.cs" />
     <Compile Include="Classes\VLEKKannon.cs" />
     <Compile Include="Classes\Weapon.cs" />
