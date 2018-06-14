@@ -13,7 +13,8 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-
+using EindopdrachtUWP.Classes;
+using EindopdrachtUWP.Classes.Weapons;
 
 
 namespace UWPTestApp
@@ -45,9 +46,20 @@ namespace UWPTestApp
         private CanvasBitmap _playerBitmap;
         private object assetManager;
 
+        private SoundController soundController;
+
+        private KA74 ka74;
+
         public Engine()
         {
             gameObjects = new List<GameObject>();
+
+            soundController = new SoundController();
+            ka74 = new KA74();
+
+            soundController.AddSound(ka74.shotSound);
+            soundController.LoadAllSounds();
+            
 
             scenes = new List<Scene>();
 

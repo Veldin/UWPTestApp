@@ -24,8 +24,8 @@ namespace EindopdrachtUWP.Classes
         public void AddSound(string sound)
         {
             MediaElement me = new MediaElement();
-            me.autoplay = false;
-            sounds.add(sound, me);
+            me.AutoPlay = false;
+            sounds.Add(sound, me);
         }
 
         public void PlaySound(string sound)
@@ -41,21 +41,21 @@ namespace EindopdrachtUWP.Classes
         {
             foreach (KeyValuePair<string, MediaElement> sound in sounds)
             {
-                LoadSound(entry.Key, entry.Value);
+                LoadSound(sound.Key, sound.Value);
             }
         }
 
 
         // Must be in another method (because of async)
-        public async void LoadSound(MediaElement sound, String filename)
+        private async void LoadSound(String filename, MediaElement sound)
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
-            Windows.Storage.StorageFile file = await folder.GetFileAsync(filename);
+            Windows.Storage.StorageFile file = await folder.GetFileAsync("Sounds\\" + filename);
             var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
             sound.SetSource(stream, file.ContentType);
         }
 
-        public void Play(MediaElement sound)
+        private void Play(MediaElement sound)
         {
             try
             {

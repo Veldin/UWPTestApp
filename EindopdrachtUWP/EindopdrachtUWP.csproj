@@ -95,17 +95,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\ArrivaGun.cs" />
+    <Compile Include="Classes\Weapons\ArrivaGun.cs" />
     <Compile Include="Classes\AssetManager.cs" />
-    <Compile Include="Classes\Batarang.cs" />
-    <Compile Include="Classes\BulletBill.cs" />
-    <Compile Include="Classes\DessertBeagle.cs" />
-    <Compile Include="Classes\FlameThrower.cs" />
-    <Compile Include="Classes\HomersBullets.cs" />
-    <Compile Include="Classes\KA74.cs" />
-    <Compile Include="Classes\Knettergun.cs" />
-    <Compile Include="Classes\UWP.cs" />
-    <Compile Include="Classes\VLEKKannon.cs" />
+    <Compile Include="Classes\Weapons\Batarang.cs" />
+    <Compile Include="Classes\Weapons\BulletBill.cs" />
+    <Compile Include="Classes\Weapons\DessertBeagle.cs" />
+    <Compile Include="Classes\Weapons\FlameThrower.cs" />
+    <Compile Include="Classes\Weapons\HomersBullets.cs" />
+    <Compile Include="Classes\Weapons\KA74.cs" />
+    <Compile Include="Classes\Weapons\Knettergun.cs" />
+    <Compile Include="Classes\SoundController.cs" />
+    <Compile Include="Classes\Weapons\UWP.cs" />
+    <Compile Include="Classes\Weapons\VLEKKannon.cs" />
     <Compile Include="Classes\Weapon.cs" />
     <Compile Include="Classes\Enemy.cs" />
     <Compile Include="Classes\Engine.cs" />
@@ -133,6 +134,26 @@
     <None Include="EindopdrachtUWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death1.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death2.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death3.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death4.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death5.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death6.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death7.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death8.wav" />
+    <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death9.wav" />
+    <Content Include="Assets\Sounds\Generic_Sounds\Player_Movement_Sound.wav" />
+    <Content Include="Assets\Sounds\Soundtrack\Soundtrack.mp3" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\Arriva_Gun_Shot1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\Bullet_Bill_Impact1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\Bullet_Bill_Shot1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\Dessert_Beagle_Shot1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\Flamethrower_Shot1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\KA74_Shot1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\Knetter_Gun_Shot1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\UWP_Shot1.wav" />
+    <Content Include="Assets\Sounds\Weapon_Sounds\VLEK_Kannon_Shot1.wav" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Enemy_Bottom.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Enemy_Left.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Enemy_Right.png" />
@@ -224,9 +245,7 @@
       <Version>1.10.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Sounds\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
