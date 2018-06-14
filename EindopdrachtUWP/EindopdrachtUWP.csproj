@@ -144,6 +144,7 @@
     <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death8.wav" />
     <Content Include="Assets\Sounds\Enemy_Sounds\Zombie_Death9.wav" />
     <Content Include="Assets\Sounds\Generic_Sounds\Player_Movement_Sound.wav" />
+    <Content Include="Assets\Sounds\Soundtrack\Soundtrack.mp3" />
     <Content Include="Assets\Sounds\Weapon_Sounds\Arriva_Gun_Shot1.wav" />
     <Content Include="Assets\Sounds\Weapon_Sounds\Bullet_Bill_Impact1.wav" />
     <Content Include="Assets\Sounds\Weapon_Sounds\Bullet_Bill_Shot1.wav" />
