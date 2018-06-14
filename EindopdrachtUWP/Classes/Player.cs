@@ -34,9 +34,9 @@ namespace UWPTestApp
 
             weapons = new List<Weapon>();
 
+            weapons.Add(new BulletBill());
             weapons.Add(new ArrivaGun());
             weapons.Add(new Batarang());
-            weapons.Add(new BulletBill());
             weapons.Add(new DessertBeagle());
             weapons.Add(new FlameThrower());
             weapons.Add(new HomersBullets());
@@ -51,6 +51,29 @@ namespace UWPTestApp
         //Gun stuff
         private List<Weapon> weapons;
         private Weapon activeWeapon;
+
+        public string getActiveWeaponName()
+        {
+            return activeWeapon.name;
+        }
+
+        public string selectNextWeapon()
+        {
+            Boolean found = false;
+            foreach (Weapon selected in weapons)
+            {
+                if (activeWeapon == selected)
+                {
+                    found = true;
+                }else if (found)
+                {
+                    activeWeapon = selected;
+                    return activeWeapon.name;
+                }
+            }
+
+            return activeWeapon.name;
+        }
         //
 
         public void IncreaseHealth(int amount)
@@ -102,7 +125,8 @@ namespace UWPTestApp
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
-            //throw new NotImplementedException();
+
+            activeWeapon.OnTick(delta, delta);
 
             return true;
         }
