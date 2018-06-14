@@ -166,20 +166,11 @@ namespace UWPTestApp
                 })
             );
 
-            //Add the second scene
             scenes.Add(
                 new Scene(new List<GameObject>
                 {
-                    //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
-                    //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    //new Enemy(15, 15, 370, 300, 0, 0, 0, 0),
-                    //new Enemy(15, 15, 380, 300, 0, 0, 0, 0),
-                    //new Enemy(15, 15, 390, 300, 0, 0, 0, 0),
-                    //new Enemy(15, 15, 400, 300, 0, 0, 0, 0),
-                    //new Enemy(15, 15, 410, 300, 0, 0, 0, 0),
-                    //new Enemy(15, 15, 420, 300, 0, 0, 0, 0),
-                    //new Enemy(15, 15, 430, 300, 0, 0, 0, 0)
-                })
+
+                })    
             );
 
             pressedKeys = new HashSet<String>();
@@ -190,7 +181,6 @@ namespace UWPTestApp
             gameObjects[0].AddTag("controllable");  //Make the wall controllable
 
             LoadScene(0);
-            LoadScene(1);
 
             //Set the FPS and calculate the interfal!
             fps = 60;
