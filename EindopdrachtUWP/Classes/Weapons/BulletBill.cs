@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UWPTestApp;
 using Windows.UI.Xaml.Controls;
 
-namespace EindopdrachtUWP.Classes
+namespace EindopdrachtUWP.Classes.Weapons
 {
     class BulletBill : Weapon
     {
@@ -24,7 +24,7 @@ namespace EindopdrachtUWP.Classes
         public float reloadTime { get { return reloadTime; } set { reloadTime = value; } }
         public float reloadTimer { get { return reloadTimer; } set { reloadTimer = value; } }
 
-        BulletBill()
+        public BulletBill()
         {
             // constructor for the BulletBill class
             name = "BulletBill";
