@@ -1,20 +1,15 @@
-﻿using Microsoft.Graphics.Canvas;
+﻿using EindopdrachtUWP.Classes;
+using EindopdrachtUWP.Classes.Weapons;
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Graphics.Imaging;
-using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
-using EindopdrachtUWP.Classes;
-using EindopdrachtUWP.Classes.Weapons;
 
 
 namespace UWPTestApp
@@ -155,7 +150,7 @@ namespace UWPTestApp
                     new Wall(35, 26, 33, 33, 0, 0, 0, 0),
                     new Wall(2, 2, 160, 45, 0, 0, 0, 0),
                     new Wall(2, 2, 206, 90, 0, 0, 0, 0),
-                    new Wall(4, 4, -2, -2, 0, 0, 0, 0),
+                    new Wall(6, 6, -3, -3, 0, 0, 0, 0),
                     new Wall(2, 2, 366, -1, 0, 0, 0, 0),
                     new Wall(2, 2, 573, -1, 0, 0, 0, 0),
                     new Wall(2, 2, 780, -1, 0, 0, 0, 0),
@@ -165,7 +160,9 @@ namespace UWPTestApp
                     new Wall(2, 2, 274, 435, 0, 0, 0, 0),
                     new Wall(2, 2, 389, 435, 0, 0, 0, 0),
                     new Wall(2, 2, 504, 435, 0, 0, 0, 0),
-                    new Wall(2, 2, 619, 435, 0, 0, 0, 0)
+                    new Wall(2, 2, 619, 435, 0, 0, 0, 0),
+
+                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000)
                 })
             );
 
@@ -175,13 +172,13 @@ namespace UWPTestApp
                 {
                     //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
                     //new Enemy(10, 10, 500, 500, 0, 10, 0, -10),
-                    new Enemy(15, 15, 370, 300, 0, 0, 0, 0),
-                    new Enemy(15, 15, 380, 300, 0, 0, 0, 0),
-                    new Enemy(15, 15, 390, 300, 0, 0, 0, 0),
-                    new Enemy(15, 15, 400, 300, 0, 0, 0, 0),
-                    new Enemy(15, 15, 410, 300, 0, 0, 0, 0),
-                    new Enemy(15, 15, 420, 300, 0, 0, 0, 0),
-                    new Enemy(15, 15, 430, 300, 0, 0, 0, 0)
+                    //new Enemy(15, 15, 370, 300, 0, 0, 0, 0),
+                    //new Enemy(15, 15, 380, 300, 0, 0, 0, 0),
+                    //new Enemy(15, 15, 390, 300, 0, 0, 0, 0),
+                    //new Enemy(15, 15, 400, 300, 0, 0, 0, 0),
+                    //new Enemy(15, 15, 410, 300, 0, 0, 0, 0),
+                    //new Enemy(15, 15, 420, 300, 0, 0, 0, 0),
+                    //new Enemy(15, 15, 430, 300, 0, 0, 0, 0)
                 })
             );
 

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UWPTestApp
 {
@@ -57,13 +52,15 @@ namespace UWPTestApp
             {
                 RemainingCooldownDelta = cooldownDelta;
                 //Spawn a gameobject!
-                float spawnSizeWidth = 50;
-                float spawnSizeHight = 50;
+                float spawnSizeWidth = 15;
+                float spawnSizeHight = 15;
+                Random rand = new Random();
+                float enemySize = rand.Next(10, 15);
                 float spawnFromLeft = FromLeft + (Width / 2) - (spawnSizeWidth / 2);
                 float spawnFromTop = FromTop + (Height / 2) - (spawnSizeHight / 2);
 
                 //Spawn an anemy
-                gameObjects.Add(new Enemy(10, 10, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));
+                gameObjects.Add(new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));
             }
             else
             {
