@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using UWPTestApp;
-using Windows.UI.Xaml.Controls;
 
 namespace EindopdrachtUWP.Classes.Weapons
 {
     class HomersBullets : Weapon
     {
-        public List<string> tags { get => tags; }
-        public string name { get { return name; } set { name = value; } }
-        public string description { get { return description; } set { description = value; } }
-        public int currentClip { get { return currentClip; } set { currentClip = value; } }
-        public int clipAmount { get { return clipAmount; } set { clipAmount = value; } }
-        public int clipMax { get { return clipMax; } set { clipMax = value; } }
-        public int damage { get { return damage; } set { damage = value; } }
-        public float fireTime { get { return fireTime; } set { fireTime = value; } }
-        public float fireTimer { get { return fireTimer; } set { fireTimer = value; } }
-        public double critChance { get { return critChance; } set { critChance = value; } }
-        public double critMultiplier { get { return critMultiplier; } set { critMultiplier = value; } }
-        public int weaponLevel { get { return weaponLevel; } set { weaponLevel = value; } }
-        public String shotSound { get { return shotSound; } set { shotSound = value; } }
-        public String reloadSound { get { return reloadSound; } set { reloadSound = value; } }
-        public float reloadTime { get { return reloadTime; } set { reloadTime = value; } }
-        public float reloadTimer { get { return reloadTimer; } set { reloadTimer = value; } }
+        public List<string> tags { get; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public int currentClip { get; set; }
+        public int clipAmount { get; set; }
+        public int clipMax { get; set; }
+        public int damage { get; set; }
+        public float fireTime { get; set; }
+        public float fireTimer { get; set; }
+        public double critChance { get; set; }
+        public double critMultiplier { get; set; }
+        public int weaponLevel { get; set; }
+        public string shotSound { get; set; }
+        public string reloadSound { get; set; }
+        public float reloadTime { get; set; }
+        public float reloadTimer { get; set; }
 
         public HomersBullets()
         {
@@ -55,9 +54,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
-            if (currentClip > 0)
+            if (fireTimer == 0 && currentClip > 0)
             {
-                fireTimer = 0;
                 GameObject project = new Projectile(6, 6, fromLeft, fromTop, 0, 0, 0, 0, damage);
                 project.AddTag("homing");
                 gameObjects.Add(project);
@@ -85,9 +83,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (clipAmount > 0)
+            if (reloadTimer == 0 && clipAmount > 0)
             {
-                reloadTimer = 0;
                 clipAmount--;
                 currentClip = clipMax;
             }

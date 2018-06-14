@@ -52,9 +52,7 @@ namespace EindopdrachtUWP
         }
 
         private void Grid_OnLoaded(object sender, RoutedEventArgs e)
-
         {
-
 
         }
 
