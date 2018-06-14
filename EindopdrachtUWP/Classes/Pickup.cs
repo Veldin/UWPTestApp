@@ -11,6 +11,8 @@ namespace EindopdrachtUWP.Classes
 {
     class Pickup : GameObject
     {
+
+        // Constraints for ammunition for guns
         public const string AmmunitionArrivaGun = "AmmunitionArrivaGun";
         public const string AmmunitionBatarang = "AmmunitionBatarang";
         public const string AmmunitionBulletBill = "AmmunitionBulletBill";
@@ -21,13 +23,28 @@ namespace EindopdrachtUWP.Classes
         public const string AmmunitionKnettergun = "AmmunitionKnettergun";
         public const string AmmunitionUwp = "AmmunitionUwp";
         public const string AmmunitionVlekKannon = "AmmunitionVlekKannon";
-        
+
+        // Constraints for upgrading guns
+        public const string UpgradeArrivaGun = "UpgradeArrivaGun";
+        public const string UpgradeBatarang = "UpgradeBatarang";
+        public const string UpgradeBulletBill = "UpgradeBulletBill";
+        public const string UpgradeDessertBeagle = "UpgradeDessertBeagle";
+        public const string UpgradeFlameThrower = "UpgradeFlameThrower";
+        public const string UpgradeHomersBullets = "UpgradeHomersBullets";
+        public const string UpgradeKa74 = "UpgradeKa74";
+        public const string UpgradeKnettergun = "UpgradeKnettergun";
+        public const string UpgradeUwp = "UpgradeUwp";
+        public const string UpgradeVlekKannon = "UpgradeVlekKannon";
+
+        // Constraints for armor up and health up.
         public const string ArmorUp = "armorup";
         public const string HealthUp = "healthup";
 
+
+        
         private int amount;
         private string type;
-        private string pickupSound;
+        private string pickUpSound;
 
         private bool deletable = false;
         
@@ -37,6 +54,28 @@ namespace EindopdrachtUWP.Classes
         {
             this.amount = amount;
             this.type = type;
+
+            if (type.Contains("Ammunition"))
+            {
+                // ammunition pick up sound
+                pickUpSound = "";
+                
+            }
+            else if (type.Contains("Upgrade"))
+            {
+                // Upgrade pick up sound
+                pickUpSound = "";
+            }
+            else if (type.Equals(ArmorUp))
+            {
+                // Armor pick up sound
+                pickUpSound = "";
+            }
+            else if (type.Equals(HealthUp))
+            {
+                // Health pick up sound
+                pickUpSound = "";
+            }
         }
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
@@ -52,6 +91,7 @@ namespace EindopdrachtUWP.Classes
         {
             if (gameObject is Player player)
             {
+                if (deletable) return true;
                 if (type.Contains("Ammunition"))
                 {
                     string weaponName = type.Remove(0, 10);
@@ -95,6 +135,11 @@ namespace EindopdrachtUWP.Classes
                 deletable = true;
             }
             return true;
+        }
+
+        public string getPickUpSound()
+        {
+            return pickUpSound;
         }
         
 
