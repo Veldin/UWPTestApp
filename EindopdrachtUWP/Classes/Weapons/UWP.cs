@@ -14,14 +14,14 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int clipMax { get; set; }
         public int damage { get; set; }
         public float fireTime { get; set; }
-        public float fireTimer { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
         public int weaponLevel { get; set; }
         public string shotSound { get; set; }
         public string reloadSound { get; set; }
         public float reloadTime { get; set; }
-        public float reloadTimer { get; set; }
+        protected float cooldownDelta;              //The max delta it takes to do the next action
+        protected float remainingCooldownDelta;     //The remaining delta for the next action
 
         public UWP()
         {
@@ -54,7 +54,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
-            if (fireTimer == 0 && currentClip > 0)
+            if (remainingCooldownDelta <= 0 && currentClip > 0)
             {
                 gameObjects.Add(new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
@@ -81,7 +81,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (reloadTimer == 0 && clipAmount > 0)
+            if (remainingCooldownDelta <= 0 && clipAmount > 0)
             {
                 clipAmount--;
                 currentClip = clipMax;
@@ -107,6 +107,19 @@ namespace EindopdrachtUWP.Classes.Weapons
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
             damage += 3;
+        }
+
+        public Boolean OnTick(float cooldownDelta, float delta)
+        {
+            if (remainingCooldownDelta - delta < 0)
+            {
+                remainingCooldownDelta = cooldownDelta;
+            }
+            else
+            {
+                remainingCooldownDelta -= delta;
+            }
+            return true;
         }
     }
 }

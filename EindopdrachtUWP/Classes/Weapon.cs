@@ -14,14 +14,12 @@ namespace EindopdrachtUWP.Classes
         int clipMax { get; set; }
         int damage { get; set; }
         float fireTime { get; set; }
-        float fireTimer { get; set; }
         double critChance { get; set; }
         double critMultiplier { get; set; }
         int weaponLevel { get; set; }
         String shotSound { get; set; }
         String reloadSound { get; set; }
         float reloadTime { get; set; }
-        float reloadTimer { get; set; }
 
         void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects);
         Boolean RemoveTag(String tag);

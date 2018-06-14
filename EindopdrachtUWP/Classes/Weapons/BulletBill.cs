@@ -14,14 +14,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int clipMax { get; set; }
         public int damage { get; set; }
         public float fireTime { get; set; }
-        public float fireTimer { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
         public int weaponLevel { get; set; }
         public string shotSound { get; set; }
         public string reloadSound { get; set; }
         public float reloadTime { get; set; }
-        public float reloadTimer { get; set; }
         protected float cooldownDelta;              //The max delta it takes to do the next action
         protected float remainingCooldownDelta;     //The remaining delta for the next action
 
