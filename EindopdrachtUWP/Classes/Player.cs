@@ -205,6 +205,8 @@ namespace UWPTestApp
                 Location = locationString;
                 Sprite = null;
             }
+			
+            activeWeapon.OnTick(delta);
 
             return true;
         }

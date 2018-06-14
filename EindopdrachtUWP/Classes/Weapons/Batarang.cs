@@ -14,14 +14,16 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int clipMax { get; set; }
         public int damage { get; set; }
         public float fireTime { get; set; }
-        public float fireTimer { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
         public int weaponLevel { get; set; }
         public string shotSound { get; set; }
         public string reloadSound { get; set; }
         public float reloadTime { get; set; }
-        public float reloadTimer { get; set; }
+        protected float fireCooldownDelta;      //The remaining delta for shooting
+        protected float reloadCooldownDelta;    //The remaining delta for reloading
+        protected bool ableToFire;              //Boolean to check is you're able to fire again
+        protected bool ableToReload;            //Boolean to check is you're able to reload again
 
         public Batarang()
         {
@@ -53,10 +55,11 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
-            if (fireTimer == 0 && currentClip > 0)
+            if (ableToFire && currentClip > 0)
             {
                 gameObjects.Add(new Projectile(5, 5, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
+                ableToFire = false;
             }
             if (currentClip == 0)
             {
@@ -80,10 +83,11 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (reloadTimer == 0 && clipAmount > 0)
+            if (ableToReload && clipAmount > 0)
             {
                 clipAmount--;
                 currentClip = clipMax;
+                ableToReload = false;
             }
         }
 
@@ -106,6 +110,31 @@ namespace EindopdrachtUWP.Classes.Weapons
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
             damage += 5;
+        }
+
+        public Boolean OnTick(float delta)
+        {
+            if (fireCooldownDelta - delta < 0)
+            {
+                fireCooldownDelta = fireTime;
+                ableToFire = true;
+            }
+            else
+            {
+                fireCooldownDelta -= delta;
+            }
+
+            if (reloadCooldownDelta - delta < 0)
+            {
+                reloadCooldownDelta = reloadTime;
+                ableToReload = true;
+            }
+            else
+            {
+                reloadCooldownDelta -= delta;
+            }
+
+            return true;
         }
     }
 }
