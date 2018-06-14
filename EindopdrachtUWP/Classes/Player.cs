@@ -262,5 +262,10 @@ namespace UWPTestApp
         {
             return FromLeft;
         }
+
+        public List<Weapon> GetWeapons()
+        {
+            return weapons;
+        }
     }
 }
