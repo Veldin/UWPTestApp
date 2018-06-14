@@ -20,8 +20,10 @@ namespace EindopdrachtUWP.Classes.Weapons
         public string shotSound { get; set; }
         public string reloadSound { get; set; }
         public float reloadTime { get; set; }
-        protected float cooldownDelta;              //The max delta it takes to do the next action
-        protected float remainingCooldownDelta;     //The remaining delta for the next action
+        protected float fireCooldownDelta;      //The remaining delta for shooting
+        protected float reloadCooldownDelta;    //The remaining delta for reloading
+        protected bool ableToFire;              //Boolean to check is you're able to fire again
+        protected bool ableToReload;            //Boolean to check is you're able to reload again
 
         public Knettergun()
         {
@@ -38,6 +40,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             weaponLevel = 1;
             reloadTime = 3;
             shotSound = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
+            ableToFire = true;
+            ableToReload = true;
         }
 
         public void AddTag(string tag)
@@ -54,13 +58,14 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
-            if (remainingCooldownDelta <= 0 && currentClip > 0)
+            if (ableToFire && currentClip > 0)
             {
                 for (int i = 0; i < 6; i++)
                 {
                     gameObjects.Add(new Projectile(2, 2, fromLeft, fromTop, 0, 0, 0, 0, damage/6));
                 }
                 currentClip--;
+                ableToFire = false;
             }
             if (currentClip == 0)
             {
@@ -84,10 +89,11 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (remainingCooldownDelta <= 0 && clipAmount > 0)
+            if (ableToReload && clipAmount > 0)
             {
                 clipAmount--;
                 currentClip = clipMax;
+                ableToReload = false;
             }
         }
 
@@ -112,16 +118,28 @@ namespace EindopdrachtUWP.Classes.Weapons
             damage += 3;
         }
 
-        public Boolean OnTick(float cooldownDelta, float delta)
+        public Boolean OnTick(float delta)
         {
-            if (remainingCooldownDelta - delta < 0)
+            if (fireCooldownDelta - delta < 0)
             {
-                remainingCooldownDelta = cooldownDelta;
+                fireCooldownDelta = fireTime;
+                ableToFire = true;
             }
             else
             {
-                remainingCooldownDelta -= delta;
+                fireCooldownDelta -= delta;
             }
+
+            if (reloadCooldownDelta - delta < 0)
+            {
+                reloadCooldownDelta = reloadTime;
+                ableToReload = true;
+            }
+            else
+            {
+                reloadCooldownDelta -= delta;
+            }
+
             return true;
         }
     }

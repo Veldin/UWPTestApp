@@ -22,8 +22,10 @@ namespace EindopdrachtUWP.Classes.Weapons
         public string reloadSound { get; set; }
         public float reloadTime { get; set; }
         public float reloadTimer { get; set; }
-        protected float cooldownDelta;              //The max delta it takes to do the next action
-        protected float remainingCooldownDelta;     //The remaining delta for the next action
+        protected float fireCooldownDelta;      //The remaining delta for shooting
+        protected float reloadCooldownDelta;    //The remaining delta for reloading
+        protected bool ableToFire;              //Boolean to check is you're able to fire again
+        protected bool ableToReload;            //Boolean to check is you're able to reload again
 
         public KA74()
         {
@@ -57,11 +59,13 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
-            if (remainingCooldownDelta <= 0 && currentClip > 0)
+            if (ableToFire && currentClip > 0)
             {
                 gameObjects.Add(new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
-                
+                ableToFire = false;
+
+
             }
             if (currentClip == 0)
             {
@@ -85,10 +89,11 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (remainingCooldownDelta <= 0 && clipAmount > 0)
+            if (ableToReload && clipAmount > 0)
             {
                 clipAmount--;
                 currentClip = clipMax;
+                ableToReload = false;
             }
         }
 
@@ -113,16 +118,28 @@ namespace EindopdrachtUWP.Classes.Weapons
             damage += 2;
         }
 
-        public Boolean OnTick(float cooldownDelta, float delta)
+        public Boolean OnTick(float delta)
         {
-            if (remainingCooldownDelta - delta < 0)
+            if (fireCooldownDelta - delta < 0)
             {
-                remainingCooldownDelta = cooldownDelta;
+                fireCooldownDelta = fireTime;
+                ableToFire = true;
             }
             else
             {
-                remainingCooldownDelta -= delta;
+                fireCooldownDelta -= delta;
             }
+
+            if (reloadCooldownDelta - delta < 0)
+            {
+                reloadCooldownDelta = reloadTime;
+                ableToReload = true;
+            }
+            else
+            {
+                reloadCooldownDelta -= delta;
+            }
+
             return true;
         }
     }

@@ -28,6 +28,6 @@ namespace EindopdrachtUWP.Classes
         void Reload();
         void Display();
         void Upgrade();
-        Boolean OnTick(float cooldownDelta, float delta);
+        Boolean OnTick(float delta);
     }
 }

@@ -126,7 +126,7 @@ namespace UWPTestApp
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
 
-            activeWeapon.OnTick(delta, delta);
+            activeWeapon.OnTick(delta);
 
             return true;
         }
