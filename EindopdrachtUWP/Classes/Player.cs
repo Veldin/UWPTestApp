@@ -18,6 +18,11 @@ namespace UWPTestApp
         private MediaElement deathSound;
         private MediaElement moveSound;
 
+        private float selectNextWeaponDelay;
+        private float selectNextWeaponDelayMax;
+
+        private String direction;
+
         public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
             : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
@@ -30,7 +35,11 @@ namespace UWPTestApp
             armor = 0;
             level = 1;
 
-            this.Location = "Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png";
+            direction = "Top";
+
+            selectNextWeaponDelayMax = 1000;
+
+            //this.Location = "Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png";
 
             weapons = new List<Weapon>();
 
@@ -59,6 +68,12 @@ namespace UWPTestApp
 
         public string selectNextWeapon()
         {
+            //If you recently switched weapons this is higher then 0
+            if (selectNextWeaponDelay > 0)
+            {
+                return activeWeapon.name;
+            }
+
             Boolean found = false;
             foreach (Weapon selected in weapons)
             {
@@ -68,10 +83,13 @@ namespace UWPTestApp
                 }else if (found)
                 {
                     activeWeapon = selected;
+                    selectNextWeaponDelay = selectNextWeaponDelayMax;
                     return activeWeapon.name;
                 }
             }
+            activeWeapon = weapons[0];
 
+            selectNextWeaponDelay = selectNextWeaponDelayMax;
             return activeWeapon.name;
         }
         //
@@ -123,10 +141,70 @@ namespace UWPTestApp
             walkSpeed = speed;
         }
 
+        public Boolean Fire(String direction, List<GameObject> gameObjects)
+        {
+            this.direction = direction;
+
+            this.activeWeapon.Fire(fromLeft + (width / 2) , fromTop + (height / 2) , gameObjects);
+
+            return true;
+        }
+
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
+            selectNextWeaponDelay -= delta;
+            //activeWeapon.OnTick(delta, delta);
 
-            activeWeapon.OnTick(delta, delta);
+            String locationString = "Assets/Sprites/Player_Sprites/";
+
+            if (activeWeapon is ArrivaGun)
+            {
+                locationString += "Arriva_Gun";
+            }
+            else if (activeWeapon is Batarang)
+            {
+                locationString += "Batarang";
+            }
+            else if (activeWeapon is BulletBill)
+            {
+                locationString += "Bullet_Bill";
+            }
+            else if (activeWeapon is DessertBeagle)
+            {
+                locationString += "Dessert_Beagle";
+            }
+            else if (activeWeapon is FlameThrower)
+            {
+                locationString += "Flamethrower";
+            }
+            else if (activeWeapon is HomersBullets)
+            {
+                locationString += "Homers_Bullets";
+            }
+            else if (activeWeapon is KA74)
+            {
+                locationString += "KA74";
+            }
+            else if (activeWeapon is Knettergun)
+            {
+                locationString += "Knetter_Gun";
+            }
+            else if (activeWeapon is UWP)
+            {
+                locationString += "UWP";
+            }
+            else if (activeWeapon is VLEKKannon)
+            {
+                locationString += "VLEKKannon";
+            }
+
+            locationString += "_" + direction + ".png";
+
+            if (locationString != Location)
+            {
+                Location = locationString;
+                Sprite = null;
+            }
 
             return true;
         }

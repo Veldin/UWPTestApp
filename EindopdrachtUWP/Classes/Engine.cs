@@ -248,8 +248,43 @@ namespace UWPTestApp
             //The new List makes a copy so the original arraylist can be modivied in this loop
             foreach (GameObject gameObject in new List<GameObject>(gameObjects))
             {
-                
-                //Handle Input
+
+                //Handle player input
+                Player player = gameObject as Player;
+                if (player is Player)
+                {
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
+                    {
+                        player.selectNextWeapon();
+                    }
+
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
+                    {
+                        player.selectNextWeapon();
+                    }
+
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
+                    {
+                        player.Fire("Right", gameObjects);
+                    }
+
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
+                    {
+                        player.Fire("Top", gameObjects); ;
+                    }
+
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
+                    {
+                        player.Fire("Bottom", gameObjects);
+                    }
+
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
+                    {
+                        player.Fire("Left", gameObjects);
+                    }
+                }
+
+                //Handle Input (Not only the player might be controlable)
                 if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
                 {
                     gameObject.AddFromTop((float)((delta) * 0.05));
@@ -376,10 +411,11 @@ namespace UWPTestApp
                 );
 
             }
-            if (_playerBitmap != null)
-            {
-                args.DrawingSession.DrawImage(_playerBitmap, 32, 32);
-            }
+
+           // if (_playerBitmap != null)
+           // {
+           //     args.DrawingSession.DrawImage(_playerBitmap, 32, 32);
+           // }
 
             
         }
@@ -387,7 +423,7 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
-            //Debug.WriteLine(virtualKey);
+            Debug.WriteLine(virtualKey);
         }
 
         public void KeyUp(String virtualKey)
