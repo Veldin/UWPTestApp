@@ -38,6 +38,7 @@ namespace EindopdrachtUWP.Classes
             critMultiplier = 2;
             weaponLevel = 1;
             reloadTime = 2;
+            shotSound = "Weapon_Sounds\\UWP_Shot1.wav";
         }
 
         public void AddTag(string tag)
