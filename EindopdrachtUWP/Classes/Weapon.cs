@@ -19,8 +19,8 @@ namespace EindopdrachtUWP.Classes
         double critChance { get; set; }
         double critMultiplier { get; set; }
         int weaponLevel { get; set; }
-        MediaElement shotsound { get; set; }
-        MediaElement reloadSound { get; set; }
+        String shotSound { get; set; }
+        String reloadSound { get; set; }
         float reloadTime { get; set; }
         float reloadTimer { get; set; }
 
@@ -30,8 +30,6 @@ namespace EindopdrachtUWP.Classes
         void AddTag(String tag);
         void Reload();
         void Display();
-        void PlayShotSound();
-        void PlayReloadSound();
         void Upgrade();
     }
 }

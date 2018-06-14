@@ -19,8 +19,8 @@ namespace EindopdrachtUWP.Classes
         public double critChance { get { return critChance; } set { critChance = value; } }
         public double critMultiplier { get { return critMultiplier; } set { critMultiplier = value; } }
         public int weaponLevel { get { return weaponLevel; } set { weaponLevel = value; } }
-        public MediaElement shotsound { get { return shotsound; } set { shotsound = value; } }
-        public MediaElement reloadSound { get { return reloadSound; } set { reloadSound = value; } }
+        public String shotSound { get { return shotSound; } set { shotSound = value; } }
+        public String reloadSound { get { return reloadSound; } set { reloadSound = value; } }
         public float reloadTime { get { return reloadTime; } set { reloadTime = value; } }
         public float reloadTimer { get { return reloadTimer; } set { reloadTimer = value; } }
 
@@ -62,7 +62,10 @@ namespace EindopdrachtUWP.Classes
                     gameObjects.Add(new Projectile(2, 2, fromLeft, fromTop, 0, 0, 0, 0, damage/6));
                 }
                 currentClip--;
-                PlayShotSound();
+            }
+            if (currentClip == 0)
+            {
+                Reload();
             }
         }
 
@@ -79,16 +82,6 @@ namespace EindopdrachtUWP.Classes
             return false;
         }
 
-        public void PlayReloadSound()
-        {
-            // play the sound the gun makes when it reloads
-        }
-
-        public void PlayShotSound()
-        {
-            // play the sound the gun makes when it fires
-        }
-
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
@@ -97,7 +90,6 @@ namespace EindopdrachtUWP.Classes
                 reloadTimer = 0;
                 clipAmount--;
                 currentClip = clipMax;
-                PlayReloadSound();
             }
         }
 
