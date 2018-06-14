@@ -304,7 +304,7 @@ namespace UWPTestApp
             canvasControl = sender;
 
             //Draw the frame on this DrawingSession.
-            args.DrawingSession.DrawEllipse(delta / 10, delta / 10, 80, 30, Colors.Black, 3);
+            //args.DrawingSession.DrawEllipse(delta / 10, delta / 10, 80, 30, Colors.Black, 3);
 
             //Uri imageuri = new Uri("ms-appx:///Assets/HelloMyNameIs.jpg");
             //BitmapImage bmp = new BitmapImage(new Uri("ms-appx:///[project-name]/Assets/image.jpg"));
@@ -315,11 +315,11 @@ namespace UWPTestApp
             {
                 return;
             }
-            
 
-            /* DRAWING THE SPRITES */
-            //Draw all the gameObjects CURRENTLY in the Arraylist.
-            //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
+
+            /* DRAWING THE SPRITES
+            Draw all the gameObjects CURRENTLY in the Arraylist.
+            The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
             foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
 
@@ -336,6 +336,7 @@ namespace UWPTestApp
 
                 //Debug.WriteLine(gameObject.Height + " + " + gameObject.HeightDrawOffset + " = " + (gameObject.Height + gameObject.HeightDrawOffset) );
             }
+            */
 
             /* DRAWING THE SPRITES */
             //Load the sprite in this canvasControl so it is usable later
@@ -363,7 +364,7 @@ namespace UWPTestApp
                 }
             }
 
-            /* DRAWING THE HITBOXES */
+            /* DRAWING THE HITBOXES 
             //Draw all the gameObjects CURRENTLY in the Arraylist.
             //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
             foreach (GameObject gameObject in new ArrayList(gameObjects))
@@ -376,6 +377,7 @@ namespace UWPTestApp
                 );
 
             }
+            */
             if (_playerBitmap != null)
             {
                 args.DrawingSession.DrawImage(_playerBitmap, 32, 32);
