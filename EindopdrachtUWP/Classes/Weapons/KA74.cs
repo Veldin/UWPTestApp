@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UWPTestApp;
-using Windows.UI.Xaml.Controls;
 
 namespace EindopdrachtUWP.Classes.Weapons
 {
@@ -57,11 +56,11 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Fire(float fromTop, float fromLeft, List<GameObject> gameObjects)
         {
             // fire one bullet
-            if (currentClip > 0)
+            if (fireTimer == 0 && currentClip > 0)
             {
-                fireTimer = 0;
                 gameObjects.Add(new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
+                
             }
             if (currentClip == 0)
             {
@@ -85,9 +84,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (clipAmount > 0)
+            if (reloadTimer == 0 && clipAmount > 0)
             {
-                reloadTimer = 0;
                 clipAmount--;
                 currentClip = clipMax;
             }
