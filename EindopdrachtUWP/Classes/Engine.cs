@@ -41,8 +41,8 @@ namespace UWPTestApp
         private Boolean music;
         private Boolean effects;
 
+        private Boolean pauzed;
 
-        private CanvasBitmap _playerBitmap;
 
         private SoundController soundController;
 
@@ -53,6 +53,7 @@ namespace UWPTestApp
             gameObjects = new List<GameObject>();
 
             soundController = new SoundController();
+			
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
             
             foreach (Weapon weapon in player.GetWeapons())
@@ -64,8 +65,11 @@ namespace UWPTestApp
             {
                 soundController.AddSound(sound);
             }
-            
+
             scenes = new List<Scene>();
+
+            music = true;
+            effects = true;
 
             //Add the first scene
             scenes.Add(
@@ -197,6 +201,8 @@ namespace UWPTestApp
 
             //Set then to the current time to know when we started
             then = Stopwatch.GetTimestamp();
+
+            pauzed = true;
         }
 
         //Gets the objects of a scene from the scene list on given index.
@@ -242,123 +248,187 @@ namespace UWPTestApp
 
             //Apply the logic to all the bameObjects CURRENTLY in the List.
             //The new List makes a copy so the original arraylist can be modivied in this loop
-            foreach (GameObject gameObject in new List<GameObject>(gameObjects))
+
+            if (Pauzed == false)
             {
-
-                //Handle player input
-                Player player = gameObject as Player;
-                if (player is Player)
+                foreach (GameObject gameObject in new List<GameObject>(gameObjects))
                 {
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
-                    {
-                        player.selectNextWeapon();
-                    }
 
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
+                    //Handle player input
+                    Player player = gameObject as Player;
+                    if (player is Player)
                     {
-                        player.selectNextWeapon();
-                    }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
-                    {
-                        if (player.Fire("Right", gameObjects))
+                        if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
                         {
-                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                            player.selectNextWeapon();
+                        }
+
+                        if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
+                        {
+                            player.selectNextWeapon();
+                        }
+
+                        if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
+                        {
+                            if (player.Fire("Right", gameObjects))
+                            {
+                                soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                            }
+                        }
+                        else if (gameObject.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
+                        {
+                            if (player.Fire("Top", gameObjects))
+                            {
+                                soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                            }
+                        }
+                        else if (gameObject.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
+                        {
+                            if (player.Fire("Bottom", gameObjects))
+                            {
+                                soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                            }
+                        }
+                        else if (gameObject.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
+                        {
+                            if (player.Fire("Left", gameObjects))
+                            {
+                                soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                            }
+                        }
+
+                        //Handle Input (Not only the player might be controlable)
+                        if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
+                        {
+                            player.Target.AddFromTop(1000);
+                        }
+
+                        if (gameObject.HasTag("controllable") && (IsKeyPressed("W") || IsKeyPressed("GamepadLeftThumbstickUp")))
+                        {
+                            player.Target.AddFromTop(-1000);
+                        }
+
+                        if (gameObject.HasTag("controllable") && (IsKeyPressed("D") || IsKeyPressed("GamepadLeftThumbstickRight")))
+                        {
+                            player.Target.AddFromLeft(1000);
+                        }
+
+                        if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
+                        {
+                            player.Target.AddFromLeft(-1000);
                         }
                     }
-                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
+
+                    //On tick
+                    gameObject.OnTick(gameObjects, delta);
+
+                    //Start Collition Detection
+                    foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                     {
-                        if (player.Fire("Top", gameObjects))
+                        if (gameObject.IsColliding(gameObjectCheck))
                         {
-                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                            gameObject.CollitionEffect(gameObjectCheck);
                         }
                     }
-                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
+
+                    //Check if gameobjects want to be destoryed
+                    foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                     {
-                        if (player.Fire("Bottom", gameObjects))
+                        if (gameObjectCheck.HasTag("destroyed"))
                         {
-                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                            if (gameObjectCheck is Pickup pickup)
+                            {
+                                soundController.PlaySound(pickup.getPickUpSound());
+                            }
+                            gameObjects.Remove(gameObjectCheck);
                         }
                     }
-                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
-                    {
-                        if (player.Fire("Left", gameObjects))
-                        {
-                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
-                        }
-                    }
-                
-                    //Handle Input (Not only the player might be controlable)
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
-                    {
-                        player.Target.AddFromTop(1000);
-                    }
 
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("W") || IsKeyPressed("GamepadLeftThumbstickUp")))
+                    //Key to pauze the screen
+                    if (IsKeyPressed("Escape") || IsKeyPressed("GamepadView"))
                     {
-                        player.Target.AddFromTop(-1000);
-                    }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("D") || IsKeyPressed("GamepadLeftThumbstickRight")))
-                    {
-                        player.Target.AddFromLeft(1000);
-                    }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
-                    {
-                        player.Target.AddFromLeft(-1000);
-                    }                    
-                }
-
-                //On tick
-                gameObject.OnTick(gameObjects, delta);
-
-                //Start Collition Detection
-                foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
-                {
-                    if (gameObject.IsColliding(gameObjectCheck))
-                    {
-                        gameObject.CollitionEffect(gameObjectCheck);
-                    }
-                }
-
-                //Check if gameobjects want to be destoryed
-                foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
-                {
-                    if (gameObjectCheck.HasTag("destroyed"))
-                    {
-                        if (gameObjectCheck is Pickup pickup)
-                        {
-                            soundController.PlaySound(pickup.getPickUpSound());
-                        }
-                        gameObjects.Remove(gameObjectCheck);
+                        MainPage.Current.getMenu();
+                        Pauzed = true;
+                        Task.Delay(300).Wait();
                     }
                 }
             }
-            if ((IsKeyPressed("B") || IsKeyPressed("GamepadB")))
+        
+
+            if (Pauzed) { 
+                if (IsKeyPressed("B") || IsKeyPressed("GamepadB"))
+                {
+                    if (music)
+                    {
+                        muteMusic();
+                    }
+                    else
+                    {
+                        unmuteMusic();
+                    }
+                    Task.Delay(300).Wait();
+                }
+
+                if (IsKeyPressed("Y") || IsKeyPressed("GamepadY"))
+                {
+                    if (effects)
+                    {
+                        muteEffect();
+                    }
+                    else
+                    {
+                        unmuteEffect();
+                    }
+                    Task.Delay(300).Wait();
+                }
+
+                if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
+                {
+                    MainPage.Current.removeMenu();
+                    pauzed = false;
+            }
+            if (MainPage.Current.menuScreen && (IsKeyPressed("B") || IsKeyPressed("GamepadB")))
             {
                 if (music)
                 {
-                    muteMusic();
+                    MainPage.Current.muteMusic();
+                    soundController.muteMusic();
+                    music = false;
                 }
                 else
                 {
-                    unmuteMusic();
+                    MainPage.Current.unmuteMusic();
+                    soundController.unMuteMusic();
+                    music = true;
                 }
                 Task.Delay(300).Wait();
             }
 
-            if ((IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
+            if (MainPage.Current.menuScreen && (IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
             {
                 if (effects)
                 {
-                    muteEffect();
+                    MainPage.Current.muteEffect();
+                    soundController.muteSFX();
+                    effects = false;
                 }
                 else
                 {
-                    unmuteEffect();
+                    MainPage.Current.unmuteEffect();
+                    soundController.unMuteSFX();
+                    effects = true;
                 }
+            }
+
+            if (MainPage.Current.menuScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            {
+                MainPage.Current.getInfo();
                 Task.Delay(300).Wait();
+            }else if (MainPage.Current.infoScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            {
+                MainPage.Current.removeInfo();
+                Task.Delay(300).Wait();
+            }
             }
         }
 
@@ -369,11 +439,6 @@ namespace UWPTestApp
             () =>{
                 canvasControl.Invalidate();
             });
-        }
-
-        private async Task CreateResourcesAsync(CanvasControl sender)
-        {
-            _playerBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png"));
         }
 
         public void DrawEvent(CanvasControl sender, CanvasDrawEventArgs args)
@@ -473,18 +538,6 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
-            if (virtualKey.Equals("M"))
-            {
-                if (soundController.mutedMusic)
-                {
-                    soundController.unMuteMusic();
-                }
-                else
-                {
-                    soundController.muteMusic();
-                }
-                
-            }
         }
 
         public void KeyUp(String virtualKey)
@@ -526,6 +579,21 @@ namespace UWPTestApp
             return effects;
         }
 
+        public Boolean Pauzed
+        {
+            get { return pauzed; }
+            set {
+                if (value) {
+                    MainPage.Current.getMenu();
+                }
+                else
+                {
+                    MainPage.Current.removeMenu();
+                }
+                pauzed = value;
+            }
+            
+        }
     }
 }
  

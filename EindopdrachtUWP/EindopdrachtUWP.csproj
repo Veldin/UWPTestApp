@@ -162,6 +162,8 @@
     <Content Include="Assets\Sounds\Weapon_Sounds\Knetter_Gun_Shot1.wav" />
     <Content Include="Assets\Sounds\Weapon_Sounds\UWP_Shot1.wav" />
     <Content Include="Assets\Sounds\Weapon_Sounds\VLEK_Kannon_Shot1.wav" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Splashscreen_Logo.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Bottom.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Left.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Right.png" />
@@ -183,9 +185,23 @@
     <Content Include="Assets\Sprites\Bullet_Sprites\VLEK_Kannon_Right.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\VLEK_Kannon_Top.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter1.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter10.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter11.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter12.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter13.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter14.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter15.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter16.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter17.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter18.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter2.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter3.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter4.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter5.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter6.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter7.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter8.png" />
+    <Content Include="Assets\Sprites\Enemy_Sprites\Bloodsplatter9.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Enemy2_Bottom.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Enemy2_Left.png" />
     <Content Include="Assets\Sprites\Enemy_Sprites\Enemy2_Right.png" />
@@ -207,6 +223,7 @@
     <Content Include="Assets\Sprites\Maps\Map1.png" />
     <Content Include="Assets\Sprites\Maps\Map1.txt" />
     <Content Include="Assets\Sprites\Menu_Sprites\Blood_Check.png" />
+    <Content Include="Assets\Sprites\Menu_Sprites\Complete_About.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Info.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Menu.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Splashscreen_Logo.png" />
@@ -316,13 +333,24 @@
     <Content Include="Assets\Sprites\TileSet\Tile_Wall_Right.png" />
     <Content Include="Assets\Sprites\TileSet\Tile_Wall_Square.png" />
     <Content Include="Assets\Sprites\TileSet\Tile_Wall_Top.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
