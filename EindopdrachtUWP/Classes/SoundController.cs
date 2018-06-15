@@ -16,16 +16,27 @@ namespace EindopdrachtUWP.Classes
     class SoundController
     {
         private Dictionary<string, Sound> sounds;
+
+        MediaElement soundTrack = new MediaElement();
 //        private Dictionary<string, MediaElement> sounds;
 
 
         //ElementSoundPlayer player = new ElementSoundPlayer();
-        
+        public bool mutedSFX = false;
+        public bool mutedMusic = false;
+
 
         public SoundController()
         {
             sounds = new Dictionary<string, Sound>();
+            mutedSFX = false;
+            mutedMusic = false;
+            soundTrack.Volume = 0.4;
+            LoadSound("Soundtrack\\Soundtrack.wav", soundTrack);
+            soundTrack.MediaEnded += SoundTrackEnded;
+            
         }
+
 
         public void AddSound(string sound)
         {
@@ -57,6 +68,7 @@ namespace EindopdrachtUWP.Classes
 
         public void PlaySound(string sound)
         {
+            if (mutedSFX) return;
             if(sounds.ContainsKey(sound))
             {
                 Sound toPlay = sounds[sound];
@@ -97,10 +109,7 @@ namespace EindopdrachtUWP.Classes
                 Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                   
-                   // sound.Stop();
                     sound.Position = new TimeSpan(0);
-//                    Task.Delay(10);
                     sound.Play();
                 });
 
@@ -110,6 +119,31 @@ namespace EindopdrachtUWP.Classes
                 //e.Message
                 Debug.Write(e.Message);
             }
+        }
+
+        public void muteSFX()
+        {
+            mutedSFX = true;
+        }
+        public void unMuteSFX()
+        {
+            mutedSFX = false;
+        }
+
+        public void muteMusic()
+        {
+            mutedMusic = true;
+            soundTrack.Pause();
+        }
+
+        public void unMuteMusic()
+        {
+            mutedMusic = false;
+            soundTrack.Play();
+        }
+        private void SoundTrackEnded(object sender, RoutedEventArgs e)
+        {
+            Play(soundTrack);
         }
     }
 }

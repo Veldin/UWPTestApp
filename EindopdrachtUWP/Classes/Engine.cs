@@ -161,10 +161,10 @@ namespace UWPTestApp
                     new Wall(2, 2, 274, 435, 0, 0, 0, 0),
                     new Wall(2, 2, 389, 435, 0, 0, 0, 0),
                     new Wall(2, 2, 504, 435, 0, 0, 0, 0),
-                    new Wall(2, 2, 619, 435, 0, 0, 0, 0)
+                    new Wall(2, 2, 619, 435, 0, 0, 0, 0),
 
-                    //new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000)
-//                    new Pickup(10, 10, 213, 99, 1, Pickup.AmmunitionDessertBeagle)
+                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000),
+                    new Pickup(10, 10, 213, 99, 1, Pickup.AmmunitionDessertBeagle)
                 })
             );
 
@@ -254,23 +254,28 @@ namespace UWPTestApp
 
                     if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
                     {
-                        player.Fire("Right", gameObjects);
+                        if (player.Fire("Right", gameObjects))
+                        {
+                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                        }
                     }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
+                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
                     {
-                        player.Fire("Top", gameObjects); ;
+                        if (player.Fire("Top", gameObjects))
+                        {
+                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                        }
                     }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
+                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
                     {
-                        player.Fire("Bottom", gameObjects);
+                        if (player.Fire("Bottom", gameObjects))
+                        {
+                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                        }
                     }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
+                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
                     {
-                        bool isFireing = player.Fire("Left", gameObjects);
-                        if (isFireing)
+                        if (player.Fire("Left", gameObjects))
                         {
                             soundController.PlaySound(player.GetActiveWeapon().shotSound);
                         }
@@ -432,6 +437,18 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
+            if (virtualKey.Equals("M"))
+            {
+                if (soundController.mutedMusic)
+                {
+                    soundController.unMuteMusic();
+                }
+                else
+                {
+                    soundController.muteMusic();
+                }
+                
+            }
         }
 
         public void KeyUp(String virtualKey)
