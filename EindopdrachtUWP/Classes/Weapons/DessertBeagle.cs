@@ -13,7 +13,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public float fireTimer { get; set; }
         public double critChance { get; set; }
@@ -31,17 +32,18 @@ namespace EindopdrachtUWP.Classes.Weapons
         public DessertBeagle()
         {
             // constructor for the DessertBeagle class
-            name = "DessertBeagle";
-            description = "The DessertBeagle is a strong handgun, also known as a Desert Eagle";
-            currentClip = 7;
+            name = "Dessert Beagle";
+            description = "The Dessert Beagle is a strong handgun, also known as the Desert Eagle";
+            currentClip = 12;
             clipAmount = 10;
-            clipMax = 7;
-            damage = 35;
+            clipMax = 12;
+            damage = 50;
+            accuracy = 1;
             fireTime = 1000;
-            critChance = 0.3;
+            critChance = 0.05;
             critMultiplier = 1.5;
             weaponLevel = 1;
-            reloadTime = 6000;
+            reloadTime = 3000;
             shotSound = "Weapon_Sounds\\Dessert_Beagle_Shot1.wav";
 
             ableToReload = true;
@@ -136,7 +138,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 1;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)

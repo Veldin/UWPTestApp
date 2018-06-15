@@ -13,7 +13,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
@@ -29,18 +30,24 @@ namespace EindopdrachtUWP.Classes.Weapons
         public BulletBill()
         {
             // constructor for the BulletBill class
-            name = "BulletBill";
-            description = "The BulletBill is a big bullet that goes in a straight line until it hits a wall";
+            name = "Bullet Bill";
+            description = "The Bullet Bill is a big bullet that goes in a straight line until it hits a wall";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 1;
-            damage = 130;
-            fireTime = 2;
-            critChance = 0.1;
+            clipMax = 5;
+            damage = 500;
+            accuracy = 0;
+            fireTime = 2000;
+            critChance = 0.15;
             critMultiplier = 2;
             weaponLevel = 1;
-            reloadTime = 5;
+            reloadTime = 5000;
             shotSound = "Weapon_Sounds\\Bullet_Bill_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -115,7 +122,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 5;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)

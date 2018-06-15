@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
@@ -32,16 +33,20 @@ namespace EindopdrachtUWP.Classes.Weapons
             description = "The Knettergun is a strong short ranged weapon, also known as a shotgun";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 8;
-            damage = 90;
-            fireTime = 0.5f;
-            critChance = 0.3;
-            critMultiplier = 1.5;
+            clipMax = 6;
+            damage = 400;
+            accuracy = 3.3f;
+            fireTime = 500;
+            critChance = 0.03;
+            critMultiplier = 1.2;
             weaponLevel = 1;
-            reloadTime = 3;
+            reloadTime = 4000;
             shotSound = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
-            ableToFire = true;
+
             ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -60,9 +65,9 @@ namespace EindopdrachtUWP.Classes.Weapons
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 25; i++)
                 {
-                    gameObjects.Add(new Projectile(2, 2, fromLeft, fromTop, 0, 0, 0, 0, damage/6));
+                    gameObjects.Add(new Projectile(2, 2, fromLeft, fromTop, 0, 0, 0, 0, damage/25));
                 }
                 currentClip--;
                 ableToFire = false;
@@ -115,7 +120,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 3;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)

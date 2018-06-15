@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
@@ -29,16 +30,23 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // constructor for the Batarang class
             name = "Batarang";
-            description = "The Batarang is a throwable weapon which has similarities to a boomerang";
+            description = "The Batarang is a throwable weapon which is similar to a boomerang";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 1;
-            damage = 70;
-            fireTime = 0.5f;
+            clipMax = 10;
+            damage = 200;
+            accuracy = 1;
+            fireTime = 500;
             critChance = 0.5;
-            critMultiplier = 2;
+            critMultiplier = 1.1;
             weaponLevel = 1;
-            reloadTime = 1;
+            reloadTime = 2000;
+            shotSound = "Weapon_Sounds\\Batarang_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -109,7 +117,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 5;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)
