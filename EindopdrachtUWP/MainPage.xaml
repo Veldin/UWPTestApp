@@ -27,9 +27,6 @@
 
             <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0" />
 
-
-            <!--<Grid Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />-->
-
         </Grid>
     </Viewbox>
 </Page>
