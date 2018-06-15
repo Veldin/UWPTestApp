@@ -19,6 +19,10 @@ public class Projectile : GameObject, MovableObject
         this.shotFromTop = shotFromTop;
         this.shotFromLeft = shotFromLeft;
         this.damage = damage;
+
+        this.Target = new Target(shotFromLeft, shotFromTop); 
+
+        movementSpeed = 700;
     }
 
     public override Boolean CollitionEffect(GameObject gameObject)
@@ -29,7 +33,9 @@ public class Projectile : GameObject, MovableObject
             Enemy enemy = gameObject as Enemy;
             if (enemy is Enemy)
             {
-                enemy.AddLifePoints(damage);
+                enemy.AddLifePoints(damage * -1);
+
+                AddTag("destroyed");
                 return true;
             }
             return false;
@@ -77,24 +83,42 @@ public class Projectile : GameObject, MovableObject
 
     public override Boolean OnTick(List<GameObject> gameObjects, float delta)
     {
-        if (fromLeft > shotFromLeft)
+
+        float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
+        float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);
+
+        float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
+
+        float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
+        float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
+        //totalDifference = differenceTop + differenceLeft;
+        //totalDifferenceAbs = differenceTopAbs + differenceLeftAbs;
+
+        float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
+        float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
+
+        if (Target.FromLeft() > FromLeft)
         {
-            AddFromLeft((movementSpeed * delta) / 10000);
+            AddFromLeft((moveLeftDistance * delta) / 10000);
+            Target.SetFromLeft(Target.FromLeft() + (moveLeftDistance * delta) / 10000);
         }
         else
         {
-            AddFromLeft(((movementSpeed * delta) / 10000) * -1);
+            AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
+            Target.SetFromLeft(Target.FromLeft() + ((moveLeftDistance * delta) / 10000) * -1);
         }
 
-        if (fromTop > shotFromTop)
+        if (Target.FromTop() > FromTop)
         {
-            AddFromTop((movementSpeed * delta) / 10000);
+            AddFromTop((moveTopDistance * delta) / 10000);
+            Target.SetFromTop(Target.FromTop() + (moveTopDistance * delta) / 10000);
         }
         else
         {
-            AddFromTop(((movementSpeed * delta) / 10000) * -1);
+            AddFromTop(((moveTopDistance * delta) / 10000) * -1);
+            Target.SetFromTop(Target.FromTop() + ((moveTopDistance * delta) / 10000) * -1);
         }
-        
+
         return true;
     }   
 

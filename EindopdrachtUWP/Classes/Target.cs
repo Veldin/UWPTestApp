@@ -39,6 +39,16 @@ public class Target
         this.fromTop = fromTop;
     }
 
+    public void AddFromLeft(float value)
+    {
+        this.fromLeft += value;
+    }
+
+    public void AddFromTop(float value)
+    {
+        this.fromTop += value;
+    }
+
     public float FromTop()
     {
         if (target == null)
