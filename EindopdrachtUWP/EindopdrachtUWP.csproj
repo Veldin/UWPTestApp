@@ -216,6 +216,7 @@
     <Content Include="Assets\Sprites\Hotbar_Sprites\Dessert_Beagle_Hotbar_Sprite.png" />
     <Content Include="Assets\Sprites\Hotbar_Sprites\Flame_Thrower_Hotbar_Sprite.png" />
     <Content Include="Assets\Sprites\Hotbar_Sprites\Homers_Bullets_Hotbar_Sprite.png" />
+    <Content Include="Assets\Sprites\Hotbar_Sprites\Hotbar.png" />
     <Content Include="Assets\Sprites\Hotbar_Sprites\KA74_Hotbar_Sprite.png" />
     <Content Include="Assets\Sprites\Hotbar_Sprites\KnetterGun_Hotbar_Sprite.png" />
     <Content Include="Assets\Sprites\Hotbar_Sprites\UWP_Hotbar_Sprite.png" />

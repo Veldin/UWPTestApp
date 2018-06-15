@@ -30,8 +30,8 @@ namespace EindopdrachtUWP
             Window.Current.CoreWindow.KeyDown += KeyDown;
             Window.Current.CoreWindow.KeyUp += KeyUP;
 
-            info.Visibility = Visibility.Collapsed;
-            about.Visibility = Visibility.Collapsed;
+            info.Opacity = 0;
+            about.Opacity = 0;
             menuScreen = true;
             infoScreen = false;
             aboutScreen = false;
@@ -45,7 +45,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    musicCheck.Visibility = Visibility.Collapsed;
+                    musicCheck.Opacity = 0;
                 }
             );
         }
@@ -55,7 +55,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    musicCheck.Visibility = Visibility.Visible;
+                    musicCheck.Opacity = 1;
                 }
             );
         }
@@ -65,7 +65,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    effectCheck.Visibility = Visibility.Collapsed;
+                    effectCheck.Opacity = 0;
                 }
             );
         }
@@ -75,7 +75,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    effectCheck.Visibility = Visibility.Visible;
+                    effectCheck.Opacity = 1;
                 }
             );
         }
@@ -85,10 +85,10 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    menu.Visibility = Visibility.Collapsed;
-                    musicCheck.Visibility = Visibility.Collapsed;
-                    effectCheck.Visibility = Visibility.Collapsed;
-                    black.Visibility = Visibility.Collapsed;
+                    menu.Opacity = 0;
+                    musicCheck.Opacity = 0;
+                    effectCheck.Opacity = 0;
+                    black.Opacity = 0;
                     menuScreen = false;
                     paused = false;
                 }
@@ -100,15 +100,15 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    menu.Visibility = Visibility.Visible;
-                    black.Visibility = Visibility.Visible;
+                    menu.Opacity = 1;
+                    black.Opacity = 0.75;
                     if (engine.music)
                     {
-                        musicCheck.Visibility = Visibility.Visible;
+                        musicCheck.Opacity = 1;
                     }
                     if (engine.effects)
                     {
-                        effectCheck.Visibility = Visibility.Visible;
+                        effectCheck.Opacity = 1;
                     }
                     menuScreen = true;
                     paused = true;
@@ -121,8 +121,8 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    menu.Visibility = Visibility.Visible;
-                    info.Visibility = Visibility.Collapsed;
+                    menu.Opacity = 1;
+                    info.Opacity = 0;
                     infoScreen = false;
                     menuScreen = true;
                 }
@@ -134,8 +134,8 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 { 
-                    info.Visibility = Visibility.Visible;
-                    menu.Visibility = Visibility.Collapsed;
+                    info.Opacity = 1;
+                    menu.Opacity = 0;
                     infoScreen = true;
                     menuScreen = false;
                 }
@@ -147,8 +147,8 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                menu.Visibility = Visibility.Visible;
-                about.Visibility = Visibility.Collapsed;
+                menu.Opacity = 1;
+                about.Opacity = 0;
                 aboutScreen = false;
                 menuScreen = true;
             }
@@ -160,8 +160,8 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                about.Visibility = Visibility.Visible;
-                menu.Visibility = Visibility.Collapsed;
+                about.Opacity = 1;
+                menu.Opacity = 0;
                 aboutScreen = true;
                 menuScreen = false;
             }
