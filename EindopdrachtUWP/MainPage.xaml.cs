@@ -180,44 +180,34 @@ namespace EindopdrachtUWP
                 switch (weapon)
                 {
                     case 1:
-                        selected1.Opacity = 1;
-                        selected10.Opacity = 0;
+                        selected.Margin = new Thickness(-55, -540, 0, 0);
                         break;
                     case 2:
-                        selected2.Opacity = 1;
-                        selected1.Opacity = 0;
+                        selected.Margin = new Thickness(-55, -420, 0, 0);
                         break;
                     case 3:
-                        selected3.Opacity = 1;
-                        selected2.Opacity = 0;
+                        selected.Margin = new Thickness(-55, -300, 0, 0);
                         break;
                     case 4:
-                        selected4.Opacity = 1;
-                        selected3.Opacity = 0;
+                        selected.Margin = new Thickness(-55, -180, 0, 0);
                         break;
                     case 5:
-                        selected5.Opacity = 1;
-                        selected4.Opacity = 0;
+                        selected.Margin = new Thickness(-55, -60, 0, 0);
                         break;
                     case 6:
-                        selected6.Opacity = 1;
-                        selected5.Opacity = 0;
+                        selected.Margin = new Thickness(-55, 60, 0, 0);
                         break;
                     case 7:
-                        selected7.Opacity = 1;
-                        selected6.Opacity = 0;
+                        selected.Margin = new Thickness(-55, 180, 0, 0);
                         break;
                     case 8:
-                        selected8.Opacity = 1;
-                        selected7.Opacity = 0;
+                        selected.Margin = new Thickness(-55, 300, 0, 0);
                         break;
                     case 9:
-                        selected9.Opacity = 1;
-                        selected8.Opacity = 0;
+                        selected.Margin = new Thickness(-55, 420, 0, 0);
                         break;
                     case 10:
-                        selected10.Opacity = 1;
-                        selected9.Opacity = 0;
+                        selected.Margin = new Thickness(-55, 540, 0, 0);
                         weapon = 0;
                         break;
                 }

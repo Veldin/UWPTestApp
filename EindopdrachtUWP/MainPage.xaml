@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
-    <Viewbox Stretch="Uniform">
-        <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All">
+    <Viewbox Width="1080" >
+        <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All" HorizontalAlignment="Center">
             <Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0"/>
 
             <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center" Margin="0,0,0,0"/>
@@ -27,18 +27,6 @@
 
             <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0" />
 
-<<<<<<< HEAD
-            <Image x:Name="selected1" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="1"/>
-            <Image x:Name="selected2" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="0"/>
-            <Image x:Name="selected3" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="0"/>
-            <Image x:Name="selected4" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-180,0,0" Opacity="0"/>
-            <Image x:Name="selected5" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-60,0,0" Opacity="0"/>
-            <Image x:Name="selected6" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,60,0,0" Opacity="0"/>
-            <Image x:Name="selected7" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,180,0,0" Opacity="0"/>
-            <Image x:Name="selected8" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,300,0,0" Opacity="0"/>
-            <Image x:Name="selected9" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="0"/>
-            <Image x:Name="selected10" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="0"/>
-
             <Image x:Name="empty_dessert_eagle" Source="Assets\Sprites\Hotbar_Sprites\Empty_Dessert_Beagle_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="0"/>
             <Image x:Name="empty_ka74" Source="Assets\Sprites\Hotbar_Sprites\Empty_KA74_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="0"/>
             <Image x:Name="empty_knettergun" Source="Assets\Sprites\Hotbar_Sprites\Empty_KnetterGun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="0"/>
@@ -49,7 +37,9 @@
             <Image x:Name="empty_arriva_gun" Source="Assets\Sprites\Hotbar_Sprites\Empty_Arriva_Gun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,300,0,0" Opacity="0"/>
             <Image x:Name="empty_batarang" Source="Assets\Sprites\Hotbar_Sprites\Empty_Batarang_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="0"/>
             <Image x:Name="empty_homers_bullets" Source="Assets\Sprites\Hotbar_Sprites\Empty_Homers_Bullets_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="0"/>
-			
+
+            <Image x:Name="selected" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0"/>
+
         </Grid>
     </Viewbox>
 </Page>
