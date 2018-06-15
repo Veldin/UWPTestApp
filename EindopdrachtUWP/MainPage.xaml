@@ -27,6 +27,7 @@
 
             <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0" />
 
+<<<<<<< HEAD
             <Image x:Name="selected1" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="1"/>
             <Image x:Name="selected2" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="0"/>
             <Image x:Name="selected3" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="0"/>
@@ -38,6 +39,17 @@
             <Image x:Name="selected9" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="0"/>
             <Image x:Name="selected10" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="0"/>
 
+            <Image x:Name="empty_dessert_eagle" Source="Assets\Sprites\Hotbar_Sprites\Empty_Dessert_Beagle_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="0"/>
+            <Image x:Name="empty_ka74" Source="Assets\Sprites\Hotbar_Sprites\Empty_KA74_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="0"/>
+            <Image x:Name="empty_knettergun" Source="Assets\Sprites\Hotbar_Sprites\Empty_KnetterGun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="0"/>
+            <Image x:Name="empty_uwp" Source="Assets\Sprites\Hotbar_Sprites\Empty_UWP_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-180,0,0" Opacity="0"/>
+            <Image x:Name="empty_flamethrower" Source="Assets\Sprites\Hotbar_Sprites\Empty_Flame_Thrower_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-60,0,0" Opacity="0"/>
+            <Image x:Name="empty_vlekkannon" Source="Assets\Sprites\Hotbar_Sprites\Empty_VLEKKannon_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,60,0,0" Opacity="0"/>
+            <Image x:Name="empty_bullet_bill" Source="Assets\Sprites\Hotbar_Sprites\Empty_Bullet_Bill_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,180,0,0" Opacity="0" />
+            <Image x:Name="empty_arriva_gun" Source="Assets\Sprites\Hotbar_Sprites\Empty_Arriva_Gun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,300,0,0" Opacity="0"/>
+            <Image x:Name="empty_batarang" Source="Assets\Sprites\Hotbar_Sprites\Empty_Batarang_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="0"/>
+            <Image x:Name="empty_homers_bullets" Source="Assets\Sprites\Hotbar_Sprites\Empty_Homers_Bullets_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="0"/>
+			
         </Grid>
     </Viewbox>
 </Page>
