@@ -346,9 +346,10 @@ namespace UWPTestApp
             }
 
 
-            /* DRAWING THE SPRITES
-            Draw all the gameObjects CURRENTLY in the Arraylist.
-            The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
+            //DRAWING THE SPRITES
+            //Draw all the gameObjects CURRENTLY in the Arraylist.
+            //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
+            /*
             foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
 
@@ -364,8 +365,8 @@ namespace UWPTestApp
                 );
 
                 //Debug.WriteLine(gameObject.Height + " + " + gameObject.HeightDrawOffset + " = " + (gameObject.Height + gameObject.HeightDrawOffset) );
-            }
-            */
+            }*/
+
 
             /* DRAWING THE SPRITES */
             //Load the sprite in this canvasControl so it is usable later
@@ -404,21 +405,18 @@ namespace UWPTestApp
             ////DRAWING THE HITBOXES 
             ////Draw all the gameObjects CURRENTLY in the Arraylist.
             ////The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
-            //foreach (GameObject gameObject in new ArrayList(gameObjects))
-            //{
+            /*
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
 
-            //    //new Rect Initializes a struct that has the specified from left, from top, width, and height.
-            //    args.DrawingSession.DrawRectangle(
-            //        new Windows.Foundation.Rect(gameObject.FromLeft, gameObject.FromTop, gameObject.Width, gameObject.Height),
-            //        Colors.Red
-            //    );
+                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
+                args.DrawingSession.DrawRectangle(
+                    new Windows.Foundation.Rect(gameObject.FromLeft, gameObject.FromTop, gameObject.Width, gameObject.Height),
+                    Colors.Red
+                );
 
-            //}
+            }*/
 
-           // if (_playerBitmap != null)
-           // {
-           //     args.DrawingSession.DrawImage(_playerBitmap, 32, 32);
-           // }
            
             
         }
@@ -441,3 +439,5 @@ namespace UWPTestApp
 
     }
 }
+ 
+ 
