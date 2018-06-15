@@ -374,6 +374,7 @@ namespace UWPTestApp
                     soundController.unMuteMusic();
                     music = true;
                 }
+                Task.Delay(300).Wait();
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("Y") || IsKeyPressed("GamepadY")))

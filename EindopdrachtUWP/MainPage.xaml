@@ -13,15 +13,17 @@
 
             <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent"/>
 
-            <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.png" />
+            <canvas:CanvasControl x:Name="black" Width="800" Height="600" ClearColor="black" Opacity="0.75"/>
+
+            <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.png"  Height="600"/>
 
             <Image x:Name="musicCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="367,459,410,118"/>
 
             <Image x:Name="effectCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="499,459,278,118"/>
 
-            <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png"/>
+            <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png" Height="600"/>
 
-            <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png"/>
+            <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600"/>
 
             <!--<Grid Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />-->
 

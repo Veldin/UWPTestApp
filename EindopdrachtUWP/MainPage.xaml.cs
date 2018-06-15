@@ -86,8 +86,9 @@ namespace EindopdrachtUWP
             () =>
                 {
                     menu.Visibility = Visibility.Collapsed;
-                        musicCheck.Visibility = Visibility.Collapsed;
-                        effectCheck.Visibility = Visibility.Collapsed;
+                    musicCheck.Visibility = Visibility.Collapsed;
+                    effectCheck.Visibility = Visibility.Collapsed;
+                    black.Visibility = Visibility.Collapsed;
                     menuScreen = false;
                     paused = false;
                 }
@@ -100,6 +101,7 @@ namespace EindopdrachtUWP
             () =>
                 {
                     menu.Visibility = Visibility.Visible;
+                    black.Visibility = Visibility.Visible;
                     if (engine.music)
                     {
                         musicCheck.Visibility = Visibility.Visible;
