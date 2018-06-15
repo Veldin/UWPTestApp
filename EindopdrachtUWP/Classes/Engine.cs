@@ -263,6 +263,8 @@ namespace UWPTestApp
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
                         {
                             player.selectNextWeapon();
+                            MainPage.Current.nextWeapon();
+                            Task.Delay(150).Wait();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))

@@ -15,8 +15,8 @@
 
             <canvas:CanvasControl x:Name="black" Width="800" Height="600" ClearColor="black" Opacity="0.75" HorizontalAlignment="Center" Margin="0,0,0,0"/>
 
-            <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.png"  Height="600" HorizontalAlignment="Center" Margin="0,0,0,0"/>
-            
+            <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+
             <Image x:Name="hotbar" Source="Assets\Sprites\Hotbar_Sprites\Hotbar.png" Height="600" HorizontalAlignment="Left" Margin="-55,0,0,0"/>
 
             <Image x:Name="musicCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="369,449,408,115"/>
@@ -26,6 +26,17 @@
             <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0"/>
 
             <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0" />
+
+            <Image x:Name="selected1" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="1"/>
+            <Image x:Name="selected2" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="0"/>
+            <Image x:Name="selected3" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="0"/>
+            <Image x:Name="selected4" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-180,0,0" Opacity="0"/>
+            <Image x:Name="selected5" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-60,0,0" Opacity="0"/>
+            <Image x:Name="selected6" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,60,0,0" Opacity="0"/>
+            <Image x:Name="selected7" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,180,0,0" Opacity="0"/>
+            <Image x:Name="selected8" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,300,0,0" Opacity="0"/>
+            <Image x:Name="selected9" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="0"/>
+            <Image x:Name="selected10" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="0"/>
 
         </Grid>
     </Viewbox>
