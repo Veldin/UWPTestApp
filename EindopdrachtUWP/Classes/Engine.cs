@@ -63,6 +63,9 @@ namespace UWPTestApp
 			
             scenes = new List<Scene>();
 
+            music = true;
+            effects = true;
+
             //Add the first scene
             scenes.Add(
                 new Scene(new List<GameObject>
@@ -373,7 +376,48 @@ namespace UWPTestApp
                 {
                     MainPage.Current.removeMenu();
                     pauzed = false;
+            }
+            if (MainPage.Current.menuScreen && (IsKeyPressed("B") || IsKeyPressed("GamepadB")))
+            {
+                if (music)
+                {
+                    MainPage.Current.muteMusic();
+                    soundController.muteMusic();
+                    music = false;
                 }
+                else
+                {
+                    MainPage.Current.unmuteMusic();
+                    soundController.unMuteMusic();
+                    music = true;
+                }
+                Task.Delay(300).Wait();
+            }
+
+            if (MainPage.Current.menuScreen && (IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
+            {
+                if (effects)
+                {
+                    MainPage.Current.muteEffect();
+                    soundController.muteSFX();
+                    effects = false;
+                }
+                else
+                {
+                    MainPage.Current.unmuteEffect();
+                    soundController.unMuteSFX();
+                    effects = true;
+                }
+            }
+
+            if (MainPage.Current.menuScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            {
+                MainPage.Current.getInfo();
+                Task.Delay(300).Wait();
+            }else if (MainPage.Current.infoScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            {
+                MainPage.Current.removeInfo();
+                Task.Delay(300).Wait();
             }
         }
 
@@ -483,18 +527,6 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
-            if (virtualKey.Equals("M"))
-            {
-                if (soundController.mutedMusic)
-                {
-                    soundController.unMuteMusic();
-                }
-                else
-                {
-                    soundController.muteMusic();
-                }
-                
-            }
         }
 
         public void KeyUp(String virtualKey)
@@ -507,6 +539,7 @@ namespace UWPTestApp
         {
             return pressedKeys.Contains(virtualKey);
         }
+<<<<<<< HEAD
 
         public Boolean muteMusic()
         { 
@@ -546,6 +579,8 @@ namespace UWPTestApp
             
         }
 
+=======
+>>>>>>> e54b3ed952f0c59c9595ae764a40b9691f85d65c
     }
 }
  
