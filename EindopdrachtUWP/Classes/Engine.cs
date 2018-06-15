@@ -58,7 +58,6 @@ namespace UWPTestApp
             soundController.AddSound(ka74.shotSound);
             soundController.LoadAllSounds();
 
-
             scenes = new List<Scene>();
 
             //Add the first scene
@@ -315,7 +314,7 @@ namespace UWPTestApp
                     }
                 }
             }
-            if ((IsKeyPressed("B") || IsKeyPressed("GamepadB")))
+            if (IsKeyPressed("B") || IsKeyPressed("GamepadB"))
             {
                 if (music)
                 {
@@ -328,7 +327,7 @@ namespace UWPTestApp
                 Task.Delay(300).Wait();
             }
 
-            if ((IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
+            if (IsKeyPressed("Y") || IsKeyPressed("GamepadY"))
             {
                 if (effects)
                 {
@@ -339,6 +338,11 @@ namespace UWPTestApp
                     unmuteEffect();
                 }
                 Task.Delay(300).Wait();
+            }
+
+            if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
+            {
+                MainPage.Current.removeMenu();
             }
         }
 

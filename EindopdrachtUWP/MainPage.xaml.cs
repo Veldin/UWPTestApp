@@ -43,9 +43,9 @@ namespace EindopdrachtUWP
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
-            {
-                musicCheck.Visibility = Visibility.Visible;
-            }
+                {
+                    musicCheck.Visibility = Visibility.Visible;
+                }
             );
         }
 
@@ -53,9 +53,9 @@ namespace EindopdrachtUWP
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
-            {
-                effectCheck.Visibility = Visibility.Collapsed;
-            }
+                {
+                    effectCheck.Visibility = Visibility.Collapsed;
+                }
             );
         }
 
@@ -63,9 +63,21 @@ namespace EindopdrachtUWP
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
-            {
-                effectCheck.Visibility = Visibility.Visible;
-            }
+                {
+                    effectCheck.Visibility = Visibility.Visible;
+                }
+            );
+        }
+
+        public void removeMenu()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    menu.Visibility = Visibility.Collapsed;
+                    musicCheck.Visibility = Visibility.Collapsed;
+                    effectCheck.Visibility = Visibility.Collapsed;
+                }
             );
         }
 
