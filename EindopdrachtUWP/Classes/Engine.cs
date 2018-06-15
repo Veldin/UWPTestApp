@@ -331,7 +331,7 @@ namespace UWPTestApp
                     }
                 }
             }
-            if (IsKeyPressed("B") || IsKeyPressed("GamepadB"))
+            if (MainPage.Current.menuScreen && (IsKeyPressed("B") || IsKeyPressed("GamepadB")))
             {
                 if (music)
                 {
@@ -348,7 +348,7 @@ namespace UWPTestApp
                 Task.Delay(300).Wait();
             }
 
-            if (IsKeyPressed("Y") || IsKeyPressed("GamepadY"))
+            if (MainPage.Current.menuScreen && (IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
             {
                 if (effects)
                 {
@@ -368,6 +368,16 @@ namespace UWPTestApp
             if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
             {
                 MainPage.Current.removeMenu();
+            }
+
+            if (MainPage.Current.menuScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            {
+                MainPage.Current.getInfo();
+                Task.Delay(300).Wait();
+            }else if (MainPage.Current.infoScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            {
+                MainPage.Current.removeInfo();
+                Task.Delay(300).Wait();
             }
         }
 
@@ -482,18 +492,6 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
-            if (virtualKey.Equals("M"))
-            {
-                if (soundController.mutedMusic)
-                {
-                    soundController.unMuteMusic();
-                }
-                else
-                {
-                    soundController.muteMusic();
-                }
-                
-            }
         }
 
         public void KeyUp(String virtualKey)

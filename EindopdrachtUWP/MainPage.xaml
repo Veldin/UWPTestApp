@@ -18,7 +18,9 @@
             <Image x:Name="musicCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="367,459,410,118"/>
 
             <Image x:Name="effectCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="499,459,278,118"/>
-            
+
+            <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png"/>
+
             <!--<Grid Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />-->
 
         </Grid>
