@@ -13,6 +13,8 @@ namespace EindopdrachtUWP
     {
         public static MainPage Current;
         Engine engine;
+        public bool menuScreen;
+        public bool infoScreen;
 
         public MainPage()
         {
@@ -25,6 +27,10 @@ namespace EindopdrachtUWP
 
             Window.Current.CoreWindow.KeyDown += KeyDown;
             Window.Current.CoreWindow.KeyUp += KeyUP;
+
+            info.Visibility = Visibility.Collapsed;
+            menuScreen = true;
+            infoScreen = false;
 
             engine.Run();
         }
@@ -77,6 +83,46 @@ namespace EindopdrachtUWP
                     menu.Visibility = Visibility.Collapsed;
                     musicCheck.Visibility = Visibility.Collapsed;
                     effectCheck.Visibility = Visibility.Collapsed;
+                    menuScreen = false;
+                }
+            );
+        }
+
+        public void getMenu()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    menu.Visibility = Visibility.Visible;
+                    musicCheck.Visibility = Visibility.Visible;
+                    effectCheck.Visibility = Visibility.Visible;
+                    menuScreen = true;
+                }
+            );
+        }
+
+        public void removeInfo()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    menu.Visibility = Visibility.Visible;
+                    info.Visibility = Visibility.Collapsed;
+                    infoScreen = false;
+                    menuScreen = true;
+                }
+            );
+        }
+
+        public void getInfo()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                { 
+                    info.Visibility = Visibility.Visible;
+                    menu.Visibility = Visibility.Collapsed;
+                    infoScreen = true;
+                    menuScreen = false;
                 }
             );
         }
