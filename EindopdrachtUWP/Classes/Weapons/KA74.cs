@@ -68,7 +68,22 @@ namespace EindopdrachtUWP.Classes.Weapons
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
-                gameObjects.Add(new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, damage));
+                if (direction == "Top")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft, fromTop - height));
+                }
+                else if (direction == "Bottom")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft, fromTop + height));
+                }
+                else if (direction == "Left")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft - height, fromTop));
+                }
+                else //Right
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft + height, fromTop));
+                }
                 currentClip--;
                 ableToFire = false;
                 return true;

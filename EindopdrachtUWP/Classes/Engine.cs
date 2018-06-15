@@ -2,6 +2,8 @@
 using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Brushes;
+using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections;
@@ -176,7 +178,9 @@ namespace UWPTestApp
                     new Wall(2, 2, 504, 435, 0, 0, 0, 0),
                     new Wall(2, 2, 619, 435, 0, 0, 0, 0),
 
-                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000)
+                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000),
+
+                    new TextBox(400, 400, 313, 39, 0, 0, 0, 0, "Text", 5000)
                 })
             );
 
@@ -475,9 +479,9 @@ namespace UWPTestApp
                 {
 
                 }
-                else if(gameObject is Projectile)
+                else if (gameObject is TextBox)
                 {
-
+                      
                 }
                 else if (gameObject.Sprite == null)
                 {
@@ -498,6 +502,31 @@ namespace UWPTestApp
                         gameObject.Width + gameObject.WidthDrawOffset,
                         gameObject.Height + gameObject.HeightDrawOffset
                     ));
+                }
+            }
+
+            //Drawing textBoxes
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+
+                TextBox textBox = gameObject as TextBox;
+                if (textBox is TextBox)
+                {
+                    args.DrawingSession.DrawText(
+                        textBox.Text,
+                        new Rect(
+                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
+                        gameObject.FromTop + gameObject.FromTopDrawOffset,
+                        gameObject.Width + gameObject.WidthDrawOffset,
+                        gameObject.Height + gameObject.HeightDrawOffset
+                        ),
+                        textBox.Color,
+                        new CanvasTextFormat()
+                        {
+                            FontFamily = "Arial",
+                            FontSize = textBox.FontSize
+                        }
+                    );
                 }
             }
 

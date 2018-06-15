@@ -66,6 +66,10 @@ namespace EindopdrachtUWP.Classes.Weapons
         public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects , String direction)
         {
 
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            float randomPositionOffset = (random.Next(0, (int)accuracy * (int)accuracy)) ;
+            randomPositionOffset = randomPositionOffset - accuracy * (accuracy) / 2;
+
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
@@ -73,19 +77,19 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft, fromTop - height));
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft + randomPositionOffset, fromTop - height));
                 }
                 else if (direction == "Bottom")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft, fromTop + height));
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft + randomPositionOffset, fromTop + height));
                 }
                 else if (direction == "Left")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft - height, fromTop));
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft - height, fromTop + randomPositionOffset));
                 }
                 else //Right
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft + height, fromTop));
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, damage, fromLeft + height, fromTop + randomPositionOffset));
                 }
                 
                 currentClip--;

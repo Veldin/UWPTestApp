@@ -268,7 +268,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
             int randomSizeOffset = 0;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 15; i++)
             {
                 randomPositionOffsetOne = random.Next((int)width * -1, (int)width);
                 randomPositionOffsetTwo = random.Next((int)width * -1, (int)width);

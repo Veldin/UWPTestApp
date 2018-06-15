@@ -20,7 +20,9 @@ public class Projectile : GameObject, MovableObject
         this.shotFromLeft = shotFromLeft;
         this.damage = damage;
 
-        this.Target = new Target(shotFromLeft, shotFromTop); 
+        this.Target = new Target(shotFromLeft, shotFromTop);
+
+        this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Top.png";
 
         movementSpeed = 700;
     }
@@ -36,7 +38,8 @@ public class Projectile : GameObject, MovableObject
                 enemy.AddLifePoints(damage * -1);
 
                 enemy.AddTag("splatter");
-                AddTag("destroyed");
+                //AddTag("destroyed");
+                AddTag("text");
                 return true;
             }
             return false;
@@ -118,6 +121,12 @@ public class Projectile : GameObject, MovableObject
         {
             AddFromTop(((moveTopDistance * delta) / 10000) * -1);
             Target.SetFromTop(Target.FromTop() + ((moveTopDistance * delta) / 10000) * -1);
+        }
+
+        if (HasTag("text"))
+        {
+            AddTag("destroyed");
+            gameObjects.Add(new TextBox(400, 400, fromLeft, fromTop - 20, 0, 0, 0, 0, damage.ToString(), 1000));
         }
 
         return true;

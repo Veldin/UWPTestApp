@@ -1,17 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using UWPTestApp;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 
-public class TextBox : MovableObject
+public class TextBox : GameObject, MovableObject
 {
-    String text;
-    int duration;
-    float movementSpeed;
+    private String text;
+    private float duration;
+    private float movementSpeed;
+    private Color color;
+    private int fontSize;
 
-    TextBox(String text, int duration)
+    public TextBox(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, string text = "undefined", float duration = 100)
+        : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
         this.text = text;
         this.duration = duration;
+        this.movementSpeed = 200;
+
+        this.fontSize = 12;
+        this.color = Colors.White;
+
+        this.Target = new Target(fromLeft, fromTop - 1000);
     }
 
     void MovableObject.SetMovementSpeed(float speed)
@@ -24,28 +35,109 @@ public class TextBox : MovableObject
         return movementSpeed;
     }
 
+
+    public String Text
+    {
+        get { return text; }
+        set { text = value; }
+    }
+
+    public float Duration
+    {
+        get { return duration; }
+        set { duration = value; }
+    }
+
+    public int FontSize
+    {
+        get { return fontSize; }
+        set { fontSize = value; }
+    }
+
+    public Color Color
+    {
+        get { return color; }
+        set { color = value; }
+    }
+
     public void PlayMoveSound()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void PlayDeathsound()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void SetMoveSound(MediaElement moveSound)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void SetDeathSound(MediaElement deathSound)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void PlayDeathSound()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+    }
+
+    public override bool OnTick(List<GameObject> gameObjects, float delta)
+    {
+        duration -= delta;
+        if (duration < 0)
+        {
+            AddTag("destroyed");
+        }
+
+        actMovement(delta);
+
+        //throw new NotImplementedException();
+        return true;
+    }
+
+    private void actMovement(float delta)
+    {
+        float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
+        float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);
+
+        float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
+
+        float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
+        float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
+        //totalDifference = differenceTop + differenceLeft;
+        //totalDifferenceAbs = differenceTopAbs + differenceLeftAbs;
+
+        float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
+        float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
+
+
+        //Due to players being able to stand in himself only greater then or smaller then need to be checked.
+        if (Target.FromLeft() > FromLeft)
+        {
+            AddFromLeft((moveLeftDistance * delta) / 10000);
+        }
+        else if (Target.FromLeft() < FromLeft)
+        {
+            AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
+        }
+
+        if (Target.FromTop() > FromTop)
+        {
+            AddFromTop((moveTopDistance * delta) / 10000);
+        }
+        else if (Target.FromTop() < FromTop)
+        {
+            AddFromTop(((moveTopDistance * delta) / 10000) * -1);
+        }
+    }
+
+    public override bool CollitionEffect(GameObject gameObject)
+    {
+        //throw new NotImplementedException();
+        return true;
     }
 }
