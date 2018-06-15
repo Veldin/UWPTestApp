@@ -7,27 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
-    <Viewbox Stretch="Uniform">
-        <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All">
-            <Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0"/>
-
-            <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center" Margin="0,0,0,0"/>
-
-            <canvas:CanvasControl x:Name="black" Width="800" Height="600" ClearColor="black" Opacity="0.75" HorizontalAlignment="Center" Margin="0,0,0,0"/>
-
-            <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.png"  Height="600" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+    <Border Background="Gray">
+    <Viewbox Width="1080" Height="1080" >
+        <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All"  Margin="-70, 0, -70, 0">
             
-            <Image x:Name="hotbar" Source="Assets\Sprites\Hotbar_Sprites\Hotbar.png" Height="600" HorizontalAlignment="Left" Margin="-55,0,0,0"/>
-
+            <!--Background and drawable Canvas-->
+            <Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600" HorizontalAlignment="Center"/>
+            <Image x:Name="divider_Left" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Left" Margin="-1,0,0,0"/>
+            <Image x:Name="divider_Right" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Right" Margin="0,0,-1,0"/>
+            <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center"/>
+            
+            <!--Menu Sprites and locations-->
+            <canvas:CanvasControl x:Name="black" Width="800" Height="600" ClearColor="black" Opacity="0.75" HorizontalAlignment="Center"/>
+            <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.png" Height="600" HorizontalAlignment="Center"/>
             <Image x:Name="musicCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="369,449,408,115"/>
-
             <Image x:Name="effectCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="498,449,279,115"/>
-
-            <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0"/>
-
-            <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center" Margin="0,0,0,0" />
-
-
+            <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png" Height="600" HorizontalAlignment="Center"/>
+            <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center"/>
+            
+            <!--Hotbar Sprites and locations-->
+            <Image x:Name="hotbar" Source="Assets\Sprites\Hotbar_Sprites\Hotbar.png" Height="600" HorizontalAlignment="Left" Margin="-55,0,0,0"/>
+            
+            <!--Opaque grayscale weapon sprites-->
             <Image x:Name="empty_dessert_eagle" Source="Assets\Sprites\Hotbar_Sprites\Empty_Dessert_Beagle_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="0"/>
             <Image x:Name="empty_ka74" Source="Assets\Sprites\Hotbar_Sprites\Empty_KA74_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="0"/>
             <Image x:Name="empty_knettergun" Source="Assets\Sprites\Hotbar_Sprites\Empty_KnetterGun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="0"/>
@@ -38,7 +39,11 @@
             <Image x:Name="empty_arriva_gun" Source="Assets\Sprites\Hotbar_Sprites\Empty_Arriva_Gun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,300,0,0" Opacity="0"/>
             <Image x:Name="empty_batarang" Source="Assets\Sprites\Hotbar_Sprites\Empty_Batarang_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="0"/>
             <Image x:Name="empty_homers_bullets" Source="Assets\Sprites\Hotbar_Sprites\Empty_Homers_Bullets_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="0"/>
+            
+            <!--Weapon Selector-->
+            <Image x:Name="selected" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0"/>
 
         </Grid>
     </Viewbox>
+    </Border>
 </Page>

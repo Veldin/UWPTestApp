@@ -132,6 +132,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\lunchds.ttf" />
     <None Include="EindopdrachtUWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +239,7 @@
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_About.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Info.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Menu.png" />
+    <Content Include="Assets\Sprites\Menu_Sprites\Divider.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Splashscreen_Logo.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Ammo_Pickups\Ammo_Pickup_Left.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Ammo_Pickups\Ammo_Pickup_Right.png" />

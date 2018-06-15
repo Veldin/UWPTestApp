@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -17,6 +18,7 @@ namespace EindopdrachtUWP
         public bool infoScreen;
         public bool aboutScreen;
         public bool paused;
+        public int weapon;
 
         public MainPage()
         {
@@ -36,6 +38,8 @@ namespace EindopdrachtUWP
             infoScreen = false;
             aboutScreen = false;
             paused = true;
+
+            weapon = 1;
 
             engine.Run();
         }
@@ -166,6 +170,49 @@ namespace EindopdrachtUWP
                 menuScreen = false;
             }
             );
+        }
+
+        public void nextWeapon()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                switch (weapon)
+                {
+                    case 1:
+                        selected.Margin = new Thickness(-55, -540, 0, 0);
+                        break;
+                    case 2:
+                        selected.Margin = new Thickness(-55, -420, 0, 0);
+                        break;
+                    case 3:
+                        selected.Margin = new Thickness(-55, -300, 0, 0);
+                        break;
+                    case 4:
+                        selected.Margin = new Thickness(-55, -180, 0, 0);
+                        break;
+                    case 5:
+                        selected.Margin = new Thickness(-55, -60, 0, 0);
+                        break;
+                    case 6:
+                        selected.Margin = new Thickness(-55, 60, 0, 0);
+                        break;
+                    case 7:
+                        selected.Margin = new Thickness(-55, 180, 0, 0);
+                        break;
+                    case 8:
+                        selected.Margin = new Thickness(-55, 300, 0, 0);
+                        break;
+                    case 9:
+                        selected.Margin = new Thickness(-55, 420, 0, 0);
+                        break;
+                    case 10:
+                        selected.Margin = new Thickness(-55, 540, 0, 0);
+                        weapon = 0;
+                        break;
+                }
+            });
+            weapon++;
         }
 
         void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
