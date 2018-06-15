@@ -292,7 +292,7 @@ namespace UWPTestApp
                                 soundController.PlaySound(player.GetActiveWeapon().shotSound);
                             }
                         }
-                
+
                         //Handle Input (Not only the player might be controlable)
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
                         {
@@ -312,7 +312,7 @@ namespace UWPTestApp
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
                         {
                             player.Target.AddFromLeft(-1000);
-                        }                    
+                        }
                     }
 
                     //On tick
@@ -339,11 +339,13 @@ namespace UWPTestApp
                     //Key to pauze the screen
                     if (IsKeyPressed("Escape") || IsKeyPressed("GamepadView"))
                     {
-                        MainPage.Current.removeMenu();
-                        Pauzed = false;
+                        MainPage.Current.getMenu();
+                        Pauzed = true;
+                        Task.Delay(300).Wait();
                     }
                 }
             }
+        
 
             if (Pauzed) { 
                 if (IsKeyPressed("B") || IsKeyPressed("GamepadB"))
@@ -418,6 +420,7 @@ namespace UWPTestApp
             {
                 MainPage.Current.removeInfo();
                 Task.Delay(300).Wait();
+            }
             }
         }
 
@@ -539,7 +542,6 @@ namespace UWPTestApp
         {
             return pressedKeys.Contains(virtualKey);
         }
-<<<<<<< HEAD
 
         public Boolean muteMusic()
         { 
@@ -573,14 +575,17 @@ namespace UWPTestApp
         {
             get { return pauzed; }
             set {
-                if (!value) { MainPage.Current.getmenu(); }
+                if (value) {
+                    MainPage.Current.getMenu();
+                }
+                else
+                {
+                    MainPage.Current.removeMenu();
+                }
                 pauzed = value;
             }
             
         }
-
-=======
->>>>>>> e54b3ed952f0c59c9595ae764a40b9691f85d65c
     }
 }
  
