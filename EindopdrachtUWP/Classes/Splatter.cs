@@ -14,6 +14,11 @@ namespace UWPTestApp
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
 
+            Random random = new Random();
+            int randomPositionOffset = random.Next(1,5);
+
+            location = "Assets/Sprites/Enemy_Sprites/Bloodsplatter"+ randomPositionOffset + ".png";
+
         }
 
         //Any object can edit the gameObjects of the game while the logic is running.
@@ -25,6 +30,19 @@ namespace UWPTestApp
 
         public override Boolean CollitionEffect(GameObject gameObject)
         {
+
+            //IF the blood splatter hits a wall reduce its size so it doesnt show on top of the wall.
+            if(gameObject is Wall)
+            {
+                AddHeight(-1);
+
+                if (Height < 1)
+                {
+                    //If the height is below 1, remove the blood splatter.
+                    AddTag("destroyed");
+                }
+            }
+
             return true;
         }
     }
