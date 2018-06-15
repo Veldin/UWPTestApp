@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.Media;
 
 namespace EindopdrachtUWP.Classes
 {
@@ -14,36 +15,82 @@ namespace EindopdrachtUWP.Classes
 
     class SoundController
     {
-        private Dictionary<string, MediaElement> sounds;
+        private Dictionary<string, Sound> sounds;
+
+        MediaElement soundTrack = new MediaElement();
+//        private Dictionary<string, MediaElement> sounds;
+
+
+        //ElementSoundPlayer player = new ElementSoundPlayer();
+        public bool mutedSFX = false;
+        public bool mutedMusic = false;
+
 
         public SoundController()
         {
-            sounds = new Dictionary<string, MediaElement>();
+            sounds = new Dictionary<string, Sound>();
+            mutedSFX = false;
+            mutedMusic = false;
+            soundTrack.Volume = 0.4;
+            LoadSound("Soundtrack\\Soundtrack.wav", soundTrack);
+            soundTrack.MediaEnded += SoundTrackEnded;
+            
         }
+
 
         public void AddSound(string sound)
         {
-            MediaElement me = new MediaElement();
-            me.AutoPlay = false;
-            sounds.Add(sound, me);
+            if (sound == null || sound == "") return;
+            if (sounds.ContainsKey(sound)) return;
+
+            Sound s = new Sound()
+            {
+                firstSound = new MediaElement(),
+                secondSound = new MediaElement(),
+                playFirst = true
+            };
+            s.firstSound.AutoPlay = false;
+            s.secondSound.AutoPlay = false;
+            
+            sounds.Add(sound, s);
+            LoadSound(sound, s.firstSound);
+            LoadSound(sound, s.secondSound);
+            s.firstSound.MediaFailed += FailedLoadingMedia;
+            s.secondSound.MediaFailed += FailedLoadingMedia;
+
+        }
+
+        private void FailedLoadingMedia(object sender, ExceptionRoutedEventArgs e)
+        {
+            MediaElement me = (MediaElement)sender;
+            me.Source = null;
         }
 
         public void PlaySound(string sound)
         {
+            if (mutedSFX) return;
             if(sounds.ContainsKey(sound))
             {
-                Play(sounds[sound]);
+                Sound toPlay = sounds[sound];
+                if (toPlay.playFirst)
+                {
+                    Play(toPlay.firstSound);
+                }
+                else
+                {
+                    Play(toPlay.secondSound);
+                }
+                toPlay.playFirst = !toPlay.playFirst;
             }
 
         }
 
-        public void LoadAllSounds()
-        {
-            foreach (KeyValuePair<string, MediaElement> sound in sounds)
-            {
-                LoadSound(sound.Key, sound.Value);
-            }
-        }
+        //public void LoadAllSounds()
+        //{
+        //    foreach (KeyValuePair<string, MediaElement> sound in sounds)
+        //    {
+        //    }
+        //}
 
 
         // Must be in another method (because of async)
@@ -62,7 +109,6 @@ namespace EindopdrachtUWP.Classes
                 Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    sound.Stop();
                     sound.Position = new TimeSpan(0);
                     sound.Play();
                 });
@@ -73,6 +119,41 @@ namespace EindopdrachtUWP.Classes
                 //e.Message
                 Debug.Write(e.Message);
             }
+        }
+
+        public void muteSFX()
+        {
+            mutedSFX = true;
+        }
+        public void unMuteSFX()
+        {
+            mutedSFX = false;
+        }
+
+        public void muteMusic()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    mutedMusic = true;
+                    soundTrack.Pause();
+                }
+            );
+        }
+
+        public void unMuteMusic()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    mutedMusic = false;
+                    soundTrack.Play();
+                }
+            );
+        }
+        private void SoundTrackEnded(object sender, RoutedEventArgs e)
+        {
+            Play(soundTrack);
         }
     }
 }
