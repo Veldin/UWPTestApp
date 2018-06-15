@@ -21,7 +21,7 @@ namespace EindopdrachtUWP.Classes
         String reloadSound { get; set; }
         float reloadTime { get; set; }
 
-        void Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction);
+        bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction);
         Boolean RemoveTag(String tag);
         Boolean HasTag(String tag);
         void AddTag(String tag);

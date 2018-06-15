@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Pickup.cs" />
+    <Compile Include="Classes\Sound.cs" />
     <Compile Include="Classes\Weapons\ArrivaGun.cs" />
     <Compile Include="Classes\AssetManager.cs" />
     <Compile Include="Classes\Weapons\Batarang.cs" />

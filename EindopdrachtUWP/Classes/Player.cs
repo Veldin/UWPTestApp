@@ -146,10 +146,7 @@ namespace UWPTestApp
             this.direction = direction;
 
             
-
-            this.activeWeapon.Fire(fromLeft + (width / 2) , fromTop + (height / 2) , width, height, gameObjects, direction);
-
-            return true;
+            return this.activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction); 
         }
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
@@ -266,6 +263,11 @@ namespace UWPTestApp
         public List<Weapon> GetWeapons()
         {
             return weapons;
+        }
+
+        public Weapon GetActiveWeapon()
+        {
+            return activeWeapon;
         }
     }
 }

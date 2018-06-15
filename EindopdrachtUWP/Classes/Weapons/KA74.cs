@@ -56,7 +56,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         }
 
 
-        public void Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
+        public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
         {
             // fire one bullet
             if (ableToFire && currentClip > 0)
@@ -65,12 +65,14 @@ namespace EindopdrachtUWP.Classes.Weapons
                 currentClip--;
                 ableToFire = false;
 
+                return true;
 
             }
             if (currentClip == 0)
             {
                 Reload();
             }
+            return false;
         }
 
         public Boolean HasTag(string searchTag)
