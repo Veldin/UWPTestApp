@@ -223,6 +223,7 @@
     <Content Include="Assets\Sprites\Maps\Map1.png" />
     <Content Include="Assets\Sprites\Maps\Map1.txt" />
     <Content Include="Assets\Sprites\Menu_Sprites\Blood_Check.png" />
+    <Content Include="Assets\Sprites\Menu_Sprites\Complete_About.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Info.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Menu.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Splashscreen_Logo.png" />
