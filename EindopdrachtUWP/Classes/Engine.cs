@@ -269,27 +269,27 @@ namespace UWPTestApp
                     {
                         player.Fire("Left", gameObjects);
                     }
-                }
+                
+                    //Handle Input (Not only the player might be controlable)
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
+                    {
+                        player.Target.AddFromTop(1000);
+                    }
 
-                //Handle Input (Not only the player might be controlable)
-                if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
-                {
-                    gameObject.AddFromTop((float)((delta) * 0.05));
-                }
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("W") || IsKeyPressed("GamepadLeftThumbstickUp")))
+                    {
+                        player.Target.AddFromTop(-1000);
+                    }
 
-                if (gameObject.HasTag("controllable") && (IsKeyPressed("W") || IsKeyPressed("GamepadLeftThumbstickUp")))
-                {
-                    gameObject.AddFromTop((float)0 - (float)((delta) * 0.05));
-                }
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("D") || IsKeyPressed("GamepadLeftThumbstickRight")))
+                    {
+                        player.Target.AddFromLeft(1000);
+                    }
 
-                if (gameObject.HasTag("controllable") && (IsKeyPressed("D") || IsKeyPressed("GamepadLeftThumbstickRight")))
-                {
-                    gameObject.AddFromLeft((float)((delta) * 0.05));
-                }
-
-                if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
-                {
-                    gameObject.AddFromLeft((float)0 - (float)((delta) * 0.05));
+                    if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
+                    {
+                        player.Target.AddFromLeft(-1000);
+                    }
                 }
 
                 //On tick
@@ -301,6 +301,15 @@ namespace UWPTestApp
                     if (gameObject.IsColliding(gameObjectCheck))
                     {
                         gameObject.CollitionEffect(gameObjectCheck);
+                    }
+                }
+
+                //Check if gameobjects want to be destoryed
+                foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                {
+                    if (gameObjectCheck.HasTag("destroyed"))
+                    {
+                        gameObjects.Remove(gameObjectCheck);
                     }
                 }
             }
