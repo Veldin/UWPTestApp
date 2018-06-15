@@ -63,6 +63,9 @@ namespace UWPTestApp
 			
             scenes = new List<Scene>();
 
+            music = true;
+            effects = true;
+
             //Add the first scene
             scenes.Add(
                 new Scene(new List<GameObject>
@@ -332,11 +335,15 @@ namespace UWPTestApp
             {
                 if (music)
                 {
-                    muteMusic();
+                    MainPage.Current.muteMusic();
+                    soundController.muteMusic();
+                    music = false;
                 }
                 else
                 {
-                    unmuteMusic();
+                    MainPage.Current.unmuteMusic();
+                    soundController.unMuteMusic();
+                    music = true;
                 }
                 Task.Delay(300).Wait();
             }
@@ -345,11 +352,15 @@ namespace UWPTestApp
             {
                 if (effects)
                 {
-                    muteEffect();
+                    MainPage.Current.muteEffect();
+                    soundController.muteSFX();
+                    effects = false;
                 }
                 else
                 {
-                    unmuteEffect();
+                    MainPage.Current.unmuteEffect();
+                    soundController.unMuteSFX();
+                    effects = true;
                 }
                 Task.Delay(300).Wait();
             }
@@ -495,35 +506,6 @@ namespace UWPTestApp
         {
             return pressedKeys.Contains(virtualKey);
         }
-
-        public Boolean muteMusic()
-        { 
-            MainPage.Current.muteMusic();
-            music = false;
-            return music;
-        }
-
-        public Boolean unmuteMusic()
-        {
-            MainPage.Current.unmuteMusic();
-            music = true;
-            return music;
-        }
-
-        public Boolean muteEffect()
-        {
-            MainPage.Current.muteEffect();
-            effects = false;
-            return effects;
-        }
-
-        public Boolean unmuteEffect()
-        {
-            MainPage.Current.unmuteEffect();
-            effects = true;
-            return effects;
-        }
-
     }
 }
  

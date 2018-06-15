@@ -132,14 +132,24 @@ namespace EindopdrachtUWP.Classes
 
         public void muteMusic()
         {
-            mutedMusic = true;
-            soundTrack.Pause();
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    mutedMusic = true;
+                    soundTrack.Pause();
+                }
+            );
         }
 
         public void unMuteMusic()
         {
-            mutedMusic = false;
-            soundTrack.Play();
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    mutedMusic = false;
+                    soundTrack.Play();
+                }
+            );
         }
         private void SoundTrackEnded(object sender, RoutedEventArgs e)
         {
