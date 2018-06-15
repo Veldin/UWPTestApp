@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
@@ -28,19 +29,26 @@ namespace EindopdrachtUWP.Classes.Weapons
         public HomersBullets()
         {
             // constructor for the HomersBullets class
-            name = "HomersBullets";
-            description = "The HomersBullet is a bullet that follows it's target";
+            name = "Homers Bullets";
+            description = "The Homers Bullet is a bullet that follows it's target. D'OH!";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 1;
-            damage = 120;
-            fireTime = 1.5f;
-            critChance = 0.1;
-            critMultiplier = 2;
+            clipMax = 10;
+            damage = 150;
+            accuracy = 0;
+            fireTime = 1000;
+            critChance = 0.2;
+            critMultiplier = 1.5;
             weaponLevel = 1;
-            reloadTime = 5;
+            reloadTime = 2000;
             tags = new List<string>();
             AddTag("homing");
+            shotSound = "Weapon_Sounds\\Homers_Bullets_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -65,7 +73,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 currentClip--;
                 ableToFire = false;
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }
@@ -113,7 +121,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 5;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)

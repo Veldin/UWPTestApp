@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
@@ -28,18 +29,24 @@ namespace EindopdrachtUWP.Classes.Weapons
         public FlameThrower()
         {
             // constructor for the FlameThrower class
-            name = "FlameThrower";
-            description = "The FlameThrower is a strong weapon that shoots out burning hot flames";
+            name = "Flame Thrower";
+            description = "The Flame Thrower is a strong weapon that shoots out burning hot flames";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 50;
-            damage = 10;
-            fireTime = 0.01f;
-            critChance = 0.1;
+            clipMax = 100;
+            damage = 20;
+            accuracy = 2;
+            fireTime = 100;
+            critChance = 0.05;
             critMultiplier = 1.5;
             weaponLevel = 1;
-            reloadTime = 1;
+            reloadTime = 3000;
             shotSound = "Weapon_Sounds\\Flamethrower_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -62,7 +69,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 currentClip--;
                 ableToFire = false;
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }
@@ -110,7 +117,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 1;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)

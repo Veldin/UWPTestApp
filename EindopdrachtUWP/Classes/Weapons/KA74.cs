@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public float fireTimer { get; set; }
         public double critChance { get; set; }
@@ -31,17 +32,23 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // constructor for the KA74 class
             name = "KA74";
-            description = "The KA74 is a strong short ranged weapon, also known as a shotgun";
+            description = "The KA74 is a strong ranged machine gun, also known as the Kalasjnikov";
             currentClip = 0;
             clipAmount = 0;
             clipMax = 30;
-            damage = 30;
-            fireTime = 0.1f;
-            critChance = 0.1;
-            critMultiplier = 1.5;
+            damage = 50;
+            accuracy = 1;
+            fireTime = 100;
+            critChance = 0.05;
+            critMultiplier = 1.25;
             weaponLevel = 1;
-            reloadTime = 1.5f;
+            reloadTime = 1000;
             shotSound = "Weapon_Sounds\\KA74_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -64,10 +71,8 @@ namespace EindopdrachtUWP.Classes.Weapons
                 gameObjects.Add(new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
                 ableToFire = false;
-
-
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }
@@ -115,7 +120,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 2;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 5;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)
