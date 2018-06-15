@@ -97,7 +97,6 @@
     </Compile>
     <Compile Include="Classes\Pickup.cs" />
     <Compile Include="Classes\Weapons\ArrivaGun.cs" />
-    <Compile Include="Classes\AssetManager.cs" />
     <Compile Include="Classes\Weapons\Batarang.cs" />
     <Compile Include="Classes\Weapons\BulletBill.cs" />
     <Compile Include="Classes\Weapons\DessertBeagle.cs" />

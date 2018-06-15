@@ -39,7 +39,6 @@ namespace UWPTestApp
 
 
         private CanvasBitmap _playerBitmap;
-        private object assetManager;
 
         private SoundController soundController;
 
@@ -169,7 +168,6 @@ namespace UWPTestApp
             scenes.Add(
                 new Scene(new List<GameObject>
                 {
-
                 })    
             );
 
@@ -364,7 +362,15 @@ namespace UWPTestApp
             //Load the sprite in this canvasControl so it is usable later
             foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
-                if (gameObject.Sprite == null)
+                if (gameObject is Wall)
+                {
+
+                }
+                else if(gameObject is Projectile)
+                {
+
+                }
+                else if (gameObject.Sprite == null)
                 {
                     gameObject.CreateResourcesAsync(sender);
                 }
@@ -386,19 +392,19 @@ namespace UWPTestApp
                 }
             }
 
-            //DRAWING THE HITBOXES 
-            //Draw all the gameObjects CURRENTLY in the Arraylist.
-            //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
-            {
+            ////DRAWING THE HITBOXES 
+            ////Draw all the gameObjects CURRENTLY in the Arraylist.
+            ////The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
+            //foreach (GameObject gameObject in new ArrayList(gameObjects))
+            //{
 
-                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
-                args.DrawingSession.DrawRectangle(
-                    new Windows.Foundation.Rect(gameObject.FromLeft, gameObject.FromTop, gameObject.Width, gameObject.Height),
-                    Colors.Red
-                );
+            //    //new Rect Initializes a struct that has the specified from left, from top, width, and height.
+            //    args.DrawingSession.DrawRectangle(
+            //        new Windows.Foundation.Rect(gameObject.FromLeft, gameObject.FromTop, gameObject.Width, gameObject.Height),
+            //        Colors.Red
+            //    );
 
-            }
+            //}
 
            // if (_playerBitmap != null)
            // {
