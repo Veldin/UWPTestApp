@@ -94,7 +94,6 @@ namespace UWPTestApp
             selectNextWeaponDelay = selectNextWeaponDelayMax;
             return activeWeapon.name;
         }
-        //
 
         public void IncreaseHealth(int amount)
         {
