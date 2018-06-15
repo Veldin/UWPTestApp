@@ -1,4 +1,5 @@
-﻿using EindopdrachtUWP.Classes;
+﻿using EindopdrachtUWP;
+using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
@@ -37,6 +38,9 @@ namespace UWPTestApp
         private float fps;  //The set FPS limit
         private float interfal; //Interfal that gets calculated based on the fps
 
+        private Boolean music;
+        private Boolean effects;
+
 
         private CanvasBitmap _playerBitmap;
 
@@ -50,13 +54,12 @@ namespace UWPTestApp
 
             soundController = new SoundController();
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
-
+            
             foreach (Weapon weapon in player.GetWeapons())
             {
                 soundController.AddSound(weapon.shotSound);
             }
             
-
             scenes = new List<Scene>();
 
             //Add the first scene
@@ -171,7 +174,7 @@ namespace UWPTestApp
             scenes.Add(
                 new Scene(new List<GameObject>
                 {
-                })    
+                })
             );
 
             pressedKeys = new HashSet<String>();
@@ -300,7 +303,7 @@ namespace UWPTestApp
                     if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
                     {
                         player.Target.AddFromLeft(-1000);
-                    }
+                    }                    
                 }
 
                 //On tick
@@ -323,6 +326,31 @@ namespace UWPTestApp
                         gameObjects.Remove(gameObjectCheck);
                     }
                 }
+            }
+            if ((IsKeyPressed("B") || IsKeyPressed("GamepadB")))
+            {
+                if (music)
+                {
+                    muteMusic();
+                }
+                else
+                {
+                    unmuteMusic();
+                }
+                Task.Delay(300).Wait();
+            }
+
+            if ((IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
+            {
+                if (effects)
+                {
+                    muteEffect();
+                }
+                else
+                {
+                    unmuteEffect();
+                }
+                Task.Delay(300).Wait();
             }
         }
 
@@ -460,6 +488,34 @@ namespace UWPTestApp
         public Boolean IsKeyPressed(String virtualKey)
         {
             return pressedKeys.Contains(virtualKey);
+        }
+
+        public Boolean muteMusic()
+        { 
+            MainPage.Current.muteMusic();
+            music = false;
+            return music;
+        }
+
+        public Boolean unmuteMusic()
+        {
+            MainPage.Current.unmuteMusic();
+            music = true;
+            return music;
+        }
+
+        public Boolean muteEffect()
+        {
+            MainPage.Current.muteEffect();
+            effects = false;
+            return effects;
+        }
+
+        public Boolean unmuteEffect()
+        {
+            MainPage.Current.unmuteEffect();
+            effects = true;
+            return effects;
         }
 
     }
