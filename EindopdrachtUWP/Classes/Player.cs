@@ -44,15 +44,15 @@ namespace UWPTestApp
             weapons = new List<Weapon>();
 
             weapons.Add(new DessertBeagle());
-            weapons.Add(new BulletBill());
-            weapons.Add(new ArrivaGun());
-            weapons.Add(new Batarang());
-            weapons.Add(new FlameThrower());
-            weapons.Add(new HomersBullets());
             weapons.Add(new KA74());
             weapons.Add(new Knettergun());
             weapons.Add(new UWP());
+            weapons.Add(new FlameThrower());
             weapons.Add(new VLEKKannon());
+            weapons.Add(new BulletBill());
+            weapons.Add(new ArrivaGun());
+            weapons.Add(new Batarang());
+            weapons.Add(new HomersBullets());
 
             activeWeapon = weapons[0];
 
