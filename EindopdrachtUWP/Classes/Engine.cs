@@ -46,18 +46,21 @@ namespace UWPTestApp
 
         private SoundController soundController;
 
-        private KA74 ka74;
+        private Player player;
 
         public Engine()
         {
             gameObjects = new List<GameObject>();
 
             soundController = new SoundController();
-            ka74 = new KA74();
-
-            soundController.AddSound(ka74.shotSound);
-            soundController.LoadAllSounds();
-
+			
+            player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
+            
+            foreach (Weapon weapon in player.GetWeapons())
+            {
+                soundController.AddSound(weapon.shotSound);
+            }
+			
             scenes = new List<Scene>();
 
             //Add the first scene
@@ -164,7 +167,8 @@ namespace UWPTestApp
                     new Wall(2, 2, 504, 435, 0, 0, 0, 0),
                     new Wall(2, 2, 619, 435, 0, 0, 0, 0),
 
-                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000)
+                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000),
+                    new Pickup(10, 10, 213, 99, 1, Pickup.AmmunitionDessertBeagle)
                 })
             );
 
@@ -178,7 +182,8 @@ namespace UWPTestApp
 
             //Load some objects in the game without the use of a scene!
             //width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
-            gameObjects.Add(new Player(15, 15, 656, 312, 0, 0, 0, 0));
+            
+            gameObjects.Add(player);
             gameObjects[0].AddTag("controllable");  //Make the wall controllable
 
             LoadScene(0);
@@ -253,22 +258,31 @@ namespace UWPTestApp
 
                     if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
                     {
-                        player.Fire("Right", gameObjects);
+                        if (player.Fire("Right", gameObjects))
+                        {
+                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                        }
                     }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
+                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
                     {
-                        player.Fire("Top", gameObjects); ;
+                        if (player.Fire("Top", gameObjects))
+                        {
+                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                        }
                     }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
+                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
                     {
-                        player.Fire("Bottom", gameObjects);
+                        if (player.Fire("Bottom", gameObjects))
+                        {
+                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                        }
                     }
-
-                    if (gameObject.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
+                    else if (gameObject.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
                     {
-                        player.Fire("Left", gameObjects);
+                        if (player.Fire("Left", gameObjects))
+                        {
+                            soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                        }
                     }
                 
                     //Handle Input (Not only the player might be controlable)
@@ -457,6 +471,18 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
+            if (virtualKey.Equals("M"))
+            {
+                if (soundController.mutedMusic)
+                {
+                    soundController.unMuteMusic();
+                }
+                else
+                {
+                    soundController.muteMusic();
+                }
+                
+            }
         }
 
         public void KeyUp(String virtualKey)
