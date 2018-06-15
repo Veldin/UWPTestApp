@@ -39,8 +39,8 @@ namespace UWPTestApp
         protected float fromLeftDrawOffset;
         protected float fromTopDrawOffset;
 
-        private CanvasBitmap sprite;
-        private String location;
+        protected CanvasBitmap sprite;
+        protected String location;
 
         public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {

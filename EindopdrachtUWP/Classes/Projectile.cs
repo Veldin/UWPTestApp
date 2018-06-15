@@ -35,6 +35,7 @@ public class Projectile : GameObject, MovableObject
             {
                 enemy.AddLifePoints(damage * -1);
 
+                enemy.AddTag("splatter");
                 AddTag("destroyed");
                 return true;
             }

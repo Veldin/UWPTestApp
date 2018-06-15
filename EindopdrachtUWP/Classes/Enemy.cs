@@ -24,7 +24,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         AddTag("solid");
 
         //Default movespeed and lifePoints are both 300. They can be set later on.
-        movementSpeed = 450;
+        movementSpeed = 350;
         lifePoints = 300;
 
         this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
@@ -261,7 +261,41 @@ public class Enemy : GameObject, MovableObject, Targetable
         //Check dead
         if (lifePoints < 0)
         {
+            Random random = new Random();
+
+            int randomPositionOffsetOne = 0;
+            int randomPositionOffsetTwo = 0;
+
+            int randomSizeOffset = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                randomPositionOffsetOne = random.Next((int)width * -1, (int)width);
+                randomPositionOffsetTwo = random.Next((int)width * -1, (int)width);
+
+                randomSizeOffset = random.Next(((int)width * 75 / 100), ((int)width));
+
+                gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
+
+            }
+
+            //gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffset, fromTop + (height / 2) + randomPositionOffset));
+            this.RemoveTag("splatter");
+
+
             AddTag("destroyed");
+        }
+
+        //Generate a splatter
+        if (HasTag("splatter"))
+        {
+            Random random = new Random();
+            int randomPositionOffsetOne = random.Next((int)width * -1, (int)width);
+            int randomPositionOffsetTwo = random.Next((int)width * -1, (int)width);
+            int randomSizeOffset = random.Next(((int)width * 75 / 100), ((int)width));
+
+            gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
+            this.RemoveTag("splatter");
         }
 
         return true;
