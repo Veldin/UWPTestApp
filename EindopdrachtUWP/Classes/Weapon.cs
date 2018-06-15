@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes
         int currentClip { get; set; }
         int clipAmount { get; set; }
         int clipMax { get; set; }
-        int damage { get; set; }
+        float damage { get; set; }
+        float accuracy { get; set; }
         float fireTime { get; set; }
         double critChance { get; set; }
         double critMultiplier { get; set; }

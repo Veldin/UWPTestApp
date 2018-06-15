@@ -98,7 +98,6 @@
     <Compile Include="Classes\Pickup.cs" />
     <Compile Include="Classes\Sound.cs" />
     <Compile Include="Classes\Weapons\ArrivaGun.cs" />
-    <Compile Include="Classes\AssetManager.cs" />
     <Compile Include="Classes\Weapons\Batarang.cs" />
     <Compile Include="Classes\Weapons\BulletBill.cs" />
     <Compile Include="Classes\Weapons\DessertBeagle.cs" />
@@ -208,7 +207,9 @@
     <Content Include="Assets\Sprites\Maps\Map1.png" />
     <Content Include="Assets\Sprites\Maps\Map1.txt" />
     <Content Include="Assets\Sprites\Menu_Sprites\Blood_Check.png" />
+    <Content Include="Assets\Sprites\Menu_Sprites\Complete_Info.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Menu.png" />
+    <Content Include="Assets\Sprites\Menu_Sprites\Splashscreen_Logo.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Ammo_Pickups\Ammo_Pickup_Left.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Ammo_Pickups\Ammo_Pickup_Right.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Ammo_Pickups\Arriva_Gun_Ammo_Left.png" />

@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
@@ -29,17 +30,23 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // constructor for the VLEKKannon class
             name = "VLEKKannon";
-            description = "The VLEKKannon is a strong weapon normally used for anti-air";
+            description = "The VLEKKannon is a strong weapon normally used as anti-air";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 10;
-            damage = 100;
-            fireTime = 1;
-            critChance = 0.2;
-            critMultiplier = 2;
+            clipMax = 25;
+            damage = 75;
+            accuracy = 1;
+            fireTime = 250;
+            critChance = 0.15;
+            critMultiplier = 1.5;
             weaponLevel = 1;
-            reloadTime = 4;
+            reloadTime = 2000;
             shotSound = "Weapon_Sounds\\VLEK_Kannon_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -63,7 +70,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 ableToFire = false;
                 return true;
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }
@@ -112,7 +119,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 5;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 3;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)

@@ -98,26 +98,35 @@ public class Enemy : GameObject, MovableObject, Targetable
     public override Boolean CollitionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid"))
         {
-            //Check collition from the left or right.
-            if ((gameObject.FromLeft + gameObject.Width) >= (FromLeft + Width))
-            {
-                AddFromLeft(-1);
-            }
 
-            if ((gameObject.FromLeft + gameObject.Width) < (FromLeft + Width))
+            //We had this a recursive function first, that fired until there was no collition.
+            //But this made them warp further due to them pushing eachother 
+            int maxCollitions = 9000;
+            while (IsColliding(gameObject) && maxCollitions > 0)
             {
-                AddFromLeft(1);
-            }
+                //Check collition from the left or right.
+                if ((gameObject.FromLeft + gameObject.Width) >= (FromLeft + Width))
+                {
+                    AddFromLeft(-1);
+                }
 
-            //Check collition from top or bottom.
-            if ((gameObject.FromTop + gameObject.Height) >= (FromTop + Height))
-            {
-                AddFromTop(-1);
-            }
+                if ((gameObject.FromLeft + gameObject.Width) < (FromLeft + Width))
+                {
+                    AddFromLeft(1);
+                }
 
-            if ((gameObject.FromTop + gameObject.Height) < (FromTop + Height))
-            {
-                AddFromTop(1);
+                //Check collition from top or bottom.
+                if ((gameObject.FromTop + gameObject.Height) >= (FromTop + Height))
+                {
+                    AddFromTop(-1);
+                }
+
+                if ((gameObject.FromTop + gameObject.Height) < (FromTop + Height))
+                {
+                    AddFromTop(1);
+                }
+
+                maxCollitions--;
             }
         }
 
@@ -246,6 +255,13 @@ public class Enemy : GameObject, MovableObject, Targetable
             //AddFromTop(moveLeftDistance * delta / 1000);
 
             //Debug.WriteLine(" differenceTopPercent: " + (moveTopDistance * delta / 1000) + " - differenceLeftPercent: " + (moveLeftDistance * delta / 1000));
+        }
+
+
+        //Check dead
+        if (lifePoints < 0)
+        {
+            AddTag("destroyed");
         }
 
         return true;

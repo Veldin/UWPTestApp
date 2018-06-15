@@ -12,7 +12,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public int currentClip { get; set; }
         public int clipAmount { get; set; }
         public int clipMax { get; set; }
-        public int damage { get; set; }
+        public float damage { get; set; }
+        public float accuracy { get; set; }
         public float fireTime { get; set; }
         public double critChance { get; set; }
         public double critMultiplier { get; set; }
@@ -28,17 +29,24 @@ namespace EindopdrachtUWP.Classes.Weapons
         public ArrivaGun()
         {
             // constructor for the ArrivaGun class
-            name = "ArrivaGun";
-            description = "The ArrivaGun is a long range weapon which hit all enemies within its path (like a railgun)";
+            name = "Arriva Gun";
+            description = "The Arriva Gun is a long range weapon which hits all enemies in its path (like a railgun)";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 1;
-            damage = 150;
-            fireTime = 2;
-            critChance = 0.2;
+            clipMax = 3;
+            damage = 400;
+            accuracy = 0;
+            fireTime = 5000;
+            critChance = 0.25;
             critMultiplier = 2;
             weaponLevel = 1;
-            reloadTime = 5;
+            reloadTime = 3000;
+            shotSound = "Weapon_Sounds\\Arriva_Gun_Shot1.wav";
+
+            ableToReload = true;
+            ableToFire = true;
+            fireCooldownDelta = 0;
+            reloadCooldownDelta = 0;
         }
 
         public void AddTag(string tag)
@@ -57,12 +65,12 @@ namespace EindopdrachtUWP.Classes.Weapons
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
-                gameObjects.Add(new Projectile(10, 10, fromLeft, fromTop, 0, 0, 0, 0, damage));
+                gameObjects.Add(new Projectile(23, 23, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
                 ableToFire = false;
                 return true;
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }
@@ -111,7 +119,12 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 5;
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
         }
 
         public Boolean OnTick(float delta)

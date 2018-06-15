@@ -29,7 +29,7 @@ namespace UWPTestApp
 
             AddTag("solid");
 
-            walkSpeed = 200;
+            walkSpeed = 300;
             health = 300;
             armor = 0;
             armor = 0;
@@ -55,6 +55,8 @@ namespace UWPTestApp
             weapons.Add(new VLEKKannon());
 
             activeWeapon = weapons[0];
+
+            Target = new Target(FromLeft, FromTop);
         }
 
         //Gun stuff
@@ -206,6 +208,43 @@ namespace UWPTestApp
             }
 			
             activeWeapon.OnTick(delta);
+
+            float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
+            float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);
+
+            float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
+
+            float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
+            float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
+            //totalDifference = differenceTop + differenceLeft;
+            //totalDifferenceAbs = differenceTopAbs + differenceLeftAbs;
+
+            float moveTopDistance = walkSpeed * (differenceTopPercent / 100);
+            float moveLeftDistance = walkSpeed * (differenceLeftPercent / 100);
+
+
+            //Due to players being able to stand in himself only greater then or smaller then need to be checked.
+            if (Target.FromLeft() > FromLeft)
+            {
+                AddFromLeft((moveLeftDistance * delta) / 10000);
+            }
+            else if(Target.FromLeft() < FromLeft) 
+            {
+                AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
+            }
+
+            if (Target.FromTop() > FromTop)
+            {
+                AddFromTop((moveTopDistance * delta) / 10000);
+            }
+            else if(Target.FromTop() < FromTop)
+            {
+                AddFromTop(((moveTopDistance * delta) / 10000) * -1);
+            }
+
+
+            //Reset the target to the current location, So if no buttons are pressed no movement is done
+            Target.SetTarget(fromLeft,fromTop);
 
             return true;
         }
