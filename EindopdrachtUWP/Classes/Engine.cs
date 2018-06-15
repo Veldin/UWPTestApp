@@ -60,7 +60,12 @@ namespace UWPTestApp
             {
                 soundController.AddSound(weapon.shotSound);
             }
-			
+
+            foreach (string sound in Pickup.getSounds())
+            {
+                soundController.AddSound(sound);
+            }
+
             scenes = new List<Scene>();
 
             music = true;
@@ -171,8 +176,7 @@ namespace UWPTestApp
                     new Wall(2, 2, 504, 435, 0, 0, 0, 0),
                     new Wall(2, 2, 619, 435, 0, 0, 0, 0),
 
-                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000),
-                    new Pickup(10, 10, 213, 99, 1, Pickup.AmmunitionDessertBeagle)
+                    new Spawner(10, 10, 213, 99, 0, 0, 0, 0, 3000, 5000)
                 })
             );
 
@@ -334,6 +338,10 @@ namespace UWPTestApp
                     {
                         if (gameObjectCheck.HasTag("destroyed"))
                         {
+                            if (gameObjectCheck is Pickup pickup)
+                            {
+                                soundController.PlaySound(pickup.getPickUpSound());
+                            }
                             gameObjects.Remove(gameObjectCheck);
                         }
                     }
