@@ -1,30 +1,17 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UWPTestApp;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace EindopdrachtUWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
+    public partial class MainPage : Page
     {
+        public static MainPage Current;
         Engine engine;
 
         public MainPage()
@@ -32,6 +19,7 @@ namespace EindopdrachtUWP
             engine = new Engine();
 
             this.InitializeComponent();
+            Current = this;
 
             Debug.WriteLine("MainPage");
 
@@ -39,6 +27,46 @@ namespace EindopdrachtUWP
             Window.Current.CoreWindow.KeyUp += KeyUP;
 
             engine.Run();
+        }
+
+        public void muteMusic()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    musicCheck.Visibility = Visibility.Collapsed;
+                }
+            );
+        }
+
+        public void unmuteMusic()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                musicCheck.Visibility = Visibility.Visible;
+            }
+            );
+        }
+
+        public void muteEffect()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                effectCheck.Visibility = Visibility.Collapsed;
+            }
+            );
+        }
+
+        public void unmuteEffect()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                effectCheck.Visibility = Visibility.Visible;
+            }
+            );
         }
 
         void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
@@ -63,29 +91,6 @@ namespace EindopdrachtUWP
             //Examples to test drawing
             //args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
             //args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
-        }
-    }
-
-    class MyBase
-    {
-        public void MyMethod()
-        {
-            // do something
-            OnMyMethod();
-            // do something
-        }
-
-        protected virtual void OnMyMethod()
-        {
-        }
-    }
-
-
-    class MyInherited : MyBase
-    {
-        protected override void OnMyMethod()
-        {
-            // do something
         }
     }
 }
