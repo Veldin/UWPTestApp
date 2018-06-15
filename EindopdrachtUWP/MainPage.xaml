@@ -21,6 +21,8 @@
 
             <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png"/>
 
+            <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png"/>
+
             <!--<Grid Background="DarkGray" HorizontalAlignment="Center"  Width="400" Height="100" Margin="0,50,0,0" VerticalAlignment="Top" />-->
 
         </Grid>

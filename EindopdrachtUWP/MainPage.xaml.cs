@@ -15,6 +15,8 @@ namespace EindopdrachtUWP
         Engine engine;
         public bool menuScreen;
         public bool infoScreen;
+        public bool aboutScreen;
+        public bool paused;
 
         public MainPage()
         {
@@ -29,8 +31,11 @@ namespace EindopdrachtUWP
             Window.Current.CoreWindow.KeyUp += KeyUP;
 
             info.Visibility = Visibility.Collapsed;
+            about.Visibility = Visibility.Collapsed;
             menuScreen = true;
             infoScreen = false;
+            aboutScreen = false;
+            paused = true;
 
             engine.Run();
         }
@@ -81,9 +86,10 @@ namespace EindopdrachtUWP
             () =>
                 {
                     menu.Visibility = Visibility.Collapsed;
-                    musicCheck.Visibility = Visibility.Collapsed;
-                    effectCheck.Visibility = Visibility.Collapsed;
+                        musicCheck.Visibility = Visibility.Collapsed;
+                        effectCheck.Visibility = Visibility.Collapsed;
                     menuScreen = false;
+                    paused = false;
                 }
             );
         }
@@ -94,9 +100,16 @@ namespace EindopdrachtUWP
             () =>
                 {
                     menu.Visibility = Visibility.Visible;
-                    musicCheck.Visibility = Visibility.Visible;
-                    effectCheck.Visibility = Visibility.Visible;
+                    if (engine.music)
+                    {
+                        musicCheck.Visibility = Visibility.Visible;
+                    }
+                    if (engine.effects)
+                    {
+                        effectCheck.Visibility = Visibility.Visible;
+                    }
                     menuScreen = true;
+                    paused = true;
                 }
             );
         }
@@ -124,6 +137,32 @@ namespace EindopdrachtUWP
                     infoScreen = true;
                     menuScreen = false;
                 }
+            );
+        }
+
+        public void removeAbout()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                menu.Visibility = Visibility.Visible;
+                about.Visibility = Visibility.Collapsed;
+                aboutScreen = false;
+                menuScreen = true;
+            }
+            );
+        }
+
+        public void getAbout()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                about.Visibility = Visibility.Visible;
+                menu.Visibility = Visibility.Collapsed;
+                aboutScreen = true;
+                menuScreen = false;
+            }
             );
         }
 

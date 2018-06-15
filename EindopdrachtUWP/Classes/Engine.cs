@@ -38,10 +38,10 @@ namespace UWPTestApp
         private float fps;  //The set FPS limit
         private float interfal; //Interfal that gets calculated based on the fps
 
-        private Boolean music;
-        private Boolean effects;
+        public Boolean music;
+        public Boolean effects;
 
-        private Boolean pauzed;
+        private Boolean paused;
 
 
         private SoundController soundController;
@@ -65,6 +65,7 @@ namespace UWPTestApp
 
             music = true;
             effects = true;
+            paused = true;
 
             //Add the first scene
             scenes.Add(
@@ -198,7 +199,7 @@ namespace UWPTestApp
             //Set then to the current time to know when we started
             then = Stopwatch.GetTimestamp();
 
-            pauzed = true;
+            paused = true;
         }
 
         //Gets the objects of a scene from the scene list on given index.
@@ -240,12 +241,13 @@ namespace UWPTestApp
 
         private void Logic()
         {
+            paused = MainPage.Current.paused;
             //Check if there are objects in the List to apply logic on
 
             //Apply the logic to all the bameObjects CURRENTLY in the List.
             //The new List makes a copy so the original arraylist can be modivied in this loop
 
-            if (Pauzed == false)
+            if (paused == false)
             {
                 foreach (GameObject gameObject in new List<GameObject>(gameObjects))
                 {
@@ -340,44 +342,15 @@ namespace UWPTestApp
                     if (IsKeyPressed("Escape") || IsKeyPressed("GamepadView"))
                     {
                         MainPage.Current.getMenu();
-                        Pauzed = true;
+                        paused = true;
                         Task.Delay(300).Wait();
                     }
                 }
             }
-        
-
-            if (Pauzed) { 
-                if (IsKeyPressed("B") || IsKeyPressed("GamepadB"))
-                {
-                    if (music)
-                    {
-                        muteMusic();
-                    }
-                    else
-                    {
-                        unmuteMusic();
-                    }
-                    Task.Delay(300).Wait();
-                }
-
-                if (IsKeyPressed("Y") || IsKeyPressed("GamepadY"))
-                {
-                    if (effects)
-                    {
-                        muteEffect();
-                    }
-                    else
-                    {
-                        unmuteEffect();
-                    }
-                    Task.Delay(300).Wait();
-                }
-
-                if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
-                {
-                    MainPage.Current.removeMenu();
-                    pauzed = false;
+            if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
+            {
+                MainPage.Current.removeMenu();
+                paused = false;
             }
             if (MainPage.Current.menuScreen && (IsKeyPressed("B") || IsKeyPressed("GamepadB")))
             {
@@ -393,7 +366,6 @@ namespace UWPTestApp
                     soundController.unMuteMusic();
                     music = true;
                 }
-                Task.Delay(300).Wait();
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
@@ -410,17 +382,29 @@ namespace UWPTestApp
                     soundController.unMuteSFX();
                     effects = true;
                 }
+                Task.Delay(300).Wait();
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
             {
                 MainPage.Current.getInfo();
                 Task.Delay(300).Wait();
-            }else if (MainPage.Current.infoScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            }
+            else if (MainPage.Current.infoScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
             {
                 MainPage.Current.removeInfo();
                 Task.Delay(300).Wait();
             }
+
+            if (MainPage.Current.menuScreen && (IsKeyPressed("X") || IsKeyPressed("GamepadX")))
+            {
+                MainPage.Current.getAbout();
+                Task.Delay(300).Wait();
+            }
+            else if (MainPage.Current.aboutScreen && (IsKeyPressed("X") || IsKeyPressed("GamepadX")))
+            {
+                MainPage.Current.removeAbout();
+                Task.Delay(300).Wait();
             }
         }
 
@@ -522,9 +506,6 @@ namespace UWPTestApp
                 );
 
             }*/
-
-           
-            
         }
 
         public void KeyDown(String virtualKey)
@@ -541,50 +522,6 @@ namespace UWPTestApp
         public Boolean IsKeyPressed(String virtualKey)
         {
             return pressedKeys.Contains(virtualKey);
-        }
-
-        public Boolean muteMusic()
-        { 
-            MainPage.Current.muteMusic();
-            music = false;
-            return music;
-        }
-
-        public Boolean unmuteMusic()
-        {
-            MainPage.Current.unmuteMusic();
-            music = true;
-            return music;
-        }
-
-        public Boolean muteEffect()
-        {
-            MainPage.Current.muteEffect();
-            effects = false;
-            return effects;
-        }
-
-        public Boolean unmuteEffect()
-        {
-            MainPage.Current.unmuteEffect();
-            effects = true;
-            return effects;
-        }
-
-        public Boolean Pauzed
-        {
-            get { return pauzed; }
-            set {
-                if (value) {
-                    MainPage.Current.getMenu();
-                }
-                else
-                {
-                    MainPage.Current.removeMenu();
-                }
-                pauzed = value;
-            }
-            
         }
     }
 }
