@@ -71,10 +71,8 @@ namespace EindopdrachtUWP.Classes.Weapons
                 gameObjects.Add(new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, damage));
                 currentClip--;
                 ableToFire = false;
-
-
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }

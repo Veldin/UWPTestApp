@@ -34,7 +34,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             // constructor for the DessertBeagle class
             name = "Dessert Beagle";
             description = "The Dessert Beagle is a strong handgun, also known as the Desert Eagle";
-            currentClip = 12;
+            currentClip = 0;
             clipAmount = 10;
             clipMax = 12;
             damage = 50;
@@ -46,10 +46,10 @@ namespace EindopdrachtUWP.Classes.Weapons
             reloadTime = 3000;
             shotSound = "Weapon_Sounds\\Dessert_Beagle_Shot1.wav";
 
-            ableToReload = true;
+            ableToReload = false;
             ableToFire = true;
             fireCooldownDelta = 0;
-            reloadCooldownDelta = 0;
+            reloadCooldownDelta = 3000;
         }
 
         public void AddTag(string tag)
@@ -91,7 +91,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 currentClip--;
                 ableToFire = false;
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }

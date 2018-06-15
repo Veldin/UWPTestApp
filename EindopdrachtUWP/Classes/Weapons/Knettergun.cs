@@ -72,7 +72,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 currentClip--;
                 ableToFire = false;
             }
-            if (currentClip == 0)
+            if (ableToReload && currentClip == 0)
             {
                 Reload();
             }
