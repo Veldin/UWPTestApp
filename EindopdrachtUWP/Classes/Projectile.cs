@@ -126,7 +126,7 @@ public class Projectile : GameObject, MovableObject
         if (HasTag("text"))
         {
             AddTag("destroyed");
-            gameObjects.Add(new TextBox(400, 400, fromLeft, fromTop - 20, 0, 0, 0, 0, damage.ToString(), 1000));
+            gameObjects.Add(new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, damage.ToString(), 1000));
         }
 
         return true;
