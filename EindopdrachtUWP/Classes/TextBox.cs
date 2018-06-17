@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
@@ -8,15 +9,20 @@ public class TextBox : GameObject, MovableObject
 {
     private String text;
     private float duration;
+    private float maxDuration;
+
     private float movementSpeed;
     private Color color;
     private int fontSize;
+
+    private int animationOffset;
 
     public TextBox(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, string text = "undefined", float duration = 100)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
         this.text = text;
         this.duration = duration;
+        this.maxDuration = duration;
         this.movementSpeed = 200;
 
         this.fontSize = 12;
@@ -46,6 +52,12 @@ public class TextBox : GameObject, MovableObject
     {
         get { return duration; }
         set { duration = value; }
+    }
+
+    public float MovementSpeed
+    {
+        get { return movementSpeed; }
+        set { movementSpeed = value; }
     }
 
     public int FontSize
@@ -88,12 +100,19 @@ public class TextBox : GameObject, MovableObject
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
         duration -= delta;
+
+        float percentage = ((duration - maxDuration) / maxDuration) * 200;
+
         if (duration < 0)
         {
             AddTag("destroyed");
         }
 
+        Target.AddFromLeft(animationOffset * delta / 1000);
+
         actMovement(delta);
+
+        Target.AddFromLeft(percentage);
 
         //throw new NotImplementedException();
         return true;

@@ -266,16 +266,14 @@ namespace UWPTestApp
                     {
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
                         {
-                            player.selectNextWeapon();
-                            MainPage.Current.nextWeapon();
-                            Task.Delay(150).Wait();
+                            if(player.selectNextWeapon())
+                                MainPage.Current.nextWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
-                            player.selectNextWeapon();
-                            MainPage.Current.nextWeapon();
-                            Task.Delay(150).Wait();
+                            if (player.selectNextWeapon())
+                                MainPage.Current.nextWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
@@ -453,29 +451,7 @@ namespace UWPTestApp
             }
 
 
-            //DRAWING THE SPRITES
-            //Draw all the gameObjects CURRENTLY in the Arraylist.
-            //The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
-            /*
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
-            {
-
-                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
-                args.DrawingSession.DrawRectangle(
-                    new Windows.Foundation.Rect(
-                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
-                        gameObject.FromTop + gameObject.FromTopDrawOffset,
-                        gameObject.Width + gameObject.WidthDrawOffset,
-                        gameObject.Height + gameObject.HeightDrawOffset
-                    ),
-                    Colors.Green
-                );
-
-                //Debug.WriteLine(gameObject.Height + " + " + gameObject.HeightDrawOffset + " = " + (gameObject.Height + gameObject.HeightDrawOffset) );
-            }*/
-
-
-            /* DRAWING THE SPRITES */
+            /* PREPARING THE SPRITES */
             //Load the sprite in this canvasControl so it is usable later
             foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
@@ -493,10 +469,11 @@ namespace UWPTestApp
                 }
             }
 
-            //Draw the loaded sprites on the correct location
+            /* DRAWING THE SPLATTER SPRITES */
+            //Draw the splatter first so all other sprites are drawn upon it. (making the splater apear on the ground)
             foreach (GameObject gameObject in new ArrayList(gameObjects))
             {
-                if (gameObject.Sprite != null)
+                if (gameObject.Sprite != null && gameObject is Splatter)
                 {
                     args.DrawingSession.DrawImage(
                     gameObject.Sprite,
@@ -506,6 +483,59 @@ namespace UWPTestApp
                         gameObject.Width + gameObject.WidthDrawOffset,
                         gameObject.Height + gameObject.HeightDrawOffset
                     ));
+                }
+            }
+
+            /* DRAWING THE OTHER SPRITES */
+            //Draw the loaded sprites on the correct location
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+                if (gameObject.Sprite != null && !(gameObject is Splatter))
+                {
+                    args.DrawingSession.DrawImage(
+                    gameObject.Sprite,
+                    new Rect(
+                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
+                        gameObject.FromTop + gameObject.FromTopDrawOffset,
+                        gameObject.Width + gameObject.WidthDrawOffset,
+                        gameObject.Height + gameObject.HeightDrawOffset
+                    ));
+                }
+            }
+
+            //Drawing Enemy Healthbars
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+
+                Enemy enemy = gameObject as Enemy;
+                if (enemy is Enemy)
+                {
+                    if (enemy.GetLifePoints() < enemy.GetMaxLifePoints())
+                    {
+                        //Calculate the percentage health left
+                        float percentage = 1 + ((enemy.GetLifePoints() - enemy.GetMaxLifePoints()) / enemy.GetMaxLifePoints());
+
+                        if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
+                        //(this also stops devided by 0 errors while the user wont see the health left)
+
+                        args.DrawingSession.FillRectangle(
+                            new Windows.Foundation.Rect(
+                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
+                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            Colors.Red
+                        );
+
+                        args.DrawingSession.FillRectangle(
+                            new Windows.Foundation.Rect(
+                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
+                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            Colors.Green
+                        );
+                    }
                 }
             }
 
@@ -547,7 +577,24 @@ namespace UWPTestApp
                     Colors.Red
                 );
 
-            }*/
+            }
+
+            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            {
+
+                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
+                args.DrawingSession.DrawRectangle(
+                    new Windows.Foundation.Rect(
+                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
+                        gameObject.FromTop + gameObject.FromTopDrawOffset,
+                        gameObject.Width + gameObject.WidthDrawOffset,
+                        gameObject.Height + gameObject.HeightDrawOffset
+                    ),
+                    Colors.Green
+                );
+                
+            }
+            */
         }
 
         public void KeyDown(String virtualKey)
