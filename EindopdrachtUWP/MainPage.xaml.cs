@@ -49,7 +49,7 @@ namespace EindopdrachtUWP
             paused = true;           
 
             weapon = 1;
-            activeweapon.Text = "Dessert Beagle";
+            getWeaponStats();
 
             engine.Run();
         }
@@ -197,6 +197,22 @@ namespace EindopdrachtUWP
             );
         }
 
+        public void getWeaponStats()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                activeweapon.Text = engine.getPlayer().activeWeapon.name;
+                descripton.Text = engine.getPlayer().activeWeapon.description;
+                damage.Text = engine.getPlayer().activeWeapon.damage.ToString();
+                //currentClip.Text = engine.getPlayer().activeWeapon.currentClip.ToString();
+                clipSize.Text = engine.getPlayer().activeWeapon.clipMax.ToString();
+                clipAmount.Text = engine.getPlayer().activeWeapon.clipAmount.ToString();
+                critChance.Text = engine.getPlayer().activeWeapon.critChance.ToString();
+                critMulti.Text = engine.getPlayer().activeWeapon.critMultiplier.ToString();
+            });
+        }
+
         public void nextWeapon()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -248,6 +264,7 @@ namespace EindopdrachtUWP
                 }
             });
             weapon++;
+            getWeaponStats();
         }
 
         public void previousWeapon()
@@ -301,6 +318,7 @@ namespace EindopdrachtUWP
                 }
             });
             weapon--;
+            getWeaponStats();
         }
 
         public void weaponAmmo(string weapon)

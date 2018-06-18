@@ -216,6 +216,11 @@ namespace UWPTestApp
             paused = true;
         }
 
+        public Player getPlayer()
+        {
+            return player;
+        }
+
         //Gets the objects of a scene from the scene list on given index.
         public bool LoadScene(int index)
         {

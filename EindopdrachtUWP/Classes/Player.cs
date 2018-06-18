@@ -24,6 +24,10 @@ namespace UWPTestApp
         private float selectNextWeaponDelay;
         private float selectNextWeaponDelayMax;
 
+        //Gun stuff
+        private List<Weapon> weapons;
+        public Weapon activeWeapon;
+
         private String direction;
 
         public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
@@ -66,10 +70,6 @@ namespace UWPTestApp
 
             Target = new Target(FromLeft, FromTop);
         }
-
-        //Gun stuff
-        private List<Weapon> weapons;
-        private Weapon activeWeapon;
 
         public string getActiveWeaponName()
         {
