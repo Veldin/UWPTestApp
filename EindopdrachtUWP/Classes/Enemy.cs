@@ -78,7 +78,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         return maxLifePoints;
     }
 
-    public void SetPower(int power)
+    public void SetPower(float power)
     {
         this.power = power;
     }
@@ -148,7 +148,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             if (ableToHit)
             {
-                player.IncreaseHealth(damage * -1);
+                player.IncreaseHealth( GetPower() * damage * -1);
                 ableToHit = false;
             }
         }
@@ -324,7 +324,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
             }
             
-            gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
+//            gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
             //gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffset, fromTop + (height / 2) + randomPositionOffset));
             this.RemoveTag("splatter");
 

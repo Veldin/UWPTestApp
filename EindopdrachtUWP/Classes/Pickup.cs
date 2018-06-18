@@ -182,9 +182,6 @@ namespace EindopdrachtUWP.Classes
                 int r = rand.Next(21);
                 switch (r)
                 {
-                    case 0:
-                        type = AmmunitionArrivaGun;
-                        break;
                     case 1:
                         type = AmmunitionBatarang;
                         break;

@@ -13,6 +13,8 @@ namespace UWPTestApp
         private int armor;
         private int level;
 
+        public int Kills { get; set; }
+
         public string DeathSound { get; set; }
         public string MoveSound { get; set; }
 
@@ -38,6 +40,7 @@ namespace UWPTestApp
             armor = 0;
             armor = 0;
             level = 1;
+            Kills = 0;
 
             direction = "Top";
 
