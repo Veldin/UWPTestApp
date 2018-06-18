@@ -168,7 +168,7 @@ namespace UWPTestApp
         {
             this.direction = direction;
 
-            
+            MainPage.Current.UpdateCurrentClip();
             return this.activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction); 
         }
 
