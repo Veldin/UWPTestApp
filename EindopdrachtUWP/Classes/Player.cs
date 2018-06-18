@@ -2,6 +2,7 @@
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UWPTestApp
 {
@@ -88,6 +89,36 @@ namespace UWPTestApp
                 }else if (found)
                 {
                     activeWeapon = selected;
+                    selectNextWeaponDelay = selectNextWeaponDelayMax;
+                    return true;
+                }
+            }
+            activeWeapon = weapons[0];
+
+            selectNextWeaponDelay = selectNextWeaponDelayMax;
+            return true;
+        }
+
+        public Boolean selectPreviousWeapon()
+        {
+            if (selectNextWeaponDelay > 0)
+            {
+                return false;
+            }
+
+            Boolean found = false;
+            for (int i = 0; i < weapons.Count(); i++)
+            {
+                if (activeWeapon == weapons[i])
+                {
+                    if (i - 1 < 0)
+                    {
+                        activeWeapon = weapons[9];
+                    }
+                    else
+                    {
+                        activeWeapon = weapons[i - 1];
+                    }
                     selectNextWeaponDelay = selectNextWeaponDelayMax;
                     return true;
                 }
