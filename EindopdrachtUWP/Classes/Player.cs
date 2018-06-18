@@ -1,4 +1,5 @@
-﻿using EindopdrachtUWP.Classes;
+﻿using EindopdrachtUWP;
+using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
@@ -171,6 +172,7 @@ namespace UWPTestApp
             if (health <= 0)
             {
                 AddTag("destroyed");
+                MainPage.Current.gameover();
             }
 
             selectNextWeaponDelay -= delta;
