@@ -10,7 +10,7 @@ namespace UWPTestApp
     {
         private float walkSpeed;
         private float health;
-        private int armor;
+        private float armor;
         private int level;
 
         public string DeathSound { get; set; }
@@ -133,9 +133,14 @@ namespace UWPTestApp
             health += amount;
         }
 
-        public void IncreaseArmor(int amount)
+        public void IncreaseArmor(float amount)
         {
             armor += amount;
+        }
+
+        public float getArmor()
+        {
+            return armor;
         }
 
         public void IncreaseLevel()

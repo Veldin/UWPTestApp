@@ -148,8 +148,15 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             if (ableToHit)
             {
-                player.IncreaseHealth(damage * -1);
-                ableToHit = false;
+                if (player.getArmor() < 0)
+                {
+                    player.IncreaseHealth(damage * -1);
+                    ableToHit = false;
+                } else
+                {
+                    player.IncreaseArmor(damage * -1);
+                    ableToHit = false;
+                }
             }
         }
 
