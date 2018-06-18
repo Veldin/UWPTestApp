@@ -78,7 +78,8 @@ namespace UWPTestApp
 
                 Enemy enemy = new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10);
                 enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
-
+                enemy.SetLifePoints(475 + ( 25 * playerLevel ) );
+//                enemy.GetMaxLifePoints()
                 gameObjects.Add(enemy);
                 //Spawn an anemy
                 //                gameObjects.Add(new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));

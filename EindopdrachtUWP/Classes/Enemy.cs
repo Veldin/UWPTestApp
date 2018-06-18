@@ -61,7 +61,9 @@ public class Enemy : GameObject, MovableObject, Targetable
     public void SetLifePoints(float life)
     {
         lifePoints = life;
+        maxLifePoints = life;
     }
+    
 
     public void AddLifePoints(float life)
     {
