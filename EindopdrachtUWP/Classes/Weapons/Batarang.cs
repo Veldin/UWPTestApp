@@ -32,7 +32,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Batarang";
             description = "The Batarang is a throwable weapon which is similar to a boomerang";
             currentClip = 0;
-            clipAmount = 0;
+            clipAmount = 10;
             clipMax = 10;
             damage = 200;
             accuracy = 1;

@@ -130,7 +130,12 @@ public class Projectile : GameObject, MovableObject
         }
 
         return true;
-    }   
+    }
+
+    public void SetLocation(string location)
+    {
+        this.Location = location;
+    }
 
     void MovableObject.SetMovementSpeed(float speed)
     {
