@@ -7,12 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
-    <Border Background="Gray">
-    <Viewbox Stretch="Uniform">
-        <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All"  Margin="-70, 0, -70, 0">
+    <Viewbox Width="1200">
+        <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All"  Margin="55, 0, 150, 0">
             
             <!--Background and drawable Canvas-->
             <Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600" HorizontalAlignment="Center"/>
+            <Border Height="600" Width="60" Background="Gray" Margin="-60,0,0,0" HorizontalAlignment="Left" CornerRadius="5"></Border>
             <Image x:Name="divider_Left" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Left" Margin="-1,0,0,0"/>
             <Image x:Name="divider_Right" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Right" Margin="0,0,-1,0"/>
             <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center"/>
@@ -42,8 +42,32 @@
             
             <!--Weapon Selector-->
             <Image x:Name="selected" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0"/>
-
+            <Grid x:Name="stats" Height="500" Width="200" Background="Gray"  Margin="800,-100,-220,0" CornerRadius="5">
+                <TextBlock Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20,-225,0" FontFamily="Lunchtime Doubly So">
+                    Weapon:
+                </TextBlock>
+                <TextBlock x:Name="activeweapon" Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,50,-225,0" FontFamily="Lunchtime Doubly So"/>
+                <TextBlock Height="30" Width="190" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 80,-225,0" FontFamily="Lunchtime Doubly So">
+                    Damage:
+                </TextBlock>
+                <TextBlock x:Name="damage" Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,110,-225,0" FontFamily="Lunchtime Doubly So"/>
+                <TextBlock Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 140,-225,0" FontFamily="Lunchtime Doubly So">
+                    Maximum clip size:
+                </TextBlock>
+                <TextBlock x:Name="clipSize" Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,170,-225,0" FontFamily="Lunchtime Doubly So"/>
+                <TextBlock Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 200,-225,0" FontFamily="Lunchtime Doubly So">
+                    Amount of clips:
+                </TextBlock>
+                <TextBlock x:Name="clipAmount" Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,230,-225,0" FontFamily="Lunchtime Doubly So"/>
+                <TextBlock Height="40" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 260,-225,0" FontFamily="Lunchtime Doubly So">
+                    Critical strike<LineBreak />chance:
+                </TextBlock>
+                <TextBlock x:Name="critChance" Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,290,-225,0" FontFamily="Lunchtime Doubly So"/>
+                <TextBlock Height="40" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 320,-225,0" FontFamily="Lunchtime Doubly So">
+                    Critical strike<LineBreak />multitplier:
+                </TextBlock>
+                <TextBlock x:Name="critMulti" Height="30" Width="200" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 350,-225,0" FontFamily="Lunchtime Doubly So"/>                    
+            </Grid>            
         </Grid>
     </Viewbox>
-    </Border>
 </Page>

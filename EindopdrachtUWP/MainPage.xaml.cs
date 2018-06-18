@@ -37,6 +37,7 @@ namespace EindopdrachtUWP
 
             info.Opacity = 0;
             about.Opacity = 0;
+            stats.Opacity = 0;
             menuScreen = true;
             infoScreen = false;
             aboutScreen = false;
@@ -96,6 +97,7 @@ namespace EindopdrachtUWP
                     musicCheck.Opacity = 0;
                     effectCheck.Opacity = 0;
                     black.Opacity = 0;
+                    stats.Opacity = 1;
                     menuScreen = false;
                     paused = false;
                 }
@@ -108,6 +110,7 @@ namespace EindopdrachtUWP
             () =>
                 {
                     menu.Opacity = 1;
+                    stats.Opacity = 0;
                     black.Opacity = 0.75;
                     if (engine.music)
                     {
