@@ -189,9 +189,8 @@ namespace UWPTestApp
             if (health <= 0)
             {
                 AddTag("destroyed");
-                MainPage.Current.gameover();
                 MainPage.Current.muteMusic();
-                MainPage.Current.muteEffect();
+                MainPage.Current.gameover();
             }
 
             selectNextWeaponDelay -= delta;

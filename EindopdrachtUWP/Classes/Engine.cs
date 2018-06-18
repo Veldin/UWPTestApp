@@ -209,6 +209,7 @@ namespace UWPTestApp
         }
 
         public Player getPlayer() => player;
+        public SoundController GetSoundController => soundController;
 
         //Gets the objects of a scene from the scene list on given index.
         public bool LoadScene(int index)
@@ -424,13 +425,11 @@ namespace UWPTestApp
                 if (music)
                 {
                     MainPage.Current.muteMusic();
-                    soundController.muteMusic();
                     music = false;
                 }
                 else
                 {
                     MainPage.Current.unmuteMusic();
-                    soundController.unMuteMusic();
                     music = true;
                 }
                 Task.Delay(300).Wait();
@@ -441,13 +440,11 @@ namespace UWPTestApp
                 if (effects)
                 {
                     MainPage.Current.muteEffect();
-                    soundController.muteSFX();
                     effects = false;
                 }
                 else
                 {
                     MainPage.Current.unmuteEffect();
-                    soundController.unMuteSFX();
                     effects = true;
                 }
                 Task.Delay(300).Wait();

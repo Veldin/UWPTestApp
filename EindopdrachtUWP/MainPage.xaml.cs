@@ -81,6 +81,7 @@ namespace EindopdrachtUWP
             () =>
                 {
                     musicCheck.Opacity = 0;
+                    engine.GetSoundController.muteMusic();
                 }
             );
         }
@@ -91,6 +92,7 @@ namespace EindopdrachtUWP
             () =>
                 {
                     musicCheck.Opacity = 1;
+                    engine.GetSoundController.unMuteMusic();
                 }
             );
         }
@@ -101,6 +103,7 @@ namespace EindopdrachtUWP
             () =>
                 {
                     effectCheck.Opacity = 0;
+                    engine.GetSoundController.muteSFX();
                 }
             );
         }
@@ -111,6 +114,7 @@ namespace EindopdrachtUWP
             () =>
                 {
                     effectCheck.Opacity = 1;
+                    engine.GetSoundController.unMuteSFX();
                 }
             );
         }
