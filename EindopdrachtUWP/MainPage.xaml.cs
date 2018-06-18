@@ -29,7 +29,7 @@ namespace EindopdrachtUWP
         {
             engine = new Engine();
 
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
 
             Debug.WriteLine("MainPage");
@@ -230,7 +230,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-               // health.Text = engine.getPlayer().getHealth().ToString();
+               health.Text = engine.getPlayer().getHealth().ToString();
             });
         }
 
@@ -239,7 +239,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                //armour.Text = engine.getPlayer().getArmor().ToString();
+                armour.Text = engine.getPlayer().getArmor().ToString();
             });
         }
 
