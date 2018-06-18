@@ -283,12 +283,14 @@ namespace UWPTestApp
                         {
                             if(player.selectNextWeapon())
                                 MainPage.Current.nextWeapon();
+                            MainPage.Current.UpdateCurrentClip();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
                             if (player.selectPreviousWeapon())
                                 MainPage.Current.previousWeapon();
+                            MainPage.Current.UpdateCurrentClip();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))

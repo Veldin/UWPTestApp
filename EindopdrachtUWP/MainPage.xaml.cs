@@ -20,6 +20,9 @@ namespace EindopdrachtUWP
         public bool aboutScreen;
         public bool paused;
         public bool game_over;
+        public double critPercentage;
+        public double critMultiPercentage;
+        public string clipText;
         public int weapon;
         
 
@@ -50,6 +53,8 @@ namespace EindopdrachtUWP
 
             weapon = 1;
             getWeaponStats();
+            currentClip.Text = "12/12";
+            currentClipRight.Text = "12/12";
 
             engine.Run();
         }
@@ -202,14 +207,26 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
+                
                 activeweapon.Text = engine.getPlayer().activeWeapon.name;
                 descripton.Text = engine.getPlayer().activeWeapon.description;
                 damage.Text = engine.getPlayer().activeWeapon.damage.ToString();
-                //currentClip.Text = engine.getPlayer().activeWeapon.currentClip.ToString();
                 clipSize.Text = engine.getPlayer().activeWeapon.clipMax.ToString();
                 clipAmount.Text = engine.getPlayer().activeWeapon.clipAmount.ToString();
-                critChance.Text = engine.getPlayer().activeWeapon.critChance.ToString();
-                critMulti.Text = engine.getPlayer().activeWeapon.critMultiplier.ToString();
+                critPercentage = engine.getPlayer().activeWeapon.critChance * 100;
+                critChance.Text = critPercentage.ToString() + "%";
+                critMultiPercentage = engine.getPlayer().activeWeapon.critMultiplier * 100;
+                critMulti.Text = critMultiPercentage.ToString() + "%";
+            });
+        }
+
+        public void UpdateCurrentClip()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                currentClip.Text = engine.getPlayer().activeWeapon.currentClip.ToString() + "/" + engine.getPlayer().activeWeapon.clipMax.ToString();
+                currentClipRight.Text = engine.getPlayer().activeWeapon.currentClip.ToString() + "/" + engine.getPlayer().activeWeapon.clipMax.ToString();
             });
         }
 
@@ -222,43 +239,43 @@ namespace EindopdrachtUWP
                 {
                     case 1:
                         selected.Margin = new Thickness(-55, -540, 0, 0);
-                        activeweapon.Text = "Dessert Eagle";
+                        currentClip.Margin = new Thickness(-20, -500, 0, 0);
                         break;
                     case 2:
                         selected.Margin = new Thickness(-55, -420, 0, 0);
-                        activeweapon.Text = "KA74";
+                        currentClip.Margin = new Thickness(-20, -380, 0, 0);
                         break;
                     case 3:
                         selected.Margin = new Thickness(-55, -300, 0, 0);
-                        activeweapon.Text = "Knetter Gun";
+                        currentClip.Margin = new Thickness(-20, -260, 0, 0);
                         break;
                     case 4:
                         selected.Margin = new Thickness(-55, -180, 0, 0);
-                        activeweapon.Text = "UWP";
+                        currentClip.Margin = new Thickness(-20, -120, 0, 0);
                         break;
                     case 5:
                         selected.Margin = new Thickness(-55, -60, 0, 0);
-                        activeweapon.Text = "Flame Thrower";
+                        currentClip.Margin = new Thickness(-20, -20, 0, 0);
                         break;
                     case 6:
                         selected.Margin = new Thickness(-55, 60, 0, 0);
-                        activeweapon.Text = "VLEKKannon";
+                        currentClip.Margin = new Thickness(-20, 100, 0, 0);
                         break;
                     case 7:
                         selected.Margin = new Thickness(-55, 180, 0, 0);
-                        activeweapon.Text = "Bullet Bill";
+                        currentClip.Margin = new Thickness(-20, 220, 0, 0);
                         break;
                     case 8:
                         selected.Margin = new Thickness(-55, 300, 0, 0);
-                        activeweapon.Text = "Arriva Gun";
+                        currentClip.Margin = new Thickness(-20, 340, 0, 0);
                         break;
                     case 9:
                         selected.Margin = new Thickness(-55, 420, 0, 0);
-                        activeweapon.Text = "Batarang";
+                        currentClip.Margin = new Thickness(-20, 460, 0, 0);
                         break;
                     case 10:
                         selected.Margin = new Thickness(-55, 540, 0, 0);
-                        activeweapon.Text = "Homer's Bullets";
+                        currentClip.Margin = new Thickness(-20, 580, 0, 0);
                         weapon = 0;
                         break;
                 }
@@ -276,44 +293,44 @@ namespace EindopdrachtUWP
                 {
                     case 1:
                         selected.Margin = new Thickness(-55, -540, 0, 0);
-                        activeweapon.Text = "Dessert Eagle";
+                        currentClip.Margin = new Thickness(-20, -500, 0, 0);
                         weapon = 11;
                         break;
                     case 2:
                         selected.Margin = new Thickness(-55, -420, 0, 0);
-                        activeweapon.Text = "KA74";
+                        currentClip.Margin = new Thickness(-20, -380, 0, 0);
                         break;
                     case 3:
                         selected.Margin = new Thickness(-55, -300, 0, 0);
-                        activeweapon.Text = "Knetter Gun";
+                        currentClip.Margin = new Thickness(-20, -260, 0, 0);
                         break;
                     case 4:
                         selected.Margin = new Thickness(-55, -180, 0, 0);
-                        activeweapon.Text = "UWP";
+                        currentClip.Margin = new Thickness(-20, -120, 0, 0);
                         break;
                     case 5:
                         selected.Margin = new Thickness(-55, -60, 0, 0);
-                        activeweapon.Text = "Flame Thrower";
+                        currentClip.Margin = new Thickness(-20, -20, 0, 0);
                         break;
                     case 6:
                         selected.Margin = new Thickness(-55, 60, 0, 0);
-                        activeweapon.Text = "VLEKKannon";
+                        currentClip.Margin = new Thickness(-20, 100, 0, 0);
                         break;
                     case 7:
                         selected.Margin = new Thickness(-55, 180, 0, 0);
-                        activeweapon.Text = "Bullet Bill";
+                        currentClip.Margin = new Thickness(-20, 220, 0, 0);
                         break;
                     case 8:
                         selected.Margin = new Thickness(-55, 300, 0, 0);
-                        activeweapon.Text = "Arriva Gun";
+                        currentClip.Margin = new Thickness(-20, 340, 0, 0);
                         break;
                     case 9:
                         selected.Margin = new Thickness(-55, 420, 0, 0);
-                        activeweapon.Text = "Batarang";
+                        currentClip.Margin = new Thickness(-20, 460, 0, 0);
                         break;
                     case 10:
                         selected.Margin = new Thickness(-55, 540, 0, 0);
-                        activeweapon.Text = "Homer's Bullets";
+                        currentClip.Margin = new Thickness(-20, 580, 0, 0);
                         break;
                 }
             });
