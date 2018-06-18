@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UWPTestApp;
-using Windows.UI.Xaml.Controls;
 
 public class Projectile : GameObject, MovableObject
 {
@@ -21,9 +19,9 @@ public class Projectile : GameObject, MovableObject
         this.shotFromLeft = shotFromLeft;
         this.damage = damage;
 
-        this.Target = new Target(shotFromLeft, shotFromTop);
+        Target = new Target(shotFromLeft, shotFromTop);
 
-        this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Top.png";
+        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Top.png";
 
         movementSpeed = 700;
     }
@@ -39,15 +37,18 @@ public class Projectile : GameObject, MovableObject
                 enemy.AddLifePoints(damage * -1);
 
                 enemy.AddTag("splatter");
-                //AddTag("destroyed");
                 AddTag("text");
                 return true;
             }
             return false;
-        } else if (gameObject.HasTag("solid")) {
+        }
+        else if (gameObject.HasTag("solid"))
+        {
             AddTag("destroyed");
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -76,19 +77,8 @@ public class Projectile : GameObject, MovableObject
         return false;
     }
 
-    public float GetShotFromTop()
-    {
-        return shotFromTop;
-    }
-
-    public float GetShotFromLeft()
-    {
-        return shotFromLeft;
-    }
-
     public override Boolean OnTick(List<GameObject> gameObjects, float delta)
     {
-
         float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
         float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);
 
@@ -96,8 +86,6 @@ public class Projectile : GameObject, MovableObject
 
         float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
         float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
-        //totalDifference = differenceTop + differenceLeft;
-        //totalDifferenceAbs = differenceTopAbs + differenceLeftAbs;
 
         float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
         float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
@@ -129,13 +117,12 @@ public class Projectile : GameObject, MovableObject
             AddTag("destroyed");
             gameObjects.Add(new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, damage.ToString(), 1000));
         }
-
         return true;
     }
 
     public void SetLocation(string location)
     {
-        this.Location = location;
+        Location = location;
     }
 
     void MovableObject.SetMovementSpeed(float speed)

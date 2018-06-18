@@ -23,11 +23,8 @@ namespace EindopdrachtUWP.Classes
         float reloadTime { get; set; }
 
         bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction);
-        Boolean RemoveTag(String tag);
-        Boolean HasTag(String tag);
         void AddTag(String tag);
         void Reload();
-        void Display();
         void Upgrade();
         Boolean OnTick(float delta);
     }

@@ -39,7 +39,6 @@ namespace UWPTestApp
             DeathSound = "";
             MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
 
-
             walkSpeed = 300;
             health = 300;
             armor = 0;
@@ -50,8 +49,6 @@ namespace UWPTestApp
             direction = "Top";
 
             selectNextWeaponDelayMax = 1000;
-
-            //this.Location = "Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png";
 
             weapons = new List<Weapon>();
 
@@ -69,11 +66,6 @@ namespace UWPTestApp
             activeWeapon = weapons[0];
 
             Target = new Target(FromLeft, FromTop);
-        }
-
-        public string getActiveWeaponName()
-        {
-            return activeWeapon.name;
         }
 
         public Boolean selectNextWeapon()
@@ -167,9 +159,8 @@ namespace UWPTestApp
         public Boolean Fire(String direction, List<GameObject> gameObjects)
         {
             this.direction = direction;
-
             
-            return this.activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction); 
+            return activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction); 
         }
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
@@ -181,7 +172,6 @@ namespace UWPTestApp
             }
 
             selectNextWeaponDelay -= delta;
-            //activeWeapon.OnTick(delta, delta);
 
             String locationString = "Assets/Sprites/Player_Sprites/";
 
@@ -243,12 +233,9 @@ namespace UWPTestApp
 
             float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
             float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
-            //totalDifference = differenceTop + differenceLeft;
-            //totalDifferenceAbs = differenceTopAbs + differenceLeftAbs;
 
             float moveTopDistance = walkSpeed * (differenceTopPercent / 100);
             float moveLeftDistance = walkSpeed * (differenceLeftPercent / 100);
-
 
             //Due to players being able to stand in himself only greater then or smaller then need to be checked.
             if (Target.FromLeft() > FromLeft)
@@ -269,10 +256,8 @@ namespace UWPTestApp
                 AddFromTop(((moveTopDistance * delta) / 10000) * -1);
             }
 
-
             //Reset the target to the current location, So if no buttons are pressed no movement is done
             Target.SetTarget(fromLeft,fromTop);
-
             return true;
         }
 
@@ -301,20 +286,12 @@ namespace UWPTestApp
                 }
             }
 
-            if (gameObject.HasTag("hostile"))
-            {
-                // PlayHitSound();
-            }
-
-
             //If a player is coliding with an object their collitionEffect is triggered instantly and not after this resolves.
             //This is so the collition of the enemy still goes even thought they are not colliding anymore.
             //This also lets you "push" away your enemies. (Because they act like a solid just apeared in them)
             gameObject.CollitionEffect(this);
-
             return true;
         }
-
 
         float Targetable.FromTop()
         {

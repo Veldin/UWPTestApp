@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace UWPTestApp
 {
@@ -40,34 +39,27 @@ namespace UWPTestApp
         //And Also get the delta for timed events.
         public override Boolean OnTick(List<GameObject> gameObjects, float delta)
         {
-
-
             if (BeginDelta > 0 )
             {
                 BeginDelta = (BeginDelta - delta);
-
                 return true;
             }
 
             if (remainingCooldownDelta - delta < 0)
             {
-
                 int playerLevel = 1;
                 foreach (GameObject go in gameObjects)
                 {
                     if (go is Player player)
                     {
                         playerLevel = player.GetLevel();
-
                         break;
                     }
                 }
-//                RemainingCooldownDelta = cooldownDelta;
 
                 RemainingCooldownDelta = (cooldownDelta / playerLevel);
                 if (RemainingCooldownDelta < 1000) remainingCooldownDelta++;
-
-
+                
                 //Spawn a gameobject!
                 float spawnSizeWidth = 15;
                 float spawnSizeHight = 15;
@@ -79,18 +71,12 @@ namespace UWPTestApp
                 Enemy enemy = new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10);
                 enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
                 enemy.SetLifePoints(475 + ( 25 * playerLevel ) );
-//                enemy.GetMaxLifePoints()
                 gameObjects.Add(enemy);
-                //Spawn an anemy
-                //                gameObjects.Add(new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));
-
-
             }
             else
             {
                 RemainingCooldownDelta = remainingCooldownDelta - delta;
             }
-
             return true;
         }
 

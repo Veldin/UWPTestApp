@@ -1,30 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.Media;
 
 namespace EindopdrachtUWP.Classes
 {
-
-
     class SoundController
     {
         private Dictionary<string, Sound> sounds;
 
         MediaElement soundTrack = new MediaElement();
-//        private Dictionary<string, MediaElement> sounds;
-
-
-        //ElementSoundPlayer player = new ElementSoundPlayer();
+        
         public bool mutedSFX = false;
         public bool mutedMusic = false;
-
 
         public SoundController()
         {
@@ -34,9 +24,7 @@ namespace EindopdrachtUWP.Classes
             soundTrack.Volume = 0.3;
             LoadSound("Soundtrack\\Soundtrack.wav", soundTrack);
             soundTrack.MediaEnded += SoundTrackEnded;
-            
         }
-
 
         public void AddSound(string sound, double volume = 0.8)
         {
@@ -60,7 +48,6 @@ namespace EindopdrachtUWP.Classes
             LoadSound(sound, s.secondSound);
             s.firstSound.MediaFailed += FailedLoadingMedia;
             s.secondSound.MediaFailed += FailedLoadingMedia;
-
         }
 
         private void FailedLoadingMedia(object sender, ExceptionRoutedEventArgs e)
@@ -72,7 +59,7 @@ namespace EindopdrachtUWP.Classes
         public void PlaySound(string sound)
         {
             if (mutedSFX) return;
-            if(sounds.ContainsKey(sound))
+            if (sounds.ContainsKey(sound))
             {
                 Sound toPlay = sounds[sound];
                 if (toPlay.playFirst)
@@ -85,16 +72,7 @@ namespace EindopdrachtUWP.Classes
                 }
                 toPlay.playFirst = !toPlay.playFirst;
             }
-
         }
-
-        //public void LoadAllSounds()
-        //{
-        //    foreach (KeyValuePair<string, MediaElement> sound in sounds)
-        //    {
-        //    }
-        //}
-
 
         // Must be in another method (because of async)
         private async void LoadSound(String filename, MediaElement sound)
@@ -115,7 +93,6 @@ namespace EindopdrachtUWP.Classes
                     sound.Position = new TimeSpan(0);
                     sound.Play();
                 });
-
             }
             catch (Exception e)
             {

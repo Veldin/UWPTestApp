@@ -1,8 +1,5 @@
 ﻿using EindopdrachtUWP;
 using EindopdrachtUWP.Classes;
-using EindopdrachtUWP.Classes.Weapons;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Text;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
@@ -190,16 +187,7 @@ namespace UWPTestApp
                 })
             );
 
-            scenes.Add(
-                new Scene(new List<GameObject>
-                {
-                })
-            );
-
             pressedKeys = new HashSet<String>();
-
-            //Load some objects in the game without the use of a scene!
-            //width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
             
             gameObjects.Add(player);
             gameObjects[0].AddTag("controllable");  //Make the wall controllable
@@ -216,10 +204,7 @@ namespace UWPTestApp
             paused = true;
         }
 
-        public Player getPlayer()
-        {
-            return player;
-        }
+        public Player getPlayer() => player;
 
         //Gets the objects of a scene from the scene list on given index.
         public bool LoadScene(int index)
@@ -253,25 +238,20 @@ namespace UWPTestApp
                     Draw();
                 }
             }
-
             Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
             Task.Run(() => Run());  //Schedule new Run() task
         }
 
-
         private void Logic()
         {
             paused = MainPage.Current.paused;
-            //Check if there are objects in the List to apply logic on
-
-            //Apply the logic to all the bameObjects CURRENTLY in the List.
-            //The new List makes a copy so the original arraylist can be modivied in this loop
-
             if (paused == false && !MainPage.Current.game_over)
             {
+                //Check if there are objects in the List to apply logic on
+                //Apply the logic to all the bameObjects CURRENTLY in the List.
+                //The new List makes a copy so the original arraylist can be modivied in this loop
                 foreach (GameObject gameObject in new List<GameObject>(gameObjects))
                 {
-
                     //Handle player input
                     Player player = gameObject as Player;
                     if (player is Player)
@@ -316,7 +296,6 @@ namespace UWPTestApp
                                 soundController.PlaySound(player.GetActiveWeapon().shotSound);
                             }
                         }
-
 
                         player.IsWalking = false;
                         //Handle Input (Not only the player might be controlable)
@@ -412,11 +391,13 @@ namespace UWPTestApp
                     }
                 }
             }
+
             if (MainPage.Current.menuScreen && (IsKeyPressed("A") || IsKeyPressed("GamepadA")))
             {
                 MainPage.Current.removeMenu();
                 paused = false;
             }
+
             if (MainPage.Current.menuScreen && (IsKeyPressed("B") || IsKeyPressed("GamepadB")))
             {
                 if (music)
@@ -451,12 +432,9 @@ namespace UWPTestApp
                 Task.Delay(300).Wait();
             }
 
-            if (MainPage.Current.game_over)
+            if (MainPage.Current.game_over && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
             {
-                if (IsKeyPressed("Space") || IsKeyPressed("GamepadView"))
-                {
-                    CoreApplication.RequestRestartAsync("");
-                }
+                CoreApplication.RequestRestartAsync("");
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
@@ -485,7 +463,7 @@ namespace UWPTestApp
         //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
         private void Draw()
         {
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>{
                 canvasControl.Invalidate();
             });
@@ -496,13 +474,6 @@ namespace UWPTestApp
             //Set the canvasControl that called this method so we know what to Invalidate later.
             canvasControl = sender;
 
-            //Draw the frame on this DrawingSession.
-            //args.DrawingSession.DrawEllipse(delta / 10, delta / 10, 80, 30, Colors.Black, 3);
-
-            //Uri imageuri = new Uri("ms-appx:///Assets/HelloMyNameIs.jpg");
-            //BitmapImage bmp = new BitmapImage(new Uri("ms-appx:///[project-name]/Assets/image.jpg"));
-
-
             //Check if there are objects in the arraylist to draw
             if (gameObjects.Count < 1)
             {
@@ -512,7 +483,8 @@ namespace UWPTestApp
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
             ArrayList loopList; 
-            lock (gameObjects) { //lock the gameobjects for duplication
+            lock (gameObjects) //lock the gameobjects for duplication
+            { 
                 try
                 {
                     //Try to duplicate the arraylist.
@@ -529,17 +501,8 @@ namespace UWPTestApp
             //Load the sprite in this canvasControl so it is usable later
             foreach (GameObject gameObject in loopList)
             {
-                if (gameObject is Wall)
+                if (gameObject.Sprite == null)
                 {
-
-                }
-                else if (gameObject is TextBox)
-                {
-                      
-                }
-                else if (gameObject.Sprite == null)
-                {
-                    
                     gameObject.CreateResourcesAsync(sender);
                 }
             }
@@ -581,7 +544,6 @@ namespace UWPTestApp
             //Drawing Enemy Healthbars
             foreach (GameObject gameObject in loopList)
             {
-
                 Enemy enemy = gameObject as Enemy;
                 if (enemy is Enemy)
                 {
@@ -614,10 +576,9 @@ namespace UWPTestApp
                 }
             }
 
-            //Drawing textBoxesz
+            //Drawing textBoxes
             foreach (GameObject gameObject in loopList)
             {
-
                 TextBox textBox = gameObject as TextBox;
                 if (textBox is TextBox)
                 {
@@ -638,38 +599,6 @@ namespace UWPTestApp
                     );
                 }
             }
-
-            ////DRAWING THE HITBOXES 
-            ////Draw all the gameObjects CURRENTLY in the Arraylist.
-            ////The new ArrayList makes a copy so the original arraylist can be modivied while this is looping.
-            /*
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
-            {
-
-                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
-                args.DrawingSession.DrawRectangle(
-                    new Windows.Foundation.Rect(gameObject.FromLeft, gameObject.FromTop, gameObject.Width, gameObject.Height),
-                    Colors.Red
-                );
-
-            }
-
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
-            {
-
-                //new Rect Initializes a struct that has the specified from left, from top, width, and height.
-                args.DrawingSession.DrawRectangle(
-                    new Windows.Foundation.Rect(
-                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
-                        gameObject.FromTop + gameObject.FromTopDrawOffset,
-                        gameObject.Width + gameObject.WidthDrawOffset,
-                        gameObject.Height + gameObject.HeightDrawOffset
-                    ),
-                    Colors.Green
-                );
-                
-            }
-            */
         }
 
         public void KeyDown(String virtualKey)
@@ -679,7 +608,6 @@ namespace UWPTestApp
 
         public void KeyUp(String virtualKey)
         {
-            //Debug.WriteLine(virtualKey);
             pressedKeys.Remove(virtualKey);
         }
 

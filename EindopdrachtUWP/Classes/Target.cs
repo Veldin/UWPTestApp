@@ -1,7 +1,4 @@
-﻿using System;
-using UWPTestApp;
-
-public class Target
+﻿public class Target
 {
     public float fromTop;
     public float fromLeft;
@@ -66,7 +63,4 @@ public class Target
         }
         return target.FromLeft();
     }
-
-
-
 }

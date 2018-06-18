@@ -1,84 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI;
-using Windows.UI.Xaml.Controls;
 
 public class TextBox : GameObject, MovableObject
 {
-    private String text;
-    private float duration;
     private float maxDuration;
-
-    private float movementSpeed;
-    private Color color;
-    private int fontSize;
-
     private int animationOffset;
 
     public TextBox(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, string text = "undefined", float duration = 100)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
-        this.text = text;
-        this.duration = duration;
-        this.maxDuration = duration;
-        this.movementSpeed = 200;
+        Text = text;
+        Duration = duration;
+        maxDuration = duration;
+        MovementSpeed = 200;
 
-        this.fontSize = 12;
-        this.color = Colors.White;
+        FontSize = 12;
+        Color = Colors.White;
 
-        this.Target = new Target(fromLeft, fromTop - 1000);
+        Target = new Target(fromLeft, fromTop - 1000);
     }
 
     void MovableObject.SetMovementSpeed(float speed)
     {
-        movementSpeed = speed;
+        MovementSpeed = speed;
     }
 
     float MovableObject.GetMovementSpeed()
     {
-        return movementSpeed;
+        return MovementSpeed;
     }
 
+    public String Text { get; set; }
 
-    public String Text
-    {
-        get { return text; }
-        set { text = value; }
-    }
+    public float Duration { get; set; }
 
-    public float Duration
-    {
-        get { return duration; }
-        set { duration = value; }
-    }
+    public float MovementSpeed { get; set; }
 
-    public float MovementSpeed
-    {
-        get { return movementSpeed; }
-        set { movementSpeed = value; }
-    }
+    public int FontSize { get; set; }
 
-    public int FontSize
-    {
-        get { return fontSize; }
-        set { fontSize = value; }
-    }
+    public Color Color { get; set; }
 
-    public Color Color
-    {
-        get { return color; }
-        set { color = value; }
-    }
-    
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
-        duration -= delta;
+        Duration -= delta;
 
-        float percentage = ((duration - maxDuration) / maxDuration) * 200;
+        float percentage = ((Duration - maxDuration) / maxDuration) * 200;
 
-        if (duration < 0)
+        if (Duration < 0)
         {
             AddTag("destroyed");
         }
@@ -89,7 +59,6 @@ public class TextBox : GameObject, MovableObject
 
         Target.AddFromLeft(percentage);
 
-        //throw new NotImplementedException();
         return true;
     }
 
@@ -102,12 +71,9 @@ public class TextBox : GameObject, MovableObject
 
         float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
         float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
-        //totalDifference = differenceTop + differenceLeft;
-        //totalDifferenceAbs = differenceTopAbs + differenceLeftAbs;
 
-        float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
-        float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
-
+        float moveTopDistance = MovementSpeed * (differenceTopPercent / 100);
+        float moveLeftDistance = MovementSpeed * (differenceLeftPercent / 100);
 
         //Due to players being able to stand in himself only greater then or smaller then need to be checked.
         if (Target.FromLeft() > FromLeft)
@@ -131,7 +97,6 @@ public class TextBox : GameObject, MovableObject
 
     public override bool CollitionEffect(GameObject gameObject)
     {
-        //throw new NotImplementedException();
         return true;
     }
 }

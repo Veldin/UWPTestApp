@@ -1,6 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -36,6 +35,9 @@ namespace EindopdrachtUWP
             Window.Current.CoreWindow.KeyUp += KeyUP;
 
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+
+            CoreWindow.GetForCurrentThread().PointerCursor = null;
+            Window.Current.CoreWindow.PointerCursor = null;
 
             info.Opacity = 0;
             about.Opacity = 0;

@@ -1,8 +1,5 @@
-﻿using System;
-
-public interface Targetable
+﻿public interface Targetable
 {
-
     float FromTop();
     float FromLeft();
 }

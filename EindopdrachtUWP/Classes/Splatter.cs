@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UWPTestApp
 {
@@ -32,7 +27,6 @@ namespace UWPTestApp
 
             int randomPositionOffset = random.Next(1,19);
             location = "Assets/Sprites/Enemy_Sprites/Bloodsplatter"+ randomPositionOffset + ".png";
-
         }
 
         //Any object can edit the gameObjects of the game while the logic is running.
@@ -58,13 +52,11 @@ namespace UWPTestApp
             {
                 Width = 0;
             }
-
             return true;
         }
 
         public override Boolean CollitionEffect(GameObject gameObject)
         {
-
             //IF the blood splatter hits a wall reduce its size so it doesnt show on top of the wall.
             if(gameObject is Wall)
             {
@@ -76,7 +68,6 @@ namespace UWPTestApp
                     AddTag("destroyed");
                 }
             }
-
             return true;
         }
     }
