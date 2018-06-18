@@ -153,6 +153,9 @@
     <Content Include="Assets\Sounds\Generic_Sounds\Armour_Pickup_Sound.wav" />
     <Content Include="Assets\Sounds\Generic_Sounds\Health_Low_Sound.wav" />
     <Content Include="Assets\Sounds\Generic_Sounds\Health_Pickup_Sound.wav" />
+    <Content Include="Assets\Sounds\Generic_Sounds\levelup.wav" />
+    <Content Include="Assets\Sounds\Generic_Sounds\Player_Death_Sound.wav" />
+    <Content Include="Assets\Sounds\Generic_Sounds\Player_Hit_Sound.wav" />
     <Content Include="Assets\Sounds\Generic_Sounds\Player_Movement_Sound.wav" />
     <Content Include="Assets\Sounds\Generic_Sounds\Weapon_Upgrade_Sound.wav" />
     <Content Include="Assets\Sounds\Soundtrack\Soundtrack.wav" />

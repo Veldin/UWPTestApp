@@ -159,6 +159,7 @@ public class Enemy : GameObject, MovableObject, Targetable
                     player.IncreaseArmor(GetPower() * damage * -1);
                     ableToHit = false;
                 }
+                AddTag("hit");
             }
         }
 
