@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EindopdrachtUWP;
+using System;
 using System.Collections.Generic;
 using UWPTestApp;
 
@@ -147,6 +148,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 //                AddTag("hit");
             }
         }
+        MainPage.Current.updateHealth();
         return true;
     }
 

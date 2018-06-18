@@ -29,7 +29,7 @@ namespace EindopdrachtUWP
         {
             engine = new Engine();
 
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
 
             Debug.WriteLine("MainPage");
