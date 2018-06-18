@@ -3,6 +3,7 @@ using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace UWPTestApp
@@ -19,6 +20,7 @@ namespace UWPTestApp
         public string DeathSound { get; set; }
         public string MoveSound { get; set; }
         public string HitSound { get; set; }
+        public string HealthLowSound { get; set; }
 
         public bool IsWalking { get; set; }
 
@@ -40,6 +42,7 @@ namespace UWPTestApp
             DeathSound = "Generic_Sounds\\Player_Death_Sound.wav";
             MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
             HitSound = "Generic_Sounds\\Player_Hit_Sound.wav";
+            HealthLowSound = "Generic_Sounds\\Health_Low_Sound.wav";
 
 
             walkSpeed = 300;
@@ -137,6 +140,15 @@ namespace UWPTestApp
         public void IncreaseHealth(float amount)
         {
             health += amount;
+            Debug.WriteLine("Health: " + health);
+            if (HasTag("health_low") && health >= 100)
+            {
+                RemoveTag("health_low");
+            }
+            else if (!HasTag("health_low") && health < 100)
+            {
+                AddTag("health_low");
+            }
         }
 
         public void IncreaseArmor(float amount)

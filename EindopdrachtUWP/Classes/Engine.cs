@@ -61,6 +61,7 @@ namespace UWPTestApp
             soundController.AddSound(player.DeathSound);
             soundController.AddSound(player.HitSound);
             soundController.AddSound(player.MoveSound, 0.4);
+            soundController.AddSound(player.HealthLowSound);
 
             soundController.AddSound("Generic_Sounds\\levelup.wav", 1);
 
@@ -375,15 +376,20 @@ namespace UWPTestApp
                             p1.RemoveTag("hit");
                         }
 
+                        if (gameObjectCheck.HasTag("health_low") && gameObjectCheck is Player p2)
+                        {
+                            soundController.PlaySound(p2.HealthLowSound);
+                        }
+
                         if (gameObjectCheck.HasTag("destroyed"))
                         {
                             if (gameObjectCheck is Pickup pickup)
                             {
                                 soundController.PlaySound(pickup.getPickUpSound());
                             }
-                            else if(gameObjectCheck is Player p2)
+                            else if(gameObjectCheck is Player p3)
                             {
-                                soundController.PlaySound(p2.DeathSound);
+                                soundController.PlaySound(p3.DeathSound);
                                 MainPage.Current.gameover();
 							}
                             else if (gameObjectCheck is MovableObject mo)
@@ -392,19 +398,19 @@ namespace UWPTestApp
                                 {
                                     foreach (var getPlayer in new ArrayList(gameObjects))
                                     {
-                                        if (getPlayer is Player p3)
+                                        if (getPlayer is Player p4)
                                         {
-                                            p3.Kills++;
-                                            Debug.WriteLine("" + p3.Kills);
-                                            Debug.WriteLine("" + p3.GetLevel());
+                                            p4.Kills++;
+                                            Debug.WriteLine("" + p4.Kills);
+                                            Debug.WriteLine("" + p4.GetLevel());
                                             Debug.WriteLine("==================");
-                                            if (p3.Kills > 5 * (p3.GetLevel() * p3.GetLevel()))
+                                            if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                             {
-                                                p3.IncreaseLevel();
+                                                p4.IncreaseLevel();
                                                 soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                             }
 
-                                            if (p3.Kills % 3 == 0)
+                                            if (p4.Kills % 3 == 0)
                                             {
                                                 gameObjects.Add(new Pickup(15, 17, enemy.FromLeft, enemy.FromTop));
                                             }
