@@ -39,6 +39,7 @@ namespace EindopdrachtUWP
             about.Opacity = 0;
             stats.Opacity = 0;
             statImage.Opacity = 0;
+            Game_Over_Screen.Opacity = 0;
             menuScreen = true;
             infoScreen = false;
             aboutScreen = false;
