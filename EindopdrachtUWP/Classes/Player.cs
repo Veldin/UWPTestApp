@@ -1,11 +1,7 @@
-﻿using EindopdrachtUWP;
-using EindopdrachtUWP.Classes;
+﻿using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UWPTestApp;
-using Windows.UI.Xaml.Controls;
 
 namespace UWPTestApp
 {
@@ -123,7 +119,7 @@ namespace UWPTestApp
         {
             return walkSpeed;
         }
-
+        
         void MovableObject.SetMovementSpeed(float speed)
         {
             walkSpeed = speed;

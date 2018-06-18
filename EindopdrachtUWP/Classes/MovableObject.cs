@@ -1,4 +1,4 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
 
 namespace UWPTestApp
 {
@@ -7,6 +7,5 @@ namespace UWPTestApp
         float GetMovementSpeed();
         
         void SetMovementSpeed(float speed);
-
     }
 }

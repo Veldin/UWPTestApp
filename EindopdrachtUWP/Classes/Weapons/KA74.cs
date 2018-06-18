@@ -38,7 +38,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             clipMax = 30;
             damage = 50;
             accuracy = 1;
-            fireTime = 100;
+            fireTime = 300;
             critChance = 0.05;
             critMultiplier = 1.25;
             weaponLevel = 1;
@@ -121,6 +121,10 @@ namespace EindopdrachtUWP.Classes.Weapons
             if (ableToReload && currentClip == 0)
             {
                 Reload();
+            }
+            if (currentClip == 0 && clipAmount == 0)
+            {
+                MainPage.Current.weaponEmpty(name);
             }
             return false;
         }

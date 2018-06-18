@@ -147,5 +147,4 @@ public class Projectile : GameObject, MovableObject
     {
         return movementSpeed;
     }
-    
 }

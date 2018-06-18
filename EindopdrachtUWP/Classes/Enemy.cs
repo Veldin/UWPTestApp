@@ -13,13 +13,11 @@ public class Enemy : GameObject, MovableObject, Targetable
     private float maxLifePoints;
     private float power;
     private String enemyType;
-    
+
     public string DeathSound { get; set; }
     public string MoveSound { get; set; }
 
     private float movementSpeed;
-
-
     private String direction;
 
     public Enemy(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
@@ -85,7 +83,30 @@ public class Enemy : GameObject, MovableObject, Targetable
     {
         return movementSpeed;
     }
+<<<<<<< HEAD
     
+=======
+
+    void MovableObject.SetMoveSound(String moveSound)
+    {
+        this.moveSound = moveSound;
+    }
+
+    void MovableObject.PlayMoveSound()
+    {
+
+    }
+
+    void MovableObject.SetDeathSound(String deathSound)
+    {
+        this.deathSound = deathSound;
+    }
+
+    void MovableObject.PlayDeathSound()
+    {
+        //iets 
+    }
+>>>>>>> 315ddaf12990726840aef877f04ad2a007a8b1b8
 
     public override Boolean CollitionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid"))
