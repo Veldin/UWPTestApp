@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UWPTestApp
+﻿namespace UWPTestApp
 {
     class Message
     {
-
         private string text;
         private float fromTop;
         private float fromLeft;
         
-        public Message(string Text)
+        public Message(string text)
         {
-            
             this.text = text;
         }
 

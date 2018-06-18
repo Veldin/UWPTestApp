@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UWPTestApp
 {
@@ -25,14 +20,6 @@ namespace UWPTestApp
 
         public override Boolean CollitionEffect(GameObject gameObject)
         {
-            //AddFromTop(1);
-
-            //Check if its still coliding and repeat the effect
-            //if (IsColliding(gameObject))
-            //{
-            //    CollitionEffect(gameObject);
-            //}
-
             return true;
         }
     }

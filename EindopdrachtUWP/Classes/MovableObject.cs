@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UWPTestApp
+﻿namespace UWPTestApp
 {
     public interface MovableObject
     {

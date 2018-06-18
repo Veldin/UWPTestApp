@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace UWPTestApp
 {
@@ -20,16 +16,9 @@ namespace UWPTestApp
             this.gameObjects = gameObjects;
         }
 
-        public void AddGameObject(GameObject go)
-        {
-            gameObjects.Add(go);
-        }
-
         public List<GameObject> GetScene()
         {
-            return this.gameObjects;
+            return gameObjects;
         }
-
-
     }
 }

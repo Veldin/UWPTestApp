@@ -1,14 +1,10 @@
 ﻿using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.Graphics.Imaging;
 
 namespace UWPTestApp
 {
@@ -33,7 +29,6 @@ namespace UWPTestApp
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
         //The sprite can be more to the left or right then the hitbox.
-
         protected float widthDrawOffset;
         protected float heightDrawOffset;
         protected float fromLeftDrawOffset;
@@ -51,14 +46,14 @@ namespace UWPTestApp
             this.fromLeft = fromLeft;
             this.fromTop = fromTop;
 
-            this.isFacingLeft = true;
+            isFacingLeft = true;
 
             this.widthDrawOffset = widthDrawOffset;
             this.heightDrawOffset = heightDrawOffset;
             this.fromLeftDrawOffset = fromLeftDrawOffset;
             this.fromTopDrawOffset = fromTopDrawOffset;
 
-            this.location = "Assets/blank.gif";
+            location = "Assets/blank.gif";
         }
 
         //Methods to do with loading sprites
@@ -72,17 +67,14 @@ namespace UWPTestApp
             {
                 Debug.WriteLine(location);
                 Debug.WriteLine(e.StackTrace);
-
             }
         }
-
 
         public CanvasBitmap Sprite
         {
             get { return sprite; }
             set { sprite = value; }
         }
-
 
         public String Location
         {
@@ -96,10 +88,8 @@ namespace UWPTestApp
             tags.Add(tag);
         }
 
-
         public Boolean HasTag(string tag)
         {
-
             if (tags.IndexOf(tag) > -1)
                 return true;
             return false;
@@ -172,9 +162,6 @@ namespace UWPTestApp
             get { return fromLeftDrawOffset; }
             set { fromLeftDrawOffset = value; }
         }
-
-
-
         
         public Target Target
         {
@@ -205,6 +192,5 @@ namespace UWPTestApp
         }
 
         public abstract Boolean CollitionEffect(GameObject gameObject);
-
     }
 }

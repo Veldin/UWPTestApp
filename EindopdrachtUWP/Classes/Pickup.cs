@@ -7,7 +7,6 @@ namespace EindopdrachtUWP.Classes
 {
     class Pickup : GameObject
     {
-
         // Constraints for ammunition for guns
         public const string AmmunitionArrivaGun = "AmmunitionArriva Gun";
         public const string AmmunitionBatarang = "AmmunitionBatarang";
@@ -35,10 +34,6 @@ namespace EindopdrachtUWP.Classes
         // Constraints for armor up and health up.
         public const string ArmorUp = "ArmorUp";
         public const string HealthUp = "HealthUp";
-
-
-
-
 
         private Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
         {
@@ -155,8 +150,6 @@ namespace EindopdrachtUWP.Classes
         };
 
         private bool leftSpriteSelected = false;
-        
-        
 
         private int amount;
         private string type;
@@ -166,8 +159,7 @@ namespace EindopdrachtUWP.Classes
         private const string pickUpUpgradeSound = "Generic_Sounds\\Weapon_Upgrade_Sound.wav";
         private const string pickUpArmorSound = "Generic_Sounds\\Armour_Pickup_Sound.wav";
         private const string pickUpHealthSound = "Generic_Sounds\\Health_Pickup_Sound.wav";
-
-
+        
         private float totalDelta = 0;
 
         private CanvasBitmap rightSprite;
@@ -249,7 +241,6 @@ namespace EindopdrachtUWP.Classes
                         amount = 100;
                         break;
                 }
-                
             }
             this.amount = amount;
             this.type = type;
@@ -276,10 +267,6 @@ namespace EindopdrachtUWP.Classes
             }
 
             this.Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][0];
-
-            
-
-
         }
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
@@ -293,7 +280,8 @@ namespace EindopdrachtUWP.Classes
                     rightSprite = sprite;
                     sprite = null;
                     this.Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][1];
-                }else if (leftSprite == null && sprite != null)
+                }
+                else if (leftSprite == null && sprite != null)
                 {
                     //CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png"))
                     leftSprite = sprite;
@@ -311,8 +299,6 @@ namespace EindopdrachtUWP.Classes
                     }
                     leftSpriteSelected = !leftSpriteSelected;
                 }
-                
-
                 totalDelta = 0;
             }
             return true;
@@ -342,7 +328,8 @@ namespace EindopdrachtUWP.Classes
                             break;
                         }
                     }
-                }else if (type.Contains("Upgrade"))
+                }
+                else if (type.Contains("Upgrade"))
                 {
                     string weaponName = type.Remove(0, 7);
 
@@ -373,7 +360,6 @@ namespace EindopdrachtUWP.Classes
             return pickUpSound;
         }
 
-
         public static string[] getSounds()
         {
             return new string[]
@@ -383,7 +369,6 @@ namespace EindopdrachtUWP.Classes
                 pickUpUpgradeSound,
                 pickUpHealthSound
             };
-    }
-
+        }
     }
 }

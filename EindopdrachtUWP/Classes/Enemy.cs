@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UWPTestApp;
-using Windows.UI.Xaml.Controls;
-using EindopdrachtUWP.Classes;
 
 public class Enemy : GameObject, MovableObject, Targetable
 {
-
-
     private float lifePoints;
     private float maxLifePoints;
     private float power;
-    private String enemyType;
 
     private float damage;
     private bool ableToHit;
@@ -52,10 +46,10 @@ public class Enemy : GameObject, MovableObject, Targetable
         ableToHit = true;
         damageCountDownTimerMax = 3000;
 
-        this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
+        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
 
         Random r = new Random();
-        this.DeathSound = DeathSounds[r.Next(9)];
+        DeathSound = DeathSounds[r.Next(9)];
     }
 
     public void SetLifePoints(float life)
@@ -63,7 +57,6 @@ public class Enemy : GameObject, MovableObject, Targetable
         lifePoints = life;
         maxLifePoints = life;
     }
-    
 
     public void AddLifePoints(float life)
     {
@@ -88,16 +81,6 @@ public class Enemy : GameObject, MovableObject, Targetable
     public float GetPower()
     {
         return power;
-    }
-
-    public void SetType(String type)
-    {
-        enemyType = type;
-    }
-
-    public String GetEnemyType()
-    {
-        return enemyType;
     }
 
     void MovableObject.SetMovementSpeed(float speed)
@@ -154,7 +137,8 @@ public class Enemy : GameObject, MovableObject, Targetable
                 {
                     player.IncreaseHealth(GetPower() * damage * -1);
                     ableToHit = false;
-                } else
+                }
+                else
                 {
                     player.IncreaseArmor(GetPower() * damage * -1);
                     ableToHit = false;
@@ -163,13 +147,11 @@ public class Enemy : GameObject, MovableObject, Targetable
 //                AddTag("hit");
             }
         }
-
         return true;
     }
 
     private bool getThenSetTarget(List<GameObject> gameObjects)
     {
-
         foreach (GameObject gameObject in gameObjects)
         {
             Player player = gameObject as Player;
@@ -182,12 +164,10 @@ public class Enemy : GameObject, MovableObject, Targetable
                     {
                         Target = new Target(targetable);
                         return true;
-
                     }
                 }
             }
         }
-
         return false;
     }
 
@@ -302,16 +282,11 @@ public class Enemy : GameObject, MovableObject, Targetable
             }
             else
             {
-                this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_" + newDirection + ".png";
-                this.Sprite = null;
+                Location = "Assets/Sprites/Enemy_Sprites/Enemy_" + newDirection + ".png";
+                Sprite = null;
                 direction = newDirection;
             }
-            //AddFromLeft(moveTopDistance * delta / 1000);
-            //AddFromTop(moveLeftDistance * delta / 1000);
-
-            //Debug.WriteLine(" differenceTopPercent: " + (moveTopDistance * delta / 1000) + " - differenceLeftPercent: " + (moveLeftDistance * delta / 1000));
         }
-
 
         //Check dead
         if (lifePoints <= 0)
@@ -331,15 +306,8 @@ public class Enemy : GameObject, MovableObject, Targetable
                 randomSizeOffset = random.Next(((int)width * 75 / 100), ((int)width));
 
                 gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
-                
-
             }
-            
-//            gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
-            //gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffset, fromTop + (height / 2) + randomPositionOffset));
-            this.RemoveTag("splatter");
-
-
+            RemoveTag("splatter");
             AddTag("destroyed");
         }
 
@@ -352,9 +320,8 @@ public class Enemy : GameObject, MovableObject, Targetable
             int randomSizeOffset = random.Next(((int)width * 75 / 100), ((int)width));
 
             gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
-            this.RemoveTag("splatter");
+            RemoveTag("splatter");
         }
-
         return true;
     }
 

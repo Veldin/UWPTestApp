@@ -62,11 +62,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             tags.Add(tag);
         }
 
-        public void Display()
-        {
-            // show sprite
-        }
-
         private float getProjectileDamage(float damage, float change, float multiplier, Random random)
         {
             //Determine if its a critical hit if the generated number is lower then the crid change times 100
@@ -140,19 +135,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             return false;
         }
 
-        public Boolean HasTag(string searchTag)
-        {
-            // check if the weapon has a certain tag
-            foreach (string tag in tags)
-            {
-                if (tag.Equals(searchTag))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
@@ -162,20 +144,6 @@ namespace EindopdrachtUWP.Classes.Weapons
                 currentClip = clipMax;
                 ableToReload = false;
             }
-        }
-
-        public Boolean RemoveTag(String searchTag)
-        {
-            // searches for a specific tag and removes it if it's found
-            foreach (string tag in tags)
-            {
-                if (tag.Equals(searchTag))
-                {
-                    tags.Remove(searchTag);
-                    return true;
-                }
-            }
-            return false;
         }
 
         public void Upgrade()
