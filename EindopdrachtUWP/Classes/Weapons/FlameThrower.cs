@@ -25,6 +25,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected float reloadCooldownDelta;    //The remaining delta for reloading
         protected bool ableToFire;              //Boolean to check is you're able to fire again
         protected bool ableToReload;            //Boolean to check is you're able to reload again
+        private string location;
 
         public FlameThrower()
         {
@@ -42,7 +43,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             weaponLevel = 1;
             reloadTime = 3000;
             shotSound = "Weapon_Sounds\\Flamethrower_Shot1.wav";
-
+            location = "Assets\\Sprites\\Bullet_Sprites\\Flamethrower1.png";
             ableToReload = true;
             ableToFire = true;
             fireCooldownDelta = 0;
@@ -62,11 +63,8 @@ namespace EindopdrachtUWP.Classes.Weapons
 
         private float getProjectileDamage(float damage, float change, float multiplier, Random random)
         {
-            //get number between 0 and 100 (101 due to excusivity)
-            float generate = random.Next(0, 101);
-
             //Determine if its a critical hit if the generated number is lower then the crid change times 100
-            if (generate < (change * 100))
+            if (random.Next(0, 101) < (change * 100))
             {
                 damage = damage * multiplier;
 
@@ -79,7 +77,6 @@ namespace EindopdrachtUWP.Classes.Weapons
 
         public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
         {
-
             //Random random = new Random(Guid.NewGuid().GetHashCode());
             //float randomPositionOffset = (random.Next(0, (int)accuracy * (int)accuracy)) ;
             //randomPositionOffset = randomPositionOffset - accuracy * (accuracy) / 2;
@@ -89,6 +86,15 @@ namespace EindopdrachtUWP.Classes.Weapons
             //Get a number between the accuracy and the accuracy * -1.
             float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
 
+            if (random.Next(0, 2) == 0)
+            {
+                location = "Assets\\Sprites\\Bullet_Sprites\\Flamethrower1.png";
+            }
+            else
+            {
+                location = "Assets\\Sprites\\Bullet_Sprites\\Flamethrower2.png";
+            }
+
             float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
 
             // fire one bullet
@@ -97,19 +103,28 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height));
+                    var projectileTop = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectileTop.SetLocation(location);
+                    gameObjects.Add(projectileTop);
+
                 }
                 else if (direction == "Bottom")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height));
+                    var projectileBottom = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectileBottom.SetLocation(location);
+                    gameObjects.Add(projectileBottom);
                 }
                 else if (direction == "Left")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset));
+                    var projectileLeft = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectileLeft.SetLocation(location);
+                    gameObjects.Add(projectileLeft);
                 }
                 else //Right
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset));
+                    var projectileRight = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectileRight.SetLocation(location);
+                    gameObjects.Add(projectileRight);
                 }
 
                 currentClip--;
@@ -126,6 +141,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             }
             return false;
         }
+
 
         public Boolean HasTag(string searchTag)
         {
