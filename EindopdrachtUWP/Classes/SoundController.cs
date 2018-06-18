@@ -78,8 +78,6 @@ namespace EindopdrachtUWP.Classes
                 if (toPlay.playFirst)
                 {
                     Play(toPlay.firstSound);
-//                    toPlay.firstSound.Volume = 0.5;
-//                    Debug.WriteLine(""+);
                 }
                 else
                 {
@@ -114,7 +112,6 @@ namespace EindopdrachtUWP.Classes
                 Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    Debug.WriteLine(sound.Volume);
                     sound.Position = new TimeSpan(0);
                     sound.Play();
                 });
