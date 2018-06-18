@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace UWPTestApp
 {
-    public class Player : GameObject, MovableObject, Targetable
+    public class Player : GameObject, MovableObject, Targetable, IDisposable
     {
         private float walkSpeed;
         private float health;
@@ -18,6 +18,7 @@ namespace UWPTestApp
 
         public string DeathSound { get; set; }
         public string MoveSound { get; set; }
+        public string HitSound { get; set; }
 
         public bool IsWalking { get; set; }
 
@@ -36,8 +37,9 @@ namespace UWPTestApp
 
             AddTag("solid");
 
-            DeathSound = "";
+            DeathSound = "Generic_Sounds\\Player_Death_Sound.wav";
             MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+            HitSound = "Generic_Sounds\\Player_Hit_Sound.wav";
 
 
             walkSpeed = 300;
@@ -309,6 +311,7 @@ namespace UWPTestApp
 
             if (gameObject.HasTag("hostile"))
             {
+//                AddTag("hit");
                 // PlayHitSound();
             }
 
@@ -340,6 +343,11 @@ namespace UWPTestApp
         public Weapon GetActiveWeapon()
         {
             return activeWeapon;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

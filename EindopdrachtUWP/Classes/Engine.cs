@@ -59,7 +59,10 @@ namespace UWPTestApp
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
 
             soundController.AddSound(player.DeathSound);
+            soundController.AddSound(player.HitSound);
             soundController.AddSound(player.MoveSound, 0.4);
+
+            soundController.AddSound("Generic_Sounds\\levelup.wav", 1);
 
             foreach (Weapon weapon in player.GetWeapons())
             {
@@ -280,14 +283,12 @@ namespace UWPTestApp
                         {
                             if(player.selectNextWeapon())
                                 MainPage.Current.nextWeapon();
-                            MainPage.Current.UpdateCurrentClip();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
                             if (player.selectPreviousWeapon())
                                 MainPage.Current.previousWeapon();
-                            MainPage.Current.UpdateCurrentClip();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
@@ -367,14 +368,22 @@ namespace UWPTestApp
                     //Check if gameobjects want to be destoryed
                     foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                     {
+
+                        if (gameObjectCheck.HasTag("hit") && gameObjectCheck is Player p1)
+                        {
+                            soundController.PlaySound(p1.HitSound);
+                            p1.RemoveTag("hit");
+                        }
+
                         if (gameObjectCheck.HasTag("destroyed"))
                         {
                             if (gameObjectCheck is Pickup pickup)
                             {
                                 soundController.PlaySound(pickup.getPickUpSound());
                             }
-                            else if(gameObjectCheck is Player)
+                            else if(gameObjectCheck is Player p2)
                             {
+                                soundController.PlaySound(p2.DeathSound);
                                 MainPage.Current.gameover();
 							}
                             else if (gameObjectCheck is MovableObject mo)
@@ -383,15 +392,19 @@ namespace UWPTestApp
                                 {
                                     foreach (var getPlayer in new ArrayList(gameObjects))
                                     {
-                                        if (getPlayer is Player p)
+                                        if (getPlayer is Player p3)
                                         {
-                                            p.Kills++;
-                                            if (p.Kills > 5 * (p.GetLevel() ^ 2))
+                                            p3.Kills++;
+                                            Debug.WriteLine("" + p3.Kills);
+                                            Debug.WriteLine("" + p3.GetLevel());
+                                            Debug.WriteLine("==================");
+                                            if (p3.Kills > 5 * (p3.GetLevel() * p3.GetLevel()))
                                             {
-                                                p.IncreaseLevel();
+                                                p3.IncreaseLevel();
+                                                soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                             }
 
-                                            if (p.Kills % 3 == 0)
+                                            if (p3.Kills % 3 == 0)
                                             {
                                                 gameObjects.Add(new Pickup(15, 17, enemy.FromLeft, enemy.FromTop));
                                             }
