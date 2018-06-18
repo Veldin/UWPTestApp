@@ -283,14 +283,12 @@ namespace UWPTestApp
                         {
                             if(player.selectNextWeapon())
                                 MainPage.Current.nextWeapon();
-                            MainPage.Current.UpdateCurrentClip();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
                             if (player.selectPreviousWeapon())
                                 MainPage.Current.previousWeapon();
-                            MainPage.Current.UpdateCurrentClip();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
@@ -371,10 +369,10 @@ namespace UWPTestApp
                     foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                     {
 
-                        if (gameObjectCheck.HasTag("hit"))
+                        if (gameObjectCheck.HasTag("hit") && gameObjectCheck is Player p1)
                         {
-                            gameObjectCheck.RemoveTag("hit");
-                            if (player != null) soundController.PlaySound(player.HitSound);
+                            soundController.PlaySound(p1.HitSound);
+                            p1.RemoveTag("hit");
                         }
 
                         if (gameObjectCheck.HasTag("destroyed"))
