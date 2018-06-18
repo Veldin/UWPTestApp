@@ -21,6 +21,7 @@ namespace EindopdrachtUWP
         public bool paused;
         public bool game_over;
         public int weapon;
+        
 
         public MainPage()
         {
@@ -45,9 +46,10 @@ namespace EindopdrachtUWP
             menuScreen = true;
             infoScreen = false;
             aboutScreen = false;
-            paused = true;
+            paused = true;           
 
             weapon = 1;
+            activeweapon.Text = "Dessert Eagle";
 
             engine.Run();
         }
@@ -59,7 +61,6 @@ namespace EindopdrachtUWP
                 game_Over_Screen.Opacity = 0.75;
                 game_Over_Screen_image.Opacity = 1;
                 game_over = true;
-                menuScreen = false;
             }
             );
         }
@@ -205,33 +206,43 @@ namespace EindopdrachtUWP
                 {
                     case 1:
                         selected.Margin = new Thickness(-55, -540, 0, 0);
+                        activeweapon.Text = "Dessert Eagle";
                         break;
                     case 2:
                         selected.Margin = new Thickness(-55, -420, 0, 0);
+                        activeweapon.Text = "KA74";
                         break;
                     case 3:
                         selected.Margin = new Thickness(-55, -300, 0, 0);
+                        activeweapon.Text = "Knetter Gun";
                         break;
                     case 4:
                         selected.Margin = new Thickness(-55, -180, 0, 0);
+                        activeweapon.Text = "UWP";
                         break;
                     case 5:
                         selected.Margin = new Thickness(-55, -60, 0, 0);
+                        activeweapon.Text = "Flame Thrower";
                         break;
                     case 6:
                         selected.Margin = new Thickness(-55, 60, 0, 0);
+                        activeweapon.Text = "VLEKKannon";
                         break;
                     case 7:
                         selected.Margin = new Thickness(-55, 180, 0, 0);
+                        activeweapon.Text = "Bullet Bill";
                         break;
                     case 8:
                         selected.Margin = new Thickness(-55, 300, 0, 0);
+                        activeweapon.Text = "Arriva Gun";
                         break;
                     case 9:
                         selected.Margin = new Thickness(-55, 420, 0, 0);
+                        activeweapon.Text = "Batarang";
                         break;
                     case 10:
                         selected.Margin = new Thickness(-55, 540, 0, 0);
+                        activeweapon.Text = "Homer's Bullets";
                         weapon = 0;
                         break;
                 }
@@ -248,34 +259,44 @@ namespace EindopdrachtUWP
                 {
                     case 1:
                         selected.Margin = new Thickness(-55, -540, 0, 0);
+                        activeweapon.Text = "Dessert Eagle";
                         weapon = 11;
                         break;
                     case 2:
                         selected.Margin = new Thickness(-55, -420, 0, 0);
+                        activeweapon.Text = "KA74";
                         break;
                     case 3:
                         selected.Margin = new Thickness(-55, -300, 0, 0);
+                        activeweapon.Text = "Knetter Gun";
                         break;
                     case 4:
                         selected.Margin = new Thickness(-55, -180, 0, 0);
+                        activeweapon.Text = "UWP";
                         break;
                     case 5:
                         selected.Margin = new Thickness(-55, -60, 0, 0);
+                        activeweapon.Text = "Flame Thrower";
                         break;
                     case 6:
                         selected.Margin = new Thickness(-55, 60, 0, 0);
+                        activeweapon.Text = "VLEKKannon";
                         break;
                     case 7:
                         selected.Margin = new Thickness(-55, 180, 0, 0);
+                        activeweapon.Text = "Bullet Bill";
                         break;
                     case 8:
                         selected.Margin = new Thickness(-55, 300, 0, 0);
+                        activeweapon.Text = "Arriva Gun";
                         break;
                     case 9:
                         selected.Margin = new Thickness(-55, 420, 0, 0);
+                        activeweapon.Text = "Batarang";
                         break;
                     case 10:
                         selected.Margin = new Thickness(-55, 540, 0, 0);
+                        activeweapon.Text = "Homer's Bullets";
                         break;
                 }
             });
@@ -291,7 +312,6 @@ namespace EindopdrachtUWP
                 {
                     case "KA74":
                         empty_ka74.Opacity = 0;
-                        activeweapon.Text = "KA74";
                         break;
                     case "Knettergun":
                         empty_knettergun.Opacity = 0;
