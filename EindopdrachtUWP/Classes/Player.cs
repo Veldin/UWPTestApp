@@ -149,6 +149,7 @@ namespace UWPTestApp
             {
                 AddTag("health_low");
             }
+            MainPage.Current.updateHealth();
         }
 
         public void IncreaseArmor(float amount)
@@ -159,6 +160,11 @@ namespace UWPTestApp
         public float getArmor()
         {
             return armor;
+        }
+
+        public float getHealth()
+        {
+            return health;
         }
 
         public void IncreaseLevel()
