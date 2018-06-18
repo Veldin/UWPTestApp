@@ -378,6 +378,25 @@ namespace UWPTestApp
                             {
                                 if (mo is Enemy enemy)
                                 {
+                                    foreach (var getPlayer in new ArrayList(gameObjects))
+                                    {
+                                        if (getPlayer is Player p)
+                                        {
+                                            p.Kills++;
+                                            if (p.Kills > 5 * (p.GetLevel() * p.GetLevel()))
+                                            {
+                                                p.IncreaseLevel();
+                                            }
+
+                                            if (p.Kills % 3 == 0)
+                                            {
+
+                                                gameObjects.Add(new Pickup(15, 17, enemy.FromLeft, enemy.FromTop));
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    
                                     soundController.PlaySound(enemy.DeathSound);
                                 }
                             }
@@ -517,6 +536,7 @@ namespace UWPTestApp
                 }
                 else if (gameObject.Sprite == null)
                 {
+                    
                     gameObject.CreateResourcesAsync(sender);
                 }
             }

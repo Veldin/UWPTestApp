@@ -64,7 +64,16 @@ namespace UWPTestApp
         //Methods to do with loading sprites
         public async Task CreateResourcesAsync(CanvasControl sender)
         {
-            sprite = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///" + location));
+            try
+            {
+                sprite = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///" + location));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(location);
+                Debug.WriteLine(e.StackTrace);
+
+            }
         }
 
 

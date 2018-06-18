@@ -51,7 +51,23 @@ namespace UWPTestApp
 
             if (remainingCooldownDelta - delta < 0)
             {
-                RemainingCooldownDelta = cooldownDelta;
+
+                int playerLevel = 1;
+                foreach (GameObject go in gameObjects)
+                {
+                    if (go is Player player)
+                    {
+                        playerLevel = player.GetLevel();
+
+                        break;
+                    }
+                }
+//                RemainingCooldownDelta = cooldownDelta;
+
+                RemainingCooldownDelta = (cooldownDelta / playerLevel);
+                if (RemainingCooldownDelta < 1000) remainingCooldownDelta++;
+
+
                 //Spawn a gameobject!
                 float spawnSizeWidth = 15;
                 float spawnSizeHight = 15;
@@ -60,10 +76,14 @@ namespace UWPTestApp
                 float spawnFromLeft = FromLeft + (Width / 2) - (spawnSizeWidth / 2);
                 float spawnFromTop = FromTop + (Height / 2) - (spawnSizeHight / 2);
 
-                //Spawn an anemy
-                gameObjects.Add(new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));
+                Enemy enemy = new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10);
+                enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
 
-                
+                gameObjects.Add(enemy);
+                //Spawn an anemy
+                //                gameObjects.Add(new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10));
+
+
             }
             else
             {
