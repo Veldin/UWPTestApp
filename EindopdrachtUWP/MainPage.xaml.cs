@@ -19,6 +19,7 @@ namespace EindopdrachtUWP
         public bool infoScreen;
         public bool aboutScreen;
         public bool paused;
+        public bool game_over;
         public int weapon;
 
         public MainPage()
@@ -37,6 +38,10 @@ namespace EindopdrachtUWP
 
             info.Opacity = 0;
             about.Opacity = 0;
+            stats.Opacity = 0;
+            statImage.Opacity = 0;
+            game_Over_Screen.Opacity = 0;
+            game_over = false;
             menuScreen = true;
             infoScreen = false;
             aboutScreen = false;
@@ -45,6 +50,18 @@ namespace EindopdrachtUWP
             weapon = 1;
 
             engine.Run();
+        }
+        public void gameover()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                game_Over_Screen.Opacity = 0.75;
+                game_Over_Screen_image.Opacity = 1;
+                game_over = true;
+                menuScreen = false;
+            }
+            );
         }
 
         public void muteMusic()
@@ -96,6 +113,8 @@ namespace EindopdrachtUWP
                     musicCheck.Opacity = 0;
                     effectCheck.Opacity = 0;
                     black.Opacity = 0;
+                    stats.Opacity = 1;
+                    statImage.Opacity = 1;
                     menuScreen = false;
                     paused = false;
                 }
@@ -108,6 +127,8 @@ namespace EindopdrachtUWP
             () =>
                 {
                     menu.Opacity = 1;
+                    stats.Opacity = 0;
+                    statImage.Opacity = 0;
                     black.Opacity = 0.75;
                     if (engine.music)
                     {
@@ -270,6 +291,7 @@ namespace EindopdrachtUWP
                 {
                     case "KA74":
                         empty_ka74.Opacity = 0;
+                        activeweapon.Text = "KA74";
                         break;
                     case "Knettergun":
                         empty_knettergun.Opacity = 0;

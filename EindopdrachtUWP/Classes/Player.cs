@@ -1,4 +1,5 @@
-﻿using EindopdrachtUWP.Classes;
+﻿using EindopdrachtUWP;
+using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace UWPTestApp
         private float health;
         private float armor;
         private int level;
+
+        public int Kills { get; set; }
 
         public string DeathSound { get; set; }
         public string MoveSound { get; set; }
@@ -38,6 +41,7 @@ namespace UWPTestApp
             armor = 0;
             armor = 0;
             level = 1;
+            Kills = 0;
 
             direction = "Top";
 
@@ -173,6 +177,7 @@ namespace UWPTestApp
             if (health <= 0)
             {
                 AddTag("destroyed");
+                MainPage.Current.gameover();
             }
 
             selectNextWeaponDelay -= delta;

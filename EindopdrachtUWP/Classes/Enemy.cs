@@ -61,7 +61,9 @@ public class Enemy : GameObject, MovableObject, Targetable
     public void SetLifePoints(float life)
     {
         lifePoints = life;
+        maxLifePoints = life;
     }
+    
 
     public void AddLifePoints(float life)
     {
@@ -78,7 +80,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         return maxLifePoints;
     }
 
-    public void SetPower(int power)
+    public void SetPower(float power)
     {
         this.power = power;
     }
@@ -150,11 +152,11 @@ public class Enemy : GameObject, MovableObject, Targetable
             {
                 if (player.getArmor() < 0)
                 {
-                    player.IncreaseHealth(damage * -1);
+                    player.IncreaseHealth(GetPower() * damage * -1);
                     ableToHit = false;
                 } else
                 {
-                    player.IncreaseArmor(damage * -1);
+                    player.IncreaseArmor(GetPower() * damage * -1);
                     ableToHit = false;
                 }
             }
@@ -331,7 +333,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
             }
             
-            gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
+//            gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
             //gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffset, fromTop + (height / 2) + randomPositionOffset));
             this.RemoveTag("splatter");
 
