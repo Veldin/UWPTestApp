@@ -16,28 +16,28 @@ namespace EindopdrachtUWP.Classes
     {
 
         // Constraints for ammunition for guns
-        public const string AmmunitionArrivaGun = "AmmunitionArrivaGun";
+        public const string AmmunitionArrivaGun = "AmmunitionArriva Gun";
         public const string AmmunitionBatarang = "AmmunitionBatarang";
-        public const string AmmunitionBulletBill = "AmmunitionBulletBill";
-        public const string AmmunitionDessertBeagle = "AmmunitionDessertBeagle";
-        public const string AmmunitionFlameThrower = "AmmunitionFlameThrower";
-        public const string AmmunitionHomersBullets = "AmmunitionHomersBullets";
-        public const string AmmunitionKa74 = "AmmunitionKa74";
+        public const string AmmunitionBulletBill = "AmmunitionBullet Bill";
+        public const string AmmunitionDessertBeagle = "AmmunitionDessert Beagle";
+        public const string AmmunitionFlameThrower = "AmmunitionFlame Thrower";
+        public const string AmmunitionHomersBullets = "AmmunitionHomers Bullets";
+        public const string AmmunitionKa74 = "AmmunitionKA74";
         public const string AmmunitionKnettergun = "AmmunitionKnettergun";
         public const string AmmunitionUwp = "AmmunitionUwp";
-        public const string AmmunitionVlekKannon = "AmmunitionVlekKannon";
+        public const string AmmunitionVlekKannon = "AmmunitionVLEKKannon";
 
         // Constraints for upgrading guns
-        public const string UpgradeArrivaGun = "UpgradeArrivaGun";
+        public const string UpgradeArrivaGun = "UpgradeArriva Gun";
         public const string UpgradeBatarang = "UpgradeBatarang";
-        public const string UpgradeBulletBill = "UpgradeBulletBill";
-        public const string UpgradeDessertBeagle = "UpgradeDessertBeagle";
-        public const string UpgradeFlameThrower = "UpgradeFlameThrower";
-        public const string UpgradeHomersBullets = "UpgradeHomersBullets";
-        public const string UpgradeKa74 = "UpgradeKa74";
+        public const string UpgradeBulletBill = "UpgradeBullet Bill";
+        public const string UpgradeDessertBeagle = "UpgradeDessert Beagle";
+        public const string UpgradeFlameThrower = "UpgradeFlame Thrower";
+        public const string UpgradeHomersBullets = "UpgradeHomers Bullets";
+        public const string UpgradeKa74 = "UpgradeKA74";
         public const string UpgradeKnettergun = "UpgradeKnettergun";
         public const string UpgradeUwp = "UpgradeUwp";
-        public const string UpgradeVlekKannon = "UpgradeVlekKannon";
+        public const string UpgradeVlekKannon = "UpgradeVLEKKannon";
 
         // Constraints for armor up and health up.
         public const string ArmorUp = "ArmorUp";

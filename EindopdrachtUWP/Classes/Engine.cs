@@ -50,14 +50,19 @@ namespace UWPTestApp
 
         private Player player;
 
+        
+
         public Engine()
         {
             gameObjects = new List<GameObject>();
 
             soundController = new SoundController();
 			
+
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
-            
+
+
+
             foreach (Weapon weapon in player.GetWeapons())
             {
                 soundController.AddSound(weapon.shotSound);

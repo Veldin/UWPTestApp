@@ -15,8 +15,8 @@ namespace UWPTestApp
         private int health;
         private int armor;
         private int level;
-        private MediaElement deathSound;
-        private MediaElement moveSound;
+        private string deathSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+        private string moveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
 
         private float selectNextWeaponDelay;
         private float selectNextWeaponDelayMax;
