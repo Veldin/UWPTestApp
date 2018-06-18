@@ -291,6 +291,7 @@ namespace EindopdrachtUWP
                 {
                     case "KA74":
                         empty_ka74.Opacity = 0;
+                        activeweapon.Text = "KA74";
                         break;
                     case "Knettergun":
                         empty_knettergun.Opacity = 0;
