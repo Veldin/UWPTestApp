@@ -22,6 +22,19 @@ public class Enemy : GameObject, MovableObject, Targetable
     public string DeathSound { get; set; }
     public string MoveSound { get; set; }
 
+    public static string[] DeathSounds = new string[]
+    {
+        "Enemy_Sounds\\Zombie_Death1.wav",
+        "Enemy_Sounds\\Zombie_Death2.wav",
+        "Enemy_Sounds\\Zombie_Death3.wav",
+        "Enemy_Sounds\\Zombie_Death4.wav",
+        "Enemy_Sounds\\Zombie_Death5.wav",
+        "Enemy_Sounds\\Zombie_Death6.wav",
+        "Enemy_Sounds\\Zombie_Death7.wav",
+        "Enemy_Sounds\\Zombie_Death8.wav",
+        "Enemy_Sounds\\Zombie_Death9.wav",
+    };
+
     private float movementSpeed;
     private String direction;
 
@@ -40,6 +53,9 @@ public class Enemy : GameObject, MovableObject, Targetable
         damageCountDownTimerMax = 3000;
 
         this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
+
+        Random r = new Random();
+        this.DeathSound = DeathSounds[r.Next(9)];
     }
 
     public void SetLifePoints(float life)

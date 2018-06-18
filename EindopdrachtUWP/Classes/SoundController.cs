@@ -31,14 +31,14 @@ namespace EindopdrachtUWP.Classes
             sounds = new Dictionary<string, Sound>();
             mutedSFX = false;
             mutedMusic = false;
-            soundTrack.Volume = 0.4;
+            soundTrack.Volume = 0.3;
             LoadSound("Soundtrack\\Soundtrack.wav", soundTrack);
             soundTrack.MediaEnded += SoundTrackEnded;
             
         }
 
 
-        public void AddSound(string sound)
+        public void AddSound(string sound, double volume = 0.8)
         {
             if (sound == null || sound == "") return;
             if (sounds.ContainsKey(sound)) return;
@@ -51,7 +51,10 @@ namespace EindopdrachtUWP.Classes
             };
             s.firstSound.AutoPlay = false;
             s.secondSound.AutoPlay = false;
-            
+
+            s.firstSound.Volume = volume;
+            s.secondSound.Volume = volume;
+
             sounds.Add(sound, s);
             LoadSound(sound, s.firstSound);
             LoadSound(sound, s.secondSound);
@@ -75,6 +78,8 @@ namespace EindopdrachtUWP.Classes
                 if (toPlay.playFirst)
                 {
                     Play(toPlay.firstSound);
+//                    toPlay.firstSound.Volume = 0.5;
+//                    Debug.WriteLine(""+);
                 }
                 else
                 {
@@ -109,6 +114,7 @@ namespace EindopdrachtUWP.Classes
                 Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    Debug.WriteLine(sound.Volume);
                     sound.Position = new TimeSpan(0);
                     sound.Play();
                 });
