@@ -36,7 +36,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Arriva Gun";
             description = "The Arriva Gun is a long range weapon which hits all enemies in its path (like a railgun)";
             currentClip = 0;
-            clipAmount = 3;
+            clipAmount = 0;
             clipMax = 3;
             damage = 400;
             accuracy = 0;
