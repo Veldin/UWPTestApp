@@ -190,6 +190,8 @@ namespace UWPTestApp
             {
                 AddTag("destroyed");
                 MainPage.Current.gameover();
+                MainPage.Current.muteMusic();
+                MainPage.Current.muteEffect();
             }
 
             selectNextWeaponDelay -= delta;
