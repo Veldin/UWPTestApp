@@ -60,12 +60,58 @@ namespace EindopdrachtUWP.Classes.Weapons
             // show sprite
         }
 
+        private float getProjectileDamage(float damage, float change, float multiplier, Random random)
+        {
+            //get number between 0 and 100 (101 due to excusivity)
+            float generate = random.Next(0, 101);
+
+            //Determine if its a critical hit if the generated number is lower then the crid change times 100
+            if (generate < (change * 100))
+            {
+                damage = damage * multiplier;
+
+                //If it was a crit call this function again to be able to have double, tripple, quad, ect crits.
+                return getProjectileDamage(damage, change, multiplier, random);
+            }
+
+            return damage;
+        }
+
         public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
         {
+
+            //Random random = new Random(Guid.NewGuid().GetHashCode());
+            //float randomPositionOffset = (random.Next(0, (int)accuracy * (int)accuracy)) ;
+            //randomPositionOffset = randomPositionOffset - accuracy * (accuracy) / 2;
+
+            Random random = new Random();
+            //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
+            //Get a number between the accuracy and the accuracy * -1.
+            float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+
+            float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
+
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
-                gameObjects.Add(new Projectile(23, 23, fromLeft, fromTop, 0, 0, 0, 0, damage));
+
+                if (direction == "Top")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height));
+                }
+                else if (direction == "Bottom")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height));
+                }
+                else if (direction == "Left")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset));
+                }
+                else //Right
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset));
+                }
+
                 currentClip--;
                 ableToFire = false;
                 return true;

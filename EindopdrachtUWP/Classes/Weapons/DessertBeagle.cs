@@ -97,7 +97,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
-                Debug.WriteLine("Able to fire");
 
                 if (direction == "Top")
                 {
