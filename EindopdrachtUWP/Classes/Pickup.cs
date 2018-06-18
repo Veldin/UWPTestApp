@@ -174,15 +174,16 @@ namespace EindopdrachtUWP.Classes
                 int r = rand.Next(21);
                 switch (r)
                 {
+                    case 0:
+                        type = AmmunitionArrivaGun;
+                        break;
                     case 1:
                         type = AmmunitionBatarang;
                         break;
                     case 2:
                         type = AmmunitionBulletBill;
                         break;
-                    case 3:
-                        type = AmmunitionDessertBeagle;
-                        break;
+                    // DessertBeagle has infinite bullets, this goes to default (health pickup)
                     case 4:
                         type = AmmunitionFlameThrower;
                         break;

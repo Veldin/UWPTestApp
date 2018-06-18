@@ -3,11 +3,12 @@ using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace UWPTestApp
 {
-    public class Player : GameObject, MovableObject, Targetable
+    public class Player : GameObject, MovableObject, Targetable, IDisposable
     {
         private float walkSpeed;
         private float health;
@@ -18,6 +19,8 @@ namespace UWPTestApp
 
         public string DeathSound { get; set; }
         public string MoveSound { get; set; }
+        public string HitSound { get; set; }
+        public string HealthLowSound { get; set; }
 
         public bool IsWalking { get; set; }
 
@@ -36,8 +39,10 @@ namespace UWPTestApp
 
             AddTag("solid");
 
-            DeathSound = "";
+            DeathSound = "Generic_Sounds\\Player_Death_Sound.wav";
             MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+            HitSound = "Generic_Sounds\\Player_Hit_Sound.wav";
+            HealthLowSound = "Generic_Sounds\\Health_Low_Sound.wav";
 
             walkSpeed = 300;
             health = 300;
@@ -127,6 +132,16 @@ namespace UWPTestApp
         public void IncreaseHealth(float amount)
         {
             health += amount;
+            Debug.WriteLine("Health: " + health);
+            if (HasTag("health_low") && health >= 100)
+            {
+                RemoveTag("health_low");
+            }
+            else if (!HasTag("health_low") && health < 100)
+            {
+                AddTag("health_low");
+            }
+            MainPage.Current.updateHealth();
         }
 
         public void IncreaseArmor(float amount)
@@ -137,6 +152,11 @@ namespace UWPTestApp
         public float getArmor()
         {
             return armor;
+        }
+
+        public float getHealth()
+        {
+            return health;
         }
 
         public void IncreaseLevel()
@@ -159,8 +179,9 @@ namespace UWPTestApp
         public Boolean Fire(String direction, List<GameObject> gameObjects)
         {
             this.direction = direction;
-            
-            return activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction); 
+
+            MainPage.Current.UpdateCurrentClip();
+            return activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction);
         }
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
@@ -286,6 +307,16 @@ namespace UWPTestApp
                 }
             }
 
+<<<<<<< HEAD
+=======
+            if (gameObject.HasTag("hostile"))
+            {
+//                AddTag("hit");
+                // PlayHitSound();
+            }
+
+
+>>>>>>> 3f8455222cd708428d1e79b7884047694013153f
             //If a player is coliding with an object their collitionEffect is triggered instantly and not after this resolves.
             //This is so the collition of the enemy still goes even thought they are not colliding anymore.
             //This also lets you "push" away your enemies. (Because they act like a solid just apeared in them)
@@ -311,6 +342,11 @@ namespace UWPTestApp
         public Weapon GetActiveWeapon()
         {
             return activeWeapon;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
