@@ -9,7 +9,7 @@ namespace UWPTestApp
     public class Player : GameObject, MovableObject, Targetable
     {
         private float walkSpeed;
-        private int health;
+        private float health;
         private int armor;
         private int level;
 
@@ -105,8 +105,7 @@ namespace UWPTestApp
             {
                 return false;
             }
-
-            Boolean found = false;
+            
             for (int i = 0; i < weapons.Count(); i++)
             {
                 if (activeWeapon == weapons[i])
@@ -129,7 +128,7 @@ namespace UWPTestApp
             return true;
         }
 
-        public void IncreaseHealth(int amount)
+        public void IncreaseHealth(float amount)
         {
             health += amount;
         }
@@ -166,6 +165,11 @@ namespace UWPTestApp
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
+            if (health <= 0)
+            {
+                AddTag("destroyed");
+            }
+
             selectNextWeaponDelay -= delta;
             //activeWeapon.OnTick(delta, delta);
 
