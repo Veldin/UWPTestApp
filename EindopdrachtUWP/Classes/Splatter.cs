@@ -10,9 +10,14 @@ namespace UWPTestApp
 {
     public class Splatter : GameObject
     {
+        private float duration;
+        private float maxDuration;
+
         public Splatter(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
+            maxDuration = 3000;
+            duration = maxDuration;
 
             //Generate a new random with the hash of the GUID as seed. This way splaters made on the same frame aren't always the same.
             Random random = new Random(Guid.NewGuid().GetHashCode());
@@ -26,6 +31,12 @@ namespace UWPTestApp
         //And Also get the delta for timed events.
         public override Boolean OnTick(List<GameObject> gameObjects, float delta)
         {
+            duration -= delta;
+            if (duration < 0)
+            {
+                AddTag("destroyed");
+            }
+
             return true;
         }
 
