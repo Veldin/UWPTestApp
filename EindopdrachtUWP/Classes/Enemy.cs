@@ -25,7 +25,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         AddTag("solid");
 
         //Default movespeed and lifePoints are both 300. They can be set later on.
-        movementSpeed = 350;
+        movementSpeed = 220;
         lifePoints = 300;
         maxLifePoints = lifePoints;
 
