@@ -71,32 +71,7 @@ public class TextBox : GameObject, MovableObject
         get { return color; }
         set { color = value; }
     }
-
-    public void PlayMoveSound()
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void PlayDeathsound()
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void SetMoveSound(String moveSound)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void SetDeathSound(String deathSound)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void PlayDeathSound()
-    {
-        //throw new NotImplementedException();
-    }
-
+    
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
         duration -= delta;

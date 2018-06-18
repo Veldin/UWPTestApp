@@ -11,8 +11,11 @@ namespace UWPTestApp
         private int health;
         private int armor;
         private int level;
-        private string deathSound = "Generic_Sounds\\Player_Movement_Sound.wav";
-        private string moveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+
+        public string DeathSound { get; set; }
+        public string MoveSound { get; set; }
+
+        public bool IsWalking { get; set; }
 
         private float selectNextWeaponDelay;
         private float selectNextWeaponDelayMax;
@@ -24,6 +27,10 @@ namespace UWPTestApp
         {
 
             AddTag("solid");
+
+            DeathSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+            MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+
 
             walkSpeed = 300;
             health = 300;
@@ -112,27 +119,7 @@ namespace UWPTestApp
         {
             return walkSpeed;
         }
-
-        void MovableObject.SetMoveSound(String moveSound)
-        {
-            this.moveSound = moveSound;
-        }
-
-        void MovableObject.PlayMoveSound()
-        {
-            // to be implemented
-        }
-
-        void MovableObject.SetDeathSound(String deathSound)
-        {
-            this.deathSound = deathSound;
-        }
-
-        void MovableObject.PlayDeathSound()
-        {
-            // to be implemented
-        }
-
+        
         void MovableObject.SetMovementSpeed(float speed)
         {
             walkSpeed = speed;
