@@ -8,7 +8,7 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
     <Border Background="Gray">
-    <Viewbox Width="1080" Height="1080" >
+    <Viewbox Stretch="Uniform">
         <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All"  Margin="-70, 0, -70, 0">
             
             <!--Background and drawable Canvas-->

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using UWPTestApp;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -31,6 +32,8 @@ namespace EindopdrachtUWP
 
             Window.Current.CoreWindow.KeyDown += KeyDown;
             Window.Current.CoreWindow.KeyUp += KeyUP;
+
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
 
             info.Opacity = 0;
             about.Opacity = 0;
