@@ -2,13 +2,14 @@
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UWPTestApp
 {
     public class Player : GameObject, MovableObject, Targetable
     {
         private float walkSpeed;
-        private int health;
+        private float health;
         private int armor;
         private int level;
 
@@ -28,7 +29,7 @@ namespace UWPTestApp
 
             AddTag("solid");
 
-            DeathSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+            DeathSound = "";
             MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
 
 
@@ -98,7 +99,36 @@ namespace UWPTestApp
             return true;
         }
 
-        public void IncreaseHealth(int amount)
+        public Boolean selectPreviousWeapon()
+        {
+            if (selectNextWeaponDelay > 0)
+            {
+                return false;
+            }
+            
+            for (int i = 0; i < weapons.Count(); i++)
+            {
+                if (activeWeapon == weapons[i])
+                {
+                    if (i - 1 < 0)
+                    {
+                        activeWeapon = weapons[9];
+                    }
+                    else
+                    {
+                        activeWeapon = weapons[i - 1];
+                    }
+                    selectNextWeaponDelay = selectNextWeaponDelayMax;
+                    return true;
+                }
+            }
+            activeWeapon = weapons[0];
+
+            selectNextWeaponDelay = selectNextWeaponDelayMax;
+            return true;
+        }
+
+        public void IncreaseHealth(float amount)
         {
             health += amount;
         }
@@ -135,6 +165,11 @@ namespace UWPTestApp
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
+            if (health <= 0)
+            {
+                AddTag("destroyed");
+            }
+
             selectNextWeaponDelay -= delta;
             //activeWeapon.OnTick(delta, delta);
 

@@ -36,7 +36,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Homers Bullets";
             description = "The Homers Bullet is a bullet that follows it's target. D'OH!";
             currentClip = 0;
-            clipAmount = 10;
+            clipAmount = 0;
             clipMax = 10;
             damage = 150;
             accuracy = 0;
@@ -77,7 +77,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 damage = damage * multiplier;
 
                 //If it was a crit call this function again to be able to have double, tripple, quad, ect crits.
-                return getProjectileDamage(damage, change, multiplier, random);
+//                return getProjectileDamage(damage, change, multiplier, random);
             }
 
             return damage;

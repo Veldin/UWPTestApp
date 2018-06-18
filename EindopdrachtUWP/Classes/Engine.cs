@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Core;
@@ -45,33 +46,37 @@ namespace UWPTestApp
 
         private Boolean paused;
 
-
         private SoundController soundController;
 
         private Player player;
-
-        
+        private Boolean hasPlayer;
 
         public Engine()
         {
             gameObjects = new List<GameObject>();
 
             soundController = new SoundController();
-			
 
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
 
+            hasPlayer = true;
+
             soundController.AddSound(player.DeathSound);
-            soundController.AddSound(player.MoveSound);
+            soundController.AddSound(player.MoveSound, 0.4);
 
             foreach (Weapon weapon in player.GetWeapons())
             {
                 soundController.AddSound(weapon.shotSound);
             }
 
-            foreach (string sound in Pickup.getSounds())
+            foreach (string pickupSound in Pickup.getSounds())
             {
-                soundController.AddSound(sound);
+                soundController.AddSound(pickupSound);
+            }
+
+            foreach (string deathSound in Enemy.DeathSounds)
+            {
+                soundController.AddSound(deathSound, 1);
             }
 
             scenes = new List<Scene>();
@@ -260,7 +265,7 @@ namespace UWPTestApp
             //Apply the logic to all the bameObjects CURRENTLY in the List.
             //The new List makes a copy so the original arraylist can be modivied in this loop
 
-            if (paused == false)
+            if (paused == false && hasPlayer)
             {
                 foreach (GameObject gameObject in new List<GameObject>(gameObjects))
                 {
@@ -277,8 +282,8 @@ namespace UWPTestApp
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
-                            if (player.selectNextWeapon())
-                                MainPage.Current.nextWeapon();
+                            if (player.selectPreviousWeapon())
+                                MainPage.Current.previousWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
@@ -339,7 +344,7 @@ namespace UWPTestApp
 
                         if (player.IsWalking)
                         {
-//                            soundController.PlaySound(player.MoveSound);
+                            soundController.PlaySound(player.MoveSound);
                         }
                     }
 
@@ -364,6 +369,18 @@ namespace UWPTestApp
                             {
                                 soundController.PlaySound(pickup.getPickUpSound());
                             }
+                            else if(gameObjectCheck is Player)
+                            {
+                                hasPlayer = false;
+                                MainPage.Current.getMenu();
+							}
+                            else if (gameObjectCheck is MovableObject mo)
+                            {
+                                if (mo is Enemy enemy)
+                                {
+                                    soundController.PlaySound(enemy.DeathSound);
+                                }
+                            }
                             gameObjects.Remove(gameObjectCheck);
                         }
                     }
@@ -379,6 +396,10 @@ namespace UWPTestApp
             }
             if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
             {
+                if (!hasPlayer)
+                {
+                    CoreApplication.RequestRestartAsync("");
+                }
                 MainPage.Current.removeMenu();
                 paused = false;
             }
