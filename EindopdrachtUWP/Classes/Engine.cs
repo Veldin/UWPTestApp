@@ -629,7 +629,7 @@ namespace UWPTestApp
                         textBox.Color,
                         new CanvasTextFormat()
                         {
-                            FontFamily = "Arial",
+                            FontFamily = "Lunchtime Doubly So",
                             FontSize = textBox.FontSize
                         }
                     );
