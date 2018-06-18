@@ -19,6 +19,7 @@ namespace EindopdrachtUWP
         public bool infoScreen;
         public bool aboutScreen;
         public bool paused;
+        public bool game_over;
         public int weapon;
 
         public MainPage()
@@ -39,7 +40,8 @@ namespace EindopdrachtUWP
             about.Opacity = 0;
             stats.Opacity = 0;
             statImage.Opacity = 0;
-            Game_Over_Screen.Opacity = 0;
+            game_Over_Screen.Opacity = 0;
+            game_over = false;
             menuScreen = true;
             infoScreen = false;
             aboutScreen = false;
@@ -48,6 +50,18 @@ namespace EindopdrachtUWP
             weapon = 1;
 
             engine.Run();
+        }
+        public void gameover()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                game_Over_Screen.Opacity = 0.75;
+                game_Over_Screen_image.Opacity = 1;
+                game_over = true;
+                menuScreen = false;
+            }
+            );
         }
 
         public void muteMusic()

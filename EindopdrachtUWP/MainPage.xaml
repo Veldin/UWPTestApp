@@ -70,8 +70,8 @@
                 </Grid>                
             </Grid>
         </Viewbox>
-        <Grid x:Name="Game_Over_Screen" Background="Black" Opacity="0.75">
-            <Image Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
+        <Grid x:Name="game_Over_Screen" Background="Black" Opacity="0">
+            <Image x:Name="game_Over_Screen_image" Opacity="0" Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
         </Grid>
     </Grid>
 </Page>
