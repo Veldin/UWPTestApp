@@ -28,7 +28,7 @@ namespace UWPTestApp
 
             AddTag("solid");
 
-            DeathSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+            DeathSound = "";
             MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
 
 

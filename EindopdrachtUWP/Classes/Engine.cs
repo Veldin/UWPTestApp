@@ -62,16 +62,21 @@ namespace UWPTestApp
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
 
             soundController.AddSound(player.DeathSound);
-            soundController.AddSound(player.MoveSound);
+            soundController.AddSound(player.MoveSound, 0.4);
 
             foreach (Weapon weapon in player.GetWeapons())
             {
                 soundController.AddSound(weapon.shotSound);
             }
 
-            foreach (string sound in Pickup.getSounds())
+            foreach (string pickupSound in Pickup.getSounds())
             {
-                soundController.AddSound(sound);
+                soundController.AddSound(pickupSound);
+            }
+
+            foreach (string deathSound in Enemy.DeathSounds)
+            {
+                soundController.AddSound(deathSound, 1);
             }
 
             scenes = new List<Scene>();
@@ -339,7 +344,7 @@ namespace UWPTestApp
 
                         if (player.IsWalking)
                         {
-//                            soundController.PlaySound(player.MoveSound);
+                            soundController.PlaySound(player.MoveSound);
                         }
                     }
 
@@ -363,6 +368,13 @@ namespace UWPTestApp
                             if (gameObjectCheck is Pickup pickup)
                             {
                                 soundController.PlaySound(pickup.getPickUpSound());
+                            }
+                            else if (gameObjectCheck is MovableObject mo)
+                            {
+                                if (mo is Enemy enemy)
+                                {
+                                    soundController.PlaySound(enemy.DeathSound);
+                                }
                             }
                             gameObjects.Remove(gameObjectCheck);
                         }
