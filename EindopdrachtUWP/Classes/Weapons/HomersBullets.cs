@@ -36,7 +36,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Homers Bullets";
             description = "The Homers Bullet is a bullet that follows it's target. D'OH!";
             currentClip = 0;
-            clipAmount = 10;
+            clipAmount = 0;
             clipMax = 10;
             damage = 150;
             accuracy = 0;

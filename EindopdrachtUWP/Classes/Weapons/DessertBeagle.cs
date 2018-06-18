@@ -69,9 +69,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             if (random.Next(0, 101) < (change * 100))
             {
                 damage = damage* multiplier;
-                
-                //If it was a crit call this function again to be able to have double, tripple, quad, ect crits.
-                //return getProjectileDamage(damage, change, multiplier, random);
             }
 
             return damage;
