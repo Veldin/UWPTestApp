@@ -14,8 +14,9 @@ namespace UWPTestApp
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
 
-            Random random = new Random();
-            int randomPositionOffset = random.Next(1,5);
+            //Generate a new random with the hash of the GUID as seed. This way splaters made on the same frame aren't always the same.
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            int randomPositionOffset = random.Next(1,19);
 
             location = "Assets/Sprites/Enemy_Sprites/Bloodsplatter"+ randomPositionOffset + ".png";
 
@@ -36,7 +37,7 @@ namespace UWPTestApp
             {
                 AddHeight(-1);
 
-                if (Height < 1)
+                if (Height < 2)
                 {
                     //If the height is below 1, remove the blood splatter.
                     AddTag("destroyed");

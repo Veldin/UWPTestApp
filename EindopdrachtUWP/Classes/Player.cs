@@ -68,12 +68,12 @@ namespace UWPTestApp
             return activeWeapon.name;
         }
 
-        public string selectNextWeapon()
+        public Boolean selectNextWeapon()
         {
             //If you recently switched weapons this is higher then 0
             if (selectNextWeaponDelay > 0)
             {
-                return activeWeapon.name;
+                return false;
             }
 
             Boolean found = false;
@@ -86,13 +86,13 @@ namespace UWPTestApp
                 {
                     activeWeapon = selected;
                     selectNextWeaponDelay = selectNextWeaponDelayMax;
-                    return activeWeapon.name;
+                    return true;
                 }
             }
             activeWeapon = weapons[0];
 
             selectNextWeaponDelay = selectNextWeaponDelayMax;
-            return activeWeapon.name;
+            return true;
         }
 
         public void IncreaseHealth(int amount)

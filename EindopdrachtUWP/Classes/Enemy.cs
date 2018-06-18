@@ -8,9 +8,10 @@ public class Enemy : GameObject, MovableObject, Targetable
 {
 
 
-    float lifePoints;
-    float power;
-    String enemyType;
+    private float lifePoints;
+    private float maxLifePoints;
+    private float power;
+    private String enemyType;
     private MediaElement deathSound;
     private float movementSpeed;
     private MediaElement moveSound;
@@ -26,6 +27,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         //Default movespeed and lifePoints are both 300. They can be set later on.
         movementSpeed = 350;
         lifePoints = 300;
+        maxLifePoints = lifePoints;
 
         this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
     }
@@ -43,6 +45,11 @@ public class Enemy : GameObject, MovableObject, Targetable
     public float GetLifePoints()
     {
         return lifePoints;
+    }
+
+    public float GetMaxLifePoints()
+    {
+        return maxLifePoints;
     }
 
     public void SetPower(int power)
@@ -223,10 +230,20 @@ public class Enemy : GameObject, MovableObject, Targetable
                 if (facingLeft)
                 {
                     newDirection = "Right";
+
+                    WidthDrawOffset = width / 2;
+                    HeightDrawOffset = 0;
+                    FromTopDrawOffset = 0;
+                    FromLeftDrawOffset = 0;
                 }
                 else
                 {
                     newDirection = "Left";
+
+                    WidthDrawOffset = width / 2;
+                    HeightDrawOffset = 0;
+                    FromTopDrawOffset = 0;
+                    FromLeftDrawOffset = width / 2 * -1;
                 }
             }
             else
@@ -234,10 +251,20 @@ public class Enemy : GameObject, MovableObject, Targetable
                 if (facingTop)
                 {
                     newDirection = "Bottom";
+
+                    WidthDrawOffset = 0;
+                    HeightDrawOffset = width / 2;
+                    FromTopDrawOffset = 0;
+                    FromLeftDrawOffset = 0;
                 }
                 else
                 {
                     newDirection = "Top";
+
+                    WidthDrawOffset = 0;
+                    HeightDrawOffset = width / 2;
+                    FromTopDrawOffset = width / 2 * -1;
+                    FromLeftDrawOffset = 0;
                 }
             }
 
@@ -268,7 +295,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
             int randomSizeOffset = 0;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 15; i++)
             {
                 randomPositionOffsetOne = random.Next((int)width * -1, (int)width);
                 randomPositionOffsetTwo = random.Next((int)width * -1, (int)width);
