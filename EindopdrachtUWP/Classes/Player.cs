@@ -1,11 +1,7 @@
-﻿using EindopdrachtUWP;
-using EindopdrachtUWP.Classes;
+﻿using EindopdrachtUWP.Classes;
 using EindopdrachtUWP.Classes.Weapons;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UWPTestApp;
-using Windows.UI.Xaml.Controls;
 
 namespace UWPTestApp
 {
@@ -15,8 +11,11 @@ namespace UWPTestApp
         private int health;
         private int armor;
         private int level;
-        private MediaElement deathSound;
-        private MediaElement moveSound;
+
+        public string DeathSound { get; set; }
+        public string MoveSound { get; set; }
+
+        public bool IsWalking { get; set; }
 
         private float selectNextWeaponDelay;
         private float selectNextWeaponDelayMax;
@@ -28,6 +27,10 @@ namespace UWPTestApp
         {
 
             AddTag("solid");
+
+            DeathSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+            MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
+
 
             walkSpeed = 300;
             health = 300;
@@ -116,27 +119,7 @@ namespace UWPTestApp
         {
             return walkSpeed;
         }
-
-        void MovableObject.SetMoveSound(MediaElement moveSound)
-        {
-            this.moveSound = moveSound;
-        }
-
-        void MovableObject.PlayMoveSound()
-        {
-            // to be implemented
-        }
-
-        void MovableObject.SetDeathSound(MediaElement deathSound)
-        {
-            this.deathSound = deathSound;
-        }
-
-        void MovableObject.PlayDeathSound()
-        {
-            // to be implemented
-        }
-
+        
         void MovableObject.SetMovementSpeed(float speed)
         {
             walkSpeed = speed;

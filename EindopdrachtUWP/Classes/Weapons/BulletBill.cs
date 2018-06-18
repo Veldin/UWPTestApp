@@ -137,6 +137,10 @@ namespace EindopdrachtUWP.Classes.Weapons
             {
                 Reload();
             }
+            if (currentClip == 0 && clipAmount == 0)
+            {
+                MainPage.Current.weaponEmpty(name);
+            }
             return false;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI.Xaml.Controls;
+using EindopdrachtUWP.Classes;
 
 public class Enemy : GameObject, MovableObject, Targetable
 {
@@ -12,10 +13,11 @@ public class Enemy : GameObject, MovableObject, Targetable
     private float maxLifePoints;
     private float power;
     private String enemyType;
-    private MediaElement deathSound;
-    private float movementSpeed;
-    private MediaElement moveSound;
 
+    public string DeathSound { get; set; }
+    public string MoveSound { get; set; }
+
+    private float movementSpeed;
     private String direction;
 
     public Enemy(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
@@ -80,26 +82,6 @@ public class Enemy : GameObject, MovableObject, Targetable
     float MovableObject.GetMovementSpeed()
     {
         return movementSpeed;
-    }
-
-    void MovableObject.SetMoveSound(MediaElement moveSound)
-    {
-        this.moveSound = moveSound;
-    }
-
-    void MovableObject.PlayMoveSound()
-    {
-
-    }
-
-    void MovableObject.SetDeathSound(MediaElement deathSound)
-    {
-        this.deathSound = deathSound;
-    }
-
-    void MovableObject.PlayDeathSound()
-    {
-        //iets 
     }
 
     public override Boolean CollitionEffect(GameObject gameObject) {
@@ -303,9 +285,11 @@ public class Enemy : GameObject, MovableObject, Targetable
                 randomSizeOffset = random.Next(((int)width * 75 / 100), ((int)width));
 
                 gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
+                
 
             }
-
+            
+            gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
             //gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffset, fromTop + (height / 2) + randomPositionOffset));
             this.RemoveTag("splatter");
 
