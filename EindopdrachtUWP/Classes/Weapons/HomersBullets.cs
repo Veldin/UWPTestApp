@@ -64,11 +64,8 @@ namespace EindopdrachtUWP.Classes.Weapons
 
         private float getProjectileDamage(float damage, float change, float multiplier, Random random)
         {
-            //get number between 0 and 100 (101 due to excusivity)
-            float generate = random.Next(0, 101);
-
             //Determine if its a critical hit if the generated number is lower then the crid change times 100
-            if (generate < (change * 100))
+            if (random.Next(0, 101) < (change * 100))
             {
                 damage = damage * multiplier;
 
