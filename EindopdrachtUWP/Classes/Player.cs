@@ -48,11 +48,11 @@ namespace UWPTestApp
 
             walkSpeed = 300;
             health = 300;
+            maxHealth = 300;
             armor = 0;
             armor = 0;
             level = 1;
             Kills = 0;
-            maxHealth = 300;
             direction = "Bottom";
 
             selectNextWeaponDelayMax = 1000;
