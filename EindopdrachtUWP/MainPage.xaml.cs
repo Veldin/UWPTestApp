@@ -218,6 +218,49 @@ namespace EindopdrachtUWP
             weapon++;
         }
 
+        public void previousWeapon()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                switch (weapon)
+                {
+                    case 1:
+                        selected.Margin = new Thickness(-55, -540, 0, 0);
+                        weapon = 11;
+                        break;
+                    case 2:
+                        selected.Margin = new Thickness(-55, -420, 0, 0);
+                        break;
+                    case 3:
+                        selected.Margin = new Thickness(-55, -300, 0, 0);
+                        break;
+                    case 4:
+                        selected.Margin = new Thickness(-55, -180, 0, 0);
+                        break;
+                    case 5:
+                        selected.Margin = new Thickness(-55, -60, 0, 0);
+                        break;
+                    case 6:
+                        selected.Margin = new Thickness(-55, 60, 0, 0);
+                        break;
+                    case 7:
+                        selected.Margin = new Thickness(-55, 180, 0, 0);
+                        break;
+                    case 8:
+                        selected.Margin = new Thickness(-55, 300, 0, 0);
+                        break;
+                    case 9:
+                        selected.Margin = new Thickness(-55, 420, 0, 0);
+                        break;
+                    case 10:
+                        selected.Margin = new Thickness(-55, 540, 0, 0);
+                        break;
+                }
+            });
+            weapon--;
+        }
+
         public void weaponAmmo(string weapon)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
