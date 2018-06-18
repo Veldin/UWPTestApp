@@ -448,10 +448,25 @@ namespace UWPTestApp
                 return;
             }
 
+            //Create a new arraylist used to hold the gameobjects for this loop.
+            //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
+            ArrayList loopList; 
+            lock (gameObjects) { //lock the gameobjects for duplication
+                try
+                {
+                    //Try to duplicate the arraylist.
+                    loopList = new ArrayList(gameObjects);
+                }
+                catch
+                {
+                    //if it failes for any reason skip this frame.
+                    return;
+                }
+            }
 
             /* PREPARING THE SPRITES */
             //Load the sprite in this canvasControl so it is usable later
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            foreach (GameObject gameObject in loopList)
             {
                 if (gameObject is Wall)
                 {
@@ -469,7 +484,7 @@ namespace UWPTestApp
 
             /* DRAWING THE SPLATTER SPRITES */
             //Draw the splatter first so all other sprites are drawn upon it. (making the splater apear on the ground)
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            foreach (GameObject gameObject in loopList)
             {
                 if (gameObject.Sprite != null && gameObject is Splatter)
                 {
@@ -486,7 +501,7 @@ namespace UWPTestApp
 
             /* DRAWING THE OTHER SPRITES */
             //Draw the loaded sprites on the correct location
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            foreach (GameObject gameObject in loopList)
             {
                 if (gameObject.Sprite != null && !(gameObject is Splatter))
                 {
@@ -502,7 +517,7 @@ namespace UWPTestApp
             }
 
             //Drawing Enemy Healthbars
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            foreach (GameObject gameObject in loopList)
             {
 
                 Enemy enemy = gameObject as Enemy;
@@ -537,8 +552,8 @@ namespace UWPTestApp
                 }
             }
 
-            //Drawing textBoxes
-            foreach (GameObject gameObject in new ArrayList(gameObjects))
+            //Drawing textBoxesz
+            foreach (GameObject gameObject in loopList)
             {
 
                 TextBox textBox = gameObject as TextBox;
