@@ -150,8 +150,15 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             if (ableToHit)
             {
-                player.IncreaseHealth( GetPower() * damage * -1);
-                ableToHit = false;
+                if (player.getArmor() < 0)
+                {
+                    player.IncreaseHealth(GetPower() * damage * -1);
+                    ableToHit = false;
+                } else
+                {
+                    player.IncreaseArmor(GetPower() * damage * -1);
+                    ableToHit = false;
+                }
             }
         }
 
