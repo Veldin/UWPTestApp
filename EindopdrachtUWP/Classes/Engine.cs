@@ -594,6 +594,41 @@ namespace UWPTestApp
                 }
             }
 
+            //Drawing Player Healthbars
+            foreach (GameObject gameObject in loopList)
+            {
+                Player player = gameObject as Player;
+                if (player is Player)
+                {
+                    if (player.getHealth() < player.getMaxHealth())
+                    {
+                        //Calculate the percentage health left
+                        float percentage = 1 + ((player.getHealth() - player.getMaxHealth()) / player.getMaxHealth());
+
+                        if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
+                        //(this also stops devided by 0 errors while the user wont see the health left)
+
+                        args.DrawingSession.FillRectangle(
+                            new Windows.Foundation.Rect(
+                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
+                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            Colors.Red
+                        );
+
+                        args.DrawingSession.FillRectangle(
+                            new Windows.Foundation.Rect(
+                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
+                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            Colors.Green
+                        );
+                    }
+                }
+            }
+
             //Drawing textBoxes
             foreach (GameObject gameObject in loopList)
             {

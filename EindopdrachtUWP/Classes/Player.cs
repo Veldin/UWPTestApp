@@ -11,6 +11,7 @@ namespace UWPTestApp
     public class Player : GameObject, MovableObject, Targetable, IDisposable
     {
         private float walkSpeed;
+        private float maxHealth;
         private float health;
         private float armor;
         private int level;
@@ -32,6 +33,7 @@ namespace UWPTestApp
         public Weapon activeWeapon;
 
         private String direction;
+        private TextBox textbox;
 
         public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
             : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
@@ -50,8 +52,8 @@ namespace UWPTestApp
             armor = 0;
             level = 1;
             Kills = 0;
-
-            direction = "Top";
+            maxHealth = 300;
+            direction = "Bottom";
 
             selectNextWeaponDelayMax = 1000;
 
@@ -132,6 +134,10 @@ namespace UWPTestApp
         public void IncreaseHealth(float amount)
         {
             health += amount;
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
             Debug.WriteLine("Health: " + health);
             if (HasTag("health_low") && health >= 100)
             {
@@ -159,9 +165,23 @@ namespace UWPTestApp
             return health;
         }
 
+        public float getMaxHealth()
+        {
+            return maxHealth;
+        }
+
         public void IncreaseLevel()
         {
             level++;
+            increaseMaxHealth(25);
+            IncreaseHealth(maxHealth);
+            textbox = new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, "Level Up!", 1000);
+        }
+
+        public void increaseMaxHealth(float amount)
+        {
+            maxHealth += amount;
+            MainPage.Current.updateHealth();
         }
 
         public int GetLevel() => level;
@@ -179,7 +199,6 @@ namespace UWPTestApp
         public Boolean Fire(String direction, List<GameObject> gameObjects)
         {
             this.direction = direction;
-
             MainPage.Current.UpdateCurrentClip();
             return activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction);
         }

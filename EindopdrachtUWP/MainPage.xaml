@@ -42,9 +42,9 @@
 
                 <!--Weapon Selector-->
                 <Image x:Name="selected" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0"/>
-                <TextBlock x:Name="currentClip" Foreground="white" Height="20" Width="30" TextAlignment="Center" HorizontalAlignment="Left"  Margin="-20,-500,0,0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="8"/>
-                <TextBlock x:Name="health" Foreground="Red" Height="20" Width="30" TextAlignment="Center" HorizontalAlignment="Left"  Margin="740, -560, 0, 0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="16"/>
-                <TextBlock x:Name="armour" Foreground="Blue" Height="20" Width="30" TextAlignment="Center" HorizontalAlignment="Left"  Margin="765, -560, 0, 0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="16"/>
+                <TextBlock x:Name="currentClip" Foreground="white" Height="20" Width="30" TextAlignment="Center" HorizontalAlignment="Left"  Margin="-30,-490,0,0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="8"/>
+                <TextBlock x:Name="health" Foreground="Red" Height="20" Width="75" TextAlignment="Right" HorizontalAlignment="Left"  Margin="720, -560, 0, 0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="16"/>
+                <TextBlock x:Name="armour" Foreground="Blue" Height="20" Width="75" TextAlignment="Right" HorizontalAlignment="Left"  Margin="720, -520, 0, 0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="16"/>
                 <Image x:Name="statImage" Source="Assets\Sprites\Menu_Sprites\stats.png" Height="600" Width="200" Margin="800, 0,-220,0" Stretch="Fill"/>
 
                 <Grid x:Name="stats" Height="600" Width="200" Margin="800, 0,-220,0" CornerRadius="5">

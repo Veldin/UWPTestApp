@@ -323,6 +323,8 @@ namespace EindopdrachtUWP.Classes
                             else
                             {
                                 w.clipAmount++;
+                                MainPage.Current.getWeaponStats();
+                                MainPage.Current.UpdateCurrentClip();
                             }
                             MainPage.Current.weaponAmmo(weaponName);
                             break;
@@ -338,6 +340,8 @@ namespace EindopdrachtUWP.Classes
                         if (w.name.Equals(weaponName))
                         {
                             w.Upgrade();
+                            MainPage.Current.getWeaponStats();
+                            MainPage.Current.UpdateCurrentClip();
                             break;
                         }
                     }
@@ -345,10 +349,12 @@ namespace EindopdrachtUWP.Classes
                 else if (type.Equals(ArmorUp))
                 {
                     player.IncreaseArmor(amount);
+                    MainPage.Current.updateArmour();
                 }
                 else if (type.Equals(HealthUp))
                 {
                     player.IncreaseHealth(amount);
+                    MainPage.Current.updateHealth();
                 }
                 AddTag("destroyed");
             }

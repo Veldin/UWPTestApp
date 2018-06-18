@@ -125,6 +125,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             if (ableToReload && clipAmount > 0)
             {
                 currentClip = clipMax;
+                MainPage.Current.getWeaponStats();
+                MainPage.Current.UpdateCurrentClip();
                 ableToReload = false;
             }
         }

@@ -134,21 +134,22 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             if (ableToHit)
             {
-                if (player.getArmor() < 0)
+                if (player.getArmor() <= 0)
                 {
                     player.IncreaseHealth(GetPower() * damage * -1);
                     ableToHit = false;
+                    MainPage.Current.updateHealth();
                 }
                 else
                 {
                     player.IncreaseArmor(GetPower() * damage * -1);
                     ableToHit = false;
+                    MainPage.Current.updateArmour();
                 }
                 player.AddTag("hit");
 //                AddTag("hit");
             }
         }
-        MainPage.Current.updateHealth();
         return true;
     }
 

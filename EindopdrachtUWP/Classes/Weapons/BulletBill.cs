@@ -143,6 +143,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             {
                 clipAmount--;
                 currentClip = clipMax;
+                MainPage.Current.getWeaponStats();
+                MainPage.Current.UpdateCurrentClip();
                 ableToReload = false;
             }
         }
