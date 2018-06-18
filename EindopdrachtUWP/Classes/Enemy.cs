@@ -13,9 +13,9 @@ public class Enemy : GameObject, MovableObject, Targetable
     private float maxLifePoints;
     private float power;
     private String enemyType;
-    private MediaElement deathSound;
+    private String deathSound;
     private float movementSpeed;
-    private MediaElement moveSound;
+    private String moveSound;
 
     private String direction;
 
@@ -83,7 +83,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         return movementSpeed;
     }
 
-    void MovableObject.SetMoveSound(MediaElement moveSound)
+    void MovableObject.SetMoveSound(String moveSound)
     {
         this.moveSound = moveSound;
     }
@@ -93,7 +93,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
     }
 
-    void MovableObject.SetDeathSound(MediaElement deathSound)
+    void MovableObject.SetDeathSound(String deathSound)
     {
         this.deathSound = deathSound;
     }

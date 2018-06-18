@@ -1,13 +1,6 @@
-﻿using System;
+﻿using Microsoft.Graphics.Canvas;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Automation.Peers;
-using EindopdrachtUWP.Classes.Weapons;
-using Microsoft.Graphics.Canvas;
 using UWPTestApp;
 
 namespace EindopdrachtUWP.Classes
@@ -24,7 +17,7 @@ namespace EindopdrachtUWP.Classes
         public const string AmmunitionHomersBullets = "AmmunitionHomers Bullets";
         public const string AmmunitionKa74 = "AmmunitionKA74";
         public const string AmmunitionKnettergun = "AmmunitionKnettergun";
-        public const string AmmunitionUwp = "AmmunitionUwp";
+        public const string AmmunitionUwp = "AmmunitionUWP";
         public const string AmmunitionVlekKannon = "AmmunitionVLEKKannon";
 
         // Constraints for upgrading guns
@@ -36,7 +29,7 @@ namespace EindopdrachtUWP.Classes
         public const string UpgradeHomersBullets = "UpgradeHomers Bullets";
         public const string UpgradeKa74 = "UpgradeKA74";
         public const string UpgradeKnettergun = "UpgradeKnettergun";
-        public const string UpgradeUwp = "UpgradeUwp";
+        public const string UpgradeUwp = "UpgradeUWP";
         public const string UpgradeVlekKannon = "UpgradeVLEKKannon";
 
         // Constraints for armor up and health up.
@@ -347,6 +340,7 @@ namespace EindopdrachtUWP.Classes
                             {
                                 w.clipAmount++;
                             }
+                            MainPage.Current.weaponAmmo(weaponName);
                             break;
                         }
                     }

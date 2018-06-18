@@ -82,12 +82,12 @@ public class TextBox : GameObject, MovableObject
         //throw new NotImplementedException();
     }
 
-    public void SetMoveSound(MediaElement moveSound)
+    public void SetMoveSound(String moveSound)
     {
         //throw new NotImplementedException();
     }
 
-    public void SetDeathSound(MediaElement deathSound)
+    public void SetDeathSound(String deathSound)
     {
         //throw new NotImplementedException();
     }

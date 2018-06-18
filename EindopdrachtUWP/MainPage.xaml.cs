@@ -218,6 +218,85 @@ namespace EindopdrachtUWP
             weapon++;
         }
 
+        public void weaponAmmo(string weapon)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                switch (weapon)
+                {
+                    case "KA74":
+                        empty_ka74.Opacity = 0;
+                        break;
+                    case "Knettergun":
+                        empty_knettergun.Opacity = 0;
+                        break;
+                    case "UWP":
+                        empty_uwp.Opacity = 0;
+                        break;
+                    case "Flame Thrower":
+                        empty_flamethrower.Opacity = 0;
+                        break;
+                    case "VLEKKannon":
+                        empty_vlekkannon.Opacity = 0;
+                        break;
+                    case "Bullet Bill":
+                        empty_bullet_bill.Opacity = 0;
+                        break;
+                    case "Arriva Gun":
+                        empty_arriva_gun.Opacity = 0;
+                        break;
+                    case "Batarang":
+                        empty_batarang.Opacity = 0;
+                        break;
+                    case "Homers Bullets":
+                        empty_homers_bullets.Opacity = 0;
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+
+        public void weaponEmpty(string weapon)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                switch (weapon)
+                {
+                    case "KA74":
+                        empty_ka74.Opacity = 1;
+                        break;
+                    case "Knettergun":
+                        empty_knettergun.Opacity = 1;
+                        break;
+                    case "UWP":
+                        empty_uwp.Opacity = 1;
+                        break;
+                    case "Flame Thrower":
+                        empty_flamethrower.Opacity = 1;
+                        break;
+                    case "VLEKKannon":
+                        empty_vlekkannon.Opacity = 1;
+                        break;
+                    case "Bullet Bill":
+                        empty_bullet_bill.Opacity = 1;
+                        break;
+                    case "Arriva Gun":
+                        empty_arriva_gun.Opacity = 1;
+                        break;
+                    case "Batarang":
+                        empty_batarang.Opacity = 1;
+                        break;
+                    case "Homers Bullets":
+                        empty_homers_bullets.Opacity = 1;
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
         void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
             engine.KeyDown(args.VirtualKey.ToString());

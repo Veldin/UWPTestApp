@@ -1,4 +1,4 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
 
 namespace UWPTestApp
 {
@@ -9,7 +9,7 @@ namespace UWPTestApp
         void PlayDeathSound();
 
         void SetMovementSpeed(float speed);
-        void SetMoveSound(MediaElement moveSound);
-        void SetDeathSound(MediaElement deathSound);
+        void SetMoveSound(String moveSound);
+        void SetDeathSound(String deathSound);
     }
 }

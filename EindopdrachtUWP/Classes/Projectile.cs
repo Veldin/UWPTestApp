@@ -10,8 +10,8 @@ public class Projectile : GameObject, MovableObject
     float shotFromLeft;
     float damage;
     float movementSpeed;
-    MediaElement moveSound;
-    MediaElement deathSound;
+    String moveSound;
+    String deathSound;
 
     public Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float damage = 0, float shotFromLeft = 0, float shotFromTop = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
@@ -147,7 +147,7 @@ public class Projectile : GameObject, MovableObject
         return movementSpeed;
     }
 
-    void MovableObject.SetMoveSound(MediaElement moveSound)
+    void MovableObject.SetMoveSound(String moveSound)
     {
         this.moveSound = moveSound;
     }
@@ -157,7 +157,7 @@ public class Projectile : GameObject, MovableObject
         // move sound
     }
 
-    void MovableObject.SetDeathSound(MediaElement deathSound)
+    void MovableObject.SetDeathSound(String deathSound)
     {
         this.deathSound = deathSound;
     }
