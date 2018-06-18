@@ -61,7 +61,8 @@ namespace UWPTestApp
 
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
 
-
+            soundController.AddSound(player.DeathSound);
+            soundController.AddSound(player.MoveSound);
 
             foreach (Weapon weapon in player.GetWeapons())
             {
@@ -250,6 +251,7 @@ namespace UWPTestApp
             Task.Run(() => Run());  //Schedule new Run() task
         }
 
+
         private void Logic()
         {
             paused = MainPage.Current.paused;
@@ -308,25 +310,36 @@ namespace UWPTestApp
                             }
                         }
 
+
+                        player.IsWalking = false;
                         //Handle Input (Not only the player might be controlable)
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
                         {
                             player.Target.AddFromTop(1000);
+                            player.IsWalking = true;
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("W") || IsKeyPressed("GamepadLeftThumbstickUp")))
                         {
                             player.Target.AddFromTop(-1000);
+                            player.IsWalking = true;
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("D") || IsKeyPressed("GamepadLeftThumbstickRight")))
                         {
                             player.Target.AddFromLeft(1000);
+                            player.IsWalking = true;
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("A") || IsKeyPressed("GamepadLeftThumbstickLeft")))
                         {
                             player.Target.AddFromLeft(-1000);
+                            player.IsWalking = true;
+                        }
+
+                        if (player.IsWalking)
+                        {
+//                            soundController.PlaySound(player.MoveSound);
                         }
                     }
 

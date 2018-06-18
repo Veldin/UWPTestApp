@@ -13,9 +13,12 @@ public class Enemy : GameObject, MovableObject, Targetable
     private float maxLifePoints;
     private float power;
     private String enemyType;
-    private MediaElement deathSound;
+    
+    public string DeathSound { get; set; }
+    public string MoveSound { get; set; }
+
     private float movementSpeed;
-    private MediaElement moveSound;
+
 
     private String direction;
 
@@ -82,26 +85,7 @@ public class Enemy : GameObject, MovableObject, Targetable
     {
         return movementSpeed;
     }
-
-    void MovableObject.SetMoveSound(MediaElement moveSound)
-    {
-        this.moveSound = moveSound;
-    }
-
-    void MovableObject.PlayMoveSound()
-    {
-
-    }
-
-    void MovableObject.SetDeathSound(MediaElement deathSound)
-    {
-        this.deathSound = deathSound;
-    }
-
-    void MovableObject.PlayDeathSound()
-    {
-        //iets 
-    }
+    
 
     public override Boolean CollitionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid"))
