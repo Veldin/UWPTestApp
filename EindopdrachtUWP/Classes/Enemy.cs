@@ -288,7 +288,7 @@ public class Enemy : GameObject, MovableObject, Targetable
                 
 
             }
-
+            
             gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
             //gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffset, fromTop + (height / 2) + randomPositionOffset));
             this.RemoveTag("splatter");
