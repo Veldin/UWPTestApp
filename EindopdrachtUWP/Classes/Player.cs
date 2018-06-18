@@ -307,16 +307,6 @@ namespace UWPTestApp
                 }
             }
 
-<<<<<<< HEAD
-=======
-            if (gameObject.HasTag("hostile"))
-            {
-//                AddTag("hit");
-                // PlayHitSound();
-            }
-
-
->>>>>>> 3f8455222cd708428d1e79b7884047694013153f
             //If a player is coliding with an object their collitionEffect is triggered instantly and not after this resolves.
             //This is so the collition of the enemy still goes even thought they are not colliding anymore.
             //This also lets you "push" away your enemies. (Because they act like a solid just apeared in them)
