@@ -49,7 +49,7 @@ namespace EindopdrachtUWP
             paused = true;           
 
             weapon = 1;
-            activeweapon.Text = "Dessert Eagle";
+            activeweapon.Text = "Dessert Beagle";
 
             engine.Run();
         }
