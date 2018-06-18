@@ -49,7 +49,6 @@ namespace UWPTestApp
         private SoundController soundController;
 
         private Player player;
-        private Boolean hasPlayer;
 
         public Engine()
         {
@@ -58,8 +57,6 @@ namespace UWPTestApp
             soundController = new SoundController();
 
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
-
-            hasPlayer = true;
 
             soundController.AddSound(player.DeathSound);
             soundController.AddSound(player.MoveSound, 0.4);
@@ -265,7 +262,7 @@ namespace UWPTestApp
             //Apply the logic to all the bameObjects CURRENTLY in the List.
             //The new List makes a copy so the original arraylist can be modivied in this loop
 
-            if (paused == false && hasPlayer)
+            if (paused == false && !MainPage.Current.game_over)
             {
                 foreach (GameObject gameObject in new List<GameObject>(gameObjects))
                 {
@@ -371,8 +368,7 @@ namespace UWPTestApp
                             }
                             else if(gameObjectCheck is Player)
                             {
-                                hasPlayer = false;
-                                MainPage.Current.getMenu();
+                                MainPage.Current.gameover();
 							}
                             else if (gameObjectCheck is MovableObject mo)
                             {
@@ -383,20 +379,18 @@ namespace UWPTestApp
                                         if (getPlayer is Player p)
                                         {
                                             p.Kills++;
-                                            if (p.Kills > 5 * (p.GetLevel() * p.GetLevel()))
+                                            if (p.Kills > 5 * (p.GetLevel() ^ 2))
                                             {
                                                 p.IncreaseLevel();
                                             }
 
                                             if (p.Kills % 3 == 0)
                                             {
-
                                                 gameObjects.Add(new Pickup(15, 17, enemy.FromLeft, enemy.FromTop));
                                             }
                                             break;
                                         }
                                     }
-                                    
                                     soundController.PlaySound(enemy.DeathSound);
                                 }
                             }
@@ -405,7 +399,7 @@ namespace UWPTestApp
                     }
 
                     //Key to pauze the screen
-                    if (IsKeyPressed("Escape") || IsKeyPressed("GamepadView"))
+                    if (IsKeyPressed("Escape") || IsKeyPressed("GamepadMenu"))
                     {
                         MainPage.Current.getMenu();
                         paused = true;
@@ -413,12 +407,8 @@ namespace UWPTestApp
                     }
                 }
             }
-            if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
+            if (MainPage.Current.menuScreen && (IsKeyPressed("A") || IsKeyPressed("GamepadA")))
             {
-                if (!hasPlayer)
-                {
-                    CoreApplication.RequestRestartAsync("");
-                }
                 MainPage.Current.removeMenu();
                 paused = false;
             }
@@ -454,6 +444,14 @@ namespace UWPTestApp
                     effects = true;
                 }
                 Task.Delay(300).Wait();
+            }
+
+            if (MainPage.Current.game_over)
+            {
+                if (IsKeyPressed("Space") || IsKeyPressed("GamepadView"))
+                {
+                    CoreApplication.RequestRestartAsync("");
+                }
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
