@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Core;
@@ -45,21 +46,20 @@ namespace UWPTestApp
 
         private Boolean paused;
 
-
         private SoundController soundController;
 
         private Player player;
-
-        
+        private Boolean hasPlayer;
 
         public Engine()
         {
             gameObjects = new List<GameObject>();
 
             soundController = new SoundController();
-			
 
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
+
+            hasPlayer = true;
 
             soundController.AddSound(player.DeathSound);
             soundController.AddSound(player.MoveSound);
@@ -260,7 +260,7 @@ namespace UWPTestApp
             //Apply the logic to all the bameObjects CURRENTLY in the List.
             //The new List makes a copy so the original arraylist can be modivied in this loop
 
-            if (paused == false)
+            if (paused == false && hasPlayer)
             {
                 foreach (GameObject gameObject in new List<GameObject>(gameObjects))
                 {
@@ -364,6 +364,11 @@ namespace UWPTestApp
                             {
                                 soundController.PlaySound(pickup.getPickUpSound());
                             }
+                            else if(gameObjectCheck is Player)
+                            {
+                                hasPlayer = false;
+                                MainPage.Current.getMenu();
+                            }
                             gameObjects.Remove(gameObjectCheck);
                         }
                     }
@@ -379,6 +384,10 @@ namespace UWPTestApp
             }
             if (IsKeyPressed("A") || IsKeyPressed("GamepadA"))
             {
+                if (!hasPlayer)
+                {
+                    CoreApplication.RequestRestartAsync("");
+                }
                 MainPage.Current.removeMenu();
                 paused = false;
             }

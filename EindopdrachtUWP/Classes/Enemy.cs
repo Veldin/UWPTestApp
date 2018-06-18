@@ -14,6 +14,11 @@ public class Enemy : GameObject, MovableObject, Targetable
     private float power;
     private String enemyType;
 
+    private float damage;
+    private bool ableToHit;
+    private float damageCountDownTimer;
+    private float damageCountDownTimerMax;
+
     public string DeathSound { get; set; }
     public string MoveSound { get; set; }
 
@@ -29,7 +34,10 @@ public class Enemy : GameObject, MovableObject, Targetable
         //Default movespeed and lifePoints are both 300. They can be set later on.
         movementSpeed = 220;
         lifePoints = 300;
+        damage = 50;
         maxLifePoints = lifePoints;
+        ableToHit = true;
+        damageCountDownTimerMax = 3000;
 
         this.Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
     }
@@ -87,7 +95,6 @@ public class Enemy : GameObject, MovableObject, Targetable
     public override Boolean CollitionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid"))
         {
-
             //We had this a recursive function first, that fired until there was no collition.
             //But this made them warp further due to them pushing eachother 
             int maxCollitions = 9000;
@@ -123,7 +130,11 @@ public class Enemy : GameObject, MovableObject, Targetable
         Player player = gameObject as Player;
         if (player is Player)
         {
-            player.IncreaseHealth(-1);
+            if (ableToHit)
+            {
+                player.IncreaseHealth(damage * -1);
+                ableToHit = false;
+            }
         }
 
         return true;
@@ -155,7 +166,15 @@ public class Enemy : GameObject, MovableObject, Targetable
 
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
-        //throw new NotImplementedException();
+        if (damageCountDownTimer - delta < 0)
+        {
+            damageCountDownTimer = damageCountDownTimerMax;
+            ableToHit = true;
+        }
+        else
+        {
+            damageCountDownTimer -= delta;
+        }
 
         //If you don't have a target, try to find one!
         if (Target == null)
@@ -268,7 +287,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
 
         //Check dead
-        if (lifePoints < 0)
+        if (lifePoints <= 0)
         {
             Random random = new Random();
 
