@@ -135,6 +135,7 @@ namespace UWPTestApp
         public void IncreaseHealth(float amount)
         {
             health += amount;
+            MainPage.Current.updateHealth();
         }
 
         public void IncreaseArmor(float amount)
@@ -145,6 +146,11 @@ namespace UWPTestApp
         public float getArmor()
         {
             return armor;
+        }
+
+        public float getHealth()
+        {
+            return health;
         }
 
         public void IncreaseLevel()

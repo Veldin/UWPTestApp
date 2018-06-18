@@ -56,6 +56,9 @@ namespace EindopdrachtUWP
             currentClip.Text = "12/12";
             currentClipRight.Text = "12/12";
 
+            updateHealth();
+            updateArmour();
+
             engine.Run();
         }
         public void gameover()
@@ -217,6 +220,24 @@ namespace EindopdrachtUWP
                 critChance.Text = critPercentage.ToString() + "%";
                 critMultiPercentage = engine.getPlayer().activeWeapon.critMultiplier * 100;
                 critMulti.Text = critMultiPercentage.ToString() + "%";
+            });
+        }
+
+        public void updateHealth()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                health.Text = engine.getPlayer().getHealth().ToString();
+            });
+        }
+
+        public void updateArmour()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                armour.Text = engine.getPlayer().getArmor().ToString();
             });
         }
 
