@@ -172,7 +172,7 @@ namespace UWPTestApp
                     new Wall(22, 22, 621, 368, 0, 0, 0, 0),
                     new Wall(22, 22, 736, 368, 0, 0, 0, 0),
 
-                    // extra walls that prevents clipping
+                    // extra walls that prevent clipping
                     new Wall(26, 35, 33, 33, 0, 0, 0, 0),
                     new Wall(35, 26, 33, 33, 0, 0, 0, 0),
                     new Wall(2, 2, 160, 45, 0, 0, 0, 0),
@@ -629,7 +629,7 @@ namespace UWPTestApp
                         textBox.Color,
                         new CanvasTextFormat()
                         {
-                            FontFamily = "Lunchtime Doubly So",
+                            FontFamily = "Assets\\lunchds.ttf#Lunchtime Doubly So",
                             FontSize = textBox.FontSize
                         }
                     );
