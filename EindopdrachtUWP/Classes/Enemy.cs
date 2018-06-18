@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI.Xaml.Controls;
+using EindopdrachtUWP.Classes;
 
 public class Enemy : GameObject, MovableObject, Targetable
 {
@@ -303,9 +304,11 @@ public class Enemy : GameObject, MovableObject, Targetable
                 randomSizeOffset = random.Next(((int)width * 75 / 100), ((int)width));
 
                 gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
+                
 
             }
 
+            gameObjects.Add(new Pickup(15, 17, fromLeft, fromTop));
             //gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffset, fromTop + (height / 2) + randomPositionOffset));
             this.RemoveTag("splatter");
 

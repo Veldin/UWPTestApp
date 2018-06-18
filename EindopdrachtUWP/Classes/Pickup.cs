@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Automation.Peers;
 using EindopdrachtUWP.Classes.Weapons;
 using Microsoft.Graphics.Canvas;
 using UWPTestApp;
@@ -39,14 +40,14 @@ namespace EindopdrachtUWP.Classes
         public const string UpgradeVlekKannon = "UpgradeVlekKannon";
 
         // Constraints for armor up and health up.
-        public const string ArmorUp = "armorup";
-        public const string HealthUp = "healthup";
+        public const string ArmorUp = "ArmorUp";
+        public const string HealthUp = "HealthUp";
 
 
 
 
 
-        private static Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
+        private Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
         {
             { AmmunitionArrivaGun, new string[]
             {
@@ -179,9 +180,86 @@ namespace EindopdrachtUWP.Classes
         private CanvasBitmap rightSprite;
         private CanvasBitmap leftSprite;
 
-        public Pickup(float width, float height, float fromLeft, float fromTop, int amount, string type, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0) : 
+        public Pickup(float width, float height, float fromLeft, float fromTop, int amount = 0, string type = "rand", float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0) : 
             base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
+            if (type == "rand")
+            {
+                Random rand = new Random();
+                int r = rand.Next(21);
+                switch (r)
+                {
+                    case 0:
+                        type = AmmunitionArrivaGun;
+                        break;
+                    case 1:
+                        type = AmmunitionBatarang;
+                        break;
+                    case 2:
+                        type = AmmunitionBulletBill;
+                        break;
+                    case 3:
+                        type = AmmunitionDessertBeagle;
+                        break;
+                    case 4:
+                        type = AmmunitionFlameThrower;
+                        break;
+                    case 5:
+                        type = AmmunitionHomersBullets;
+                        break;
+                    case 6:
+                        type = AmmunitionKa74;
+                        break;
+                    case 7:
+                        type = AmmunitionKnettergun;
+                        break;
+                    case 8:
+                        type = AmmunitionUwp;
+                        break;
+                    case 9:
+                        type = AmmunitionVlekKannon;
+                        break;
+                    case 10:
+                        type = UpgradeArrivaGun;
+                        break;
+                    case 11:
+                        type = UpgradeBatarang;
+                        break;
+                    case 12:
+                        type = UpgradeBulletBill;
+                        break;
+                    case 13:
+                        type = UpgradeDessertBeagle;
+                        break;
+                    case 14:
+                        type = UpgradeFlameThrower;
+                        break;
+                    case 15:
+                        type = UpgradeHomersBullets;
+                        break;
+                    case 16:
+                        type = UpgradeKa74;
+                        break;
+                    case 17:
+                        type = UpgradeKnettergun;
+                        break;
+                    case 18:
+                        type = UpgradeUwp;
+                        break;
+                    case 19:
+                        type = UpgradeVlekKannon;
+                        break;
+                    case 20:
+                        type = ArmorUp;
+                        amount = 100;
+                        break;
+                    default:
+                        type = HealthUp;
+                        amount = 100;
+                        break;
+                }
+                
+            }
             this.amount = amount;
             this.type = type;
 

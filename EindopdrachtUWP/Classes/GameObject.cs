@@ -58,7 +58,7 @@ namespace UWPTestApp
             this.fromLeftDrawOffset = fromLeftDrawOffset;
             this.fromTopDrawOffset = fromTopDrawOffset;
 
-            this.location = "Assets/StoreLogo.png";
+            this.location = "Assets/blank.gif";
         }
 
         //Methods to do with loading sprites

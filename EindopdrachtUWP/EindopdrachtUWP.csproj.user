@@ -8,4 +8,7 @@
     <SplashScreenSource>C:\Users\Rick\Documents\GitHub\UWPTestApp\EindopdrachtUWP\Assets\Splashscreen_Logo.png</SplashScreenSource>
     <AppIconSource>C:\Users\Rick\Documents\GitHub\UWPTestApp\EindopdrachtUWP\Assets\StoreLogo.png</AppIconSource>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <CreateCleanLayout>true</CreateCleanLayout>
+  </PropertyGroup>
 </Project>

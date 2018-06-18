@@ -132,6 +132,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\blank.gif" />
     <Content Include="Assets\lunchds.ttf" />
     <None Include="EindopdrachtUWP_TemporaryKey.pfx" />
   </ItemGroup>
