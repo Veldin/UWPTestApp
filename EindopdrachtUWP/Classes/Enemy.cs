@@ -83,30 +83,6 @@ public class Enemy : GameObject, MovableObject, Targetable
     {
         return movementSpeed;
     }
-<<<<<<< HEAD
-    
-=======
-
-    void MovableObject.SetMoveSound(String moveSound)
-    {
-        this.moveSound = moveSound;
-    }
-
-    void MovableObject.PlayMoveSound()
-    {
-
-    }
-
-    void MovableObject.SetDeathSound(String deathSound)
-    {
-        this.deathSound = deathSound;
-    }
-
-    void MovableObject.PlayDeathSound()
-    {
-        //iets 
-    }
->>>>>>> 315ddaf12990726840aef877f04ad2a007a8b1b8
 
     public override Boolean CollitionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid"))
