@@ -425,8 +425,6 @@ namespace UWPTestApp
                                             }
 
                                             break;
-                                            p4.IncreaseLevel();
-                                            soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                         }
 
                                         if (p4.Kills % 3 == 0)
@@ -510,6 +508,7 @@ namespace UWPTestApp
             if(MainPage.Current.activeStartup && (IsKeyPressed("Space") || IsKeyPressed("GamepadMenu")))
             {
                 MainPage.Current.startup();
+                Task.Delay(300).Wait();
             }
         }
 
