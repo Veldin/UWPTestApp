@@ -24,7 +24,7 @@ namespace EindopdrachtUWP
         public double highScore;
         private double critPercentage;
         private double critMultiPercentage;
-        private int weapon;
+        private string weapon;
 
         public MainPage()
         {
@@ -54,8 +54,7 @@ namespace EindopdrachtUWP
             aboutScreen = false;
             activeStartup = true;
             paused = true;           
-
-            weapon = 1;
+            
             getWeaponStats();
             currentClip.Text = "12/12";
             currentClipRight.Text = "12/12";
@@ -302,113 +301,57 @@ namespace EindopdrachtUWP
                 currentClipRight.Text = engine.getPlayer().activeWeapon.currentClip.ToString() + "/" + engine.getPlayer().activeWeapon.clipMax.ToString();
             });
         }
-
-        public void nextWeapon()
+		
+        public void newWeapon()
         {
+            weapon = engine.getPlayer().activeWeapon.name;
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
                 switch (weapon)
                 {
-                    case 1:
+                    case "Dessert Beagle":
                         selected.Margin = new Thickness(-55, -540, 0, 0);
                         currentClip.Margin = new Thickness(-30, -490, 0, 0);
                         break;
-                    case 2:
+                    case "KA74":
                         selected.Margin = new Thickness(-55, -420, 0, 0);
                         currentClip.Margin = new Thickness(-30, -370, 0, 0);
                         break;
-                    case 3:
+                    case "Knettergun":
                         selected.Margin = new Thickness(-55, -300, 0, 0);
                         currentClip.Margin = new Thickness(-30, -250, 0, 0);
                         break;
-                    case 4:
+                    case "UWP":
                         selected.Margin = new Thickness(-55, -180, 0, 0);
                         currentClip.Margin = new Thickness(-30, -110, 0, 0);
                         break;
-                    case 5:
+                    case "Flame Thrower":
                         selected.Margin = new Thickness(-55, -60, 0, 0);
                         currentClip.Margin = new Thickness(-30, -10, 0, 0);
                         break;
-                    case 6:
+                    case "VLEKKannon":
                         selected.Margin = new Thickness(-55, 60, 0, 0);
                         currentClip.Margin = new Thickness(-30, 110, 0, 0);
                         break;
-                    case 7:
+                    case "Bullet Bill":
                         selected.Margin = new Thickness(-55, 180, 0, 0);
                         currentClip.Margin = new Thickness(-30, 230, 0, 0);
                         break;
-                    case 8:
+                    case "Arriva Gun":
                         selected.Margin = new Thickness(-55, 300, 0, 0);
                         currentClip.Margin = new Thickness(-30, 350, 0, 0);
                         break;
-                    case 9:
+                    case "Batarang":
                         selected.Margin = new Thickness(-55, 420, 0, 0);
                         currentClip.Margin = new Thickness(-30, 470, 0, 0);
                         break;
-                    case 10:
-                        selected.Margin = new Thickness(-55, 540, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 580, 0, 0);
-                        weapon = 0;
-                        break;
-                }
-            });
-            weapon++;
-            getWeaponStats();
-            UpdateCurrentClip();
-        }
-
-        public void previousWeapon()
-        {
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () =>
-            {
-                switch (weapon)
-                {
-                    case 1:
-                        selected.Margin = new Thickness(-55, -540, 0, 0);
-                        currentClip.Margin = new Thickness(-30, -490, 0, 0);
-                        weapon = 11;
-                        break;
-                    case 2:
-                        selected.Margin = new Thickness(-55, -420, 0, 0);
-                        currentClip.Margin = new Thickness(-30, -370, 0, 0);
-                        break;
-                    case 3:
-                        selected.Margin = new Thickness(-55, -300, 0, 0);
-                        currentClip.Margin = new Thickness(-30, -250, 0, 0);
-                        break;
-                    case 4:
-                        selected.Margin = new Thickness(-55, -180, 0, 0);
-                        currentClip.Margin = new Thickness(-30, -110, 0, 0);
-                        break;
-                    case 5:
-                        selected.Margin = new Thickness(-55, -60, 0, 0);
-                        currentClip.Margin = new Thickness(-30, -10, 0, 0);
-                        break;
-                    case 6:
-                        selected.Margin = new Thickness(-55, 60, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 110, 0, 0);
-                        break;
-                    case 7:
-                        selected.Margin = new Thickness(-55, 180, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 230, 0, 0);
-                        break;
-                    case 8:
-                        selected.Margin = new Thickness(-55, 300, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 350, 0, 0);
-                        break;
-                    case 9:
-                        selected.Margin = new Thickness(-55, 420, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 470, 0, 0);
-                        break;
-                    case 10:
+                    case "Homers Bullets":
                         selected.Margin = new Thickness(-55, 540, 0, 0);
                         currentClip.Margin = new Thickness(-30, 580, 0, 0);
                         break;
                 }
             });
-            weapon--;
             getWeaponStats();
             UpdateCurrentClip();
         }
