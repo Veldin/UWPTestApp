@@ -79,6 +79,8 @@ public class Projectile : GameObject, MovableObject
 
     public override Boolean OnTick(List<GameObject> gameObjects, float delta)
     {
+        SetNewTarget(gameObjects);
+
         float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
         float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);
 

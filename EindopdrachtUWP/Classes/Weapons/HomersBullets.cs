@@ -95,25 +95,29 @@ namespace EindopdrachtUWP.Classes.Weapons
                 {
                     var projectileTop = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
                     projectileTop.SetLocation(location);
+                    projectileTop.AddTag("homing");
                     gameObjects.Add(projectileTop);
-
+                    
                 }
                 else if (direction == "Bottom")
                 {
                     var projectileBottom = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
                     projectileBottom.SetLocation(location);
+                    projectileBottom.AddTag("homing");
                     gameObjects.Add(projectileBottom);
                 }
                 else if (direction == "Left")
                 {
                     var projectileLeft = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
                     projectileLeft.SetLocation(location);
+                    projectileLeft.AddTag("homing");
                     gameObjects.Add(projectileLeft);
                 }
                 else //Right
                 {
                     var projectileRight = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
                     projectileRight.SetLocation(location);
+                    projectileRight.AddTag("homing");
                     gameObjects.Add(projectileRight);
                 }
 
