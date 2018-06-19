@@ -266,13 +266,13 @@ namespace UWPTestApp
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
                         {
                             if(player.selectNextWeapon())
-                                MainPage.Current.newWeapon();
+                                MainPage.Current.nextWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
                             if (player.selectPreviousWeapon())
-                                MainPage.Current.newWeapon();
+                                MainPage.Current.previousWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))

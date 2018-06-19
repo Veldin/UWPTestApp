@@ -65,8 +65,10 @@ namespace UWPTestApp
             }
             catch (Exception e)
             {
-                Debug.WriteLine(location);
-                Debug.WriteLine(e.StackTrace);
+                if (this is Enemy)
+                {
+                    AddTag("destroyed");
+                }
             }
         }
 
