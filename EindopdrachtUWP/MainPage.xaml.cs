@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -17,13 +18,12 @@ namespace EindopdrachtUWP
         public bool menuScreen;
         public bool infoScreen;
         public bool aboutScreen;
+        public bool activeStartup;
         public bool paused;
         public bool game_over;
-        public double critPercentage;
-        public double critMultiPercentage;
-        public string clipText;
-        public int weapon;
-        
+        private double critPercentage;
+        private double critMultiPercentage;
+        private int weapon;
 
         public MainPage()
         {
@@ -48,9 +48,10 @@ namespace EindopdrachtUWP
             statImage.Opacity = 0;
             game_Over_Screen.Opacity = 0;
             game_over = false;
-            menuScreen = true;
+            menuScreen = false;
             infoScreen = false;
             aboutScreen = false;
+            activeStartup = true;
             paused = true;           
 
             weapon = 1;
@@ -63,6 +64,7 @@ namespace EindopdrachtUWP
 
             engine.Run();
         }
+
         public void gameover()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -198,6 +200,19 @@ namespace EindopdrachtUWP
             );
         }
 
+        public void startup()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                Startup.Opacity = 0;
+                startup_Image.Opacity = 0;
+                activeStartup = false;
+                menuScreen = true;
+            }
+            );
+        }
+
         public void getAbout()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -207,6 +222,26 @@ namespace EindopdrachtUWP
                 menu.Opacity = 0;
                 aboutScreen = true;
                 menuScreen = false;
+            }
+            );
+        }
+
+        public void getControls()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                controls.Opacity = 1;
+            }
+            );
+        }
+
+        public void removeControls()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                controls.Opacity = 0;
             }
             );
         }

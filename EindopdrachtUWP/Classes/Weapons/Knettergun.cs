@@ -32,7 +32,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Knettergun";
             description = "The Knettergun is a strong short ranged weapon, also known as a shotgun";
             currentClip = 0;
-            clipAmount = 10;
+            clipAmount = 0;
             clipMax = 6;
             damage = 400;
             accuracy = 3.3f;

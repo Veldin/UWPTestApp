@@ -250,7 +250,8 @@ namespace UWPTestApp
         private void Logic()
         {
             paused = MainPage.Current.paused;
-            if (paused == false && !MainPage.Current.game_over)
+
+            if (!paused && !MainPage.Current.game_over)
             {
                 //Check if there are objects in the List to apply logic on
                 //Apply the logic to all the bameObjects CURRENTLY in the List.
@@ -326,6 +327,15 @@ namespace UWPTestApp
                         {
                             player.Target.AddFromLeft(-1000);
                             player.IsWalking = true;
+                        }
+
+                        if (!paused && (IsKeyPressed("Space") || IsKeyPressed("GamepadLeftThumbstickButton")))
+                        {
+                            MainPage.Current.getControls();
+                        }
+                        else if (!paused && (!IsKeyPressed("Space") || !IsKeyPressed("GamepadLeftThumbstickButton")))
+                        {
+                            MainPage.Current.removeControls();
                         }
 
                         if (player.IsWalking)
@@ -450,7 +460,7 @@ namespace UWPTestApp
                 Task.Delay(300).Wait();
             }
 
-            if (MainPage.Current.game_over && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
+            if (MainPage.Current.game_over && (IsKeyPressed("Space") || IsKeyPressed("GamepadMenu")))
             {
                 CoreApplication.RequestRestartAsync("");
             }
@@ -475,6 +485,11 @@ namespace UWPTestApp
             {
                 MainPage.Current.removeAbout();
                 Task.Delay(300).Wait();
+            }
+
+            if(MainPage.Current.activeStartup && (IsKeyPressed("Space") || IsKeyPressed("GamepadMenu")))
+            {
+                MainPage.Current.startup();
             }
         }
 

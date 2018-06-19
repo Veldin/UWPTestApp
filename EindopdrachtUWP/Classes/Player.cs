@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace UWPTestApp
 {
-    public class Player : GameObject, MovableObject, Targetable, IDisposable
+    public class Player : GameObject, MovableObject, Targetable
     {
         private float walkSpeed;
         private float maxHealth;
@@ -365,11 +365,6 @@ namespace UWPTestApp
         public Weapon GetActiveWeapon()
         {
             return activeWeapon;
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }
