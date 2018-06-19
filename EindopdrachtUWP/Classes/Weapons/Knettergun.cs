@@ -25,7 +25,10 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected float reloadCooldownDelta;    //The remaining delta for reloading
         protected bool ableToFire;              //Boolean to check is you're able to fire again
         protected bool ableToReload;            //Boolean to check is you're able to reload again
+<<<<<<< HEAD
         private string location;
+=======
+>>>>>>> parent of 6e61f65... Reset
 
         public Knettergun()
         {
@@ -33,7 +36,11 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Knettergun";
             description = "The Knettergun is a strong short ranged weapon, also known as a shotgun";
             currentClip = 0;
+<<<<<<< HEAD
             clipAmount = 0;
+=======
+            clipAmount = 10;
+>>>>>>> parent of 6e61f65... Reset
             clipMax = 6;
             damage = 400;
             accuracy = 3.3f;
@@ -43,7 +50,10 @@ namespace EindopdrachtUWP.Classes.Weapons
             weaponLevel = 1;
             reloadTime = 4000;
             shotSound = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
+<<<<<<< HEAD
             location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
+=======
+>>>>>>> parent of 6e61f65... Reset
 
             ableToReload = true;
             ableToFire = true;
@@ -90,26 +100,41 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
+<<<<<<< HEAD
                     for (int i = 0; i < 12; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
                         var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop - height);
                         projectile.SetLocation(location);
                         gameObjects.Add(projectile);
+=======
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop - height));
+>>>>>>> parent of 6e61f65... Reset
                     }
                 }
                 else if (direction == "Bottom")
                 {
+<<<<<<< HEAD
                     for (int i = 0; i < 12; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
                         var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop + height);
                         projectile.SetLocation(location);
                         gameObjects.Add(projectile);
+=======
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop + height));
+>>>>>>> parent of 6e61f65... Reset
                     }
                 }
                 else if (direction == "Left")
                 {
+<<<<<<< HEAD
                     for (int i = 0; i < 12; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
@@ -126,6 +151,20 @@ namespace EindopdrachtUWP.Classes.Weapons
                         var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + height, fromTop + randomPositionOffset);
                         projectile.SetLocation(location);
                         gameObjects.Add(projectile);
+=======
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft - height, fromTop + randomPositionOffset));
+                    }
+            }
+                else //Right
+                {
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + height, fromTop + randomPositionOffset));
+>>>>>>> parent of 6e61f65... Reset
                     }
                 }
 
@@ -161,6 +200,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
+<<<<<<< HEAD
             damage += 20;
             fireTime *= 0.99f;
             clipMax += 1;
@@ -171,6 +211,14 @@ namespace EindopdrachtUWP.Classes.Weapons
                 critChance = 0.75;
             }
             critMultiplier += 0.05;
+=======
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 1;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+            critMultiplier += 0.1;
+>>>>>>> parent of 6e61f65... Reset
         }
 
         public Boolean OnTick(float delta)

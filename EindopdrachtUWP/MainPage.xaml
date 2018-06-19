@@ -25,7 +25,10 @@
                 <Image x:Name="effectCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="498,449,279,115"/>
                 <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png" Height="600" HorizontalAlignment="Center"/>
                 <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center"/>
+<<<<<<< HEAD
                 <Image x:Name="controls" Source="Assets\Sprites\Menu_Sprites\controls.png" Height="600" HorizontalAlignment="Center" Opacity="0"/>
+=======
+>>>>>>> parent of 6e61f65... Reset
 
                 <!--Hotbar Sprites and locations-->
                 <Image x:Name="hotbar" Source="Assets\Sprites\Hotbar_Sprites\Hotbar.png" Height="600" HorizontalAlignment="Left" Margin="-55,0,0,0"/>
@@ -78,10 +81,13 @@
                 </Grid>
             </Grid>
         </Viewbox>
+<<<<<<< HEAD
         <Grid x:Name="Startup" Background="#282828">
             <Image x:Name="startup_Image" Source="Assets\SplashScreen.scale-400.png"/>
             <Image x:Name="presskey" Source="Assets\Sprites\Menu_Sprites\pressKey.png" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="800" Height="100" Margin="100"/>
         </Grid>
+=======
+>>>>>>> parent of 6e61f65... Reset
         <Grid x:Name="game_Over_Screen" Background="Black" Opacity="0">
             <Image x:Name="game_Over_Screen_image" Opacity="0" Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
         </Grid>

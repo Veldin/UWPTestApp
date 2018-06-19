@@ -27,7 +27,10 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected float reloadCooldownDelta;    //The remaining delta for reloading
         protected bool ableToFire;              //Boolean to check is you're able to fire again
         protected bool ableToReload;            //Boolean to check is you're able to reload again
+<<<<<<< HEAD
         private string location;
+=======
+>>>>>>> parent of 6e61f65... Reset
 
         public KA74()
         {
@@ -38,14 +41,21 @@ namespace EindopdrachtUWP.Classes.Weapons
             clipAmount = 0;
             clipMax = 30;
             damage = 50;
+<<<<<<< HEAD
             accuracy = 1.5f;
+=======
+            accuracy = 1;
+>>>>>>> parent of 6e61f65... Reset
             fireTime = 300;
             critChance = 0.05;
             critMultiplier = 1.25;
             weaponLevel = 1;
             reloadTime = 1000;
             shotSound = "Weapon_Sounds\\KA74_Shot1.wav";
+<<<<<<< HEAD
             location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
+=======
+>>>>>>> parent of 6e61f65... Reset
 
             ableToReload = true;
             ableToFire = true;
@@ -93,6 +103,7 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
+<<<<<<< HEAD
                     var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
                     projectile.SetLocation(location);
                     gameObjects.Add(projectile);
@@ -114,6 +125,21 @@ namespace EindopdrachtUWP.Classes.Weapons
                     var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
                     projectile.SetLocation(location);
                     gameObjects.Add(projectile);
+=======
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height));
+                }
+                else if (direction == "Bottom")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height));
+                }
+                else if (direction == "Left")
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset));
+                }
+                else //Right
+                {
+                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset));
+>>>>>>> parent of 6e61f65... Reset
                 }
 
                 currentClip--;
@@ -148,6 +174,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
+<<<<<<< HEAD
             damage += 5;
             fireTime *= 0.99f;
             clipMax += 5;
@@ -157,6 +184,13 @@ namespace EindopdrachtUWP.Classes.Weapons
             {
                 critChance = 0.75;
             }
+=======
+            damage *= 1.1f;
+            fireTime *= 0.95f;
+            clipMax += 5;
+            reloadTime *= 0.95f;
+            critChance *= 1.2;
+>>>>>>> parent of 6e61f65... Reset
             critMultiplier += 0.1;
         }
 

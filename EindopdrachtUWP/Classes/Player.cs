@@ -8,12 +8,19 @@ using System.Linq;
 
 namespace UWPTestApp
 {
+<<<<<<< HEAD
     public class Player : GameObject, MovableObject, Targetable
+=======
+    public class Player : GameObject, MovableObject, Targetable, IDisposable
+>>>>>>> parent of 6e61f65... Reset
     {
         private float walkSpeed;
         private float maxHealth;
         private float health;
+<<<<<<< HEAD
         private float maxArmour;
+=======
+>>>>>>> parent of 6e61f65... Reset
         private float armor;
         private int level;
 
@@ -55,7 +62,10 @@ namespace UWPTestApp
             health = 300;
             maxHealth = 300;
             armor = 0;
+<<<<<<< HEAD
             maxArmour = 150;
+=======
+>>>>>>> parent of 6e61f65... Reset
             armor = 0;
             level = 1;
             Kills = 0;
@@ -81,6 +91,26 @@ namespace UWPTestApp
             Target = new Target(FromLeft, FromTop);
         }
 
+<<<<<<< HEAD
+=======
+        public int getSelectedWeaponIndex()
+        {
+            Boolean found = false;
+
+            int I = 1;
+            foreach (Weapon selected in weapons)
+            {
+                if (activeWeapon == selected)
+                {
+                    return I;
+                }
+                I++;
+            }
+
+            return 0;
+        }
+
+>>>>>>> parent of 6e61f65... Reset
         public Boolean selectNextWeapon()
         {
             //If you recently switched weapons this is higher then 0
@@ -159,10 +189,13 @@ namespace UWPTestApp
         public void IncreaseArmor(float amount)
         {
             armor += amount;
+<<<<<<< HEAD
             if (armor > maxArmour)
             {
                 armor = maxArmour;
             }
+=======
+>>>>>>> parent of 6e61f65... Reset
         }
 
         public void setArmor(float amount)
@@ -175,11 +208,14 @@ namespace UWPTestApp
             return armor;
         }
 
+<<<<<<< HEAD
         public float getMaxArmour()
         {
             return maxArmour;
         }
 
+=======
+>>>>>>> parent of 6e61f65... Reset
         public float getHealth()
         {
             return health;
@@ -195,19 +231,25 @@ namespace UWPTestApp
         {
             level++;
             increaseMaxHealth(25);
+<<<<<<< HEAD
             increaseMaxArmour(25);
+=======
+>>>>>>> parent of 6e61f65... Reset
             IncreaseHealth(maxHealth);
             AddTag("levelup");
         }
 
         public void increaseMaxHealth(float amount)
         {
+<<<<<<< HEAD
             maxArmour += amount;
             MainPage.Current.updateArmour();
         }
 
         public void increaseMaxArmour(float amount)
         {
+=======
+>>>>>>> parent of 6e61f65... Reset
             maxHealth += amount;
             MainPage.Current.updateHealth();
         }
@@ -390,5 +432,13 @@ namespace UWPTestApp
         {
             return activeWeapon;
         }
+<<<<<<< HEAD
+=======
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+>>>>>>> parent of 6e61f65... Reset
     }
 }

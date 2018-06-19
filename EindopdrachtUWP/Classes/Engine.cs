@@ -266,13 +266,21 @@ namespace UWPTestApp
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
                         {
                             if(player.selectNextWeapon())
+<<<<<<< HEAD
                                 MainPage.Current.newWeapon();
+=======
+                                MainPage.Current.nextWeapon();
+>>>>>>> parent of 6e61f65... Reset
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
                             if (player.selectPreviousWeapon())
+<<<<<<< HEAD
                                 MainPage.Current.newWeapon();
+=======
+                                MainPage.Current.previousWeapon();
+>>>>>>> parent of 6e61f65... Reset
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
@@ -371,6 +379,10 @@ namespace UWPTestApp
                         MainPage.Current.getMenu();
                         paused = true;
                         Task.Delay(300).Wait();
+<<<<<<< HEAD
+=======
+                        pressedKeys = new HashSet<String>();
+>>>>>>> parent of 6e61f65... Reset
                     }
                 }
 
@@ -416,9 +428,17 @@ namespace UWPTestApp
                                     if (getPlayer is Player p4)
                                     {
                                         p4.Kills++;
+<<<<<<< HEAD
                                         if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                         {
                                             p4.Kills++;
+=======
+                                        MainPage.Current.updateScore();
+                                        if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
+                                        {
+                                            p4.Kills++;
+                                            MainPage.Current.updateScore();
+>>>>>>> parent of 6e61f65... Reset
                                             if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                             {
                                                 p4.IncreaseLevel();
@@ -506,11 +526,19 @@ namespace UWPTestApp
                 Task.Delay(300).Wait();
             }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 6e61f65... Reset
             if(MainPage.Current.activeStartup && pressedKeys.Count() > 0)
             {
                 MainPage.Current.startup();
                 Task.Delay(300).Wait();
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 6e61f65... Reset
         }
 
         //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
@@ -692,6 +720,10 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
+<<<<<<< HEAD
+=======
+            Debug.WriteLine(virtualKey);
+>>>>>>> parent of 6e61f65... Reset
         }
 
         public void KeyUp(String virtualKey)
