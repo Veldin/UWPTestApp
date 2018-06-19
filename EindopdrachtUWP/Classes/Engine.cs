@@ -58,7 +58,7 @@ namespace UWPTestApp
             soundController.AddSound(player.DeathSound);
             soundController.AddSound(player.HitSound);
             soundController.AddSound(player.MoveSound, 0.4);
-            soundController.AddSound(player.HealthLowSound);
+            soundController.AddSound(player.HealthLowSound, 0.2);
 
             soundController.AddSound("Generic_Sounds\\levelup.wav", 1);
 
@@ -330,8 +330,15 @@ namespace UWPTestApp
 
                         if (player.IsWalking)
                         {
-                            soundController.PlaySound(player.MoveSound);
+                            if (player.deltaForWalkingSound > 1300)
+                            {
+                                soundController.PlaySound(player.MoveSound);
+                                player.deltaForWalkingSound = 0;
+                            }
+
+                            player.deltaForWalkingSound += delta;
                         }
+
                     }
 
                     //On tick
@@ -346,39 +353,59 @@ namespace UWPTestApp
                         }
                     }
 
-                    //Check if gameobjects want to be destoryed
-                    foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+
+                    //Key to pauze the screen
+                    if (IsKeyPressed("Escape") || IsKeyPressed("GamepadMenu"))
                     {
+                        MainPage.Current.getMenu();
+                        paused = true;
+                        Task.Delay(300).Wait();
+                    }
+                }
 
-                        if (gameObjectCheck.HasTag("hit") && gameObjectCheck is Player p1)
-                        {
-                            soundController.PlaySound(p1.HitSound);
-                            p1.RemoveTag("hit");
-                        }
 
-                        if (gameObjectCheck.HasTag("health_low") && gameObjectCheck is Player p2)
+                //Check if gameobjects want to be destoryed
+                foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                {
+
+                    if (gameObjectCheck.HasTag("hit") && gameObjectCheck is Player p1)
+                    {
+                        soundController.PlaySound(p1.HitSound);
+                        p1.RemoveTag("hit");
+                    }
+
+                    if (gameObjectCheck.HasTag("health_low") && gameObjectCheck is Player p2)
+                    {
+                        if (p2.deltaForHealthLowSound > 4000)
                         {
                             soundController.PlaySound(p2.HealthLowSound);
+                            p2.deltaForHealthLowSound = 0;
                         }
 
-                        if (gameObjectCheck.HasTag("destroyed"))
+                        p2.deltaForHealthLowSound += delta;
+                    }
+
+                    if (gameObjectCheck.HasTag("destroyed"))
+                    {
+                        if (gameObjectCheck is Pickup pickup)
                         {
-                            if (gameObjectCheck is Pickup pickup)
+                            soundController.PlaySound(pickup.getPickUpSound());
+                        }
+                        else if (gameObjectCheck is Player p3)
+                        {
+                            soundController.PlaySound(p3.DeathSound);
+                            MainPage.Current.gameover();
+                        }
+                        else if (gameObjectCheck is MovableObject mo)
+                        {
+                            if (mo is Enemy enemy)
                             {
-                                soundController.PlaySound(pickup.getPickUpSound());
-                            }
-                            else if(gameObjectCheck is Player p3)
-                            {
-                                soundController.PlaySound(p3.DeathSound);
-                                MainPage.Current.gameover();
-							}
-                            else if (gameObjectCheck is MovableObject mo)
-                            {
-                                if (mo is Enemy enemy)
+                                foreach (var getPlayer in new ArrayList(gameObjects))
                                 {
-                                    foreach (var getPlayer in new ArrayList(gameObjects))
+                                    if (getPlayer is Player p4)
                                     {
-                                        if (getPlayer is Player p4)
+                                        p4.Kills++;
+                                        if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                         {
                                             p4.Kills++;
                                             if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
@@ -388,21 +415,21 @@ namespace UWPTestApp
                                             }
 
                                             break;
+                                            p4.IncreaseLevel();
+                                            soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                         }
-                                    }
-                                    soundController.PlaySound(enemy.DeathSound);
-                                }
-                            }
-                            gameObjects.Remove(gameObjectCheck);
-                        }
-                    }
 
-                    //Key to pauze the screen
-                    if (IsKeyPressed("Escape") || IsKeyPressed("GamepadMenu"))
-                    {
-                        MainPage.Current.getMenu();
-                        paused = true;
-                        Task.Delay(300).Wait();
+                                        if (p4.Kills % 3 == 0)
+                                        {
+                                            gameObjects.Add(new Pickup(15, 17, enemy.FromLeft, enemy.FromTop));
+                                        }
+                                        break;
+                                    }
+                                }
+                                soundController.PlaySound(enemy.DeathSound);
+                            }
+                        }
+                        gameObjects.Remove(gameObjectCheck);
                     }
                 }
             }

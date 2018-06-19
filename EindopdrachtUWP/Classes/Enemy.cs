@@ -144,6 +144,12 @@ public class Enemy : GameObject, MovableObject, Targetable
                 else
                 {
                     player.IncreaseArmor(GetPower() * damage * -1);
+                    if(player.getArmor() < 0)
+                    {
+                        player.IncreaseHealth(player.getArmor());
+                        player.setArmor(0);
+                        MainPage.Current.updateHealth();
+                    }
                     ableToHit = false;
                     MainPage.Current.updateArmour();
                 }

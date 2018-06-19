@@ -34,6 +34,10 @@ namespace UWPTestApp
 
         private String direction;
         private TextBox textbox;
+        
+        public float deltaForWalkingSound { get; set; }
+        public float deltaForHealthLowSound { get; set; }
+
 
         public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
             : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
@@ -155,6 +159,11 @@ namespace UWPTestApp
             armor += amount;
         }
 
+        public void setArmor(float amount)
+        {
+            armor = amount;
+        }
+
         public float getArmor()
         {
             return armor;
@@ -170,12 +179,13 @@ namespace UWPTestApp
             return maxHealth;
         }
 
+        //Every x amount of kills the player is leveled. Their max HP gets increased by 25, HP is filled to max and visuals get updated.
         public void IncreaseLevel()
         {
             level++;
             increaseMaxHealth(25);
             IncreaseHealth(maxHealth);
-            textbox = new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, "Level Up!", 1000);
+            AddTag("levelup");
         }
 
         public void increaseMaxHealth(float amount)
@@ -205,6 +215,13 @@ namespace UWPTestApp
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
+
+            if (HasTag("levelup"))
+            {
+                gameObjects.Add (new TextBox(75, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, "Level Up!", 1000));
+                RemoveTag("levelup");
+            }
+
             if (health <= 0)
             {
                 AddTag("destroyed");
@@ -333,6 +350,8 @@ namespace UWPTestApp
             gameObject.CollitionEffect(this);
             return true;
         }
+        
+
 
         float Targetable.FromTop()
         {

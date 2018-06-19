@@ -32,11 +32,11 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Knettergun";
             description = "The Knettergun is a strong short ranged weapon, also known as a shotgun";
             currentClip = 0;
-            clipAmount = 0;
+            clipAmount = 10;
             clipMax = 6;
             damage = 400;
             accuracy = 3.3f;
-            fireTime = 500;
+            fireTime = 3000;
             critChance = 0.03;
             critMultiplier = 1.2;
             weaponLevel = 1;
@@ -79,7 +79,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             Random random = new Random();
             //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
             //Get a number between the accuracy and the accuracy * -1.
-            float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
 
             float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
 
@@ -89,19 +88,35 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height));
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop - height));
+                    }
                 }
                 else if (direction == "Bottom")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height));
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop + height));
+                    }
                 }
                 else if (direction == "Left")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset));
-                }
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft - height, fromTop + randomPositionOffset));
+                    }
+            }
                 else //Right
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset));
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + height, fromTop + randomPositionOffset));
+                    }
                 }
 
                 currentClip--;
