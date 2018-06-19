@@ -155,6 +155,11 @@ namespace UWPTestApp
             armor += amount;
         }
 
+        public void setArmor(float amount)
+        {
+            armor = amount;
+        }
+
         public float getArmor()
         {
             return armor;
