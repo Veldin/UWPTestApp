@@ -381,19 +381,12 @@ namespace UWPTestApp
                                         if (getPlayer is Player p4)
                                         {
                                             p4.Kills++;
-                                            Debug.WriteLine("" + p4.Kills);
-                                            Debug.WriteLine("" + p4.GetLevel());
-                                            Debug.WriteLine("==================");
                                             if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                             {
                                                 p4.IncreaseLevel();
                                                 soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                             }
 
-                                            if (p4.Kills % 3 == 0)
-                                            {
-                                                gameObjects.Add(new Pickup(15, 17, enemy.FromLeft, enemy.FromTop));
-                                            }
                                             break;
                                         }
                                     }

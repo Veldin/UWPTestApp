@@ -1,4 +1,5 @@
 ﻿using EindopdrachtUWP;
+using EindopdrachtUWP.Classes;
 using System;
 using System.Collections.Generic;
 using UWPTestApp;
@@ -47,7 +48,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         ableToHit = true;
         damageCountDownTimerMax = 3000;
 
-        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
+        //Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
 
         Random r = new Random();
         DeathSound = DeathSounds[r.Next(9)];
@@ -286,6 +287,10 @@ public class Enemy : GameObject, MovableObject, Targetable
             else
             {
                 Location = "Assets/Sprites/Enemy_Sprites/Enemy_" + newDirection + ".png";
+                if (HasTag("droppickup"))
+                {
+                    Location = "Assets/Sprites/Enemy_Sprites/Enemy2_" + newDirection + ".png";
+                }
                 Sprite = null;
                 direction = newDirection;
             }
@@ -311,6 +316,15 @@ public class Enemy : GameObject, MovableObject, Targetable
                 gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
             }
             RemoveTag("splatter");
+
+            //check if this enemy has a pickup to drop
+            if (HasTag("droppickup"))
+            {
+                gameObjects.Add(new Pickup(15, 17, FromLeft, FromTop));
+                RemoveTag("droppickup");
+            }
+            
+
             AddTag("destroyed");
         }
 
@@ -325,6 +339,8 @@ public class Enemy : GameObject, MovableObject, Targetable
             gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
             RemoveTag("splatter");
         }
+
+
         return true;
     }
 
