@@ -154,7 +154,6 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-<<<<<<< HEAD
             damage += 2;
             fireTime *= 0.99f;
             clipMax += 1;
@@ -164,13 +163,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             {
                 critChance = 0.75;
             }
-=======
-            damage *= 1.1f;
-            fireTime *= 0.95f;
-            clipMax += 1;
-            reloadTime *= 0.95f;
-            critChance *= 1.2;
->>>>>>> parent of 6e61f65... Reset
             critMultiplier += 0.1;
         }
 

@@ -65,15 +65,8 @@ namespace UWPTestApp
             }
             catch (Exception e)
             {
-<<<<<<< HEAD
                 Debug.WriteLine(location);
                 Debug.WriteLine(e.StackTrace);
-=======
-                if (this is Enemy)
-                {
-                    AddTag("destroyed");
-                }
->>>>>>> parent of 6e61f65... Reset
             }
         }
 

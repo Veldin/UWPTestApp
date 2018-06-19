@@ -246,15 +246,8 @@
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_About.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Info.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Menu.png" />
-<<<<<<< HEAD
-    <Content Include="Assets\Sprites\Menu_Sprites\controls.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Divider.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Game_Over.png" />
-    <Content Include="Assets\Sprites\Menu_Sprites\pressKey.png" />
-=======
-    <Content Include="Assets\Sprites\Menu_Sprites\Divider.png" />
-    <Content Include="Assets\Sprites\Menu_Sprites\Game_Over.png" />
->>>>>>> parent of 6e61f65... Reset
     <Content Include="Assets\Sprites\Menu_Sprites\Splashscreen_Logo.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\stats.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Ammo_Pickups\Ammo_Pickup_Left.png" />
