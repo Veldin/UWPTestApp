@@ -80,6 +80,7 @@
         </Viewbox>
         <Grid x:Name="Startup" Background="#282828">
             <Image x:Name="startup_Image" Source="Assets\SplashScreen.scale-400.png"/>
+            <Image x:Name="presskey" Source="Assets\Sprites\Menu_Sprites\pressKey.png" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="800" Height="100" Margin="100"/>
         </Grid>
         <Grid x:Name="game_Over_Screen" Background="Black" Opacity="0">
             <Image x:Name="game_Over_Screen_image" Opacity="0" Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
