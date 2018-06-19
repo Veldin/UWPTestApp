@@ -46,7 +46,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             weaponLevel = 1;
             reloadTime = 3000;
             shotSound = "Weapon_Sounds\\Dessert_Beagle_Shot1.wav";
-            location = "Assets\\Sprites\\Bullet_Sprites\\Projectile.Sprite.png";
+            location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
 
             ableToReload = false;
             ableToFire = true;
