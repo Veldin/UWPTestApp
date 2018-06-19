@@ -6,6 +6,7 @@ namespace UWPTestApp
     class Spawner : GameObject
     {
         protected float beginDelta;                 //The delta till this spawner starts.
+        protected float totalDelta;                 //The time this spawner is alive.
         protected float cooldownDelta;              //The max delta it takes to spawn the next, after it spawned a guy.
         protected float remainingCooldownDelta;     //the delta it takes to spawn the next.
 
@@ -45,6 +46,9 @@ namespace UWPTestApp
                 return true;
             }
 
+            totalDelta += delta;
+
+            //Check if its time to spawn a new enemy!
             if (remainingCooldownDelta - delta < 0)
             {
                 int playerLevel = 1;
@@ -69,6 +73,14 @@ namespace UWPTestApp
                 float spawnFromTop = FromTop + (Height / 2) - (spawnSizeHight / 2);
 
                 Enemy enemy = new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10);
+
+                //Give a pickup to some enemies
+                Random random = new Random();
+                if(random.Next(0,5) > 3)
+                {
+                    enemy.AddTag("droppickup");
+                }
+
                 enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
                 enemy.SetLifePoints(475 + ( 25 * playerLevel ) );
                 gameObjects.Add(enemy);

@@ -25,6 +25,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected float reloadCooldownDelta;    //The remaining delta for reloading
         protected bool ableToFire;              //Boolean to check is you're able to fire again
         protected bool ableToReload;            //Boolean to check is you're able to reload again
+        private string location;
 
         public Knettergun()
         {
@@ -36,12 +37,13 @@ namespace EindopdrachtUWP.Classes.Weapons
             clipMax = 6;
             damage = 400;
             accuracy = 3.3f;
-            fireTime = 500;
+            fireTime = 3000;
             critChance = 0.03;
             critMultiplier = 1.2;
             weaponLevel = 1;
             reloadTime = 4000;
             shotSound = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
+            location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
 
             ableToReload = true;
             ableToFire = true;
@@ -79,7 +81,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             Random random = new Random();
             //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
             //Get a number between the accuracy and the accuracy * -1.
-            float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
 
             float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
 
@@ -89,19 +90,43 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height));
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop - height);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
+                    }
                 }
                 else if (direction == "Bottom")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height));
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop + height);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
+                    }
                 }
                 else if (direction == "Left")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset));
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft - height, fromTop + randomPositionOffset);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
+                    }
                 }
                 else //Right
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset));
+                    for (int i = 0; i < 25; i++)
+                    {
+                        float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + height, fromTop + randomPositionOffset);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
+                    }
                 }
 
                 currentClip--;

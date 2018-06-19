@@ -1,8 +1,8 @@
 ﻿public class Target
 {
-    public float fromTop;
-    public float fromLeft;
-    public Targetable target;
+    private float fromTop;
+    private float fromLeft;
+    private Targetable target;
 
     public Target(Targetable target)
     {

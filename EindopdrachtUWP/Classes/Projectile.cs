@@ -4,10 +4,10 @@ using UWPTestApp;
 
 public class Projectile : GameObject, MovableObject
 {
-    float shotFromTop;
-    float shotFromLeft;
-    float damage;
-    float movementSpeed;
+    private float shotFromTop;
+    private float shotFromLeft;
+    private float damage;
+    private float movementSpeed;
 
     public string DeathSound { get; set; }
     public string MoveSound { get; set; }
