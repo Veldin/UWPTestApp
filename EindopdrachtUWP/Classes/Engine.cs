@@ -416,9 +416,11 @@ namespace UWPTestApp
                                     if (getPlayer is Player p4)
                                     {
                                         p4.Kills++;
+                                        MainPage.Current.updateScore();
                                         if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                         {
                                             p4.Kills++;
+                                            MainPage.Current.updateScore();
                                             if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                             {
                                                 p4.IncreaseLevel();

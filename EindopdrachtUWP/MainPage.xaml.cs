@@ -21,6 +21,7 @@ namespace EindopdrachtUWP
         public bool activeStartup;
         public bool paused;
         public bool game_over;
+        public double highScore;
         private double critPercentage;
         private double critMultiPercentage;
         private int weapon;
@@ -246,6 +247,16 @@ namespace EindopdrachtUWP
             );
         }
 
+        public void updateScore()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                highScore = engine.getPlayer().Kills * 250;
+                highscore.Text = highScore.ToString();
+            });
+        }
+
         public void getWeaponStats()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -337,7 +348,7 @@ namespace EindopdrachtUWP
                         break;
                     case 10:
                         selected.Margin = new Thickness(-55, 540, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 590, 0, 0);
+                        currentClip.Margin = new Thickness(-30, 580, 0, 0);
                         weapon = 0;
                         break;
                 }
@@ -393,7 +404,7 @@ namespace EindopdrachtUWP
                         break;
                     case 10:
                         selected.Margin = new Thickness(-55, 540, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 590, 0, 0);
+                        currentClip.Margin = new Thickness(-30, 580, 0, 0);
                         break;
                 }
             });

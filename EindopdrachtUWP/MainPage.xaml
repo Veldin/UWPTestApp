@@ -78,12 +78,15 @@
                 </Grid>
             </Grid>
         </Viewbox>
-        <Grid x:Name="Startup" Background="#282828">
+        <Grid x:Name="Startup" Background="#282828" Opacity="0">
             <Image x:Name="startup_Image" Source="Assets\SplashScreen.scale-400.png"/>
             <Image x:Name="presskey" Source="Assets\Sprites\Menu_Sprites\pressKey.png" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="800" Height="100" Margin="100"/>
         </Grid>
         <Grid x:Name="game_Over_Screen" Background="Black" Opacity="0">
             <Image x:Name="game_Over_Screen_image" Opacity="0" Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
+        </Grid>
+        <Grid x:Name="score" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="250" Margin="-200, 50, 0, 0">
+            <TextBlock x:Name="highscore" Foreground="white"  Width="250" Height="50" TextAlignment="Center" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
         </Grid>
     </Grid>
 </Page>
