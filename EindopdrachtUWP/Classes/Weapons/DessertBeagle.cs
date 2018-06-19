@@ -36,7 +36,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "Dessert Beagle";
             description = "The Dessert Beagle is a strong handgun, also known as the Desert Eagle";
             currentClip = 0;
-            clipAmount = 10;
+            clipAmount = 5;
             clipMax = 12;
             damage = 50;
             accuracy = 1;
@@ -145,11 +145,15 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage *= 1.1f;
-            fireTime *= 0.95f;
+            damage += 5;
+            fireTime *= 0.99f;
             clipMax += 1;
-            reloadTime *= 0.95f;
-            critChance *= 1.2;
+            reloadTime *= 0.99f;
+            critChance += 0.01;
+            if (critChance > 0.75)
+            {
+                critChance = 0.75;
+            }
             critMultiplier += 0.1;
         }
 

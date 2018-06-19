@@ -38,7 +38,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             clipAmount = 0;
             clipMax = 30;
             damage = 50;
-            accuracy = 1;
+            accuracy = 1.5f;
             fireTime = 300;
             critChance = 0.05;
             critMultiplier = 1.25;
@@ -148,11 +148,15 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage *= 1.1f;
-            fireTime *= 0.95f;
+            damage += 5;
+            fireTime *= 0.99f;
             clipMax += 5;
-            reloadTime *= 0.95f;
-            critChance *= 1.2;
+            reloadTime *= 0.99f;
+            critChance += 0.01;
+            if (critChance > 0.75)
+            {
+                critChance = 0.75;
+            }
             critMultiplier += 0.1;
         }
 

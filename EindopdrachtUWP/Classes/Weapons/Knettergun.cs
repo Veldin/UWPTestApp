@@ -90,40 +90,40 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    for (int i = 0; i < 25; i++)
+                    for (int i = 0; i < 12; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop - height);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop - height);
                         projectile.SetLocation(location);
                         gameObjects.Add(projectile);
                     }
                 }
                 else if (direction == "Bottom")
                 {
-                    for (int i = 0; i < 25; i++)
+                    for (int i = 0; i < 12; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop + height);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop + height);
                         projectile.SetLocation(location);
                         gameObjects.Add(projectile);
                     }
                 }
                 else if (direction == "Left")
                 {
-                    for (int i = 0; i < 25; i++)
+                    for (int i = 0; i < 12; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft - height, fromTop + randomPositionOffset);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft - height, fromTop + randomPositionOffset);
                         projectile.SetLocation(location);
                         gameObjects.Add(projectile);
                     }
                 }
                 else //Right
                 {
-                    for (int i = 0; i < 25; i++)
+                    for (int i = 0; i < 12; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + height, fromTop + randomPositionOffset);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + height, fromTop + randomPositionOffset);
                         projectile.SetLocation(location);
                         gameObjects.Add(projectile);
                     }
@@ -161,12 +161,16 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage *= 1.1f;
-            fireTime *= 0.95f;
+            damage += 20;
+            fireTime *= 0.99f;
             clipMax += 1;
-            reloadTime *= 0.95f;
-            critChance *= 1.2;
-            critMultiplier += 0.1;
+            reloadTime *= 0.99f;
+            critChance += 0.01;
+            if (critChance > 0.75)
+            {
+                critChance = 0.75;
+            }
+            critMultiplier += 0.05;
         }
 
         public Boolean OnTick(float delta)
