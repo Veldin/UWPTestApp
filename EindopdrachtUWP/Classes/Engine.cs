@@ -360,6 +360,7 @@ namespace UWPTestApp
                         MainPage.Current.getMenu();
                         paused = true;
                         Task.Delay(300).Wait();
+                        pressedKeys = new HashSet<String>();
                     }
                 }
 
@@ -496,6 +497,9 @@ namespace UWPTestApp
                 MainPage.Current.removeAbout();
                 Task.Delay(300).Wait();
             }
+
+
+            
         }
 
         //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
@@ -677,6 +681,7 @@ namespace UWPTestApp
         public void KeyDown(String virtualKey)
         {
             pressedKeys.Add(virtualKey);
+            Debug.WriteLine(virtualKey);
         }
 
         public void KeyUp(String virtualKey)

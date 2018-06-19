@@ -79,6 +79,23 @@ namespace UWPTestApp
             Target = new Target(FromLeft, FromTop);
         }
 
+        public int getSelectedWeaponIndex()
+        {
+            Boolean found = false;
+
+            int I = 1;
+            foreach (Weapon selected in weapons)
+            {
+                if (activeWeapon == selected)
+                {
+                    return I;
+                }
+                I++;
+            }
+
+            return 0;
+        }
+
         public Boolean selectNextWeapon()
         {
             //If you recently switched weapons this is higher then 0
