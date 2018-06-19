@@ -25,7 +25,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected float reloadCooldownDelta;    //The remaining delta for reloading
         protected bool ableToFire;              //Boolean to check is you're able to fire again
         protected bool ableToReload;            //Boolean to check is you're able to reload again
-        private float generate;
+        private string locationHorizontal;
+        private string locationVertical;
 
         public UWP()
         {
@@ -43,6 +44,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             weaponLevel = 1;
             reloadTime = 2000;
             shotSound = "Weapon_Sounds\\UWP_Shot1.wav";
+            locationHorizontal = "Assets\\Sprites\\Bullet_Sprites\\UWP_Horizontal.png";
+            locationVertical = "Assets\\Sprites\\Bullet_Sprites\\UWP_Vertical.png";
 
             ableToReload = true;
             ableToFire = true;
@@ -90,19 +93,27 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height));
+                    var projectileVertical = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectileVertical.SetLocation(locationVertical);
+                    gameObjects.Add(projectileVertical);
                 }
                 else if (direction == "Bottom")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height));
+                    var projectileVertical = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectileVertical.SetLocation(locationVertical);
+                    gameObjects.Add(projectileVertical);
                 }
                 else if (direction == "Left")
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset));
+                    var projectileHorizontal = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectileHorizontal.SetLocation(locationHorizontal);
+                    gameObjects.Add(projectileHorizontal);
                 }
                 else //Right
                 {
-                    gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset));
+                    var projectileHorizontal = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectileHorizontal.SetLocation(locationHorizontal);
+                    gameObjects.Add(projectileHorizontal);
                 }
 
                 currentClip--;

@@ -329,11 +329,11 @@ namespace UWPTestApp
                             player.IsWalking = true;
                         }
 
-                        if (!paused && (IsKeyPressed("Space") || IsKeyPressed("GamepadLeftThumbstickButton")))
+                        if (!paused && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
                         {
                             MainPage.Current.getControls();
                         }
-                        else if (!paused && (!IsKeyPressed("Space") || !IsKeyPressed("GamepadLeftThumbstickButton")))
+                        else if (!paused && (!IsKeyPressed("Space") || !IsKeyPressed("GamepadView")))
                         {
                             MainPage.Current.removeControls();
                         }

@@ -25,6 +25,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected float reloadCooldownDelta;    //The remaining delta for reloading
         protected bool ableToFire;              //Boolean to check is you're able to fire again
         protected bool ableToReload;            //Boolean to check is you're able to reload again
+        private string location;
 
         public Knettergun()
         {
@@ -42,6 +43,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             weaponLevel = 1;
             reloadTime = 4000;
             shotSound = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
+            location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
 
             ableToReload = true;
             ableToFire = true;
@@ -91,7 +93,9 @@ namespace EindopdrachtUWP.Classes.Weapons
                     for (int i = 0; i < 25; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop - height));
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop - height);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
                     }
                 }
                 else if (direction == "Bottom")
@@ -99,7 +103,9 @@ namespace EindopdrachtUWP.Classes.Weapons
                     for (int i = 0; i < 25; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop + height));
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + randomPositionOffset, fromTop + height);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
                     }
                 }
                 else if (direction == "Left")
@@ -107,15 +113,19 @@ namespace EindopdrachtUWP.Classes.Weapons
                     for (int i = 0; i < 25; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft - height, fromTop + randomPositionOffset));
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft - height, fromTop + randomPositionOffset);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
                     }
-            }
+                }
                 else //Right
                 {
                     for (int i = 0; i < 25; i++)
                     {
                         float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
-                        gameObjects.Add(new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + height, fromTop + randomPositionOffset));
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/25, fromLeft + height, fromTop + randomPositionOffset);
+                        projectile.SetLocation(location);
+                        gameObjects.Add(projectile);
                     }
                 }
 

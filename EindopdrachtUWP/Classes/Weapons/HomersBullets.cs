@@ -25,10 +25,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected float reloadCooldownDelta;    //The remaining delta for reloading
         protected bool ableToFire;              //Boolean to check is you're able to fire again
         protected bool ableToReload;            //Boolean to check is you're able to reload again
-        private string locationBottom;
-        private string locationLeft;
-        private string locationRight;
-        private string locationTop;
+        private string location;
 
         public HomersBullets()
         {
@@ -48,10 +45,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             tags = new List<string>();
             AddTag("homing");
             shotSound = "Weapon_Sounds\\Homers_Bullets_Shot1.wav";
-            locationBottom = "Assets\\Sprites\\Bullet_Sprites\\Homers_Bullets_Sprite.png";
-            locationLeft = "Assets\\Sprites\\Bullet_Sprites\\Homers_Bullets_Sprite.png";
-            locationRight = "Assets\\Sprites\\Bullet_Sprites\\Homers_Bullets_Sprite.png";
-            locationTop = "Assets\\Sprites\\Bullet_Sprites\\Homers_Bullets_Sprite.png";
+            location = "Assets\\Sprites\\Bullet_Sprites\\Homers_Bullets_Sprite.png";
+
             ableToReload = true;
             ableToFire = true;
             fireCooldownDelta = 0;
@@ -99,26 +94,26 @@ namespace EindopdrachtUWP.Classes.Weapons
                 if (direction == "Top")
                 {
                     var projectileTop = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
-                    projectileTop.SetLocation(locationTop);
+                    projectileTop.SetLocation(location);
                     gameObjects.Add(projectileTop);
 
                 }
                 else if (direction == "Bottom")
                 {
                     var projectileBottom = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
-                    projectileBottom.SetLocation(locationBottom);
+                    projectileBottom.SetLocation(location);
                     gameObjects.Add(projectileBottom);
                 }
                 else if (direction == "Left")
                 {
                     var projectileLeft = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
-                    projectileLeft.SetLocation(locationLeft);
+                    projectileLeft.SetLocation(location);
                     gameObjects.Add(projectileLeft);
                 }
                 else //Right
                 {
                     var projectileRight = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
-                    projectileRight.SetLocation(locationRight);
+                    projectileRight.SetLocation(location);
                     gameObjects.Add(projectileRight);
                 }
 
