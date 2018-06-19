@@ -78,8 +78,16 @@
                 </Grid>
             </Grid>
         </Viewbox>
-        <Grid x:Name="Startup" Background="#282828">
-            <Image x:Name="startup_Image" Source="Assets\SplashScreen.scale-400.png"/>
+        <Grid x:Name="score" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 35, 0, 0">
+            <TextBlock x:Name="highscore" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+            <TextBlock Text="Highscore:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+        </Grid>
+        <Grid x:Name="level" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 15, 0, 0">
+            <TextBlock x:Name="currentLevel" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+            <TextBlock Text="Player Level:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+        </Grid>
+        <Grid x:Name="Startup" Background="#282828" Opacity="0">
+            <Image x:Name="startup_Image" Source="Assets\SplashScreen_new.png"/>
             <Image x:Name="presskey" Source="Assets\Sprites\Menu_Sprites\pressKey.png" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="800" Height="100" Margin="100"/>
         </Grid>
         <Grid x:Name="game_Over_Screen" Background="Black" Opacity="0">

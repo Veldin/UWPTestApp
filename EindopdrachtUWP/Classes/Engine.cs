@@ -416,13 +416,16 @@ namespace UWPTestApp
                                     if (getPlayer is Player p4)
                                     {
                                         p4.Kills++;
+                                        MainPage.Current.updateHighscore();
                                         if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                         {
                                             p4.Kills++;
+                                            MainPage.Current.updateHighscore();
                                             if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                             {
                                                 p4.IncreaseLevel();
                                                 soundController.PlaySound("Generic_Sounds\\levelup.wav");
+                                                MainPage.Current.UpdateLevel();
                                             }
 
                                             break;
@@ -659,6 +662,41 @@ namespace UWPTestApp
                                 (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
                                 gameObject.Height / 5), //The healthbar is 1/5th the size of the target
                             Colors.Green
+                        );
+                    }
+                }
+            }
+
+            //Drawing Player Armourbars
+            foreach (GameObject gameObject in loopList)
+            {
+                Player player = gameObject as Player;
+                if (player is Player)
+                {
+                    if (player.getArmour() < player.getMaxArmour())
+                    {
+                        //Calculate the percentage health left
+                        float percentage = 1 + ((player.getArmour() - player.getMaxArmour()) / player.getMaxArmour());
+
+                        if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
+                        //(this also stops devided by 0 errors while the user wont see the health left)
+
+                        args.DrawingSession.FillRectangle(
+                            new Windows.Foundation.Rect(
+                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 3.33,  //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
+                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            Colors.Transparent
+                        );
+
+                        args.DrawingSession.FillRectangle(
+                            new Windows.Foundation.Rect(
+                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 3.33,  //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
+                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            Colors.Blue
                         );
                     }
                 }

@@ -135,7 +135,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             if (ableToHit)
             {
-                if (player.getArmor() <= 0)
+                if (player.getArmour() <= 0)
                 {
                     player.IncreaseHealth(GetPower() * damage * -1);
                     ableToHit = false;
@@ -143,11 +143,11 @@ public class Enemy : GameObject, MovableObject, Targetable
                 }
                 else
                 {
-                    player.IncreaseArmor(GetPower() * damage * -1);
-                    if(player.getArmor() < 0)
+                    player.IncreaseArmour(GetPower() * damage * -1);
+                    if(player.getArmour() < 0)
                     {
-                        player.IncreaseHealth(player.getArmor());
-                        player.setArmor(0);
+                        player.IncreaseHealth(player.getArmour());
+                        player.setArmour(0);
                         MainPage.Current.updateHealth();
                     }
                     ableToHit = false;
