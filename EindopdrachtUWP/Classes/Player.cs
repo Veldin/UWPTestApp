@@ -13,6 +13,7 @@ namespace UWPTestApp
         private float walkSpeed;
         private float maxHealth;
         private float health;
+        private float maxArmour;
         private float armor;
         private int level;
 
@@ -54,6 +55,7 @@ namespace UWPTestApp
             health = 300;
             maxHealth = 300;
             armor = 0;
+            maxArmour = 150;
             armor = 0;
             level = 1;
             Kills = 0;
@@ -157,6 +159,10 @@ namespace UWPTestApp
         public void IncreaseArmor(float amount)
         {
             armor += amount;
+            if (armor > maxArmour)
+            {
+                armor = maxArmour;
+            }
         }
 
         public void setArmor(float amount)
@@ -167,6 +173,11 @@ namespace UWPTestApp
         public float getArmor()
         {
             return armor;
+        }
+
+        public float getMaxArmour()
+        {
+            return maxArmour;
         }
 
         public float getHealth()
@@ -184,11 +195,18 @@ namespace UWPTestApp
         {
             level++;
             increaseMaxHealth(25);
+            increaseMaxArmour(25);
             IncreaseHealth(maxHealth);
             AddTag("levelup");
         }
 
         public void increaseMaxHealth(float amount)
+        {
+            maxArmour += amount;
+            MainPage.Current.updateArmour();
+        }
+
+        public void increaseMaxArmour(float amount)
         {
             maxHealth += amount;
             MainPage.Current.updateHealth();

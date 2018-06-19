@@ -278,7 +278,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                armour.Text = engine.getPlayer().getArmor().ToString();
+                armour.Text = engine.getPlayer().getArmor().ToString() + "/" + engine.getPlayer().getMaxArmour().ToString();
             });
         }
 
