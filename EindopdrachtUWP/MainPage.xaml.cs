@@ -60,8 +60,9 @@ namespace EindopdrachtUWP
             currentClip.Text = "12/12";
             currentClipRight.Text = "12/12";
 
-            highscore.Text = "0";
             currentLevel.Text = "1";
+            currentKills.Text = "0";
+            highscore.Text = "0";
 
             updateHealth();
             updateArmour();
@@ -269,7 +270,7 @@ namespace EindopdrachtUWP
             });
         }
 
-        //Every time a zombie gets killed this function is called. It adds the current player level to the score
+        //Every time a zombie gets killed this function is called. It adds the current player level to the score and displays the score and amount of kills
         public void updateHighscore()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -277,6 +278,7 @@ namespace EindopdrachtUWP
             {
                 currentScore += engine.getPlayer().GetLevel();
                 highscore.Text = currentScore.ToString();
+                currentKills.Text = engine.getPlayer().Kills.ToString();
             });
         }
 
@@ -456,6 +458,15 @@ namespace EindopdrachtUWP
                         break;
                 }
             });
+        }
+        public void enableSecondSpawner()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+               () =>
+               {
+                   secondSpawner.Opacity = 1;
+
+               });
         }
 
         void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)

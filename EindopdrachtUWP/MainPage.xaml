@@ -13,6 +13,11 @@
 
                 <!--Background and drawable Canvas-->
                 <Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600" HorizontalAlignment="Center"/>
+                <Image x:Name="secondSpawner" Source="Assets\Sprites\Maps\Spawner.png" Width="56" Height="23" HorizontalAlignment="Left" Margin="135, -206, 0, 0" Opacity="0">
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="90" />
+                    </Image.RenderTransform>
+                </Image>
                 <Border Height="600" Width="60" Background="Gray" Margin="-60,0,0,0" HorizontalAlignment="Left" CornerRadius="5, 0, 0, 5"></Border>
                 <Image x:Name="divider_Left" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Left" Margin="-1,0,0,0"/>
                 <Image x:Name="divider_Right" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Right" Margin="0,0,-1,0"/>
@@ -78,15 +83,19 @@
                 </Grid>
             </Grid>
         </Viewbox>
-        <Grid x:Name="score" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 35, 0, 0">
+        <Grid x:Name="level" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 15, 0, 0">
+            <TextBlock x:Name="currentLevel" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+            <TextBlock Text="Player level:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+        </Grid>
+        <Grid x:Name="kills" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 35, 0, 0">
+            <TextBlock x:Name="currentKills" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+            <TextBlock Text="Current kills:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+        </Grid>
+        <Grid x:Name="score" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 55, 0, 0">
             <TextBlock x:Name="highscore" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
             <TextBlock Text="Highscore:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
         </Grid>
-        <Grid x:Name="level" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 15, 0, 0">
-            <TextBlock x:Name="currentLevel" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-            <TextBlock Text="Player Level:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-        </Grid>
-        <Grid x:Name="Startup" Background="#282828" Opacity="0">
+        <Grid x:Name="Startup" Background="#282828">
             <Image x:Name="startup_Image" Source="Assets\SplashScreen_new.png"/>
             <Image x:Name="presskey" Source="Assets\Sprites\Menu_Sprites\pressKey.png" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="800" Height="100" Margin="100"/>
         </Grid>

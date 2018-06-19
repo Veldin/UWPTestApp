@@ -426,6 +426,11 @@ namespace UWPTestApp
                                                 p4.IncreaseLevel();
                                                 soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                                 MainPage.Current.UpdateLevel();
+                                                if(p4.GetLevel() == 5)
+                                                {
+                                                    gameObjects.Add(new Spawner(10, 10, 110, 190, 0, 0, 0, 0, 5000, 50000));
+                                                    MainPage.Current.enableSecondSpawner();
+                                                }
                                             }
 
                                             break;
