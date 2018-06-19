@@ -34,6 +34,10 @@ namespace UWPTestApp
 
         private String direction;
         private TextBox textbox;
+        
+        public float deltaForWalkingSound { get; set; }
+        public float deltaForHealthLowSound { get; set; }
+
 
         public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
             : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
@@ -346,6 +350,8 @@ namespace UWPTestApp
             gameObject.CollitionEffect(this);
             return true;
         }
+        
+
 
         float Targetable.FromTop()
         {

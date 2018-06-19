@@ -6,7 +6,6 @@ using Windows.UI;
 public class TextBox : GameObject, MovableObject
 {
     private float maxDuration;
-    private int animationOffset;
 
     public TextBox(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, string text = "undefined", float duration = 100)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
@@ -53,7 +52,7 @@ public class TextBox : GameObject, MovableObject
             AddTag("destroyed");
         }
 
-        Target.AddFromLeft(animationOffset * delta / 1000);
+        Target.AddFromLeft(delta / 1000);
 
         actMovement(delta);
 
