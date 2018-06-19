@@ -6,11 +6,11 @@ using UWPTestApp;
 
 public class Enemy : GameObject, MovableObject, Targetable
 {
-    private float lifePoints;
+    private float lifePoints; 
     private float maxLifePoints;
-    private float power;
+    private float power; 
 
-    private float damage;
+    private float damage; 
     private bool ableToHit;
     private float damageCountDownTimer;
     private float damageCountDownTimerMax;

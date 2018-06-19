@@ -38,8 +38,8 @@ namespace UWPTestApp
         private float fps;  //The set FPS limit
         private float interfal; //Interfal that gets calculated based on the fps
 
-        public Boolean music;
-        public Boolean effects;
+        public Boolean music { get; set; }
+        public Boolean effects { get; set; }
 
         private Boolean paused;
 

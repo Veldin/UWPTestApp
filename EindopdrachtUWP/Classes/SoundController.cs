@@ -13,8 +13,8 @@ namespace EindopdrachtUWP.Classes
 
         MediaElement soundTrack = new MediaElement();
         
-        public bool mutedSFX = false;
-        public bool mutedMusic = false;
+        private bool mutedSFX = false;
+        private bool mutedMusic = false;
 
         public SoundController()
         {

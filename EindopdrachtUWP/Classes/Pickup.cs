@@ -7,33 +7,33 @@ namespace EindopdrachtUWP.Classes
 {
     class Pickup : GameObject
     {
-        // Constraints for ammunition for guns
-        public const string AmmunitionArrivaGun = "AmmunitionArriva Gun";
-        public const string AmmunitionBatarang = "AmmunitionBatarang";
-        public const string AmmunitionBulletBill = "AmmunitionBullet Bill";
-        public const string AmmunitionDessertBeagle = "AmmunitionDessert Beagle";
-        public const string AmmunitionFlameThrower = "AmmunitionFlame Thrower";
-        public const string AmmunitionHomersBullets = "AmmunitionHomers Bullets";
-        public const string AmmunitionKa74 = "AmmunitionKA74";
-        public const string AmmunitionKnettergun = "AmmunitionKnettergun";
-        public const string AmmunitionUwp = "AmmunitionUWP";
-        public const string AmmunitionVlekKannon = "AmmunitionVLEKKannon";
+        // Constants for ammunition for guns
+        private const string AmmunitionArrivaGun = "AmmunitionArriva Gun";
+        private const string AmmunitionBatarang = "AmmunitionBatarang";
+        private const string AmmunitionBulletBill = "AmmunitionBullet Bill";
+        private const string AmmunitionDessertBeagle = "AmmunitionDessert Beagle";
+        private const string AmmunitionFlameThrower = "AmmunitionFlame Thrower";
+        private const string AmmunitionHomersBullets = "AmmunitionHomers Bullets";
+        private const string AmmunitionKa74 = "AmmunitionKA74";
+        private const string AmmunitionKnettergun = "AmmunitionKnettergun";
+        private const string AmmunitionUwp = "AmmunitionUWP";
+        private const string AmmunitionVlekKannon = "AmmunitionVLEKKannon";
 
-        // Constraints for upgrading guns
-        public const string UpgradeArrivaGun = "UpgradeArriva Gun";
-        public const string UpgradeBatarang = "UpgradeBatarang";
-        public const string UpgradeBulletBill = "UpgradeBullet Bill";
-        public const string UpgradeDessertBeagle = "UpgradeDessert Beagle";
-        public const string UpgradeFlameThrower = "UpgradeFlame Thrower";
-        public const string UpgradeHomersBullets = "UpgradeHomers Bullets";
-        public const string UpgradeKa74 = "UpgradeKA74";
-        public const string UpgradeKnettergun = "UpgradeKnettergun";
-        public const string UpgradeUwp = "UpgradeUWP";
-        public const string UpgradeVlekKannon = "UpgradeVLEKKannon";
+        // Constants for upgrading guns
+        private const string UpgradeArrivaGun = "UpgradeArriva Gun";
+        private const string UpgradeBatarang = "UpgradeBatarang";
+        private const string UpgradeBulletBill = "UpgradeBullet Bill";
+        private const string UpgradeDessertBeagle = "UpgradeDessert Beagle";
+        private const string UpgradeFlameThrower = "UpgradeFlame Thrower";
+        private const string UpgradeHomersBullets = "UpgradeHomers Bullets";
+        private const string UpgradeKa74 = "UpgradeKA74";
+        private const string UpgradeKnettergun = "UpgradeKnettergun";
+        private const string UpgradeUwp = "UpgradeUWP";
+        private const string UpgradeVlekKannon = "UpgradeVLEKKannon";
 
         // Constraints for armor up and health up.
-        public const string ArmorUp = "ArmorUp";
-        public const string HealthUp = "HealthUp";
+        private const string ArmorUp = "ArmorUp";
+        private const string HealthUp = "HealthUp";
 
         private Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
         {
@@ -165,85 +165,81 @@ namespace EindopdrachtUWP.Classes
         private CanvasBitmap rightSprite;
         private CanvasBitmap leftSprite;
 
-        public Pickup(float width, float height, float fromLeft, float fromTop, int amount = 0, string type = "rand", float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0) : 
+        public Pickup(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0) : 
             base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
-            if (type == "rand")
+
+            Random rand = new Random();
+            int r = rand.Next(21);
+            switch (r)
             {
-                Random rand = new Random();
-                int r = rand.Next(21);
-                switch (r)
-                {
-                    case 0:
-                        type = AmmunitionArrivaGun;
-                        break;
-                    case 1:
-                        type = AmmunitionBatarang;
-                        break;
-                    case 2:
-                        type = AmmunitionBulletBill;
-                        break;
-                    // DessertBeagle has infinite bullets, this goes to default (health pickup)
-                    case 4:
-                        type = AmmunitionFlameThrower;
-                        break;
-                    case 5:
-                        type = AmmunitionHomersBullets;
-                        break;
-                    case 6:
-                        type = AmmunitionKa74;
-                        break;
-                    case 7:
-                        type = AmmunitionKnettergun;
-                        break;
-                    case 8:
-                        type = AmmunitionUwp;
-                        break;
-                    case 9:
-                        type = AmmunitionVlekKannon;
-                        break;
-                    case 10:
-                        type = UpgradeArrivaGun;
-                        break;
-                    case 11:
-                        type = UpgradeBatarang;
-                        break;
-                    case 12:
-                        type = UpgradeBulletBill;
-                        break;
-                    case 13:
-                        type = UpgradeDessertBeagle;
-                        break;
-                    case 14:
-                        type = UpgradeFlameThrower;
-                        break;
-                    case 15:
-                        type = UpgradeHomersBullets;
-                        break;
-                    case 16:
-                        type = UpgradeKa74;
-                        break;
-                    case 17:
-                        type = UpgradeKnettergun;
-                        break;
-                    case 18:
-                        type = UpgradeUwp;
-                        break;
-                    case 19:
-                        type = UpgradeVlekKannon;
-                        break;
-                    case 20:
-                        type = ArmorUp;
-                        amount = 100;
-                        break;
-                    default:
-                        type = HealthUp;
-                        amount = 100;
-                        break;
-                }
+                case 0:
+                    type = AmmunitionArrivaGun;
+                    break;
+                case 1:
+                    type = AmmunitionBatarang;
+                    break;
+                case 2:
+                    type = AmmunitionBulletBill;
+                    break;
+                // DessertBeagle has infinite bullets, this goes to default (health pickup)
+                case 4:
+                    type = AmmunitionFlameThrower;
+                    break;
+                case 5:
+                    type = AmmunitionHomersBullets;
+                    break;
+                case 6:
+                    type = AmmunitionKa74;
+                    break;
+                case 7:
+                    type = AmmunitionKnettergun;
+                    break;
+                case 8:
+                    type = AmmunitionUwp;
+                    break;
+                case 9:
+                    type = AmmunitionVlekKannon;
+                    break;
+                case 10:
+                    type = UpgradeArrivaGun;
+                    break;
+                case 11:
+                    type = UpgradeBatarang;
+                    break;
+                case 12:
+                    type = UpgradeBulletBill;
+                    break;
+                case 13:
+                    type = UpgradeDessertBeagle;
+                    break;
+                case 14:
+                    type = UpgradeFlameThrower;
+                    break;
+                case 15:
+                    type = UpgradeHomersBullets;
+                    break;
+                case 16:
+                    type = UpgradeKa74;
+                    break;
+                case 17:
+                    type = UpgradeKnettergun;
+                    break;
+                case 18:
+                    type = UpgradeUwp;
+                    break;
+                case 19:
+                    type = UpgradeVlekKannon;
+                    break;
+                case 20:
+                    type = ArmorUp;
+                    amount = 100;
+                    break;
+                default:
+                    type = HealthUp;
+                    amount = 100;
+                    break;
             }
-            this.amount = amount;
-            this.type = type;
 
             if (type.Contains("Ammunition"))
             {
