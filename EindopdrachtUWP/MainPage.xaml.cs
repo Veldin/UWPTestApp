@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -17,13 +18,13 @@ namespace EindopdrachtUWP
         public bool menuScreen;
         public bool infoScreen;
         public bool aboutScreen;
+        public bool activeStartup;
         public bool paused;
         public bool game_over;
-        public double critPercentage;
-        public double critMultiPercentage;
-        public string clipText;
-        public int weapon;
-        
+        public double highScore;
+        private double critPercentage;
+        private double critMultiPercentage;
+        private string weapon;
 
         public MainPage()
         {
@@ -48,12 +49,12 @@ namespace EindopdrachtUWP
             statImage.Opacity = 0;
             game_Over_Screen.Opacity = 0;
             game_over = false;
-            menuScreen = true;
+            menuScreen = false;
             infoScreen = false;
             aboutScreen = false;
+            activeStartup = true;
             paused = true;           
-
-            weapon = 1;
+            
             getWeaponStats();
             currentClip.Text = "12/12";
             currentClipRight.Text = "12/12";
@@ -63,6 +64,7 @@ namespace EindopdrachtUWP
 
             engine.Run();
         }
+
         public void gameover()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -198,6 +200,19 @@ namespace EindopdrachtUWP
             );
         }
 
+        public void startup()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                Startup.Opacity = 0;
+                startup_Image.Opacity = 0;
+                activeStartup = false;
+                menuScreen = true;
+            }
+            );
+        }
+
         public void getAbout()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -209,6 +224,36 @@ namespace EindopdrachtUWP
                 menuScreen = false;
             }
             );
+        }
+
+        public void getControls()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                controls.Opacity = 1;
+            }
+            );
+        }
+
+        public void removeControls()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                controls.Opacity = 0;
+            }
+            );
+        }
+
+        public void updateScore()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                highScore = engine.getPlayer().Kills * 250;
+                highscore.Text = highScore.ToString();
+            });
         }
 
         public void getWeaponStats()
@@ -243,7 +288,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                armour.Text = engine.getPlayer().getArmor().ToString();
+                armour.Text = engine.getPlayer().getArmor().ToString() + "/" + engine.getPlayer().getMaxArmour().ToString();
             });
         }
 
@@ -257,10 +302,10 @@ namespace EindopdrachtUWP
             });
         }
 
+
         public void selectWeapon()
         {
             int given = engine.getPlayer().getSelectedWeaponIndex();
-
 
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -306,10 +351,16 @@ namespace EindopdrachtUWP
                     case 10:
                         selected.Margin = new Thickness(-55, 540, 0, 0);
                         currentClip.Margin = new Thickness(-30, 580, 0, 0);
-                        weapon = 0;
                         break;
                 }
             });
+        }
+
+        public void newWeapon()
+        {
+            selectWeapon();
+            getWeaponStats();
+            UpdateCurrentClip();
         }
 
         public void nextWeapon()

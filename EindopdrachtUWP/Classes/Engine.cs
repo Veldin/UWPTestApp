@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -250,7 +251,8 @@ namespace UWPTestApp
         private void Logic()
         {
             paused = MainPage.Current.paused;
-            if (paused == false && !MainPage.Current.game_over)
+
+            if (!paused && !MainPage.Current.game_over)
             {
                 //Check if there are objects in the List to apply logic on
                 //Apply the logic to all the bameObjects CURRENTLY in the List.
@@ -264,13 +266,13 @@ namespace UWPTestApp
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
                         {
                             if(player.selectNextWeapon())
-                                MainPage.Current.nextWeapon();
+                                MainPage.Current.newWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
                             if (player.selectPreviousWeapon())
-                                MainPage.Current.previousWeapon();
+                                MainPage.Current.newWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
@@ -326,6 +328,15 @@ namespace UWPTestApp
                         {
                             player.Target.AddFromLeft(-1000);
                             player.IsWalking = true;
+                        }
+
+                        if (!paused && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
+                        {
+                            MainPage.Current.getControls();
+                        }
+                        else if (!paused && (!IsKeyPressed("Space") || !IsKeyPressed("GamepadView")))
+                        {
+                            MainPage.Current.removeControls();
                         }
 
                         if (player.IsWalking)
@@ -406,9 +417,11 @@ namespace UWPTestApp
                                     if (getPlayer is Player p4)
                                     {
                                         p4.Kills++;
+                                        MainPage.Current.updateScore();
                                         if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                         {
                                             p4.Kills++;
+                                            MainPage.Current.updateScore();
                                             if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                             {
                                                 p4.IncreaseLevel();
@@ -416,8 +429,6 @@ namespace UWPTestApp
                                             }
 
                                             break;
-                                            p4.IncreaseLevel();
-                                            soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                         }
 
                                         if (p4.Kills % 3 == 0)
@@ -471,7 +482,7 @@ namespace UWPTestApp
                 Task.Delay(300).Wait();
             }
 
-            if (MainPage.Current.game_over && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
+            if (MainPage.Current.game_over && (IsKeyPressed("Space") || IsKeyPressed("GamepadMenu")))
             {
                 CoreApplication.RequestRestartAsync("");
             }
@@ -499,7 +510,12 @@ namespace UWPTestApp
             }
 
 
-            
+            if(MainPage.Current.activeStartup && pressedKeys.Count() > 0)
+            {
+                MainPage.Current.startup();
+                Task.Delay(300).Wait();
+            }
+
         }
 
         //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
