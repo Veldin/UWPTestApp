@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -505,7 +506,7 @@ namespace UWPTestApp
                 Task.Delay(300).Wait();
             }
 
-            if(MainPage.Current.activeStartup && (IsKeyPressed("Space") || IsKeyPressed("GamepadMenu")))
+            if(MainPage.Current.activeStartup && pressedKeys.Count() > 0)
             {
                 MainPage.Current.startup();
                 Task.Delay(300).Wait();
