@@ -98,8 +98,9 @@
             <Image x:Name="startup_Image" Source="Assets\SplashScreen_new.png"/>
             <Image x:Name="presskey" Source="Assets\Sprites\Menu_Sprites\pressKey.png" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="800" Height="100" Margin="100"/>
         </Grid>
-        <Grid x:Name="game_Over_Screen" Background="Black" Opacity="1">
-            <Image x:Name="game_Over_Screen_image" Opacity="1" Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
+        <Border x:Name="game_Over_Screen_Black" Background="Black" Opacity="0"/>
+        <Grid x:Name="game_Over_Screen"  Opacity="0">
+            <Image Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
             <TextBlock x:Name="endScore" Text="End Score:" Margin="0, 476, 0, 0" Height="50" Width="500" TextAlignment="Center" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="50" FontWeight="Bold" Foreground="white"/>
             <TextBlock x:Name="endScoreText" Margin="0, 575, 0, 0" Height="50" Width="500" TextAlignment="Center" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="50" FontWeight="Bold" Foreground="white"/>
         </Grid>

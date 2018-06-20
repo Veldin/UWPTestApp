@@ -78,10 +78,8 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                game_Over_Screen.Opacity = 0.75;
-                game_Over_Screen_image.Opacity = 1;
-                endScore.Opacity = 1;
-                endScoreText.Opacity = 1;
+                game_Over_Screen_Black.Opacity = 0.75;
+                game_Over_Screen.Opacity = 1;
                 endScoreText.Text = currentScore.ToString();
                 game_over = true;
             }
