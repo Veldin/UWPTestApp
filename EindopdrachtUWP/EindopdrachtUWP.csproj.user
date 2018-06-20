@@ -14,5 +14,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <CreateCleanLayout>true</CreateCleanLayout>
+    <UseSimulator>false</UseSimulator>
   </PropertyGroup>
 </Project>
