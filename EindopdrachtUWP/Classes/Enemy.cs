@@ -156,6 +156,7 @@ public class Enemy : GameObject, MovableObject, Targetable
                 player.AddTag("hit");
             }
             MainPage.Current.killstreak = 0;
+            MainPage.Current.updateKillstreak();
         }
         return true;
     }

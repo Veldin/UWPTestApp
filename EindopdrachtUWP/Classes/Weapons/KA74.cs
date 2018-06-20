@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UWPTestApp;
 
 namespace EindopdrachtUWP.Classes.Weapons
@@ -35,7 +36,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "KA74";
             description = "The KA74 is a strong ranged machine gun, also known as the Kalasjnikov";
             currentClip = 0;
-            clipAmount = 0;
+            clipAmount = 10;
             clipMax = 30;
             damage = 50;
             accuracy = 1.5f;
@@ -43,14 +44,14 @@ namespace EindopdrachtUWP.Classes.Weapons
             critChance = 0.05;
             critMultiplier = 1.25;
             weaponLevel = 1;
-            reloadTime = 1000;
+            reloadTime = 2000;
             shotSound = "Weapon_Sounds\\KA74_Shot1.wav";
             location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
 
-            ableToReload = true;
+            ableToReload = false;
             ableToFire = true;
             fireCooldownDelta = 0;
-            reloadCooldownDelta = 0;
+            reloadCooldownDelta = 2000;
         }
 
         public void AddTag(string tag)
@@ -75,6 +76,10 @@ namespace EindopdrachtUWP.Classes.Weapons
 
         public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
         {
+            if (ableToReload && currentClip == 0)
+            {
+                Reload();
+            }
 
             //Random random = new Random(Guid.NewGuid().GetHashCode());
             //float randomPositionOffset = (random.Next(0, (int)accuracy * (int)accuracy)) ;
@@ -120,10 +125,6 @@ namespace EindopdrachtUWP.Classes.Weapons
                 ableToFire = false;
                 return true;
             }
-            if (ableToReload && currentClip == 0)
-            {
-                Reload();
-            }
             if (currentClip == 0 && clipAmount == 0)
             {
                 MainPage.Current.weaponEmpty(name);
@@ -136,6 +137,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             // reload this weapon, but only if you have enough clips
             if (ableToReload && clipAmount > 0)
             {
+                ableToFire = false;
                 clipAmount--;
                 currentClip = clipMax;
                 MainPage.Current.getWeaponStats();
@@ -167,6 +169,7 @@ namespace EindopdrachtUWP.Classes.Weapons
 
         public Boolean OnTick(float delta)
         {
+
             if (fireCooldownDelta - delta < 0)
             {
                 fireCooldownDelta = fireTime;
@@ -181,8 +184,9 @@ namespace EindopdrachtUWP.Classes.Weapons
             {
                 reloadCooldownDelta = reloadTime;
                 ableToReload = true;
+                ableToFire = true;
             }
-            else
+            else if (currentClip <= 0)
             {
                 reloadCooldownDelta -= delta;
             }

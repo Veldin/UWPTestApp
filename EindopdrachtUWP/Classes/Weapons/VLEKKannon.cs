@@ -51,10 +51,10 @@ namespace EindopdrachtUWP.Classes.Weapons
             locationRight = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Right.png";
             locationTop = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Top.png";
 
-            ableToReload = true;
+            ableToReload = false;
             ableToFire = true;
             fireCooldownDelta = 0;
-            reloadCooldownDelta = 0;
+            reloadCooldownDelta = 2000;
         }
 
         public void AddTag(string tag)
@@ -79,6 +79,10 @@ namespace EindopdrachtUWP.Classes.Weapons
 
         public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
         {
+            if (ableToReload && currentClip == 0)
+            {
+                Reload();
+            }
 
             //Random random = new Random(Guid.NewGuid().GetHashCode());
             //float randomPositionOffset = (random.Next(0, (int)accuracy * (int)accuracy)) ;
@@ -124,10 +128,6 @@ namespace EindopdrachtUWP.Classes.Weapons
                 ableToFire = false;
                 return true;
             }
-            if (ableToReload && currentClip == 0)
-            {
-                Reload();
-            }
             if (currentClip == 0 && clipAmount == 0)
             {
                 MainPage.Current.weaponEmpty(name);
@@ -140,6 +140,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             // reload this weapon, but only if you have enough clips
             if (ableToReload && clipAmount > 0)
             {
+                ableToFire = false;
                 clipAmount--;
                 currentClip = clipMax;
                 MainPage.Current.getWeaponStats();
@@ -185,8 +186,9 @@ namespace EindopdrachtUWP.Classes.Weapons
             {
                 reloadCooldownDelta = reloadTime;
                 ableToReload = true;
+                ableToFire = true;
             }
-            else
+            else if (currentClip <= 0)
             {
                 reloadCooldownDelta -= delta;
             }
