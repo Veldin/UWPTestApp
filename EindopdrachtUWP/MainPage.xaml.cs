@@ -80,6 +80,9 @@ namespace EindopdrachtUWP
             {
                 game_Over_Screen.Opacity = 0.75;
                 game_Over_Screen_image.Opacity = 1;
+                endScore.Opacity = 1;
+                endScoreText.Opacity = 1;
+                endScoreText.Text = currentScore.ToString();
                 game_over = true;
             }
             );
@@ -482,6 +485,7 @@ namespace EindopdrachtUWP
                 }
             });
         }
+
         public void enableSecondSpawner()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -492,12 +496,22 @@ namespace EindopdrachtUWP
                });
         }
 
-        void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        public void enableThirdSpawner()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+               () =>
+               {
+                   thirdSpawner.Opacity = 1;
+
+               });
+        }
+
+        void KeyDown(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyDown(args.VirtualKey.ToString());
         }
 
-        void KeyUP(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        void KeyUP(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyUp(args.VirtualKey.ToString());
         }

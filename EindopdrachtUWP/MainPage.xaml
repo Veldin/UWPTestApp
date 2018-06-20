@@ -12,15 +12,16 @@
             <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  Loaded="Grid_OnLoaded" ManipulationMode="All"  Margin="65, 0, 210, 0">
 
                 <!--Background and drawable Canvas-->
+                <Border Background="Gray"></Border>
                 <Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600" HorizontalAlignment="Center"/>
-                <Image x:Name="secondSpawner" Source="Assets\Sprites\Maps\Spawner.png" Width="56" Height="23" HorizontalAlignment="Left" Margin="135, -206, 0, 0" Opacity="0">
+                <Image x:Name="secondSpawner" Source="Assets\Sprites\Maps\Spawner.png" Width="56" Height="23" HorizontalAlignment="Left" Margin="135, -160, 0, 0" Opacity="0">
                     <Image.RenderTransform>
                         <RotateTransform Angle="90" />
                     </Image.RenderTransform>
                 </Image>
+                <Image x:Name="thirdSpawner" Source="Assets\Sprites\Maps\Spawner_left.png" Width="56" Height="23" HorizontalAlignment="Left" Margin="730, 210, 0, 0" Opacity="0">
+                </Image>
                 <Border Height="600" Width="60" Background="Gray" Margin="-60,0,0,0" HorizontalAlignment="Left" CornerRadius="5, 0, 0, 5"></Border>
-                <Image x:Name="divider_Left" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Left" Margin="-1,0,0,0"/>
-                <Image x:Name="divider_Right" Source="Assets\Sprites\Menu_Sprites\Divider.png"  HorizontalAlignment="Right" Margin="0,0,-1,0"/>
                 <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center"/>
 
                 <!--Menu Sprites and locations-->
@@ -83,7 +84,7 @@
                 </Grid>
             </Grid>
         </Viewbox>
-        <Grid x:Name="level" HorizontalAlignment="Left" VerticalAlignment="Top" Height="120" Width="140" Margin="135, -35, 0, 0">
+        <Grid x:Name="playerStats" HorizontalAlignment="Left" VerticalAlignment="Top" Height="120" Width="150" Margin="135, -35, 0, 0">
             <TextBlock x:Name="currentLevel" Foreground="white" TextAlignment="Right" Height="20"  FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 0, 0, 0"/>
             <TextBlock Text="Player level:" Foreground="white" TextAlignment="Left" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 0, 0, 0"/>
             <TextBlock x:Name="currentKills" Foreground="white" TextAlignment="Right" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 30, 0, 0"/>
@@ -99,6 +100,8 @@
         </Grid>
         <Grid x:Name="game_Over_Screen" Background="Black" Opacity="0">
             <Image x:Name="game_Over_Screen_image" Opacity="0" Source="Assets\Sprites\Menu_Sprites\Game_Over.png"/>
+            <TextBlock x:Name="endScore" Text="End Score:" Margin="0, 600, 0, 0" Height="50" Width="500" TextAlignment="Center" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="50" FontWeight="Bold" Foreground="white"/>
+            <TextBlock x:Name="endScoreText" Margin="0, 700, 0, 0" Height="50" Width="500" TextAlignment="Center" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="50" FontWeight="Bold" Foreground="white"/>
         </Grid>
     </Grid>
 </Page>
