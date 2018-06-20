@@ -160,6 +160,11 @@ namespace EindopdrachtUWP.Classes.Weapons
             critMultiplier += 0.1;
         }
 
+        public int GetAmmo()
+        {
+            return clipAmount * clipMax + currentClip;
+        }
+
         public Boolean OnTick(float delta)
         {
             if (fireCooldownDelta - delta < 0)

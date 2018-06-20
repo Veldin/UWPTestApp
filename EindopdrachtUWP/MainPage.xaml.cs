@@ -347,7 +347,7 @@ namespace EindopdrachtUWP
         }
 
         //Every time you switch a weapon this function is called to display the correct weapon and place the selector at the right weapon
-        public void newWeapon()
+        public void UpdateWeapon()
         {
             weapon = engine.getPlayer().activeWeapon.name;
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
