@@ -172,6 +172,7 @@
     <Content Include="Assets\Sounds\Weapon_Sounds\VLEK_Kannon_Shot1.wav" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Assets\Splashscreen_Logo.png" />
+    <Content Include="Assets\SplashScreen_new.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Bottom.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Left.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Right.png" />
@@ -242,6 +243,7 @@
     <Content Include="Assets\Sprites\Hotbar_Sprites\VLEKKannon_Hotbar_Sprite.png" />
     <Content Include="Assets\Sprites\Maps\Map1.png" />
     <Content Include="Assets\Sprites\Maps\Map1.txt" />
+    <Content Include="Assets\Sprites\Maps\Spawner.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Blood_Check.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_About.png" />
     <Content Include="Assets\Sprites\Menu_Sprites\Complete_Info.png" />

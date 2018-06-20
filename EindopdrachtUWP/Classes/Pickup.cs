@@ -31,8 +31,8 @@ namespace EindopdrachtUWP.Classes
         private const string UpgradeUwp = "UpgradeUWP";
         private const string UpgradeVlekKannon = "UpgradeVLEKKannon";
 
-        // Constraints for armor up and health up.
-        private const string ArmorUp = "ArmorUp";
+        // Constraints for armour up and health up.
+        private const string ArmourUp = "ArmourUp";
         private const string HealthUp = "HealthUp";
 
         private Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
@@ -137,7 +137,7 @@ namespace EindopdrachtUWP.Classes
                 "Weapon_Upgrades\\VLEKKannon_Upgrade_Pickup_Right.png",
                 "Weapon_Upgrades\\VLEKKannon_Upgrade_Pickup_Left.png"
             }},
-            { ArmorUp, new string[]
+            { ArmourUp, new string[]
             {
                 "Armour_Pickup_Right.png",
                 "Armour_Pickup_Left.png"
@@ -157,7 +157,7 @@ namespace EindopdrachtUWP.Classes
 
         private const string pickUpAmmoSound = "Generic_Sounds\\Ammo_Pickup_Sound.wav";
         private const string pickUpUpgradeSound = "Generic_Sounds\\Weapon_Upgrade_Sound.wav";
-        private const string pickUpArmorSound = "Generic_Sounds\\Armour_Pickup_Sound.wav";
+        private const string pickUpArmourSound = "Generic_Sounds\\Armour_Pickup_Sound.wav";
         private const string pickUpHealthSound = "Generic_Sounds\\Health_Pickup_Sound.wav";
         
         private float totalDelta = 0;
@@ -232,7 +232,7 @@ namespace EindopdrachtUWP.Classes
                     type = UpgradeVlekKannon;
                     break;
                 case 20:
-                    type = ArmorUp;
+                    type = ArmourUp;
                     amount = 100;
                     break;
                 default:
@@ -251,10 +251,10 @@ namespace EindopdrachtUWP.Classes
                 // Upgrade pick up sound
                 pickUpSound = pickUpUpgradeSound;
             }
-            else if (type.Equals(ArmorUp))
+            else if (type.Equals(ArmourUp))
             {
-                // Armor pick up sound
-                pickUpSound = pickUpArmorSound;
+                // Armour pick up sound
+                pickUpSound = pickUpArmourSound;
             }
             else if (type.Equals(HealthUp))
             {
@@ -342,9 +342,9 @@ namespace EindopdrachtUWP.Classes
                         }
                     }
                 }
-                else if (type.Equals(ArmorUp))
+                else if (type.Equals(ArmourUp))
                 {
-                    player.IncreaseArmor(amount);
+                    player.IncreaseArmour(amount);
                     MainPage.Current.updateArmour();
                 }
                 else if (type.Equals(HealthUp))
@@ -367,7 +367,7 @@ namespace EindopdrachtUWP.Classes
             return new string[]
             {
                 pickUpAmmoSound,
-                pickUpArmorSound,
+                pickUpArmourSound,
                 pickUpUpgradeSound,
                 pickUpHealthSound
             };

@@ -21,6 +21,8 @@ namespace EindopdrachtUWP
         public bool activeStartup;
         public bool paused;
         public bool game_over;
+        public double currentScore;
+        public double killstreak;
         private double critPercentage;
         private double critMultiPercentage;
         private string weapon;
@@ -52,11 +54,18 @@ namespace EindopdrachtUWP
             infoScreen = false;
             aboutScreen = false;
             activeStartup = true;
+            currentScore = 0;
+            killstreak = 0;
             paused = true;           
             
             getWeaponStats();
             currentClip.Text = "12/12";
             currentClipRight.Text = "12/12";
+
+            currentLevel.Text = "1";
+            currentKills.Text = "0";
+            highscore.Text = "0";
+            CurrentKillstreak.Text = "0";
 
             updateHealth();
             updateArmour();
@@ -245,6 +254,7 @@ namespace EindopdrachtUWP
             );
         }
 
+        //Every time the stats of a weapon are altered this function is called to display the stats correctly
         public void getWeaponStats()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -263,6 +273,49 @@ namespace EindopdrachtUWP
             });
         }
 
+        //Every time a zombie gets killed this function is called. It adds the current player level to the score and displays the score and amount of kills
+        public void updateHighscore()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                currentScore += engine.getPlayer().GetLevel();
+                highscore.Text = currentScore.ToString();
+                currentKills.Text = engine.getPlayer().Kills.ToString();
+            });
+        }
+
+        public void updateKillstreak()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                killstreak++;
+                CurrentKillstreak.Text = killstreak.ToString();
+            });
+        }
+
+        public void resetKillstreak()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                killstreak = 0;
+                CurrentKillstreak.Text = killstreak.ToString();
+            });
+        }
+
+        //Every time the player levels this function is called to increase the displayed level
+        public void UpdateLevel()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                currentLevel.Text = engine.getPlayer().GetLevel().ToString();
+            });
+        }
+
+        //Every time the health of the player is altered this function is called to display the correct amount of healthpoints
         public void updateHealth()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -272,15 +325,17 @@ namespace EindopdrachtUWP
             });
         }
 
+        //Every time the armour of the player is altered this function is called to display the correct amount of armourpoints
         public void updateArmour()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                armour.Text = engine.getPlayer().getArmor().ToString() + "/" + engine.getPlayer().getMaxArmour().ToString();
+                armour.Text = engine.getPlayer().getArmour().ToString() + "/" + engine.getPlayer().getMaxArmour().ToString();
             });
         }
 
+        //Every time the amount of a clip is altered this function is called to display the correct amount
         public void UpdateCurrentClip()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -291,6 +346,7 @@ namespace EindopdrachtUWP
             });
         }
 
+        //Every time you switch a weapon this function is called to display the correct weapon and place the selector at the right weapon
         public void newWeapon()
         {
             weapon = engine.getPlayer().activeWeapon.name;
@@ -337,7 +393,7 @@ namespace EindopdrachtUWP
                         break;
                     case "Homers Bullets":
                         selected.Margin = new Thickness(-55, 540, 0, 0);
-                        currentClip.Margin = new Thickness(-30, 590, 0, 0);
+                        currentClip.Margin = new Thickness(-30, 580, 0, 0);
                         break;
                 }
             });
@@ -345,6 +401,7 @@ namespace EindopdrachtUWP
             UpdateCurrentClip();
         }
 
+        //When the amount of ammo of a weapon is not 0 this function displays the weapon
         public void weaponAmmo(string weapon)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -385,6 +442,7 @@ namespace EindopdrachtUWP
             });
         }
 
+        //When the amount of ammo of a weapon is 0 this function displays the weapon
         public void weaponEmpty(string weapon)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -424,6 +482,16 @@ namespace EindopdrachtUWP
                 }
             });
         }
+        public void enableSecondSpawner()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+               () =>
+               {
+                   secondSpawner.Opacity = 1;
+
+               });
+        }
+
         void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
             engine.KeyDown(args.VirtualKey.ToString());

@@ -14,7 +14,7 @@ namespace UWPTestApp
         private float maxHealth;
         private float health;
         private float maxArmour;
-        private float armor;
+        private float armour;
         private int level;
 
         public int Kills { get; set; }
@@ -54,9 +54,8 @@ namespace UWPTestApp
             walkSpeed = 300;
             health = 300;
             maxHealth = 300;
-            armor = 0;
+            armour = 0;
             maxArmour = 150;
-            armor = 0;
             level = 1;
             Kills = 0;
             direction = "Bottom";
@@ -156,23 +155,24 @@ namespace UWPTestApp
             MainPage.Current.updateHealth();
         }
 
-        public void IncreaseArmor(float amount)
+        public void IncreaseArmour(float amount)
         {
-            armor += amount;
-            if (armor > maxArmour)
+            armour += amount;
+            if (armour > maxArmour)
             {
-                armor = maxArmour;
+                armour = maxArmour;
             }
+            MainPage.Current.updateArmour();
         }
 
-        public void setArmor(float amount)
+        public void setArmour(float amount)
         {
-            armor = amount;
+            armour = amount;
         }
 
-        public float getArmor()
+        public float getArmour()
         {
-            return armor;
+            return armour;
         }
 
         public float getMaxArmour()
@@ -202,14 +202,14 @@ namespace UWPTestApp
 
         public void increaseMaxHealth(float amount)
         {
-            maxArmour += amount;
-            MainPage.Current.updateArmour();
+            maxHealth += amount;
+            MainPage.Current.updateHealth();
         }
 
         public void increaseMaxArmour(float amount)
         {
-            maxHealth += amount;
-            MainPage.Current.updateHealth();
+            maxArmour += amount;
+            MainPage.Current.updateArmour();
         }
 
         public int GetLevel() => level;
