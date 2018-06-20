@@ -38,8 +38,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             description = "The Bullet Bill is a big bullet that goes in a straight line until it hits a wall";
             currentClip = 0;
             clipAmount = 0;
-            clipMax = 5;
-            damage = 500;
+            clipMax = 1;
+            damage = 300;
             accuracy = 0;
             fireTime = 2000;
             critChance = 0.15;

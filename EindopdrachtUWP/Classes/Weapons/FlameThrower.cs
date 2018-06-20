@@ -157,7 +157,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 2;
+            damage += 5;
             fireTime *= 0.99f;
             clipMax += 1;
             reloadTime *= 0.99f;
