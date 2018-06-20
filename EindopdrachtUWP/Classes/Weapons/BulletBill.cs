@@ -39,7 +39,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             currentClip = 0;
             clipAmount = 0;
             clipMax = 1;
-            damage = 300;
+            damage = 350;
             accuracy = 0;
             fireTime = 2000;
             critChance = 0.15;
