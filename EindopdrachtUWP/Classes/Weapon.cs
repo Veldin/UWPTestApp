@@ -26,6 +26,7 @@ namespace EindopdrachtUWP.Classes
         void AddTag(String tag);
         void Reload();
         void Upgrade();
+        int GetAmmo();
         Boolean OnTick(float delta);
     }
 }

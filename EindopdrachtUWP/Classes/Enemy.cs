@@ -48,7 +48,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         ableToHit = true;
         damageCountDownTimerMax = 3000;
 
-        //Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
+        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
 
         Random r = new Random();
         DeathSound = DeathSounds[r.Next(9)];
