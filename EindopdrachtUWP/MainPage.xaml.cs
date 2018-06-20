@@ -293,17 +293,6 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                killstreak++;
-                CurrentKillstreak.Text = killstreak.ToString();
-            });
-        }
-
-        public void resetKillstreak()
-        {
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () =>
-            {
-                killstreak = 0;
                 CurrentKillstreak.Text = killstreak.ToString();
             });
         }

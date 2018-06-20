@@ -415,33 +415,25 @@ namespace UWPTestApp
                                     {
                                         p4.Kills++;
                                         MainPage.Current.updateHighscore();
+                                        MainPage.Current.killstreak++;
                                         MainPage.Current.updateKillstreak();
                                         if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                         {
-                                            p4.Kills++;
-                                            MainPage.Current.updateHighscore();
-                                            MainPage.Current.updateKillstreak();
-                                            if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
+                                            p4.IncreaseLevel();
+                                            soundController.PlaySound("Generic_Sounds\\levelup.wav");
+                                            MainPage.Current.UpdateLevel();
+                                            if(p4.GetLevel() == 5)
                                             {
-                                                p4.IncreaseLevel();
-                                                soundController.PlaySound("Generic_Sounds\\levelup.wav");
-                                                MainPage.Current.UpdateLevel();
-                                                if(p4.GetLevel() == 5)
-                                                {
-                                                    gameObjects.Add(new Spawner(10, 10, 110, 213, 0, 0, 0, 0, 5000, 25000));
-                                                    MainPage.Current.enableSecondSpawner();
-                                                }
-                                                if (p4.GetLevel() == 10)
-                                                {
-                                                    gameObjects.Add(new Spawner(10, 10, 770, 400, 0, 0, 0, 0, 5000, 25000));
-                                                    MainPage.Current.enableThirdSpawner();
-                                                }
+                                                gameObjects.Add(new Spawner(10, 10, 110, 213, 0, 0, 0, 0, 5000, 25000));
+                                                MainPage.Current.enableSecondSpawner();
                                             }
-
+                                            if (p4.GetLevel() == 10)
+                                            {
+                                                gameObjects.Add(new Spawner(10, 10, 770, 400, 0, 0, 0, 0, 5000, 25000));
+                                                MainPage.Current.enableThirdSpawner();
+                                            }
                                             break;
-                                        }
-
-       
+                                        }       
                                         break;
                                     }
                                 }
