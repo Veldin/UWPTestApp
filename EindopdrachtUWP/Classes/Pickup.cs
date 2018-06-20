@@ -304,6 +304,7 @@ namespace EindopdrachtUWP.Classes
         {
             if (gameObject is Player player)
             {
+                if (HasTag("destroyed")) return true;
                 if (type.Contains("Ammunition"))
                 {
                     string weaponName = type.Remove(0, 10);
