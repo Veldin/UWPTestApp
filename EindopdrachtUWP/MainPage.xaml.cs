@@ -49,6 +49,7 @@ namespace EindopdrachtUWP
             stats.Opacity = 0;
             statImage.Opacity = 0;
             game_Over_Screen.Opacity = 0;
+            viewbox.Opacity = 0;
             game_over = false;
             menuScreen = false;
             infoScreen = false;
@@ -78,8 +79,10 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                game_Over_Screen.Opacity = 0.75;
-                game_Over_Screen_image.Opacity = 1;
+                game_Over_Screen_Black.Opacity = 0.75;
+                game_Over_Screen.Opacity = 1;
+                endScoreText.Text = currentScore.ToString();
+                viewbox.Opacity = 0;
                 game_over = true;
             }
             );
@@ -215,6 +218,7 @@ namespace EindopdrachtUWP
             {
                 Startup.Opacity = 0;
                 startup_Image.Opacity = 0;
+                viewbox.Opacity = 1;
                 activeStartup = false;
                 menuScreen = true;
             }
@@ -290,17 +294,6 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                killstreak++;
-                CurrentKillstreak.Text = killstreak.ToString();
-            });
-        }
-
-        public void resetKillstreak()
-        {
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () =>
-            {
-                killstreak = 0;
                 CurrentKillstreak.Text = killstreak.ToString();
             });
         }
@@ -482,6 +475,7 @@ namespace EindopdrachtUWP
                 }
             });
         }
+
         public void enableSecondSpawner()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -492,12 +486,22 @@ namespace EindopdrachtUWP
                });
         }
 
-        void KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        public void enableThirdSpawner()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+               () =>
+               {
+                   thirdSpawner.Opacity = 1;
+
+               });
+        }
+
+        void KeyDown(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyDown(args.VirtualKey.ToString());
         }
 
-        void KeyUP(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        void KeyUP(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyUp(args.VirtualKey.ToString());
         }
