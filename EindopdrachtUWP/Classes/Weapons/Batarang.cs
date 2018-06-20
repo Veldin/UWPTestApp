@@ -98,6 +98,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 {
                     var projectileTop = new Projectile(8, 8, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
                     projectileTop.SetLocation(locationTop);
+                    projectileTop.AddTag("curved");
                     gameObjects.Add(projectileTop);
 
                 }
@@ -105,18 +106,21 @@ namespace EindopdrachtUWP.Classes.Weapons
                 {
                     var projectileBottom = new Projectile(8, 8, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
                     projectileBottom.SetLocation(locationBottom);
+                    projectileBottom.AddTag("curved");
                     gameObjects.Add(projectileBottom);
                 }
                 else if (direction == "Left")
                 {
                     var projectileLeft = new Projectile(8, 8, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
                     projectileLeft.SetLocation(locationLeft);
+                    projectileLeft.AddTag("curved");
                     gameObjects.Add(projectileLeft);
                 }
                 else //Right
                 {
                     var projectileRight = new Projectile(8, 8, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
                     projectileRight.SetLocation(locationRight);
+                    projectileRight.AddTag("curved");
                     gameObjects.Add(projectileRight);
                 }
 

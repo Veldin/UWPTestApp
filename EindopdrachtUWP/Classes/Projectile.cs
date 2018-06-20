@@ -53,27 +53,89 @@ public class Projectile : GameObject, MovableObject
         }
     }
 
-    public bool SetNewTarget(List<GameObject> gameObjects)
+    public bool SetNewHomingTarget(List<GameObject> gameObjects)
     {
-        if (HasTag("homing"))
+        foreach (GameObject gameObject in gameObjects)
         {
-            foreach (GameObject gameObject in gameObjects)
+            Enemy enemy = gameObject as Enemy;
+            if (enemy is Enemy)
             {
-                Enemy enemy = gameObject as Enemy;
-                if (enemy is Enemy)
+                Targetable targetable = enemy as Targetable;
+                if (targetable is Targetable)
                 {
-                    Targetable targetable = enemy as Targetable;
-                    if (targetable is Targetable)
+                    if (targetable != null)
                     {
-                        if (targetable != null)
-                        {
-                            Target = new Target(targetable);
-                            return true;
-                        }
+                        Target = new Target(targetable);
+                        return true;
                     }
                 }
             }
         }
+        return false;
+    }
+
+    public bool SetNewCurvedTarget(List<GameObject> gameObjects)
+    {
+        
+
+        foreach (GameObject gameObject in gameObjects)
+        {
+            Player player = gameObject as Player;
+            if (player is Player)
+            {
+
+                float differenceLeftAbs = Math.Abs(player.FromLeft - FromLeft);
+                float differenceTopAbs = Math.Abs(player.FromTop - FromTop);
+
+                float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
+
+                if (totalDifferenceAbs > 120)
+                {
+                    AddTag("returning");
+                    return targetPlayer(gameObjects);
+                }
+            }
+        }
+
+
+        return false;
+    }
+
+    public Boolean targetPlayer(List<GameObject> gameObjects)
+    {
+        foreach (GameObject gameObject in gameObjects)
+        {
+            Player player = gameObject as Player;
+            if (player is Player)
+            {
+                Targetable targetable = player as Targetable;
+                if (targetable is Targetable)
+                {
+                    if (targetable != null)
+                    {
+                        Target = new Target(targetable);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public bool SetNewTarget(List<GameObject> gameObjects)
+    {
+        if (HasTag("homing"))
+        {
+            SetNewHomingTarget(gameObjects);
+        }
+
+
+        if (HasTag("curved"))
+        {
+            SetNewCurvedTarget(gameObjects);
+        }
+
         return false;
     }
 
@@ -114,11 +176,20 @@ public class Projectile : GameObject, MovableObject
             Target.SetFromTop(Target.FromTop() + ((moveTopDistance * delta) / 10000) * -1);
         }
 
+        if (HasTag("returning"))
+        {
+            if(totalDifferenceAbs < 5)
+            {
+                AddTag("destroyed");
+            }
+        }
+
         if (HasTag("text"))
         {
             AddTag("destroyed");
             gameObjects.Add(new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, damage.ToString(), 1000));
         }
+
         return true;
     }
 
