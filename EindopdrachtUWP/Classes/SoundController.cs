@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace EindopdrachtUWP.Classes
 {
@@ -22,8 +23,8 @@ namespace EindopdrachtUWP.Classes
             mutedSFX = false;
             mutedMusic = false;
             soundTrack.Volume = 0.3;
+            soundTrack.IsLooping = true;
             LoadSound("Soundtrack\\Soundtrack.wav", soundTrack);
-            soundTrack.MediaEnded += SoundTrackEnded;
         }
 
         public void AddSound(string sound, double volume = 0.8)
@@ -130,10 +131,6 @@ namespace EindopdrachtUWP.Classes
                     soundTrack.Play();
                 }
             );
-        }
-        private void SoundTrackEnded(object sender, RoutedEventArgs e)
-        {
-            Play(soundTrack);
         }
     }
 }

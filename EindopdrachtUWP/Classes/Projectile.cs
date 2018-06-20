@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UWPTestApp;
 
@@ -12,6 +13,8 @@ public class Projectile : GameObject, MovableObject
     public string DeathSound { get; set; }
     public string MoveSound { get; set; }
 
+    private List<GameObject> hitGameobject;
+
     public Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float damage = 0, float shotFromLeft = 0, float shotFromTop = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
@@ -20,6 +23,8 @@ public class Projectile : GameObject, MovableObject
         this.damage = damage;
 
         Target = new Target(shotFromLeft, shotFromTop);
+
+        hitGameobject = new List<GameObject>();
 
         Location = "Assets/Sprites/Enemy_Sprites/Enemy_Top.png";
 
@@ -34,10 +39,15 @@ public class Projectile : GameObject, MovableObject
             Enemy enemy = gameObject as Enemy;
             if (enemy is Enemy)
             {
-                enemy.AddLifePoints(damage * -1);
+                //Check if an enemy is not already hit by this projectile.
+                if (!hitGameobject.Contains(gameObject))
+                {
+                    enemy.AddLifePoints(damage * -1);
+                    enemy.AddTag("splatter");
+                    AddTag("text");
+                }
 
-                enemy.AddTag("splatter");
-                AddTag("text");
+                hitGameobject.Add(enemy);
                 return true;
             }
             return false;
@@ -186,7 +196,12 @@ public class Projectile : GameObject, MovableObject
 
         if (HasTag("text"))
         {
-            AddTag("destroyed");
+            if (!HasTag("ghost"))
+            {
+                AddTag("destroyed");
+            }
+
+            RemoveTag("text");
             gameObjects.Add(new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, damage.ToString(), 1000));
         }
 

@@ -23,8 +23,8 @@ namespace UWPTestApp
         protected float fromLeft;
         protected float fromTop;
 
-        //Objects can be facing left or right
-        protected Boolean isFacingLeft;
+        //Objects can be facing top, right, bottom and left
+        public String direction { get; set; }
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
@@ -45,8 +45,6 @@ namespace UWPTestApp
             this.height = height;
             this.fromLeft = fromLeft;
             this.fromTop = fromTop;
-
-            isFacingLeft = true;
 
             this.widthDrawOffset = widthDrawOffset;
             this.heightDrawOffset = heightDrawOffset;
@@ -168,7 +166,8 @@ namespace UWPTestApp
             get { return target; }
             set { target = value; }
         }
-
+        
+        
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
         public abstract Boolean OnTick(List<GameObject> gameObjects, float delta);
