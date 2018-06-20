@@ -82,7 +82,7 @@ namespace UWPTestApp
                 }
 
                 enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
-                enemy.SetLifePoints(475 + ( 25 * playerLevel ) );
+                enemy.SetLifePoints(275 + ( 25 * playerLevel ) );
                 gameObjects.Add(enemy);
             }
             else
