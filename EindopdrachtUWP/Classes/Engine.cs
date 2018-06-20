@@ -438,10 +438,7 @@ namespace UWPTestApp
                                             break;
                                         }
 
-                                        if (p4.Kills % 3 == 0)
-                                        {
-                                            gameObjects.Add(new Pickup(15, 17, enemy.FromLeft, enemy.FromTop));
-                                        }
+       
                                         break;
                                     }
                                 }
