@@ -36,7 +36,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             name = "KA74";
             description = "The KA74 is a strong ranged machine gun, also known as the Kalasjnikov";
             currentClip = 0;
-            clipAmount = 10;
+            clipAmount = 0;
             clipMax = 30;
             damage = 50;
             accuracy = 1.5f;
