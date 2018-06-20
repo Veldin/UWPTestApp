@@ -26,7 +26,7 @@ namespace UWPTestApp
 
         public bool IsWalking { get; set; }
 
-        private float selectNextWeaponDelay;
+        public float selectNextWeaponDelay { get; set; }
         private float selectNextWeaponDelayMax;
 
         //Gun stuff
@@ -34,7 +34,6 @@ namespace UWPTestApp
         public Weapon activeWeapon;
 
         private String direction;
-        private TextBox textbox;
         
         public float deltaForWalkingSound { get; set; }
         public float deltaForHealthLowSound { get; set; }

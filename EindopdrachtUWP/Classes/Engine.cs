@@ -265,14 +265,12 @@ namespace UWPTestApp
                     {
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("E") || IsKeyPressed("GamepadRightShoulder")))
                         {
-                            if(player.selectNextWeapon())
-                                MainPage.Current.newWeapon();
+                            NextWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Q") || IsKeyPressed("GamepadLeftShoulder")))
                         {
-                            if (player.selectPreviousWeapon())
-                                MainPage.Current.newWeapon();
+                            PreviousWeapon();
                         }
 
                         if (gameObject.HasTag("controllable") && (IsKeyPressed("Right") || IsKeyPressed("GamepadRightThumbstickRight")))
@@ -619,7 +617,7 @@ namespace UWPTestApp
                         //(this also stops devided by 0 errors while the user wont see the health left)
 
                         args.DrawingSession.FillRectangle(
-                            new Windows.Foundation.Rect(
+                            new Rect(
                                 gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
                                 gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
                                 (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
@@ -689,7 +687,7 @@ namespace UWPTestApp
                         //(this also stops devided by 0 errors while the user wont see the health left)
 
                         args.DrawingSession.FillRectangle(
-                            new Windows.Foundation.Rect(
+                            new Rect(
                                 gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
                                 gameObject.FromTop - gameObject.Width / 3.33,  //The healthbar starts 1/5th above from the target
                                 (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
@@ -698,7 +696,7 @@ namespace UWPTestApp
                         );
 
                         args.DrawingSession.FillRectangle(
-                            new Windows.Foundation.Rect(
+                            new Rect(
                                 gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
                                 gameObject.FromTop - gameObject.Width / 3.33,  //The healthbar starts 1/5th above from the target
                                 (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
@@ -732,6 +730,30 @@ namespace UWPTestApp
                     );
                 }
             }
+        }
+
+        public void NextWeapon()
+        {
+            player.selectNextWeapon();
+            while (player.activeWeapon.GetAmmo() <= 0)
+            {
+                player.selectNextWeaponDelay = 0;
+                player.selectNextWeapon();
+            }
+            player.selectNextWeaponDelay = 1000;
+            MainPage.Current.UpdateWeapon();
+        }
+
+        public void PreviousWeapon()
+        {
+            player.selectPreviousWeapon();
+            while (player.activeWeapon.GetAmmo() <= 0)
+            {
+                player.selectNextWeaponDelay = 0;
+                player.selectPreviousWeapon();
+            }
+            player.selectNextWeaponDelay = 1000;
+            MainPage.Current.UpdateWeapon();
         }
 
         public void KeyDown(String virtualKey)
