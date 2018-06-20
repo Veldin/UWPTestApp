@@ -32,7 +32,6 @@ public class Enemy : GameObject, MovableObject, Targetable
     };
 
     private float movementSpeed;
-    private String direction;
 
     public Enemy(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
