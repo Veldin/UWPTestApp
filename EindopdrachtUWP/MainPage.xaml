@@ -83,21 +83,15 @@
                 </Grid>
             </Grid>
         </Viewbox>
-        <Grid x:Name="level" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 15, 0, 0">
-            <TextBlock x:Name="currentLevel" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-            <TextBlock Text="Player level:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-        </Grid>
-        <Grid x:Name="kills" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 35, 0, 0">
-            <TextBlock x:Name="currentKills" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-            <TextBlock Text="Current kills:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-        </Grid>
-        <Grid x:Name="score" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 55, 0, 0">
-            <TextBlock x:Name="highscore" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-            <TextBlock Text="Highscore:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-        </Grid>
-        <Grid x:Name="Killstreak" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="140" Margin="135, 75, 0, 0">
-            <TextBlock x:Name="CurrentKillstreak" Foreground="white" TextAlignment="Right" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
-            <TextBlock Text="Killstreak:" Foreground="white" TextAlignment="Left" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So"/>
+        <Grid x:Name="level" HorizontalAlignment="Left" VerticalAlignment="Top" Height="120" Width="140" Margin="135, -35, 0, 0">
+            <TextBlock x:Name="currentLevel" Foreground="white" TextAlignment="Right" Height="20"  FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 0, 0, 0"/>
+            <TextBlock Text="Player level:" Foreground="white" TextAlignment="Left" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 0, 0, 0"/>
+            <TextBlock x:Name="currentKills" Foreground="white" TextAlignment="Right" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 30, 0, 0"/>
+            <TextBlock Text="Current kills:" Foreground="white" TextAlignment="Left" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 30, 0, 0"/>
+            <TextBlock x:Name="highscore" Foreground="white" TextAlignment="Right" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 60, 0, 0"/>
+            <TextBlock Text="Highscore:" Foreground="white" TextAlignment="Left" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 60, 0, 0"/>
+            <TextBlock x:Name="CurrentKillstreak" Foreground="white" TextAlignment="Right" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 90, 0, 0"/>
+            <TextBlock Text="Killstreak:" Foreground="white" TextAlignment="Left" Height="20" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" Margin="0, 90, 0, 0"/>
         </Grid>
         <Grid x:Name="Startup" Background="#282828">
             <Image x:Name="startup_Image" Source="Assets\SplashScreen_new.png"/>
