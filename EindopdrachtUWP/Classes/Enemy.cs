@@ -154,8 +154,9 @@ public class Enemy : GameObject, MovableObject, Targetable
                     MainPage.Current.updateArmour();
                 }
                 player.AddTag("hit");
-//                AddTag("hit");
+                //                AddTag("hit");
             }
+            MainPage.Current.resetKillstreak();
         }
         return true;
     }

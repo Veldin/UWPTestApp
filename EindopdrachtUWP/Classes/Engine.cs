@@ -417,10 +417,12 @@ namespace UWPTestApp
                                     {
                                         p4.Kills++;
                                         MainPage.Current.updateHighscore();
+                                        MainPage.Current.updateKillstreak();
                                         if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                         {
                                             p4.Kills++;
                                             MainPage.Current.updateHighscore();
+                                            MainPage.Current.updateKillstreak();
                                             if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
                                             {
                                                 p4.IncreaseLevel();

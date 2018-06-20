@@ -22,6 +22,7 @@ namespace EindopdrachtUWP
         public bool paused;
         public bool game_over;
         public double currentScore;
+        public double killstreak;
         private double critPercentage;
         private double critMultiPercentage;
         private string weapon;
@@ -54,6 +55,7 @@ namespace EindopdrachtUWP
             aboutScreen = false;
             activeStartup = true;
             currentScore = 0;
+            killstreak = 0;
             paused = true;           
             
             getWeaponStats();
@@ -63,6 +65,7 @@ namespace EindopdrachtUWP
             currentLevel.Text = "1";
             currentKills.Text = "0";
             highscore.Text = "0";
+            CurrentKillstreak.Text = "0";
 
             updateHealth();
             updateArmour();
@@ -279,6 +282,26 @@ namespace EindopdrachtUWP
                 currentScore += engine.getPlayer().GetLevel();
                 highscore.Text = currentScore.ToString();
                 currentKills.Text = engine.getPlayer().Kills.ToString();
+            });
+        }
+
+        public void updateKillstreak()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                killstreak++;
+                CurrentKillstreak.Text = killstreak.ToString();
+            });
+        }
+
+        public void resetKillstreak()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                killstreak = 0;
+                CurrentKillstreak.Text = killstreak.ToString();
             });
         }
 
