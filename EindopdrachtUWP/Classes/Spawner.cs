@@ -76,7 +76,7 @@ namespace UWPTestApp
 
                 //Give a pickup to some enemies
                 Random random = new Random();
-                if(random.Next(0,5) > 3)
+                if(random.Next(0,4) > 3)
                 {
                     enemy.AddTag("droppickup");
                 }
