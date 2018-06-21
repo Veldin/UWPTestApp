@@ -275,13 +275,13 @@ namespace EindopdrachtUWP.Classes
                     //CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png"))
                     rightSprite = sprite;
                     sprite = null;
-                    this.Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][1];
+                    Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][1];
                 }
                 else if (leftSprite == null && sprite != null)
                 {
                     //CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png"))
                     leftSprite = sprite;
-                    this.Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][1];
+                    Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][1];
                 }
                 else
                 {

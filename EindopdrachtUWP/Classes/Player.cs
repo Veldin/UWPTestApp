@@ -142,7 +142,6 @@ namespace UWPTestApp
             {
                 health = maxHealth;
             }
-            Debug.WriteLine("Health: " + health);
             if (HasTag("health_low") && health >= 100)
             {
                 RemoveTag("health_low");
