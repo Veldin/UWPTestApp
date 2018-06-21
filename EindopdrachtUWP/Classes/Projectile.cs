@@ -202,7 +202,7 @@ public class Projectile : GameObject, MovableObject
             }
 
             RemoveTag("text");
-            gameObjects.Add(new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, damage.ToString(), 1000));
+            gameObjects.Add(new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, Math.Round(damage,2).ToString(), 1000));
         }
 
         return true;
