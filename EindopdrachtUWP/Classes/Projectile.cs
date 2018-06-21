@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UWPTestApp;
+using Windows.UI;
 
 public class Projectile : GameObject, MovableObject
 {
@@ -45,14 +46,8 @@ public class Projectile : GameObject, MovableObject
                     enemy.AddLifePoints(damage * -1);
                     enemy.AddTag("splatter");
 
-                    if (HasTag("double"))
-                    {
-                        RemoveTag("double");
-                    }
-                    else
-                    {
-                        AddTag("text");
-                    }
+                 
+                    AddTag("text");
                    
                 }
 
@@ -208,15 +203,28 @@ public class Projectile : GameObject, MovableObject
             }
         }
 
+        //If a projectile has the tag text it has been ordered to drop a textbox. This means the projectile hit a target.
         if (HasTag("text"))
         {
-            if (!HasTag("ghost"))
+            TextBox textBox = new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, Math.Round(damage, 2).ToString(), 1000);
+
+            if (HasTag("crit"))
+            {
+                textBox.Color = Colors.Red;
+                textBox.FontSize++;
+            }
+
+            if (HasTag("double") || HasTag("ghost"))
+            {
+                RemoveTag("double");
+            }
+            else
             {
                 AddTag("destroyed");
             }
 
             RemoveTag("text");
-            gameObjects.Add(new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, Math.Round(damage,2).ToString(), 1000));
+            gameObjects.Add(textBox);
         }
 
         return true;

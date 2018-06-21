@@ -92,42 +92,45 @@ namespace EindopdrachtUWP.Classes.Weapons
             Random random = new Random();
             //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
             //Get a number between the accuracy and the accuracy * -1.
-            float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+            //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
+            float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
 
             float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
 
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
+                Projectile projectile;
+
                 if (direction == "Top")
                 {
-                    var projectileTop = new Projectile(23, 27, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
-                    projectileTop.SetLocation(locationTop);
-                    projectileTop.AddTag("ghost");
-                    gameObjects.Add(projectileTop);
+                    projectile = new Projectile(23, 27, fromLeft - 11.5f, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 11.5f, fromTop - height);
+                    projectile.SetLocation(locationTop);
 
                 }
                 else if (direction == "Bottom")
                 {
-                    var projectileBottom = new Projectile(23, 27, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
-                    projectileBottom.SetLocation(locationBottom);
-                    projectileBottom.AddTag("ghost");
-                    gameObjects.Add(projectileBottom);
+                    projectile = new Projectile(23, 27, fromLeft - 11.5f, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 11.5f, fromTop + height);
+                    projectile.SetLocation(locationBottom);
                 }
                 else if (direction == "Left")
                 {
-                    var projectileLeft = new Projectile(23, 27, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
-                    projectileLeft.SetLocation(locationLeft);
-                    projectileLeft.AddTag("ghost");
-                    gameObjects.Add(projectileLeft);
+                    projectile = new Projectile(23, 27, fromLeft, fromTop - 11.5f, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset - 11.5f);
+                    projectile.SetLocation(locationLeft);
                 }
                 else //Right
                 {
-                    var projectileRight = new Projectile(23, 27, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
-                    projectileRight.SetLocation(locationRight);
-                    projectileRight.AddTag("ghost");
-                    gameObjects.Add(projectileRight);
+                    projectile = new Projectile(23, 27, fromLeft, fromTop - 11.5f, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset - 11.5f);
+                    projectile.SetLocation(locationRight);
                 }
+
+                if (projectileDamage > damage)
+                {
+                    projectile.AddTag("crit");
+                }
+
+                projectile.AddTag("ghost");
+                gameObjects.Add(projectile);
 
                 currentClip--;
                 ableToFire = false;

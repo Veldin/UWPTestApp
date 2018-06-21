@@ -87,43 +87,44 @@ namespace EindopdrachtUWP.Classes.Weapons
             Random random = new Random();
             //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
             //Get a number between the accuracy and the accuracy * -1.
-            float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+            //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
+            float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
 
             float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
 
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
+                Projectile projectile;
 
                 if (direction == "Top")
                 {
-                    var projectileTop = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
-                    projectileTop.SetLocation(location);
-                    projectileTop.AddTag("homing");
-                    gameObjects.Add(projectileTop);
-                    
+                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile.SetLocation(location);
                 }
                 else if (direction == "Bottom")
                 {
-                    var projectileBottom = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
-                    projectileBottom.SetLocation(location);
-                    projectileBottom.AddTag("homing");
-                    gameObjects.Add(projectileBottom);
+                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile.SetLocation(location);
                 }
                 else if (direction == "Left")
                 {
-                    var projectileLeft = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
-                    projectileLeft.SetLocation(location);
-                    projectileLeft.AddTag("homing");
-                    gameObjects.Add(projectileLeft);
+                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile.SetLocation(location);
                 }
                 else //Right
                 {
-                    var projectileRight = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
-                    projectileRight.SetLocation(location);
-                    projectileRight.AddTag("homing");
-                    gameObjects.Add(projectileRight);
+                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile.SetLocation(location);
                 }
+
+                if (projectileDamage > damage)
+                {
+                    projectile.AddTag("crit");
+                }
+
+                projectile.AddTag("homing");
+                gameObjects.Add(projectile);
 
                 currentClip--;
                 ableToFire = false;

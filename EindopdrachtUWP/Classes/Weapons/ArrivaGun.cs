@@ -91,51 +91,46 @@ namespace EindopdrachtUWP.Classes.Weapons
             Random random = new Random();
             //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
             //Get a number between the accuracy and the accuracy * -1.
-            float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+            //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
+            float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
 
             float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
 
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
+                Projectile projectile;
 
                 if (direction == "Top")
                 {
-                    var projectileTop = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
-                    projectileTop.SetLocation(locationTop);
-                    projectileTop.AddTag("ghost");
-                    projectileTop.AddTag("laser");
-                    projectileTop.setMovementSpeed(2200);
-                    gameObjects.Add(projectileTop);
-                    
+                    projectile = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile.SetLocation(locationTop);  
                 }
                 else if (direction == "Bottom")
                 {
-                    var projectileBottom = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
-                    projectileBottom.SetLocation(locationBottom);
-                    projectileBottom.AddTag("ghost");
-                    projectileBottom.AddTag("laser");
-                    projectileBottom.setMovementSpeed(2200);
-                    gameObjects.Add(projectileBottom);
+                    projectile = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile.SetLocation(locationBottom);
                 }
                 else if (direction == "Left")
                 {
-                    var projectileLeft = new Projectile(15, 8, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
-                    projectileLeft.SetLocation(locationLeft);
-                    projectileLeft.AddTag("ghost");
-                    projectileLeft.AddTag("laser");
-                    projectileLeft.setMovementSpeed(2200);
-                    gameObjects.Add(projectileLeft);
+                    projectile = new Projectile(15, 8, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile.SetLocation(locationLeft);
                 }
                 else //Right
                 {
-                    var projectileRight = new Projectile(15, 8, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
-                    projectileRight.SetLocation(locationRight);
-                    projectileRight.AddTag("ghost");
-                    projectileRight.AddTag("laser");
-                    projectileRight.setMovementSpeed(2200);
-                    gameObjects.Add(projectileRight);
+                    projectile = new Projectile(15, 8, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile.SetLocation(locationRight);
                 }
+
+                if (projectileDamage > damage)
+                {
+                    projectile.AddTag("crit");
+                }
+
+                projectile.AddTag("ghost");
+                projectile.AddTag("laser");
+                projectile.setMovementSpeed(2200);
+                gameObjects.Add(projectile);
 
                 currentClip--;
                 ableToFire = false;

@@ -83,9 +83,11 @@ namespace EindopdrachtUWP.Classes.Weapons
             //randomPositionOffset = randomPositionOffset - accuracy * (accuracy) / 2;
 
             Random random = new Random();
+
             //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
             //Get a number between the accuracy and the accuracy * -1.
-            float randomPositionOffset = random.Next((int)(accuracy * -1), (int)accuracy) + accuracy / 2;
+            //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
+            float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
 
             if (random.Next(0, 2) == 0)
             {
@@ -101,36 +103,34 @@ namespace EindopdrachtUWP.Classes.Weapons
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
+                Projectile projectile; 
 
                 if (direction == "Top")
                 {
-                    var projectileTop = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
-                    projectileTop.SetLocation(location);
-                    projectileTop.AddTag("double");
-                    gameObjects.Add(projectileTop);
-
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
                 }
                 else if (direction == "Bottom")
                 {
-                    var projectileBottom = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
-                    projectileBottom.SetLocation(location);
-                    projectileBottom.AddTag("double");
-                    gameObjects.Add(projectileBottom);
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
                 }
                 else if (direction == "Left")
                 {
-                    var projectileLeft = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
-                    projectileLeft.SetLocation(location);
-                    projectileLeft.AddTag("double");
-                    gameObjects.Add(projectileLeft);
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
                 }
                 else //Right
                 {
-                    var projectileRight = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
-                    projectileRight.SetLocation(location);
-                    projectileRight.AddTag("double");
-                    gameObjects.Add(projectileRight);
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
                 }
+
+                projectile.SetLocation(location);
+
+                if (projectileDamage > damage)
+                {
+                    projectile.AddTag("crit");
+                }
+
+                projectile.AddTag("double");
+                gameObjects.Add(projectile);
 
                 currentClip--;
                 ableToFire = false;
