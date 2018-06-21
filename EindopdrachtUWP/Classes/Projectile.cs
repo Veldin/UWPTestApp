@@ -52,7 +52,7 @@ public class Projectile : GameObject, MovableObject
             }
             return false;
         }
-        else if (gameObject.HasTag("solid"))
+        else if (gameObject.HasTag("solid") && !HasTag("laser"))
         {
             AddTag("destroyed");
             return true;
@@ -82,6 +82,11 @@ public class Projectile : GameObject, MovableObject
             }
         }
         return false;
+    }
+
+    public void setMovementSpeed(float movementSpeed)
+    {
+        this.movementSpeed = movementSpeed;
     }
 
     public bool SetNewCurvedTarget(List<GameObject> gameObjects)

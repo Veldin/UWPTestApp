@@ -35,12 +35,12 @@ namespace EindopdrachtUWP.Classes.Weapons
             // constructor for the ArrivaGun class
             name = "Arriva Gun";
             description = "The Arriva Gun is a long range weapon which hits all enemies in its path (like a railgun)";
-            currentClip = 10;
-            clipAmount = 10;
-            clipMax = 3;
-            damage = 400;
+            currentClip = 0;
+            clipAmount = 0;
+            clipMax = 2;
+            damage = 175;
             accuracy = 0;
-            fireTime = 5000;
+            fireTime = 6000;
             critChance = 0.25;
             critMultiplier = 2;
             weaponLevel = 1;
@@ -101,31 +101,39 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    var projectileTop = new Projectile(3, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    var projectileTop = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
                     projectileTop.SetLocation(locationTop);
                     projectileTop.AddTag("ghost");
+                    projectileTop.AddTag("laser");
+                    projectileTop.setMovementSpeed(2200);
                     gameObjects.Add(projectileTop);
                     
                 }
                 else if (direction == "Bottom")
                 {
-                    var projectileBottom = new Projectile(3, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    var projectileBottom = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
                     projectileBottom.SetLocation(locationBottom);
                     projectileBottom.AddTag("ghost");
+                    projectileBottom.AddTag("laser");
+                    projectileBottom.setMovementSpeed(2200);
                     gameObjects.Add(projectileBottom);
                 }
                 else if (direction == "Left")
                 {
-                    var projectileLeft = new Projectile(15, 3, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    var projectileLeft = new Projectile(15, 8, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
                     projectileLeft.SetLocation(locationLeft);
                     projectileLeft.AddTag("ghost");
+                    projectileLeft.AddTag("laser");
+                    projectileLeft.setMovementSpeed(2200);
                     gameObjects.Add(projectileLeft);
                 }
                 else //Right
                 {
-                    var projectileRight = new Projectile(15, 3, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    var projectileRight = new Projectile(15, 8, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
                     projectileRight.SetLocation(locationRight);
                     projectileRight.AddTag("ghost");
+                    projectileRight.AddTag("laser");
+                    projectileRight.setMovementSpeed(2200);
                     gameObjects.Add(projectileRight);
                 }
 
@@ -158,7 +166,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         {
             // upgrade weapon level for a stronger weapon
             weaponLevel++;
-            damage += 20;
+            damage += 10;
             fireTime *= 0.99f;
             clipMax += 1;
             reloadTime *= 0.99f;
