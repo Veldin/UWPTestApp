@@ -35,8 +35,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             // constructor for the ArrivaGun class
             name = "Arriva Gun";
             description = "The Arriva Gun is a long range weapon which hits all enemies in its path (like a railgun)";
-            currentClip = 0;
-            clipAmount = 0;
+            currentClip = 10;
+            clipAmount = 10;
             clipMax = 3;
             damage = 400;
             accuracy = 0;
@@ -101,27 +101,31 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    var projectileTop = new Projectile(3, 10, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    var projectileTop = new Projectile(3, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
                     projectileTop.SetLocation(locationTop);
+                    projectileTop.AddTag("ghost");
                     gameObjects.Add(projectileTop);
                     
                 }
                 else if (direction == "Bottom")
                 {
-                    var projectileBottom = new Projectile(3, 10, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    var projectileBottom = new Projectile(3, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
                     projectileBottom.SetLocation(locationBottom);
+                    projectileBottom.AddTag("ghost");
                     gameObjects.Add(projectileBottom);
                 }
                 else if (direction == "Left")
                 {
-                    var projectileLeft = new Projectile(10, 3, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    var projectileLeft = new Projectile(15, 3, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
                     projectileLeft.SetLocation(locationLeft);
+                    projectileLeft.AddTag("ghost");
                     gameObjects.Add(projectileLeft);
                 }
                 else //Right
                 {
-                    var projectileRight = new Projectile(10, 3, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    var projectileRight = new Projectile(15, 3, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
                     projectileRight.SetLocation(locationRight);
+                    projectileRight.AddTag("ghost");
                     gameObjects.Add(projectileRight);
                 }
 
