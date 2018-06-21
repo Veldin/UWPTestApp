@@ -106,6 +106,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 {
                     var projectileTop = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
                     projectileTop.SetLocation(location);
+                    projectileTop.AddTag("double");
                     gameObjects.Add(projectileTop);
 
                 }
@@ -113,18 +114,21 @@ namespace EindopdrachtUWP.Classes.Weapons
                 {
                     var projectileBottom = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
                     projectileBottom.SetLocation(location);
+                    projectileBottom.AddTag("double");
                     gameObjects.Add(projectileBottom);
                 }
                 else if (direction == "Left")
                 {
                     var projectileLeft = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
                     projectileLeft.SetLocation(location);
+                    projectileLeft.AddTag("double");
                     gameObjects.Add(projectileLeft);
                 }
                 else //Right
                 {
                     var projectileRight = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
                     projectileRight.SetLocation(location);
+                    projectileRight.AddTag("double");
                     gameObjects.Add(projectileRight);
                 }
 

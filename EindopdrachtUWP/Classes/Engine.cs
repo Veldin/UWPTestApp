@@ -368,7 +368,12 @@ namespace UWPTestApp
                     {
                         MainPage.Current.getMenu();
                         paused = true;
+
+                        //Empty all keys that were pressed to cause the game to not register keys that were pressed bevore the pause
+                        pressedKeys = new HashSet<String>();
+
                         Task.Delay(300).Wait();
+
                     }
                 }
 
@@ -513,6 +518,8 @@ namespace UWPTestApp
                 MainPage.Current.startup();
                 Task.Delay(300).Wait();
             }
+
+            
         }
 
         //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.

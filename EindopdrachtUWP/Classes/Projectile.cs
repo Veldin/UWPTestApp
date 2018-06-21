@@ -44,7 +44,16 @@ public class Projectile : GameObject, MovableObject
                 {
                     enemy.AddLifePoints(damage * -1);
                     enemy.AddTag("splatter");
-                    AddTag("text");
+
+                    if (HasTag("double"))
+                    {
+                        RemoveTag("double");
+                    }
+                    else
+                    {
+                        AddTag("text");
+                    }
+                   
                 }
 
                 hitGameobject.Add(enemy);
