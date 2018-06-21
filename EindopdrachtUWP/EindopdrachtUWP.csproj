@@ -21,6 +21,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -170,8 +171,11 @@
     <Content Include="Assets\Sounds\Weapon_Sounds\Knetter_Gun_Shot1.wav" />
     <Content Include="Assets\Sounds\Weapon_Sounds\UWP_Shot1.wav" />
     <Content Include="Assets\Sounds\Weapon_Sounds\VLEK_Kannon_Shot1.wav" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Assets\Splashscreen_Logo.png" />
+    <Content Include="Assets\Splashscreen_Logo.scale-100.png" />
     <Content Include="Assets\SplashScreen_new.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Bottom.png" />
     <Content Include="Assets\Sprites\Bullet_Sprites\Arriva_Gun_Left.png" />
@@ -396,6 +400,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\StoreLogo66x66.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
