@@ -69,6 +69,11 @@ public class Projectile : GameObject, MovableObject
 
     public bool SetNewHomingTarget(List<GameObject> gameObjects)
     {
+        //to find the nearest target there needs to be a target to compare to.
+        Targetable nearestTarget = null;
+        float nearestTotalDifferenceAbs = 0; 
+
+        //Loop trough the gameObjects to check for potential targets
         foreach (GameObject gameObject in gameObjects)
         {
             Enemy enemy = gameObject as Enemy;
@@ -79,12 +84,36 @@ public class Projectile : GameObject, MovableObject
                 {
                     if (targetable != null)
                     {
-                        Target = new Target(targetable);
-                        return true;
+                        //To calculate the distance, get the absolute distance.
+                        float differenceLeftAbs = Math.Abs(targetable.FromLeft() - FromLeft);
+                        float differenceTopAbs = Math.Abs(targetable.FromTop() - FromTop);
+                        float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
+
+                        if (nearestTarget == null) //If there was no other target found (yet)
+                        {
+                            //Set the target, and the difference to check if next targets are closer.
+                            nearestTarget = targetable;
+                            nearestTotalDifferenceAbs = totalDifferenceAbs;
+                        }
+                        else if(totalDifferenceAbs < nearestTotalDifferenceAbs) //If this target is closer then the last
+                        {
+                            //Set the target
+                            nearestTarget = targetable;
+                            nearestTotalDifferenceAbs = totalDifferenceAbs;
+                        }
                     }
                 }
             }
         }
+
+        //If there was a target found
+        if (nearestTarget != null)
+        {
+            //Set the target
+            Target = new Target(nearestTarget);
+            return true;
+        }
+
         return false;
     }
 

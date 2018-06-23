@@ -32,8 +32,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             // constructor for the HomersBullets class
             name = "Homers Bullets";
             description = "The Homers Bullet is a bullet that follows it's target. D'OH!";
-            currentClip = 0;
-            clipAmount = 0;
+            currentClip = 10;
+            clipAmount = 10;
             clipMax = 10;
             damage = 150;
             accuracy = 0;
@@ -99,22 +99,22 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile = new Projectile(10, 14, fromLeft - 5, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 5, fromTop - height);
                     projectile.SetLocation(location);
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile = new Projectile(10, 14, fromLeft - 5, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 5, fromTop + height);
                     projectile.SetLocation(location);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(10, 14, fromLeft, fromTop - 7, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset - 7);
                     projectile.SetLocation(location);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(10, 14, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(10, 14, fromLeft, fromTop - 7, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset - 7);
                     projectile.SetLocation(location);
                 }
 
