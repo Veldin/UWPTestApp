@@ -32,8 +32,8 @@ namespace EindopdrachtUWP.Classes.Weapons
             // constructor for the HomersBullets class
             name = "Homers Bullets";
             description = "The Homers Bullet is a bullet that follows it's target. D'OH!";
-            currentClip = 10;
-            clipAmount = 10;
+            currentClip = 0;
+            clipAmount = 0;
             clipMax = 10;
             damage = 150;
             accuracy = 0;

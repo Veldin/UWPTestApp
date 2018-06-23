@@ -353,7 +353,7 @@ namespace UWPTestApp
                     //On tick
                     gameObject.OnTick(gameObjects, delta);
 
-                    //Start Collition Detection
+                    //For every object in this loop, loop trough all objects to check if they are coliding
                     foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                     {
                         if (gameObject.IsColliding(gameObjectCheck))

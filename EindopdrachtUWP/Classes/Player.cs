@@ -362,7 +362,6 @@ namespace UWPTestApp
 
             //If a player is coliding with an object their collitionEffect is triggered instantly and not after this resolves.
             //This is so the collition of the enemy still goes even thought they are not colliding anymore.
-            //This also lets you "push" away your enemies. (Because they act like a solid just apeared in them)
             gameObject.CollitionEffect(this);
             return true;
         }

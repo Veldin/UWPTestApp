@@ -232,6 +232,12 @@ public class Projectile : GameObject, MovableObject
             }
         }
 
+        if (HasTag("speeding"))
+        {
+            damage += (delta / 6);
+            movementSpeed += (delta * 1.5f);
+        }
+
         //If a projectile has the tag text it has been ordered to drop a textbox. This means the projectile hit a target.
         if (HasTag("text"))
         {

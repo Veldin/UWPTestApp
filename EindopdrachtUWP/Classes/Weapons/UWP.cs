@@ -123,6 +123,9 @@ namespace EindopdrachtUWP.Classes.Weapons
                     projectile.AddTag("crit");
                 }
 
+                projectile.AddTag("speeding");
+                projectile.setMovementSpeed(1200);
+
                 gameObjects.Add(projectile);
 
                 currentClip--;
