@@ -17,6 +17,7 @@ namespace EindopdrachtUWP
         Engine engine;
         public bool menuScreen;
         public bool infoScreen;
+        public bool controle;
         public bool aboutScreen;
         public bool activeStartup;
         public bool paused;
@@ -45,6 +46,7 @@ namespace EindopdrachtUWP
             Window.Current.CoreWindow.PointerCursor = null;
 
             info.Opacity = 0;
+            infoText.Opacity = 0;
             about.Opacity = 0;
             stats.Opacity = 0;
             statImage.Opacity = 0;
@@ -53,6 +55,7 @@ namespace EindopdrachtUWP
             game_over = false;
             menuScreen = false;
             infoScreen = false;
+            controle = false;
             aboutScreen = false;
             activeStartup = true;
             currentScore = 0;
@@ -179,6 +182,7 @@ namespace EindopdrachtUWP
                 {
                     menu.Opacity = 1;
                     info.Opacity = 0;
+                    infoText.Opacity = 0;
                     infoScreen = false;
                     menuScreen = true;
                 }
@@ -191,6 +195,7 @@ namespace EindopdrachtUWP
             () =>
                 { 
                     info.Opacity = 1;
+                    infoText.Opacity = 1;
                     menu.Opacity = 0;
                     infoScreen = true;
                     menuScreen = false;
@@ -244,6 +249,7 @@ namespace EindopdrachtUWP
             () =>
             {
                 controls.Opacity = 1;
+                controle = true;
             }
             );
         }
@@ -254,6 +260,7 @@ namespace EindopdrachtUWP
             () =>
             {
                 controls.Opacity = 0;
+                controle = false;
             }
             );
         }

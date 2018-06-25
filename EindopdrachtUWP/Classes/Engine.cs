@@ -496,7 +496,18 @@ namespace UWPTestApp
                 MainPage.Current.getInfo();
                 Task.Delay(300).Wait();
             }
-            else if (MainPage.Current.infoScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
+            else if (MainPage.Current.infoScreen && !MainPage.Current.controle && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
+            {
+                MainPage.Current.getControls();
+                Task.Delay(300).Wait();
+            }
+
+            else if (MainPage.Current.controle && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
+            {
+                MainPage.Current.removeControls();
+                Task.Delay(300).Wait();
+            }
+            else if (MainPage.Current.infoScreen && !MainPage.Current.controle && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
             {
                 MainPage.Current.removeInfo();
                 Task.Delay(300).Wait();
