@@ -40,6 +40,7 @@
                 <Image x:Name="musicCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="369,449,408,115"/>
                 <Image x:Name="effectCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="498,449,279,115"/>
                 <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png" Height="600" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="infoText" Text="Press Space/Back to show controls" Foreground="white" Height="10" Width="200" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0,0, 40" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="9"/>
                 <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center"/>
                 <Image x:Name="controls" Source="Assets\Sprites\Menu_Sprites\controls.png" Height="600" HorizontalAlignment="Center" Opacity="0"/>
 
