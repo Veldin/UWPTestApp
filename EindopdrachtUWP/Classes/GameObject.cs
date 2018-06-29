@@ -34,6 +34,8 @@ namespace UWPTestApp
         protected float fromLeftDrawOffset;
         protected float fromTopDrawOffset;
 
+        //The sprite location and the CanvasBitmap are stored seperatly
+        //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         protected CanvasBitmap sprite;
         protected String location;
 
@@ -51,14 +53,20 @@ namespace UWPTestApp
             this.fromLeftDrawOffset = fromLeftDrawOffset;
             this.fromTopDrawOffset = fromTopDrawOffset;
 
+            //Default location of the sprite.
             location = "Assets/blank.gif";
         }
 
-        //Methods to do with loading sprites
+        /* CreateResourcesAsync */
+        /*
+         * To be able to use the sprites on a Canvas the sprites needs to be loaded as CanvasBitmaps.
+         * The first argument is the CanvasControl.
+        */
         public async Task CreateResourcesAsync(CanvasControl sender)
         {
             try
             {
+                //Load the recource.
                 sprite = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///" + location));
             }
             catch (Exception e)
@@ -104,7 +112,6 @@ namespace UWPTestApp
         }
 
         //Getters and setters for the fields that have to do with positioning of the GameObject.
-        //public float Width { get; set; }
         public float Width
         {
             get { return width; }
@@ -172,6 +179,11 @@ namespace UWPTestApp
         //And Also get the delta for timed events.
         public abstract Boolean OnTick(List<GameObject> gameObjects, float delta);
 
+        /* IsColliding */
+        /*
+         * Checks whether or not this gameobject is coliding with the given gameOjbect
+         * The argument is the given gameObject
+        */
         public Boolean IsColliding(GameObject gameObject)
         {
             //Check if you are comparing to youself.
@@ -190,6 +202,12 @@ namespace UWPTestApp
             return false;
         }
 
+
+        /* CollitionEffect */
+        /*
+         * Effect that happens when this GameObject collides with the given object.
+         * The argument is the given gameObject
+        */
         public abstract Boolean CollitionEffect(GameObject gameObject);
     }
 }

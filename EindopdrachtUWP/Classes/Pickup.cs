@@ -35,6 +35,7 @@ namespace EindopdrachtUWP.Classes
         private const string ArmourUp = "ArmourUp";
         private const string HealthUp = "HealthUp";
 
+        //Dictionary containing the sprites.
         private Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
         {
             { AmmunitionArrivaGun, new string[]
@@ -149,19 +150,24 @@ namespace EindopdrachtUWP.Classes
             }}
         };
 
+        //The sprite can changes from orientation.
         private bool leftSpriteSelected = false;
 
+        //Basic information bout the pickup.
         private int amount;
         private string type;
         private string pickUpSound;
 
+        //The different sounds that this pickup can make.
         private const string pickUpAmmoSound = "Generic_Sounds\\Ammo_Pickup_Sound.wav";
         private const string pickUpUpgradeSound = "Generic_Sounds\\Weapon_Upgrade_Sound.wav";
         private const string pickUpArmourSound = "Generic_Sounds\\Armour_Pickup_Sound.wav";
         private const string pickUpHealthSound = "Generic_Sounds\\Health_Pickup_Sound.wav";
         
+        //The delta this pickup exists.
         private float totalDelta = 0;
 
+        //Both bitmaps are saved so switching between doesnt cause the other to unload.
         private CanvasBitmap rightSprite;
         private CanvasBitmap leftSprite;
 
@@ -170,7 +176,54 @@ namespace EindopdrachtUWP.Classes
         {
 
             Random rand = new Random();
-            int r = rand.Next(21);
+            int r = rand.Next(21); //Get a number from 0 to 21
+
+            //THe random number dictates the type
+            SetType(r);
+
+            //Set the pickup sound
+            SetSound();
+
+            //Load the default sprite
+            this.Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][0];
+        }
+
+        /* SetSound */
+        /*
+         * Sets the sound of pickup. The type is used to deside what sound to play.
+        */
+        private void SetSound()
+        {
+            if (type.Contains("Ammunition"))
+            {
+                // ammunition pick up sound.
+                pickUpSound = pickUpAmmoSound;
+            }
+            else if (type.Contains("Upgrade"))
+            {
+                // Upgrade pick up sound.
+                pickUpSound = pickUpUpgradeSound;
+            }
+            else if (type.Equals(ArmourUp))
+            {
+                // Armour pick up sound.
+                pickUpSound = pickUpArmourSound;
+            }
+            else //If no other sound is found the healthpickup sound it used.
+            {
+                // Health pick up sound
+                pickUpSound = pickUpHealthSound;
+            }
+        }
+
+        /* SetType */
+        /*
+         * Sets the type of pickup. (What it's supposed to do on pickup)
+         * A number between 0 and 21 is expected. Any other number will be treated the same as 21
+        */
+        private int SetType(int r)
+        {
+
             switch (r)
             {
                 case 0:
@@ -241,33 +294,15 @@ namespace EindopdrachtUWP.Classes
                     break;
             }
 
-            if (type.Contains("Ammunition"))
-            {
-                // ammunition pick up sound
-                pickUpSound = pickUpAmmoSound;
-            }
-            else if (type.Contains("Upgrade"))
-            {
-                // Upgrade pick up sound
-                pickUpSound = pickUpUpgradeSound;
-            }
-            else if (type.Equals(ArmourUp))
-            {
-                // Armour pick up sound
-                pickUpSound = pickUpArmourSound;
-            }
-            else if (type.Equals(HealthUp))
-            {
-                // Health pick up sound
-                pickUpSound = pickUpHealthSound;
-            }
-
-            this.Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][0];
+            return r;
         }
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
+            //Count the total delta up to know how long this item existed
             totalDelta += delta;
+
+            //If its older then 1800 units
             if (totalDelta > 1800)
             {
                 if (rightSprite == null && sprite != null)
@@ -300,11 +335,19 @@ namespace EindopdrachtUWP.Classes
             return true;
         }
 
+        /* CollitionEffect */
+        /*
+         * If a player colides with an pickup the pickup should be picked up
+        */
         public override bool CollitionEffect(GameObject gameObject)
         {
+            //If the pickup is taged to destroy do nothing
+            if (HasTag("destroyed")) return true;
+
+            //If the coliding target is a player it should be pickd up
             if (gameObject is Player player)
             {
-                if (HasTag("destroyed")) return true;
+                //If this pickup contains Ammunition
                 if (type.Contains("Ammunition"))
                 {
                     string weaponName = type.Remove(0, 10);
@@ -328,7 +371,7 @@ namespace EindopdrachtUWP.Classes
                         }
                     }
                 }
-                else if (type.Contains("Upgrade"))
+                else if (type.Contains("Upgrade")) //If this pickup contains an Upgrade
                 {
                     string weaponName = type.Remove(0, 7);
 
@@ -343,12 +386,12 @@ namespace EindopdrachtUWP.Classes
                         }
                     }
                 }
-                else if (type.Equals(ArmourUp))
+                else if (type.Equals(ArmourUp)) //If this pickup contains Armour
                 {
                     player.IncreaseArmour(amount);
                     MainPage.Current.updateArmour();
                 }
-                else if (type.Equals(HealthUp))
+                else if (type.Equals(HealthUp)) //If this pickup contains Health
                 {
                     player.IncreaseHealth(amount);
                     MainPage.Current.updateHealth();

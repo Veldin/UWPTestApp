@@ -53,12 +53,6 @@ namespace EindopdrachtUWP.Classes.Weapons
             reloadCooldownDelta = 2000;
         }
 
-        public void AddTag(string tag)
-        {
-            // add a tag to the tags list
-            tags.Add(tag);
-        }
-
         private float getProjectileDamage(float damage, float change, float multiplier, Random random)
         {
             //Determine if its a critical hit if the generated number is lower then the crid change times 100
