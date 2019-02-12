@@ -77,6 +77,7 @@ namespace UWPTestApp
             activeWeapon = weapons[0];
 
             Target = new Target(FromLeft, FromTop);
+            //Target = new Target(this);
         }
 
         public Boolean selectNextWeapon()
@@ -308,8 +309,14 @@ namespace UWPTestApp
             float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
             float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
 
+
             float moveTopDistance = walkSpeed * (differenceTopPercent / 100);
             float moveLeftDistance = walkSpeed * (differenceLeftPercent / 100);
+
+
+            Debug.WriteLine(Target.FromLeft());
+            Debug.WriteLine(FromLeft);
+            Debug.WriteLine("d");
 
             //Due to players being able to stand in himself only greater then or smaller then need to be checked.
             if (Target.FromLeft() > FromLeft)

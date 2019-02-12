@@ -7,6 +7,8 @@
     public Target(Targetable target)
     {
         this.target = target;
+        this.fromTop = 0;
+        this.fromLeft = 0;
     }
 
     public Target(float fromLeft, float fromTop)
@@ -52,7 +54,7 @@
         {
             return fromTop;
         }
-        return target.FromTop();
+        return target.FromTop() + fromTop;
     }
 
     public float FromLeft()
@@ -61,6 +63,6 @@
         {
             return fromLeft;
         }
-        return target.FromLeft();
+        return target.FromLeft() + fromLeft;
     }
 }

@@ -33,7 +33,7 @@ namespace UWPTestApp
         //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
         private long delta;     //The lenght in time the last frame lasted (so we can use it to calculate speeds of things without slowing down due to low fps)
         private long now;       //This is the time of the frame. (To calculate the delta)
-        private long then;      //This is the time of the previous frame. (To calculate the delta)
+        private long then;      //This is the time of the previous draw frame. (To calculate the delta)
 
         //The max fps we want to run at
         private float fps;  //The set FPS limit
@@ -197,15 +197,15 @@ namespace UWPTestApp
 
             pressedKeys = new HashSet<String>();
 
-            player.AddTag("controllable");  //Make the wall controllable
+            player.AddTag("controllable");  //Make the player controllable
             gameObjects.Add(player); //Add the player to the gameObjects list
-            
+
 
             //Load in the first scene
             LoadScene();
 
             //Set the FPS and calculate the interfal!
-            fps = 60;
+            fps = 120;
             interfal = 1000 / fps; //1 second is 1000 ms.
 
             //Set then to the current time to know when we started
@@ -242,7 +242,7 @@ namespace UWPTestApp
         */
         public void Run()
         {
-            now = Stopwatch.GetTimestamp();
+            /*now = Stopwatch.GetTimestamp();
             delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
 
             if (delta > interfal)
@@ -257,16 +257,129 @@ namespace UWPTestApp
                     Draw();
                 }
             }
+
             Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
             Task.Run(() => Run());  //Schedule new Run() task
+            */
+            LogicLoop();
+            DrawLoop();
         }
+
+        public void LogicLoop()
+        {
+            Logic(); //Run the simulation
+
+            //Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
+            Task.Run(() => LogicLoop());
+        }
+
+        public void DrawLoop()
+        {
+            now = Stopwatch.GetTimestamp();
+            delta = (now - then) / 1000;
+
+            if (delta > interfal)
+            {
+                then = now; //Remember when this frame was.
+
+                //Only draw the simulation if there is a known canvas.
+                if (canvasControl != null)
+                {
+                    Draw();
+                }
+            }
+
+            Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
+            Task.Run(() => DrawLoop());  //Schedule new Run() task
+        }
+
+        /* Logic */
+        /*
+         * Logic function is called every frame. 
+         * This method is used to handle how GameObjects should interect in the game.
+         * This includes Movement and Collition Detection.
+         * Also the keybord controls are handled here.
+        */
+        private void Logic()
+        {
+            paused = MainPage.Current.paused;
+
+            HandleMenuControls();
+
+            if (!paused && !MainPage.Current.game_over)
+            {
+                HandleInGameMenuControls();
+
+                //Check if there are objects in the List to apply logic on
+                //Apply the logic to all the bameObjects CURRENTLY in the List.
+                //The new List makes a copy so the original arraylist can be modivied in this loop
+                foreach (GameObject gameObject in new List<GameObject>(gameObjects))
+                {
+                    //Handle player input
+                    Player player = gameObject as Player;
+
+                    
+                    if (player is Player)
+                    {
+                        HandlePlayerWeaponControls(player);
+                        HandlePlayerMovementControls(player);
+
+                        /*
+                        if (player.IsWalking)
+                        {
+                            if (player.deltaForWalkingSound > 1300)
+                            {
+                                soundController.PlaySound(player.MoveSound);
+                                player.deltaForWalkingSound = 0;
+                            }
+                            player.deltaForWalkingSound += 200;
+                        }
+                        */
+                        
+                    }
+
+                    //On tick
+                    //gameObject.OnTick(gameObjects, delta);
+                    gameObject.OnTick(gameObjects, Stopwatch.GetTimestamp());
+
+                    //For every object in this loop, loop trough all objects to check if they are coliding
+                    foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                    {
+                        //If the two objects are colliding
+                        if (gameObject.IsColliding(gameObjectCheck))
+                        {
+                            //Do the collition effect
+                            gameObject.CollitionEffect(gameObjectCheck);
+                            gameObjectCheck.CollitionEffect(gameObject);
+                        }
+                    }
+                }
+
+                //Handle the tags for each gameobject if there are any tags to handle
+                foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                {
+                    handleTaggsGameObject(gameObjectCheck);
+                }
+            }
+
+        }
+
+        //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
+        private void Draw()
+        {
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () => {
+                canvasControl.Invalidate();
+            });
+        }
+
 
 
         /* HandlePlayerWeaponControls */
         /* 
-         * Handles the player controls that have to do with movement.
-         * The player needs to have the tag "controllable" to be controlled. 
-         * This is done so control can be taken away. (during cutscenes, stunns/roots. ect)
+            * Handles the player controls that have to do with movement.
+            * The player needs to have the tag "controllable" to be controlled. 
+            * This is done so control can be taken away. (during cutscenes, stunns/roots. ect)
         */
         private void HandlePlayerMovementControls(Player player)
         {
@@ -536,79 +649,6 @@ namespace UWPTestApp
             }
         }
 
-        /* Logic */
-        /*
-         * Logic function is called every frame. 
-         * This method is used to handle how GameObjects should interect in the game.
-         * This includes Movement and Collition Detection.
-         * Also the keybord controls are handled here.
-        */
-        private void Logic()
-        {
-            paused = MainPage.Current.paused;
-
-            HandleMenuControls();
-
-            if (!paused && !MainPage.Current.game_over)
-            {
-                HandleInGameMenuControls();
-
-                //Check if there are objects in the List to apply logic on
-                //Apply the logic to all the bameObjects CURRENTLY in the List.
-                //The new List makes a copy so the original arraylist can be modivied in this loop
-                foreach (GameObject gameObject in new List<GameObject>(gameObjects))
-                {
-                    //Handle player input
-                    Player player = gameObject as Player;
-                    if (player is Player)
-                    {
-                        HandlePlayerWeaponControls(player);
-                        HandlePlayerMovementControls(player);
-                        
-                        if (player.IsWalking)
-                        {
-                            if (player.deltaForWalkingSound > 1300)
-                            {
-                                soundController.PlaySound(player.MoveSound);
-                                player.deltaForWalkingSound = 0;
-                            }
-                            player.deltaForWalkingSound += delta;
-                        }
-                    }
-
-                    //On tick
-                    gameObject.OnTick(gameObjects, delta);
-
-                    //For every object in this loop, loop trough all objects to check if they are coliding
-                    foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
-                    {
-                        //If the two objects are colliding
-                        if (gameObject.IsColliding(gameObjectCheck))
-                        {
-                            //Do the collition effect
-                            gameObject.CollitionEffect(gameObjectCheck);
-                            gameObjectCheck.CollitionEffect(gameObject);
-                        }
-                    }
-                }
-
-                //Handle the tags for each gameobject if there are any tags to handle
-                foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
-                {
-                    handleTaggsGameObject(gameObjectCheck);
-                }
-            }
-
-        }
-
-        //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
-        private void Draw()
-        {
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () => {
-                canvasControl.Invalidate();
-            });
-        }
 
         /* CreateAllResourcesAsync */
         /*

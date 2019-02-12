@@ -162,6 +162,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
     private bool getThenSetTarget(List<GameObject> gameObjects)
     {
+        return false;
         foreach (GameObject gameObject in gameObjects)
         {
             Player player = gameObject as Player;

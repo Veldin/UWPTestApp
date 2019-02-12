@@ -34,6 +34,11 @@ namespace UWPTestApp
         protected float fromLeftDrawOffset;
         protected float fromTopDrawOffset;
 
+        //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
+        private long delta;     //The lenght in time the last frame lasted (so we can use it to calculate speeds of things without slowing down due to low fps)
+        private long now;       //This is the time of the frame. (To calculate the delta)
+        private long ? then;      //This is the time of the previous draw frame. (To calculate the delta)
+
         //The sprite location and the CanvasBitmap are stored seperatly
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         protected CanvasBitmap sprite;
@@ -55,6 +60,9 @@ namespace UWPTestApp
 
             //Default location of the sprite.
             location = "Assets/blank.gif";
+
+            //Set then to the current time to know when we started
+            then = null;
         }
 
         /* CreateResourcesAsync */
@@ -173,8 +181,23 @@ namespace UWPTestApp
             get { return target; }
             set { target = value; }
         }
-        
-        
+
+        //If a timestamp is given calculate the delta and call OnTick
+        public Boolean OnTick(List<GameObject> gameObjects, long now)
+        {
+            if (then == null)
+            {
+                then = Stopwatch.GetTimestamp();
+            }
+            delta = (now - (long)then) / 1000;
+
+            Boolean result = OnTick(gameObjects, (float)delta);
+
+            then = now;
+
+            return result;
+        }
+
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
         public abstract Boolean OnTick(List<GameObject> gameObjects, float delta);
