@@ -37,12 +37,14 @@ namespace UWPTestApp
         //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
         private long delta;     //The lenght in time the last frame lasted (so we can use it to calculate speeds of things without slowing down due to low fps)
         private long now;       //This is the time of the frame. (To calculate the delta)
-        private long ? then;      //This is the time of the previous draw frame. (To calculate the delta)
+        private long? then;      //This is the time of the previous draw frame. (To calculate the delta)
 
         //The sprite location and the CanvasBitmap are stored seperatly
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         protected CanvasBitmap sprite;
         protected String location;
+
+        protected Boolean started;
 
         public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
@@ -63,6 +65,8 @@ namespace UWPTestApp
 
             //Set then to the current time to know when we started
             then = null;
+
+            started = false;
         }
 
         /* CreateResourcesAsync */
@@ -175,16 +179,37 @@ namespace UWPTestApp
             get { return fromLeftDrawOffset; }
             set { fromLeftDrawOffset = value; }
         }
-        
+
         public Target Target
         {
             get { return target; }
             set { target = value; }
         }
 
-        //If a timestamp is given calculate the delta and call OnTick
-        public Boolean OnTick(List<GameObject> gameObjects, long now)
+        //Invoke a GameObjects own OnTick using an internal timer
+        public void InvokeOnTick(List<GameObject> gameObjects, long now)
         {
+            if (this.started == false)
+            {
+                this.started = true;
+                LogicLoop(gameObjects, now);
+                Debug.WriteLine("STARTING LOGIC LOOP");
+            }
+        }
+
+        public void LogicLoop(List<GameObject> gameObjects, long now)
+        {
+            Debug.WriteLine(now);
+            Debug.WriteLine(fromLeft);
+
+            OnTick(gameObjects, now);
+            Task.Run(() => LogicLoop(gameObjects, Stopwatch.GetTimestamp()));
+        }
+
+        //If a timestamp is given calculate the delta and call OnTick
+        public Boolean OnTick(List<GameObject> gameObjects)
+        {
+            now = Stopwatch.GetTimestamp();
             if (then == null)
             {
                 then = Stopwatch.GetTimestamp();

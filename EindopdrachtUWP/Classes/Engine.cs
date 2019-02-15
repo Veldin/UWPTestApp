@@ -205,7 +205,7 @@ namespace UWPTestApp
             LoadScene();
 
             //Set the FPS and calculate the interfal!
-            fps = 120;
+            fps = 60;
             interfal = 1000 / fps; //1 second is 1000 ms.
 
             //Set then to the current time to know when we started
@@ -265,18 +265,20 @@ namespace UWPTestApp
             DrawLoop();
         }
 
-        public void LogicLoop()
+        public async void LogicLoop()
         {
-            Logic(); //Run the simulation
-
-            //Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
-            Task.Run(() => LogicLoop());
+            await Task.Run(() => {
+                Logic();
+            });
+            LogicLoop();
         }
 
         public void DrawLoop()
         {
             now = Stopwatch.GetTimestamp();
             delta = (now - then) / 1000;
+
+            Debug.WriteLine(delta - interfal);
 
             if (delta > interfal)
             {
@@ -295,6 +297,23 @@ namespace UWPTestApp
 
         /* Logic */
         /*
+         * Remade of the Logic to split tasks off
+        */
+
+        private void InvokeTaskLogic()
+        {
+
+        }
+        private void TaskLogicTwo()
+        {
+            foreach (GameObject gameObject in new List<GameObject>(gameObjects))
+            {
+                gameObject.InvokeOnTick(gameObjects, Stopwatch.GetTimestamp());
+            }
+        }
+
+        /* Logic */
+        /*
          * Logic function is called every frame. 
          * This method is used to handle how GameObjects should interect in the game.
          * This includes Movement and Collition Detection.
@@ -302,6 +321,8 @@ namespace UWPTestApp
         */
         private void Logic()
         {
+            //TaskLogicTwo();
+
             paused = MainPage.Current.paused;
 
             HandleMenuControls();
@@ -338,9 +359,9 @@ namespace UWPTestApp
                         
                     }
 
-                    //On tick
+
                     //gameObject.OnTick(gameObjects, delta);
-                    gameObject.OnTick(gameObjects, Stopwatch.GetTimestamp());
+                    gameObject.OnTick(gameObjects);
 
                     //For every object in this loop, loop trough all objects to check if they are coliding
                     foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
@@ -678,14 +699,23 @@ namespace UWPTestApp
             {
                 if (gameObject.Sprite != null && gameObject is Splatter)
                 {
-                    args.DrawingSession.DrawImage(
-                    gameObject.Sprite,
-                    new Rect(
-                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
-                        gameObject.FromTop + gameObject.FromTopDrawOffset,
-                        gameObject.Width + gameObject.WidthDrawOffset,
-                        gameObject.Height + gameObject.HeightDrawOffset
-                    ));
+                    //Drawing requires the sides to be non-negative
+                    if (
+                        gameObject.FromLeft + gameObject.FromLeftDrawOffset > 0 &&
+                        gameObject.FromTop + gameObject.FromTopDrawOffset > 0 &&
+                        gameObject.Width + gameObject.WidthDrawOffset > 0 &&
+                        gameObject.Height + gameObject.HeightDrawOffset > 0
+                    )
+                    {
+                        args.DrawingSession.DrawImage(
+                        gameObject.Sprite,
+                        new Rect(
+                            gameObject.FromLeft + gameObject.FromLeftDrawOffset,
+                            gameObject.FromTop + gameObject.FromTopDrawOffset,
+                            gameObject.Width + gameObject.WidthDrawOffset,
+                            gameObject.Height + gameObject.HeightDrawOffset
+                        ));
+                    }
                 }
             }
         }
