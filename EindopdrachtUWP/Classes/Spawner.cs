@@ -16,6 +16,8 @@ namespace UWPTestApp
             this.beginDelta = beginDelta;
             this.cooldownDelta = cooldownDelta;
             this.remainingCooldownDelta = 0;
+
+            Location = "Assets/Sprites/Maps/Spawner.png";
         }
 
         public float BeginDelta

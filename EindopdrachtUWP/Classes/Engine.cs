@@ -27,6 +27,8 @@ namespace UWPTestApp
         private List<Scene> scenes;
         private Scene scene;
 
+        private Camera camera;
+
         //Holder for the canvasControl
         private CanvasControl canvasControl;
 
@@ -55,6 +57,8 @@ namespace UWPTestApp
             soundController = new SoundController();
 
             player = new Player(15, 15, 656, 312, 0, 0, 0, 0);
+
+            camera = new Camera(new Target(player));
 
             //Add sounds to the soundController.
             //(The first argument is the location, the second the volume)
@@ -92,10 +96,10 @@ namespace UWPTestApp
                 {
                     //Wall takes: width, height, fromLeft, fromTop, widthDrawOffset = 0, heightDrawOffset = 0, fromLeftDrawOffset = 0, fromTopDrawOffset = 0
                     // outer walls
-                    new Wall(900, 100, -49, -99, 0, 0, 0, 0),
+                    /* new Wall(900, 100, -49, -99, 0, 0, 0, 0),
                     new Wall(900, 100, -49, 599, 0, 0, 0, 0),
                     new Wall(100, 700, -99, -49, 0, 0, 0, 0),
-                    new Wall(100, 700, 799, -49, 0, 0, 0, 0),
+                    new Wall(100, 700, 799, -49, 0, 0, 0, 0), */
 
                     // garden top left
                     new Wall(22, 183, 23, 23, 0, 0, 0, 0),
@@ -362,6 +366,9 @@ namespace UWPTestApp
 
                     //gameObject.OnTick(gameObjects, delta);
                     gameObject.OnTick(gameObjects);
+
+                    //Move the camera
+                    camera.OnTick();
 
                     //For every object in this loop, loop trough all objects to check if they are coliding
                     foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
@@ -701,8 +708,6 @@ namespace UWPTestApp
                 {
                     //Drawing requires the sides to be non-negative
                     if (
-                        gameObject.FromLeft + gameObject.FromLeftDrawOffset > 0 &&
-                        gameObject.FromTop + gameObject.FromTopDrawOffset > 0 &&
                         gameObject.Width + gameObject.WidthDrawOffset > 0 &&
                         gameObject.Height + gameObject.HeightDrawOffset > 0
                     )
@@ -710,8 +715,8 @@ namespace UWPTestApp
                         args.DrawingSession.DrawImage(
                         gameObject.Sprite,
                         new Rect(
-                            gameObject.FromLeft + gameObject.FromLeftDrawOffset,
-                            gameObject.FromTop + gameObject.FromTopDrawOffset,
+                            gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
+                            gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
                             gameObject.Width + gameObject.WidthDrawOffset,
                             gameObject.Height + gameObject.HeightDrawOffset
                         ));
@@ -732,14 +737,21 @@ namespace UWPTestApp
             {
                 if (gameObject.Sprite != null && !(gameObject is Splatter))
                 {
-                    args.DrawingSession.DrawImage(
-                    gameObject.Sprite,
-                    new Rect(
-                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
-                        gameObject.FromTop + gameObject.FromTopDrawOffset,
-                        gameObject.Width + gameObject.WidthDrawOffset,
-                        gameObject.Height + gameObject.HeightDrawOffset
-                    ));
+                    //Drawing requires the sides to be non-negative
+                    if (
+                        gameObject.Width + gameObject.WidthDrawOffset > 0 &&
+                        gameObject.Height + gameObject.HeightDrawOffset > 0
+                    )
+                    {
+                        args.DrawingSession.DrawImage(
+                        gameObject.Sprite,
+                        new Rect(
+                            gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
+                            gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
+                            gameObject.Width + gameObject.WidthDrawOffset,
+                            gameObject.Height + gameObject.HeightDrawOffset
+                        ));
+                    }
                 }
             }
         }
@@ -767,8 +779,8 @@ namespace UWPTestApp
 
                         args.DrawingSession.FillRectangle(
                             new Rect(
-                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
-                                gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                                gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
                                 (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
                                 gameObject.Height / 5), //The healthbar is 1/5th the size of the target
                             Colors.Red
@@ -776,8 +788,8 @@ namespace UWPTestApp
 
                         args.DrawingSession.FillRectangle(
                             new Windows.Foundation.Rect(
-                                gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
-                                gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                                gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
                                 (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
                                 gameObject.Height / 5), //The healthbar is 1/5th the size of the target
                             Colors.Green
@@ -814,8 +826,8 @@ namespace UWPTestApp
 
                     args.DrawingSession.FillRectangle(
                         new Windows.Foundation.Rect(
-                            gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
-                            gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
+                            gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
                             (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
                             gameObject.Height / 5), //The healthbar is 1/5th the size of the target
                         Colors.Red
@@ -823,8 +835,8 @@ namespace UWPTestApp
 
                     args.DrawingSession.FillRectangle(
                         new Windows.Foundation.Rect(
-                            gameObject.FromLeft - gameObject.Width / 5, //The healthbar starts 1/5th left from the target
-                            gameObject.FromTop - gameObject.Width / 2,  //The healthbar starts 1/5th above from the target
+                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
+                            gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
                             (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
                             gameObject.Height / 5), //The healthbar is 1/5th the size of the target
                         Colors.Green
@@ -855,8 +867,8 @@ namespace UWPTestApp
 
                     args.DrawingSession.FillRectangle(
                         new Rect(
-                            gameObject.FromLeft - gameObject.Width / 5, //The armourbar starts 1/5th left from the target
-                            gameObject.FromTop - gameObject.Width / 3.33,  //The armourbar starts 1/5th above from the target
+                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The armourbar starts 1/5th left from the target
+                            gameObject.FromTop - gameObject.Width / 3.33 + camera.TopOffset(),  //The armourbar starts 1/5th above from the target
                             (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the armour left!
                             gameObject.Height / 5), //The healthbar is 1/5th the size of the target
                         Colors.Blue
@@ -883,8 +895,8 @@ namespace UWPTestApp
                     args.DrawingSession.DrawText(
                         textBox.Text,
                         new Rect(
-                        gameObject.FromLeft + gameObject.FromLeftDrawOffset,
-                        gameObject.FromTop + gameObject.FromTopDrawOffset,
+                        gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
+                        gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
                         gameObject.Width + gameObject.WidthDrawOffset,
                         gameObject.Height + gameObject.HeightDrawOffset
                         ),

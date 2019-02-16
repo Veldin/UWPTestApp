@@ -199,8 +199,6 @@ namespace UWPTestApp
 
         public void LogicLoop(List<GameObject> gameObjects, long now)
         {
-            Debug.WriteLine(now);
-            Debug.WriteLine(fromLeft);
 
             OnTick(gameObjects, now);
             Task.Run(() => LogicLoop(gameObjects, Stopwatch.GetTimestamp()));
@@ -214,7 +212,7 @@ namespace UWPTestApp
             {
                 then = Stopwatch.GetTimestamp();
             }
-            delta = (now - (long)then) / 1000;
+            delta = (now - (long)then) / 1000 / 2;
 
             Boolean result = OnTick(gameObjects, (float)delta);
 

@@ -39,8 +39,8 @@ public class Enemy : GameObject, MovableObject, Targetable
         AddTag("hostile");
         AddTag("solid");
 
-        //Default movespeed and lifePoints are both 300. They can be set later on.
-        movementSpeed = 220;
+        //Default movespeed and lifePoints
+        movementSpeed = 190;
         lifePoints = 300;
         damage = 50;
         maxLifePoints = lifePoints;
@@ -162,7 +162,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
     private bool getThenSetTarget(List<GameObject> gameObjects)
     {
-        return false;
+        //return false;
         foreach (GameObject gameObject in gameObjects)
         {
             Player player = gameObject as Player;

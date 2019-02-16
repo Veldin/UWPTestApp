@@ -99,6 +99,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Camera.cs" />
     <Compile Include="Classes\Pickup.cs" />
     <Compile Include="Classes\Sound.cs" />
     <Compile Include="Classes\Weapons\ArrivaGun.cs" />
@@ -328,6 +329,7 @@
     <Content Include="Assets\Sprites\Pickup_Sprites\Weapon_Upgrades\VLEKKannon_Upgrade_Pickup_Right.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Weapon_Upgrades\Weapon_Upgrade_Pickup_Left.png" />
     <Content Include="Assets\Sprites\Pickup_Sprites\Weapon_Upgrades\Weapon_Upgrade_Pickup_Right.png" />
+    <Content Include="Assets\Sprites\pixel.png" />
     <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Bottom.png" />
     <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Left.png" />
     <Content Include="Assets\Sprites\Player_Sprites\Arriva_Gun_Right.png" />

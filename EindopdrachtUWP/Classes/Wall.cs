@@ -9,6 +9,8 @@ namespace UWPTestApp
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
             AddTag("solid"); //Walls are solid, all of the time! (But don't have to be if you remove the tag!)
+
+            Location = "Assets/Sprites/Pixel.png";
         }
 
         //Any object can edit the gameObjects of the game while the logic is running.
