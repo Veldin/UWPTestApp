@@ -150,10 +150,25 @@ namespace UWPTestApp
 
         //Methods to add ammounts to fields that have to do with positioning of the GameOgject.
         //They also return the new number so we can use them to calculate with instandly.
-        public float AddWidth(float width) { this.width += width; return this.width; }
-        public float AddHeight(float height) { this.height += height; return this.height; }
-        public float AddFromTop(float fromTop) { this.fromTop += fromTop; return this.fromTop; }
-        public float AddFromLeft(float fromLeft) { this.fromLeft += fromLeft; return this.fromLeft; }
+        public float AddWidth(float width) {
+            this.width += width;
+            return this.width;
+        }
+
+        public float AddHeight(float height) {
+            this.height += height;
+            return this.height;
+        }
+
+        public float AddFromTop(float fromTop) {
+            this.fromTop += fromTop;
+            return this.fromTop;
+        }
+
+        public float AddFromLeft(float fromLeft) {
+            this.fromLeft += fromLeft;
+            return this.fromLeft;
+        }
 
         //Getters and setters for the fields that have to do with positioning in the canvas.
         public float WidthDrawOffset
@@ -193,7 +208,6 @@ namespace UWPTestApp
             {
                 this.started = true;
                 LogicLoop(gameObjects, now);
-                Debug.WriteLine("STARTING LOGIC LOOP");
             }
         }
 

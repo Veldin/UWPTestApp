@@ -362,7 +362,7 @@ namespace EindopdrachtUWP.Classes
                             }
                             else
                             {
-                                w.clipAmount++;
+                                w.clipAmount+= 20;
                                 MainPage.Current.getWeaponStats();
                                 MainPage.Current.UpdateCurrentClip();
                             }
