@@ -12,8 +12,7 @@ namespace UWPTestApp
 
         public World()
         {
-            //New worldblock with a spread of 4
-            startingBlock = new WorldBlock(4);
+            startingBlock = new WorldBlock();
         }
 
         public WorldBlock StartingBlock

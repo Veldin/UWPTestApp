@@ -98,9 +98,27 @@ namespace UWPTestApp
             player.AddTag("controllable");  //Make the player controllable
             gameObjects.Add(player); //Add the player to the gameObjects list
 
-
             //Load in the world
-            LoadWorld();
+            gameObjects.AddRange(world.StartingBlock.LoadScene());
+
+            /* Manualy load some of the worldpieces */
+            gameObjects.AddRange(world.StartingBlock.Up.LoadScene());
+            gameObjects.AddRange(world.StartingBlock.Up.Up.LoadScene());
+
+            gameObjects.AddRange(world.StartingBlock.Down.LoadScene());
+            gameObjects.AddRange(world.StartingBlock.Down.Down.LoadScene());
+
+            gameObjects.AddRange(world.StartingBlock.Right.LoadScene());
+            gameObjects.AddRange(world.StartingBlock.Right.Right.LoadScene());
+
+            gameObjects.AddRange(world.StartingBlock.Left.LoadScene());
+            gameObjects.AddRange(world.StartingBlock.Left.Left.LoadScene());
+
+            gameObjects.AddRange(world.StartingBlock.Right.Up.LoadScene());
+            gameObjects.AddRange(world.StartingBlock.Left.Up.LoadScene());
+
+            gameObjects.AddRange(world.StartingBlock.Right.Down.LoadScene());
+            gameObjects.AddRange(world.StartingBlock.Left.Down.LoadScene());
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -130,60 +148,6 @@ namespace UWPTestApp
                 return true;
             }
             return false;
-        }
-
-        /* LoadWorld() */
-        /* 
-         * Gets the gameobject from the world and make them active
-        */
-        public bool LoadWorld()
-        {
-            //Queue of blocks to render
-            Queue<WorldBlock> BlocksToRender = new Queue<WorldBlock>();
-
-            //Add the starting block to render
-            BlocksToRender.Enqueue(world.StartingBlock);
-
-            while(BlocksToRender.Count > 0)
-            {
-                WorldBlock thisBlock = BlocksToRender.Dequeue();
-
-                if (!thisBlock.Scene.Isloaded())
-                {
-                    gameObjects.AddRange(thisBlock.LoadScene());
-                }
-                //Check adjacent rooms and add them if necessary
-
-                //If there is a room at a direction, and the scene is not loaded
-                if (thisBlock.Up != null && thisBlock.Up.Scene.Isloaded() == false)
-                {
-                    BlocksToRender.Enqueue(thisBlock.Up);
-                    gameObjects.AddRange(thisBlock.Up.LoadScene());
-                }
-
-                if (thisBlock.Down != null && thisBlock.Down.Scene.Isloaded() == false)
-                {
-                    BlocksToRender.Enqueue(thisBlock.Down);
-                    gameObjects.AddRange(thisBlock.Down.LoadScene());
-                }
-
-                if (thisBlock.Left != null && thisBlock.Left.Scene.Isloaded() == false)
-                {
-                    BlocksToRender.Enqueue(thisBlock.Left);
-                    gameObjects.AddRange(thisBlock.Left.LoadScene());
-                }
-
-                if (thisBlock.Right != null && thisBlock.Right.Scene.Isloaded() == false)
-                {
-                    BlocksToRender.Enqueue(thisBlock.Right);
-                    gameObjects.AddRange(thisBlock.Right.LoadScene());
-                }
-
-
-            }
-
-
-            return true;
         }
 
         /* Run() */

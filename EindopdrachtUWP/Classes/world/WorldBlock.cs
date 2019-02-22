@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace UWPTestApp
 {
+    /*
+     * WorldBlock is responcable for a small part of the world that is able to load independelty.
+     * This way the whole map does not have to load at once, but parts can be loading on their own.
+     */
     class WorldBlock
     {
         private Scene scene;
@@ -26,52 +30,24 @@ namespace UWPTestApp
         public const int width = 800;
         public const int height = 600;
 
-        public WorldBlock()
-        {
-            Scene = SceneFactory.GetScene(width, height);
-        }
-
-
-
         //Call used to create a worldblock with no adjacent rooms on the 0,0 position
-        public WorldBlock(int spread) : this(spread, null, null, null, null, 0, 0)
+        public WorldBlock() : this(null, null, null, null, 0, 0)
         {
 
         }
 
-        //The amount of spread dictates how many block spawn around this block
-        public WorldBlock(int spread, WorldBlock up, WorldBlock down, WorldBlock left, WorldBlock right, int fromLeft, int fromTop)
+        /*
+         * up, down left and right given set the rooms that are up down left or right.
+         * This way the traversion does not have to be done again but is stored in the worldblock itself.
+         * 
+         */
+        public WorldBlock(WorldBlock up, WorldBlock down, WorldBlock left, WorldBlock right, int fromLeft, int fromTop)
         {
             //Set the private from left and from top
             this.fromLeft = fromLeft;
             this.fromTop = fromTop;
 
             Scene = SceneFactory.GetScene(width, height);
-
-            //Spread if the spread is higher then 0
-            spread--;
-            if(spread > 0)
-            {
-                if (Up is null)
-                {
-                    Up = new WorldBlock(spread, null, this, null, null, Fromleft, FromTop - 1);
-                }
-
-                if (Down is null)
-                {
-                    Down = new WorldBlock(spread, this, null, null, null, Fromleft, FromTop + 1);
-                }
-
-                if (Left is null)
-                {
-                    Left = new WorldBlock(spread, null, null, null, this, Fromleft - 1, FromTop);
-                }
-
-                if (Right is null)
-                {
-                    Right = new WorldBlock(spread, null, null, this, null, Fromleft + 1, FromTop);
-                }
-            }
         }
 
         //Make this block with a specivic scene
@@ -101,28 +77,252 @@ namespace UWPTestApp
             set { scene = value; }
         }
 
+
+        /* 
+         * Traverstion between objects is only done horizontaly on the zero-th line.
+         * This is done to keep the intergatry of a 2d space consistant without overlapping rooms.
+         * 
+         *  Example;
+         *  [] = worldblock.
+         *  lines = Posibility to traverse.
+         *  To traverse from a to b a.Up.Right.Down is used in code.
+         *  
+         *  -2  [ ] [ ] [ ] [ ] [ ]
+         *       |   |   |   |   |  
+         *  -1  [ ] [ ] [ ] [ ] [ ]
+         *       |   |   |   |   |  
+         *  0   [ ]-[ ]-[ ]-[ ]-[ ]
+         *       |   |   |   |   |  
+         *  1   [a] [b] [ ] [ ] [ ]
+         *       |   |   |   |   |  
+         *  2   [ ] [ ] [ ] [ ] [ ]
+         */
+
+
         public WorldBlock Up
         {
-            get { return up; }
+            get {
+                if (up is null)
+                {
+                    up = new WorldBlock(null, this, null, null, Fromleft, FromTop - 1);
+                    Debug.Write(Fromleft);
+                    Debug.Write('-');
+                    Debug.Write(FromTop - 1);
+                    Debug.WriteLine("<>");
+                }
+                return up;
+            }
             set { up = value; }
         }
 
         public WorldBlock Down
         {
-            get { return down; }
+            get
+            {
+                if (down is null)
+                {
+                    down = new WorldBlock(this, null, null, null, Fromleft, FromTop + 1);
+                    Debug.Write(Fromleft);
+                    Debug.Write('-');
+                    Debug.Write(FromTop + 1);
+                    Debug.WriteLine("<>");
+                }
+                return down;
+            }
             set { down = value; }
         }
 
         public WorldBlock Left
         {
-            get { return left; }
-            set { left = value; }
+            get {
+                if (fromTop == 0)
+                {
+                    if (left is null)
+                    {
+                        left = new WorldBlock(null, null, null, this, Fromleft - 1, FromTop);
+                        Debug.Write(Fromleft - 1);
+                        Debug.Write('-');
+                        Debug.Write(FromTop);
+                        Debug.WriteLine("<>");
+                    }
+                    return left;
+                }
+
+                WorldBlock needle = this;
+
+                if (fromTop > 0)
+                {
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Down;
+                        fromTopNeedle--;
+                    }
+                    needle = needle.Left;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Up;
+                        fromTopNeedle++;
+                    }
+                    return needle;
+                }
+                else if(fromTop < 0){
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Up;
+                        fromTopNeedle--;
+                    }
+                    needle = needle.Left;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Down;
+                        fromTopNeedle++;
+                    }
+                    return needle;
+                }
+
+                return left;
+            }
+            set
+            {
+                if (fromTop == 0)
+                {
+                    Left = value;
+                }
+
+                WorldBlock needle = this;
+
+                if (fromTop > 0)
+                {
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Down;
+                        fromTopNeedle++;
+                    }
+                    needle = needle.Left;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Up;
+                        fromTopNeedle--;
+                    }
+                    needle = value;
+                }
+                else if (fromTop < 0)
+                {
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Up;
+                        fromTopNeedle--;
+                    }
+                    needle = needle.Left;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Down;
+                        fromTopNeedle++;
+                    }
+                    needle = value;
+                }
+            }
         }
 
         public WorldBlock Right
         {
-            get { return right; }
-            set { right = value; }
+            get
+            {
+                if (fromTop == 0)
+                {
+                    if (right is null)
+                    {
+                        right = new WorldBlock(null, null, this, null, Fromleft + 1, FromTop);
+                        Debug.Write(Fromleft + 1);
+                        Debug.Write('-');
+                        Debug.Write(FromTop);
+                        Debug.WriteLine("<>");
+                    }
+                    return right;
+                }
+
+                WorldBlock needle = this;
+
+                if (fromTop > 0)
+                {
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Down;
+                    }
+                    needle = needle.Right;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Up;
+                    }
+                    return needle;
+                }
+                else if (fromTop < 0)
+                {
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Up;
+                    }
+                    needle = needle.Right;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Down;
+                    }
+                    return needle;
+                }
+
+                return right;
+            }
+            set {
+                if (fromTop == 0)
+                {
+                    Right = value;
+                }
+
+                WorldBlock needle = this;
+
+                if (fromTop > 0)
+                {
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Down;
+                    }
+                    needle = needle.Right;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle > 0)
+                    {
+                        needle = needle.Up;
+                    }
+                    needle = value;
+                }
+                else if (fromTop < 0)
+                {
+                    int fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Up;
+                    }
+                    needle = needle.Right;
+                    fromTopNeedle = fromTop;
+                    while (fromTopNeedle < 0)
+                    {
+                        needle = needle.Down;
+                    }
+                    needle = value;
+                }
+            }
         }
 
         public int Fromleft

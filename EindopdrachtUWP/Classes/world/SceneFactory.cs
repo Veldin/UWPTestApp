@@ -65,8 +65,8 @@ namespace UWPTestApp
             //Go for 100 passes trough, every pass makes a room and sees if its fits.
             for (int i = 0; i < 20; i++)
             {
-                int newObject_Width = random.Next(4, 12);
-                int newObject_Height= random.Next(4, 12);
+                int newObject_Width = random.Next(2, 7);
+                int newObject_Height= random.Next(2, 7);
                 int left = random.Next(0, tiles.GetLength(0) - newObject_Width);
                 int top = random.Next(0, tiles.GetLength(1) - newObject_Height);
 
@@ -82,6 +82,9 @@ namespace UWPTestApp
                         0, 0, 0, 0));
                 }
             }
+
+            //Add the spawner
+            Objects.Add(new Spawner(10, 10, 400, 300, 0, 0, 0, 0));
 
             return new Scene(Objects);
 
