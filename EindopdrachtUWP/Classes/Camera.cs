@@ -34,8 +34,8 @@ namespace EindopdrachtUWP
             }
             delta = (now - (long)then) / 1000;
 
-            float differenceLeft = (((FromLeft - target.FromLeft()) / 10) * delta) / 10000000 / 2;
-            float differenceTop = (((FromTop - target.FromTop()) / 10) * delta) / 10000000 / 2;
+            float differenceLeft = (((FromLeft - target.FromLeft()) / 10) * delta) / 10000000 / 25;
+            float differenceTop = (((FromTop - target.FromTop()) / 10) * delta) / 10000000 / 25;
 
             FromLeft -= differenceLeft;
             FromTop -= differenceTop;

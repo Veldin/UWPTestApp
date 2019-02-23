@@ -63,10 +63,10 @@ namespace UWPTestApp
             List<GameObject> Objects = new List<GameObject>();
 
             //Go for 100 passes trough, every pass makes a room and sees if its fits.
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 200; i++)
             {
-                int newObject_Width = random.Next(2, 7);
-                int newObject_Height= random.Next(2, 7);
+                int newObject_Width = random.Next(3, 7);
+                int newObject_Height= random.Next(3, 7);
                 int left = random.Next(0, tiles.GetLength(0) - newObject_Width);
                 int top = random.Next(0, tiles.GetLength(1) - newObject_Height);
 
@@ -84,7 +84,11 @@ namespace UWPTestApp
             }
 
             //Add the spawner
-            Objects.Add(new Spawner(10, 10, 400, 300, 0, 0, 0, 0));
+            if (random.Next(0, 10) > 5) {  
+                Objects.Add(new Spawner(10, 10, 400, 300, 0, 0, 0, 0, random.Next(0, 14000), random.Next(14000, 50000)));
+            }
+
+            Objects.Add(new Spawner(10, 10, random.Next(0, width), random.Next(0, height), 0, 0, 0, 0, random.Next(0, 14000), random.Next(14000, 50000)));
 
             return new Scene(Objects);
 

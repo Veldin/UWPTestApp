@@ -597,7 +597,7 @@ namespace UWPTestApp
         {
             foreach (GameObject gameObject in loopList)
             {
-                if (gameObject.Sprite == null)
+                if (gameObject != null && gameObject.Sprite == null)
                 {
                     gameObject.CreateResourcesAsync(sender);
                 }
@@ -614,7 +614,7 @@ namespace UWPTestApp
         {
             foreach (GameObject gameObject in loopList)
             {
-                if (gameObject.Sprite != null && gameObject is Splatter)
+                if (gameObject != null && gameObject.Sprite != null && gameObject is Splatter)
                 {
                     //Drawing requires the sides to be non-negative
                     if (
@@ -645,7 +645,7 @@ namespace UWPTestApp
         {
             foreach (GameObject gameObject in loopList)
             {
-                if (gameObject.Sprite != null && !(gameObject is Splatter))
+                if (gameObject != null && gameObject.Sprite != null && !(gameObject is Splatter))
                 {
                     //Drawing requires the sides to be non-negative
                     if (
