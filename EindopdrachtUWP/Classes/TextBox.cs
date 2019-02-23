@@ -7,7 +7,7 @@ public class TextBox : GameObject, MovableObject
 {
     private float maxDuration;
 
-    public TextBox(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, string text = "undefined", float duration = 100)
+    public TextBox(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, string text = "undefined", float duration = 130)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
         Text = text;

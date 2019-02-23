@@ -157,6 +157,7 @@ namespace EindopdrachtUWP.Classes
         private int amount;
         private string type;
         private string pickUpSound;
+        private string popupDisplayText;
 
         //The different sounds that this pickup can make.
         private const string pickUpAmmoSound = "Generic_Sounds\\Ammo_Pickup_Sound.wav";
@@ -228,68 +229,89 @@ namespace EindopdrachtUWP.Classes
             {
                 case 0:
                     type = AmmunitionArrivaGun;
+                    popupDisplayText = "ArrivaGun Rails";
                     break;
                 case 1:
                     type = AmmunitionBatarang;
+                    popupDisplayText = "Batarang Rangs";
                     break;
                 case 2:
                     type = AmmunitionBulletBill;
+                    popupDisplayText = "BulletBill Bullet Bills";
                     break;
                 // DessertBeagle has infinite bullets, this goes to default (health pickup)
                 case 4:
                     type = AmmunitionFlameThrower;
+                    popupDisplayText = "FlameThrower Canister";
                     break;
                 case 5:
                     type = AmmunitionHomersBullets;
+                    popupDisplayText = "HomersBullets Bullets";
                     break;
                 case 6:
                     type = AmmunitionKa74;
+                    popupDisplayText = "Ka74 Mags";
                     break;
                 case 7:
                     type = AmmunitionKnettergun;
+                    popupDisplayText = "Knettergun Slugs";
                     break;
                 case 8:
                     type = AmmunitionUwp;
+                    popupDisplayText = "Uwp Mags";
                     break;
                 case 9:
                     type = AmmunitionVlekKannon;
+                    popupDisplayText = "VlekKannon Chains";
                     break;
                 case 10:
                     type = UpgradeArrivaGun;
+                    popupDisplayText = "ArrivaGun Upgrade";
                     break;
                 case 11:
                     type = UpgradeBatarang;
+                    popupDisplayText = "Batarang Upgrade";
                     break;
                 case 12:
                     type = UpgradeBulletBill;
+                    popupDisplayText = "BulletBill Upgrade";
                     break;
                 case 13:
                     type = UpgradeDessertBeagle;
+                    popupDisplayText = "DessertBeagle Upgrade";
                     break;
                 case 14:
                     type = UpgradeFlameThrower;
+                    popupDisplayText = "FlameThrower Upgrade";
                     break;
                 case 15:
                     type = UpgradeHomersBullets;
+                    popupDisplayText = "HomersBullets Upgrade";
                     break;
                 case 16:
                     type = UpgradeKa74;
+                    popupDisplayText = "Ka74 Upgrade";
                     break;
                 case 17:
                     type = UpgradeKnettergun;
+                    popupDisplayText = "Knettergun Upgrade";
                     break;
                 case 18:
                     type = UpgradeUwp;
+                    popupDisplayText = "Uwp Upgrade";
                     break;
                 case 19:
                     type = UpgradeVlekKannon;
+                    popupDisplayText = "VlekKannon Upgrade";
                     break;
                 case 20:
                     type = ArmourUp;
+                    popupDisplayText = "ArmourUp";
                     amount = 100;
                     break;
                 default:
                     type = HealthUp;
+                    popupDisplayText = "HealthUp";
                     amount = 100;
                     break;
             }
@@ -299,6 +321,12 @@ namespace EindopdrachtUWP.Classes
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
+            if (HasTag("popup"))
+            {
+                gameObjects.Add(new TextBox(75, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, popupDisplayText, 1000));
+                RemoveTag("popup");
+            }
+
             //Count the total delta up to know how long this item existed
             totalDelta += delta;
 
@@ -397,6 +425,8 @@ namespace EindopdrachtUWP.Classes
                     MainPage.Current.updateHealth();
                 }
                 AddTag("destroyed");
+                AddTag("popup");
+
             }
             return true;
         }
