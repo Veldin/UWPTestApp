@@ -1,6 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
