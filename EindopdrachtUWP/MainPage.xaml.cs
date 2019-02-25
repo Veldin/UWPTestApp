@@ -483,25 +483,25 @@ namespace EindopdrachtUWP
             });
         }
 
-        public void enableSecondSpawner()
-        {
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               () =>
-               {
-                   secondSpawner.Opacity = 1;
+        //public void enableSecondSpawner()
+        //{
+        //    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+        //       () =>
+        //       {
+        //           secondSpawner.Opacity = 1;
 
-               });
-        }
+        //       });
+        //}
 
-        public void enableThirdSpawner()
-        {
-            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               () =>
-               {
-                   thirdSpawner.Opacity = 1;
+        //public void enableThirdSpawner()
+        //{
+        //    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+        //       () =>
+        //       {
+        //           thirdSpawner.Opacity = 1;
 
-               });
-        }
+        //       });
+        //}
 
         void KeyDown(CoreWindow sender, KeyEventArgs args)
         {
@@ -521,10 +521,6 @@ namespace EindopdrachtUWP
         private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             engine.DrawEvent(sender, args);
-
-            //Examples to test drawing
-            //args.DrawingSession.DrawEllipse(155, 115, 80, 30, Colors.Black, 3);
-            //args.DrawingSession.DrawText("Hello, world!", 100, 100, Colors.Yellow);
         }
     }
 }
