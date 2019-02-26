@@ -101,10 +101,6 @@ namespace UWPTestApp
                 if (up is null)
                 {
                     up = new WorldBlock(null, this, null, null, Fromleft, FromTop - 1);
-                    Debug.Write(Fromleft);
-                    Debug.Write('-');
-                    Debug.Write(FromTop - 1);
-                    Debug.WriteLine("<>");
                 }
                 return up;
             }
@@ -118,10 +114,6 @@ namespace UWPTestApp
                 if (down is null)
                 {
                     down = new WorldBlock(this, null, null, null, Fromleft, FromTop + 1);
-                    Debug.Write(Fromleft);
-                    Debug.Write('-');
-                    Debug.Write(FromTop + 1);
-                    Debug.WriteLine("<>");
                 }
                 return down;
             }
@@ -136,10 +128,6 @@ namespace UWPTestApp
                     if (left is null)
                     {
                         left = new WorldBlock(null, null, null, this, Fromleft - 1, FromTop);
-                        Debug.Write(Fromleft - 1);
-                        Debug.Write('-');
-                        Debug.Write(FromTop);
-                        Debug.WriteLine("<>");
                     }
                     return left;
                 }
@@ -237,10 +225,6 @@ namespace UWPTestApp
                     if (right is null)
                     {
                         right = new WorldBlock(null, null, this, null, Fromleft + 1, FromTop);
-                        Debug.Write(Fromleft + 1);
-                        Debug.Write('-');
-                        Debug.Write(FromTop);
-                        Debug.WriteLine("<>");
                     }
                     return right;
                 }

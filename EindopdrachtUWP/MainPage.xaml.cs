@@ -34,8 +34,6 @@ namespace EindopdrachtUWP
             InitializeComponent();
             Current = this;
 
-            Debug.WriteLine("MainPage");
-
             Window.Current.CoreWindow.KeyDown += KeyDown;
             Window.Current.CoreWindow.KeyUp += KeyUP;
 
