@@ -56,6 +56,6 @@ namespace EindopdrachtUWP.Classes
          * Called every frame,
          * The argument delta is how much time is passed since the last call.
         */
-        Boolean OnTick(float delta);
+        bool OnTick(float delta);
     }
 }

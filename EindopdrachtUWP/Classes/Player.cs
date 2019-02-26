@@ -79,7 +79,7 @@ namespace UWPTestApp
             //Target = new Target(this);
         }
 
-        public Boolean selectNextWeapon()
+        public bool selectNextWeapon()
         {
             //If you recently switched weapons this is higher then 0
             if (selectNextWeaponDelay > 0)
@@ -87,7 +87,7 @@ namespace UWPTestApp
                 return false;
             }
 
-            Boolean found = false;
+            bool found = false;
             foreach (Weapon selected in weapons)
             {
                 if (activeWeapon == selected)
@@ -106,7 +106,7 @@ namespace UWPTestApp
             return true;
         }
 
-        public Boolean selectPreviousWeapon()
+        public bool selectPreviousWeapon()
         {
             if (selectNextWeaponDelay > 0)
             {
@@ -222,7 +222,7 @@ namespace UWPTestApp
             walkSpeed = speed;
         }
 
-        public Boolean Fire(String direction, List<GameObject> gameObjects)
+        public bool Fire(String direction, List<GameObject> gameObjects)
         {
             this.direction = direction;
             MainPage.Current.UpdateCurrentClip();
@@ -336,7 +336,7 @@ namespace UWPTestApp
             return true;
         }
 
-        public override Boolean CollitionEffect(GameObject gameObject)
+        public override bool CollitionEffect(GameObject gameObject)
         {
             if (gameObject.HasTag("solid"))
             {

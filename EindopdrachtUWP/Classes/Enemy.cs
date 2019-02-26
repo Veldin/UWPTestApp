@@ -94,7 +94,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         return movementSpeed;
     }
 
-    public override Boolean CollitionEffect(GameObject gameObject) {
+    public override bool CollitionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid"))
         {
             //We had this a recursive function first, that fired until there was no collition.
@@ -215,8 +215,8 @@ public class Enemy : GameObject, MovableObject, Targetable
             float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
             float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
 
-            Boolean facingTop;
-            Boolean facingLeft;
+            bool facingTop;
+            bool facingLeft;
 
             if (Target.FromLeft() > FromLeft)
             {
@@ -242,7 +242,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
             //Get the direction 
             String newDirection;
-            Boolean directionChanged = false;
+            bool directionChanged = false;
 
             if (moveLeftDistance > moveTopDistance)
             {

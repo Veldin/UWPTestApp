@@ -40,7 +40,7 @@ namespace UWPTestApp
 
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
-        public override Boolean OnTick(List<GameObject> gameObjects, float delta)
+        public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
             if (BeginDelta > 0 )
             {
@@ -94,7 +94,7 @@ namespace UWPTestApp
             return true;
         }
 
-        public override Boolean CollitionEffect(GameObject gameObject)
+        public override bool CollitionEffect(GameObject gameObject)
         {
             return true;
         }

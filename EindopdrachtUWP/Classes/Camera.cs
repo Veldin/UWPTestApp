@@ -21,7 +21,7 @@ namespace EindopdrachtUWP
             this.fromTop = target.FromTop();
         }
 
-        public Boolean OnTick()
+        public bool OnTick()
         {
             now = Stopwatch.GetTimestamp();
             if (then == null)

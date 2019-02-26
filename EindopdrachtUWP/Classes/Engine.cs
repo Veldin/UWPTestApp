@@ -43,10 +43,10 @@ namespace UWPTestApp
         private float fps;  //The set FPS limit
         private float interfal; //Interfal that gets calculated based on the fps
 
-        public Boolean music { get; set; }
-        public Boolean effects { get; set; }
+        public bool music { get; set; }
+        public bool effects { get; set; }
 
-        private Boolean paused;
+        private bool paused;
 
         private SoundController soundController;
 
@@ -952,7 +952,7 @@ namespace UWPTestApp
          * Returns wheater the given key exists within the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public Boolean IsKeyPressed(String virtualKey)
+        public bool IsKeyPressed(String virtualKey)
         {
             return pressedKeys.Contains(virtualKey);
         }

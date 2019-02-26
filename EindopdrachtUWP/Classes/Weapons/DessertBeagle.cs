@@ -25,8 +25,8 @@ namespace EindopdrachtUWP.Classes.Weapons
         public float reloadTimer { get; set; }
         protected float fireCooldownDelta;      //The remaining delta for shooting
         protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //Boolean to check is you're able to fire again
-        protected bool ableToReload;            //Boolean to check is you're able to reload again
+        protected bool ableToFire;              //bool to check is you're able to fire again
+        protected bool ableToReload;            //bool to check is you're able to reload again
         private string location;
 
         public DessertBeagle()
@@ -167,7 +167,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             return clipAmount * clipMax + currentClip;
         }
 
-        public Boolean OnTick(float delta)
+        public bool OnTick(float delta)
         {
             if (fireCooldownDelta - delta < 0)
             {

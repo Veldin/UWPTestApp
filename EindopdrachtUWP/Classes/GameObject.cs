@@ -44,7 +44,7 @@ namespace UWPTestApp
         protected CanvasBitmap sprite;
         protected String location;
 
-        protected Boolean started;
+        protected bool started;
 
         public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
@@ -106,14 +106,14 @@ namespace UWPTestApp
             tags.Add(tag);
         }
 
-        public Boolean HasTag(string tag)
+        public bool HasTag(string tag)
         {
             if (tags.IndexOf(tag) > -1)
                 return true;
             return false;
         }
 
-        public Boolean RemoveTag(string tag)
+        public bool RemoveTag(string tag)
         {
             if (HasTag(tag))
             {
@@ -219,7 +219,7 @@ namespace UWPTestApp
         }
 
         //If a timestamp is given calculate the delta and call OnTick
-        public Boolean OnTick(List<GameObject> gameObjects)
+        public bool OnTick(List<GameObject> gameObjects)
         {
             now = Stopwatch.GetTimestamp();
             if (then == null)
@@ -228,7 +228,7 @@ namespace UWPTestApp
             }
             delta = (now - (long)then) / 1000 / 2;
 
-            Boolean result = OnTick(gameObjects, (float)delta);
+            bool result = OnTick(gameObjects, (float)delta);
 
             then = now;
 
@@ -237,14 +237,14 @@ namespace UWPTestApp
 
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
-        public abstract Boolean OnTick(List<GameObject> gameObjects, float delta);
+        public abstract bool OnTick(List<GameObject> gameObjects, float delta);
 
         /* IsColliding */
         /*
          * Checks whether or not this gameobject is coliding with the given gameOjbect
          * The argument is the given gameObject
         */
-        public Boolean IsColliding(GameObject gameObject)
+        public bool IsColliding(GameObject gameObject)
         {
             //Check if you are comparing to youself.
             if (this == gameObject)
@@ -268,6 +268,6 @@ namespace UWPTestApp
          * Effect that happens when this GameObject collides with the given object.
          * The argument is the given gameObject
         */
-        public abstract Boolean CollitionEffect(GameObject gameObject);
+        public abstract bool CollitionEffect(GameObject gameObject);
     }
 }

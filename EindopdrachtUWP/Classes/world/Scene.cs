@@ -6,7 +6,7 @@ namespace UWPTestApp
     class Scene
     {
         private List<GameObject> gameObjects;
-        private Boolean loaded;
+        private bool loaded;
 
         public Scene()
         {
@@ -30,7 +30,7 @@ namespace UWPTestApp
             return GetScene();
         }
 
-        public Boolean Isloaded()
+        public bool Isloaded()
         {
             return loaded;
         }

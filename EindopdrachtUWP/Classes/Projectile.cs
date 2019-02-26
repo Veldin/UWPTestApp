@@ -31,7 +31,7 @@ public class Projectile : GameObject, MovableObject
         movementSpeed = 700;
     }
 
-    public override Boolean CollitionEffect(GameObject gameObject)
+    public override bool CollitionEffect(GameObject gameObject)
     {
         Targetable targetable = gameObject as Targetable;
         if (targetable is Targetable)
@@ -148,7 +148,7 @@ public class Projectile : GameObject, MovableObject
         return false;
     }
 
-    public Boolean targetPlayer(List<GameObject> gameObjects)
+    public bool targetPlayer(List<GameObject> gameObjects)
     {
         foreach (GameObject gameObject in gameObjects)
         {
@@ -186,7 +186,7 @@ public class Projectile : GameObject, MovableObject
         return false;
     }
 
-    public override Boolean OnTick(List<GameObject> gameObjects, float delta)
+    public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
         SetNewTarget(gameObjects);
 

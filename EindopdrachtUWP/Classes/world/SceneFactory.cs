@@ -25,7 +25,7 @@ namespace UWPTestApp
             return tiles;
         }
 
-        public static Boolean spaceFree(bool[,] tiles, int left, int top, int width, int height)
+        public static bool spaceFree(bool[,] tiles, int left, int top, int width, int height)
         {
             int leftNeedle = left - 1;
             while (leftNeedle < left + width + 1)
