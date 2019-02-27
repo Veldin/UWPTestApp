@@ -178,7 +178,7 @@ namespace UWPTestApp
             Task.Run(() => Run());  //Schedule new Run() task
             */
             LogicLoop();
-            DrawLoop();
+            DrawLoopAsync();
         }
 
         public async void LogicLoop()
@@ -189,42 +189,28 @@ namespace UWPTestApp
             LogicLoop();
         }
 
-        public void DrawLoop()
+        public async Task DrawLoopAsync()
         {
-            now = Stopwatch.GetTimestamp();
-            delta = (now - then) / 1000;
-
-            if (delta > interfal)
+            //Only draw the simulation if there is a known canvas.
+            if (canvasControl != null)
             {
-                then = now; //Remember when this frame was.
-
-                //Only draw the simulation if there is a known canvas.
-                if (canvasControl != null)
-                {
-                    Draw();
-                }
+                Draw();
             }
 
-            Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
-            Task.Run(() => DrawLoop());  //Schedule new Run() task
+            await Task.Delay((int)interfal);
+
+            Task.Run(() => DrawLoopAsync());  //Schedule new DrawLoopAsync() task
         }
 
-        /* Logic */
-        /*
-         * Remade of the Logic to split tasks off
-        */
-
-        private void InvokeTaskLogic()
+        //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
+        private void Draw()
         {
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () => {
+                canvasControl.Invalidate();
+            });
+        }
 
-        }
-        private void TaskLogicTwo()
-        {
-            foreach (GameObject gameObject in new List<GameObject>(gameObjects))
-            {
-                gameObject.InvokeOnTick(gameObjects, Stopwatch.GetTimestamp());
-            }
-        }
 
         /* Logic */
         /*
@@ -247,7 +233,7 @@ namespace UWPTestApp
 
                 //Check if there are objects in the List to apply logic on
                 //Apply the logic to all the bameObjects CURRENTLY in the List.
-                //The new List makes a copy so the original arraylist can be modivied in this loop
+                //The new List makes a copy so the original arraylist can be modivied
                 foreach (GameObject gameObject in new List<GameObject>(gameObjects))
                 {
                     //Handle player input
@@ -259,7 +245,7 @@ namespace UWPTestApp
                         HandlePlayerWeaponControls(player);
                         HandlePlayerMovementControls(player);
 
-                        /*
+                        
                         if (player.IsWalking)
                         {
                             if (player.deltaForWalkingSound > 1300)
@@ -269,7 +255,7 @@ namespace UWPTestApp
                             }
                             player.deltaForWalkingSound += 200;
                         }
-                        */
+                        
                         
                     }
 
@@ -302,14 +288,7 @@ namespace UWPTestApp
 
         }
 
-        //Invilidate the drawing currently on the canvas. The canvas wil call an action to redraw itself.
-        private void Draw()
-        {
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () => {
-                canvasControl.Invalidate();
-            });
-        }
+      
 
 
 
@@ -622,14 +601,27 @@ namespace UWPTestApp
                         gameObject.Height + gameObject.HeightDrawOffset > 0
                     )
                     {
+
+                        if (gameObject.Rectangle == null)
+                        {
+                            gameObject.Rectangle = new Rect(
+                                gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
+                                gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
+                                gameObject.Width + gameObject.WidthDrawOffset,
+                                gameObject.Height + gameObject.HeightDrawOffset
+                            );
+                        }
+                        else
+                        {
+                           gameObject.rectangle.X = gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset();
+                           gameObject.rectangle.Y = gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset();
+                           gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
+                           gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
+                        }
+
+                        
                         args.DrawingSession.DrawImage(
-                        gameObject.Sprite,
-                        new Rect(
-                            gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
-                            gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
-                            gameObject.Width + gameObject.WidthDrawOffset,
-                            gameObject.Height + gameObject.HeightDrawOffset
-                        ));
+                        gameObject.Sprite,gameObject.rectangle);
                     }
                 }
             }
@@ -647,21 +639,34 @@ namespace UWPTestApp
             {
                 if (gameObject != null && gameObject.Sprite != null && !(gameObject is Splatter))
                 {
+
                     //Drawing requires the sides to be non-negative
                     if (
                         gameObject.Width + gameObject.WidthDrawOffset > 0 &&
                         gameObject.Height + gameObject.HeightDrawOffset > 0
                     )
                     {
-                      
+
+                        if (gameObject.Rectangle == null)
+                        {
+                            gameObject.Rectangle = new Rect(
+                                gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
+                                gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
+                                gameObject.Width + gameObject.WidthDrawOffset,
+                                gameObject.Height + gameObject.HeightDrawOffset
+                            );
+                        }
+                        else
+                        {
+                            gameObject.rectangle.X = gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset();
+                            gameObject.rectangle.Y = gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset();
+                            gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
+                            gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
+                        }
+
+
                         args.DrawingSession.DrawImage(
-                        gameObject.Sprite,
-                        new Rect(
-                            gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
-                            gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
-                            gameObject.Width + gameObject.WidthDrawOffset,
-                            gameObject.Height + gameObject.HeightDrawOffset
-                        ));
+                        gameObject.Sprite, gameObject.rectangle);
                     }
                 }
             }
@@ -846,16 +851,16 @@ namespace UWPTestApp
             ArrayList loopList; 
             lock (gameObjects) //lock the gameobjects for duplication
             { 
-                try
-                {
+                //try
+                //{
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(gameObjects);
-                }
-                catch
-                {
+                //}
+                //catch
+                //{
                     //if it failes for any reason skip this frame.
-                    return;
-                }
+                //    return;
+                //}
             }
 
             /* PREPARING THE SPRITES */

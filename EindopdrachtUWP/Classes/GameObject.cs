@@ -1,10 +1,12 @@
-﻿using Microsoft.Graphics.Canvas;
+﻿using EindopdrachtUWP;
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.Foundation;
 
 namespace UWPTestApp
 {
@@ -42,9 +44,12 @@ namespace UWPTestApp
         //The sprite location and the CanvasBitmap are stored seperatly
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         protected CanvasBitmap sprite;
+
         protected String location;
 
         protected bool started;
+
+        public Rect rectangle;
 
         public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
@@ -201,21 +206,10 @@ namespace UWPTestApp
             set { target = value; }
         }
 
-        //Invoke a GameObjects own OnTick using an internal timer
-        public void InvokeOnTick(List<GameObject> gameObjects, long now)
+        public Rect Rectangle
         {
-            if (this.started == false)
-            {
-                this.started = true;
-                LogicLoop(gameObjects, now);
-            }
-        }
-
-        public void LogicLoop(List<GameObject> gameObjects, long now)
-        {
-
-            OnTick(gameObjects, now);
-            Task.Run(() => LogicLoop(gameObjects, Stopwatch.GetTimestamp()));
+            get { return rectangle; }
+            set { rectangle = value; }
         }
 
         //If a timestamp is given calculate the delta and call OnTick
@@ -234,6 +228,25 @@ namespace UWPTestApp
 
             return result;
         }
+
+        /* distanceBetween */
+        /*
+         * returns the distance in units of the given gameobject to this gameobject.
+         * This can be used for deciding weater or not a unit is in an area. (Forexample within a camera's vision or within a render range)
+        */
+        public float DistanceBetween(GameObject gameObject)
+        {
+            float differenceLeftAbs = Math.Abs((gameObject.FromLeft + (gameObject.Width / 2)) - (this.FromLeft + (this.Width / 2)));
+            float differenceTopAbs = Math.Abs((gameObject.FromTop + (gameObject.Height / 2)) - (this.FromLeft + (this.Height / 2)));
+
+            float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
+
+            float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
+            float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
+
+            return ((differenceTopAbs * (differenceTopPercent / 100)) + (differenceLeftAbs * (differenceLeftPercent / 100)));
+        }
+
 
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.

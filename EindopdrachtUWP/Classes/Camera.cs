@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace EindopdrachtUWP
+namespace UWPTestApp
 {
-    class Camera
+    public class Camera
     {
         private float fromLeft;
         private float fromTop;
