@@ -6,52 +6,53 @@ namespace EindopdrachtUWP.Classes.Weapons
 {
     class DessertBeagle : Weapon
     {
-        public List<string> tags { get; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int currentClip { get; set; }
-        public int clipAmount { get; set; }
-        public int clipMax { get; set; }
-        public float damage { get; set; }
-        public float accuracy { get; set; }
-        public float fireTime { get; set; }
-        public float fireTimer { get; set; }
-        public double critChance { get; set; }
-        public double critMultiplier { get; set; }
-        public int weaponLevel { get; set; }
-        public string shotSound { get; set; }
-        public string reloadSound { get; set; }
-        public float reloadTime { get; set; }
-        public float reloadTimer { get; set; }
-        protected float fireCooldownDelta;      //The remaining delta for shooting
-        protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //bool to check is you're able to fire again
-        protected bool ableToReload;            //bool to check is you're able to reload again
+        public List<string> tags        { get; }
+        public string name              { get; set; }
+        public string description       { get; set; }
+        public int currentClip          { get; set; }
+        public int clipAmount           { get; set; }
+        public int clipMax              { get; set; }
+        public float damage             { get; set; }
+        public float accuracy           { get; set; }
+        public float fireTime           { get; set; }
+        public float fireTimer          { get; set; }
+        public double critChance        { get; set; }
+        public double critMultiplier    { get; set; }
+        public int weaponLevel          { get; set; }
+        public string shotSound         { get; set; }
+        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string reloadSound       { get; set; }
+        public float reloadTime         { get; set; }
+        public float reloadTimer        { get; set; }
+        protected float fireCooldownDelta;                  //The remaining delta for shooting
+        protected float reloadCooldownDelta;                //The remaining delta for reloading
+        protected bool ableToFire;                          //bool to check is you're able to fire again
+        protected bool ableToReload;                        //bool to check is you're able to reload again
         private string location;
-        private float range;                    // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        
 
         public DessertBeagle()
         {
             // constructor for the DessertBeagle class
-            name = "Dessert Beagle";
-            description = "The Dessert Beagle is a strong handgun, also known as the Desert Eagle";
-            currentClip = 0;
-            clipAmount = 5;
-            clipMax = 12;
-            damage = 75;
-            accuracy = 1;
-            fireTime = 1000;
-            critChance = 0.05;
-            critMultiplier = 1.5;
-            weaponLevel = 1;
-            reloadTime = 3000;
-            range = 100;
-            shotSound = "Weapon_Sounds\\Dessert_Beagle_Shot1.wav";
-            location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
+            name                = "Dessert Beagle";
+            description         = "The Dessert Beagle is a strong handgun, also known as the Desert Eagle";
+            currentClip         = 0;
+            clipAmount          = 5;
+            clipMax             = 12;
+            damage              = 75;
+            accuracy            = 1;
+            fireTime            = 1000;
+            critChance          = 0.05;
+            critMultiplier      = 1.5;
+            weaponLevel         = 1;
+            range               = 1000;
+            reloadTime          = 3000;
+            shotSound           = "Weapon_Sounds\\Dessert_Beagle_Shot1.wav";
+            location            = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
 
-            ableToReload = false;
-            ableToFire = true;
-            fireCooldownDelta = 0;
+            ableToReload        = false;
+            ableToFire          = true;
+            fireCooldownDelta   = 0;
             reloadCooldownDelta = 3000;
         }
 

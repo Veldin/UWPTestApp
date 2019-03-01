@@ -6,25 +6,26 @@ namespace EindopdrachtUWP.Classes.Weapons
 {
     class VLEKKannon : Weapon
     {
-        public List<string> tags { get; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int currentClip { get; set; }
-        public int clipAmount { get; set; }
-        public int clipMax { get; set; }
-        public float damage { get; set; }
-        public float accuracy { get; set; }
-        public float fireTime { get; set; }
-        public double critChance { get; set; }
-        public double critMultiplier { get; set; }
-        public int weaponLevel { get; set; }
-        public string shotSound { get; set; }
-        public string reloadSound { get; set; }
-        public float reloadTime { get; set; }
-        protected float fireCooldownDelta;      //The remaining delta for shooting
-        protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //bool to check is you're able to fire again
-        protected bool ableToReload;            //bool to check is you're able to reload again
+        public List<string> tags        { get; }
+        public string name              { get; set; }
+        public string description       { get; set; }
+        public int currentClip          { get; set; }
+        public int clipAmount           { get; set; }
+        public int clipMax              { get; set; }
+        public float damage             { get; set; }
+        public float accuracy           { get; set; }
+        public float fireTime           { get; set; }
+        public double critChance        { get; set; }
+        public double critMultiplier    { get; set; }
+        public int weaponLevel          { get; set; }
+        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string shotSound         { get; set; }
+        public string reloadSound       { get; set; }
+        public float reloadTime         { get; set; }
+        protected float fireCooldownDelta;                  //The remaining delta for shooting
+        protected float reloadCooldownDelta;                //The remaining delta for reloading
+        protected bool ableToFire;                          //bool to check is you're able to fire again
+        protected bool ableToReload;                        //bool to check is you're able to reload again
         private string locationTop;
         private string locationBottom;
         private string locationLeft;
@@ -33,27 +34,28 @@ namespace EindopdrachtUWP.Classes.Weapons
         public VLEKKannon()
         {
             // constructor for the VLEKKannon class
-            name = "VLEKKannon";
-            description = "The VLEKKannon is a strong weapon normally used as anti-air";
-            currentClip = 0;
-            clipAmount = 0;
-            clipMax = 25;
-            damage = 75;
-            accuracy = 1;
-            fireTime = 250;
-            critChance = 0.15;
-            critMultiplier = 1.5;
-            weaponLevel = 1;
-            reloadTime = 2000;
-            shotSound = "Weapon_Sounds\\VLEK_Kannon_Shot1.wav";
-            locationBottom = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Bottom.png";
-            locationLeft = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Left.png";
-            locationRight = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Right.png";
-            locationTop = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Top.png";
+            name                = "VLEKKannon";
+            description         = "The VLEKKannon is a strong weapon normally used as anti-air";
+            currentClip         = 0;
+            clipAmount          = 0;
+            clipMax             = 25;
+            damage              = 75;
+            accuracy            = 1;
+            fireTime            = 250;
+            critChance          = 0.15;
+            critMultiplier      = 1.5;
+            weaponLevel         = 1;
+            range               = 1000;
+            reloadTime          = 2000;
+            shotSound           = "Weapon_Sounds\\VLEK_Kannon_Shot1.wav";
+            locationBottom      = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Bottom.png";
+            locationLeft        = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Left.png";
+            locationRight       = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Right.png";
+            locationTop         = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Top.png";
 
-            ableToReload = false;
-            ableToFire = true;
-            fireCooldownDelta = 0;
+            ableToReload        = false;
+            ableToFire          = true;
+            fireCooldownDelta   = 0;
             reloadCooldownDelta = 2000;
         }
 
@@ -103,22 +105,22 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range);
                     projectile.SetLocation(locationTop);
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range);
                     projectile.SetLocation(locationBottom);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(locationLeft);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(locationRight);
                 }
 

@@ -6,48 +6,50 @@ namespace EindopdrachtUWP.Classes.Weapons
 {
     class FlameThrower : Weapon
     {
-        public List<string> tags { get; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int currentClip { get; set; }
-        public int clipAmount { get; set; }
-        public int clipMax { get; set; }
-        public float damage { get; set; }
-        public float accuracy { get; set; }
-        public float fireTime { get; set; }
-        public double critChance { get; set; }
-        public double critMultiplier { get; set; }
-        public int weaponLevel { get; set; }
-        public string shotSound { get; set; }
-        public string reloadSound { get; set; }
-        public float reloadTime { get; set; }
-        protected float fireCooldownDelta;      //The remaining delta for shooting
-        protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //bool to check is you're able to fire again
-        protected bool ableToReload;            //bool to check is you're able to reload again
+        public List<string> tags        { get; }
+        public string name              { get; set; }
+        public string description       { get; set; }
+        public int currentClip          { get; set; }
+        public int clipAmount           { get; set; }
+        public int clipMax              { get; set; }
+        public float damage             { get; set; }
+        public float accuracy           { get; set; }
+        public float fireTime           { get; set; }
+        public double critChance        { get; set; }
+        public double critMultiplier    { get; set; }
+        public int weaponLevel          { get; set; }
+        public string shotSound         { get; set; }
+        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string reloadSound       { get; set; }
+        public float reloadTime         { get; set; }
+        protected float fireCooldownDelta;                  //The remaining delta for shooting
+        protected float reloadCooldownDelta;                //The remaining delta for reloading
+        protected bool ableToFire;                          //bool to check is you're able to fire again
+        protected bool ableToReload;                        //bool to check is you're able to reload again
         private string location;
 
         public FlameThrower()
         {
             // constructor for the FlameThrower class
-            name = "Flame Thrower";
-            description = "The Flame Thrower is a strong weapon that shoots out burning hot flames";
-            currentClip = 0;
-            clipAmount = 0;
-            clipMax = 100;
-            damage = 20;
-            accuracy = 2;
-            fireTime = 100;
-            critChance = 0.05;
-            critMultiplier = 1.5;
-            weaponLevel = 1;
-            reloadTime = 3000;
-            shotSound = "Weapon_Sounds\\Flamethrower_Shot1.wav";
-            location = "Assets\\Sprites\\Bullet_Sprites\\Flamethrower1.png";
+            name                = "Flame Thrower";
+            description         = "The Flame Thrower is a strong weapon that shoots out burning hot flames";
+            currentClip         = 0;
+            clipAmount          = 0;
+            clipMax             = 100;
+            damage              = 20;
+            accuracy            = 2;
+            fireTime            = 100;
+            critChance          = 0.05;
+            critMultiplier      = 1.5;
+            weaponLevel         = 1;
+            range               = 100;
+            reloadTime          = 3000;
+            shotSound           = "Weapon_Sounds\\Flamethrower_Shot1.wav";
+            location            = "Assets\\Sprites\\Bullet_Sprites\\Flamethrower1.png";
 
-            ableToReload = false;
-            ableToFire = true;
-            fireCooldownDelta = 0;
+            ableToReload        = false;
+            ableToFire          = true;
+            fireCooldownDelta   = 0;
             reloadCooldownDelta = 3000;
         }
 
@@ -107,19 +109,19 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range);
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range);
                 }
 
                 projectile.SetLocation(location);

@@ -6,25 +6,26 @@ namespace EindopdrachtUWP.Classes.Weapons
 {
     class ArrivaGun : Weapon
     {
-        public List<string> tags { get; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int currentClip { get; set; }
-        public int clipAmount { get; set; }
-        public int clipMax { get; set; }
-        public float damage { get; set; }
-        public float accuracy { get; set; }
-        public float fireTime { get; set; }
-        public double critChance { get; set; }
-        public double critMultiplier { get; set; }
-        public int weaponLevel { get; set; }
-        public string shotSound { get; set; }
-        public string reloadSound { get; set; }
-        public float reloadTime { get; set; }
-        protected float fireCooldownDelta;      //The remaining delta for shooting
-        protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //bool to check is you're able to fire again
-        protected bool ableToReload;            //bool to check is you're able to reload again
+        public List<string> tags        { get; }
+        public string name              { get; set; }
+        public string description       { get; set; }
+        public int currentClip          { get; set; }
+        public int clipAmount           { get; set; }
+        public int clipMax              { get; set; }
+        public float damage             { get; set; }
+        public float accuracy           { get; set; }
+        public float fireTime           { get; set; }
+        public double critChance        { get; set; }
+        public double critMultiplier    { get; set; }
+        public int weaponLevel          { get; set; }
+        public string shotSound         { get; set; }
+        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string reloadSound       { get; set; }
+        public float reloadTime         { get; set; }
+        protected float fireCooldownDelta;                  //The remaining delta for shooting
+        protected float reloadCooldownDelta;                //The remaining delta for reloading
+        protected bool ableToFire;                          //bool to check is you're able to fire again
+        protected bool ableToReload;                        //bool to check is you're able to reload again
         private string locationBottom;
         private string locationLeft;
         private string locationRight;
@@ -33,27 +34,28 @@ namespace EindopdrachtUWP.Classes.Weapons
         public ArrivaGun()
         {
             // constructor for the ArrivaGun class
-            name = "Arriva Gun";
-            description = "The Arriva Gun is a long range weapon which hits all enemies in its path (like a railgun)";
-            currentClip = 0;
-            clipAmount = 0;
-            clipMax = 2;
-            damage = 175;
-            accuracy = 0;
-            fireTime = 6000;
-            critChance = 0.25;
-            critMultiplier = 2;
-            weaponLevel = 1;
-            reloadTime = 3000;
-            shotSound = "Weapon_Sounds\\Arriva_Gun_Shot1.wav";
-            locationBottom = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Bottom.png";
-            locationLeft = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Left.png";
-            locationRight = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Right.png";
-            locationTop = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Top.png";
+            name                = "Arriva Gun";
+            description         = "The Arriva Gun is a long range weapon which hits all enemies in its path (like a railgun)";
+            currentClip         = 0;
+            clipAmount          = 0;
+            clipMax             = 2;
+            damage              = 175;
+            accuracy            = 0;
+            fireTime            = 6000;
+            critChance          = 0.25;
+            critMultiplier      = 2;
+            weaponLevel         = 1;
+            range               = 1000;
+            reloadTime          = 3000;
+            shotSound           = "Weapon_Sounds\\Arriva_Gun_Shot1.wav";
+            locationBottom      = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Bottom.png";
+            locationLeft        = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Left.png";
+            locationRight       = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Right.png";
+            locationTop         = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Top.png";
 
-            ableToReload = false;
-            ableToFire = true;
-            fireCooldownDelta = 0;
+            ableToReload        = false;
+            ableToFire          = true;
+            fireCooldownDelta   = 0;
             reloadCooldownDelta = 3000;
         }
 
@@ -103,22 +105,22 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range);
                     projectile.SetLocation(locationTop);  
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile = new Projectile(8, 15, fromLeft, fromTop-7, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range);
                     projectile.SetLocation(locationBottom);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(15, 8, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(15, 8, fromLeft - 7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(locationLeft);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(15, 8, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(15, 8, fromLeft-7, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(locationRight);
                 }
 

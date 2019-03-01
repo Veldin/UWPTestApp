@@ -21,6 +21,7 @@ namespace EindopdrachtUWP.Classes
         String shotSound { get; set; }
         String reloadSound { get; set; }
         float reloadTime { get; set; }
+        float range { get; set; }                    // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
 
         /* Fire */
         /*

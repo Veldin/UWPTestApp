@@ -6,25 +6,26 @@ namespace EindopdrachtUWP.Classes.Weapons
 {
     class BulletBill : Weapon
     {
-        public List<string> tags { get; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int currentClip { get; set; }
-        public int clipAmount { get; set; }
-        public int clipMax { get; set; }
-        public float damage { get; set; }
-        public float accuracy { get; set; }
-        public float fireTime { get; set; }
-        public double critChance { get; set; }
-        public double critMultiplier { get; set; }
-        public int weaponLevel { get; set; }
-        public string shotSound { get; set; }
-        public string reloadSound { get; set; }
-        public float reloadTime { get; set; }
-        protected float fireCooldownDelta;      //The remaining delta for shooting
-        protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //bool to check is you're able to fire again
-        protected bool ableToReload;            //bool to check is you're able to reload again
+        public List<string> tags        { get; }
+        public string name              { get; set; }
+        public string description       { get; set; }
+        public int currentClip          { get; set; }
+        public int clipAmount           { get; set; }
+        public int clipMax              { get; set; }
+        public float damage             { get; set; }
+        public float accuracy           { get; set; }
+        public float fireTime           { get; set; }
+        public double critChance        { get; set; }
+        public double critMultiplier    { get; set; }
+        public int weaponLevel          { get; set; }
+        public string shotSound         { get; set; }
+        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string reloadSound       { get; set; }
+        public float reloadTime         { get; set; }
+        protected float fireCooldownDelta;                  //The remaining delta for shooting
+        protected float reloadCooldownDelta;                //The remaining delta for reloading
+        protected bool ableToFire;                          //bool to check is you're able to fire again
+        protected bool ableToReload;                        //bool to check is you're able to reload again
         private string locationBottom;
         private string locationLeft;
         private string locationRight;
@@ -33,27 +34,28 @@ namespace EindopdrachtUWP.Classes.Weapons
         public BulletBill()
         {
             // constructor for the BulletBill class
-            name = "Bullet Bill";
-            description = "The Bullet Bill is a big bullet that goes in a straight line until it hits a wall";
-            currentClip = 0;
-            clipAmount = 0;
-            clipMax = 1;
-            damage = 350;
-            accuracy = 0;
-            fireTime = 2000;
-            critChance = 0.15;
-            critMultiplier = 2;
-            weaponLevel = 1;
-            reloadTime = 5000;
-            shotSound = "Weapon_Sounds\\Bullet_Bill_Shot1.wav";
-            locationBottom = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Bottom.png";
-            locationLeft = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Left.png";
-            locationRight = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Right.png";
-            locationTop = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Top.png";
+            name                = "Bullet Bill";
+            description         = "The Bullet Bill is a big bullet that goes in a straight line until it hits a wall";
+            currentClip         = 0;
+            clipAmount          = 0;
+            clipMax             = 1;
+            damage              = 350;
+            accuracy            = 0;
+            fireTime            = 2000;
+            critChance          = 0.15;
+            critMultiplier      = 2;
+            weaponLevel         = 1;
+            range               = 1000;
+            reloadTime          = 5000;
+            shotSound           = "Weapon_Sounds\\Bullet_Bill_Shot1.wav";
+            locationBottom      = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Bottom.png";
+            locationLeft        = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Left.png";
+            locationRight       = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Right.png";
+            locationTop         = "Assets\\Sprites\\Bullet_Sprites\\Bullet_Bill_Top.png";
 
-            ableToReload = false;
-            ableToFire = true;
-            fireCooldownDelta = 0;
+            ableToReload        = false;
+            ableToFire          = true;
+            fireCooldownDelta   = 0;
             reloadCooldownDelta = 5000;
         }
 
@@ -103,23 +105,23 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(23, 27, fromLeft - 11.5f, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 11.5f, fromTop - height);
+                    projectile = new Projectile(23, 27, fromLeft - 11.5f, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 11.5f, fromTop - height, range);
                     projectile.SetLocation(locationTop);
 
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(23, 27, fromLeft - 11.5f, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 11.5f, fromTop + height);
+                    projectile = new Projectile(23, 27, fromLeft - 11.5f, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset - 11.5f, fromTop + height, range);
                     projectile.SetLocation(locationBottom);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(23, 27, fromLeft, fromTop - 11.5f, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset - 11.5f);
+                    projectile = new Projectile(23, 27, fromLeft, fromTop - 11.5f, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset - 11.5f, range);
                     projectile.SetLocation(locationLeft);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(23, 27, fromLeft, fromTop - 11.5f, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset - 11.5f);
+                    projectile = new Projectile(23, 27, fromLeft, fromTop - 11.5f, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset - 11.5f, range);
                     projectile.SetLocation(locationRight);
                 }
 

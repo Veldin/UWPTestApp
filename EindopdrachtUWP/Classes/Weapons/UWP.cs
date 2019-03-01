@@ -6,50 +6,52 @@ namespace EindopdrachtUWP.Classes.Weapons
 {
     class UWP : Weapon
     {
-        public List<string> tags { get; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int currentClip { get; set; }
-        public int clipAmount { get; set; }
-        public int clipMax { get; set; }
-        public float damage { get; set; }
-        public float accuracy { get; set; }
-        public float fireTime { get; set; }
-        public double critChance { get; set; }
-        public double critMultiplier { get; set; }
-        public int weaponLevel { get; set; }
-        public string shotSound { get; set; }
-        public string reloadSound { get; set; }
-        public float reloadTime { get; set; }
-        protected float fireCooldownDelta;      //The remaining delta for shooting
-        protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //bool to check is you're able to fire again
-        protected bool ableToReload;            //bool to check is you're able to reload again
+        public List<string> tags        { get; }
+        public string name              { get; set; }
+        public string description       { get; set; }
+        public int currentClip          { get; set; }
+        public int clipAmount           { get; set; }
+        public int clipMax              { get; set; }
+        public float damage             { get; set; }
+        public float accuracy           { get; set; }
+        public float fireTime           { get; set; }
+        public double critChance        { get; set; }
+        public double critMultiplier    { get; set; }
+        public int weaponLevel          { get; set; }
+        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string shotSound         { get; set; }
+        public string reloadSound       { get; set; }
+        public float reloadTime         { get; set; }
+        protected float fireCooldownDelta;                  //The remaining delta for shooting
+        protected float reloadCooldownDelta;                //The remaining delta for reloading
+        protected bool ableToFire;                          //bool to check is you're able to fire again
+        protected bool ableToReload;                        //bool to check is you're able to reload again
         private string locationHorizontal;
         private string locationVertical;
 
         public UWP()
         {
             // constructor for the UWP class
-            name = "UWP";
-            description = "The UWP is a strong sniper rifle";
-            currentClip = 0;
-            clipAmount = 0;
-            clipMax = 8;
-            damage = 400;
-            accuracy = 0;
-            fireTime = 1500;
-            critChance = 0.5;
-            critMultiplier = 2;
-            weaponLevel = 1;
-            reloadTime = 2000;
-            shotSound = "Weapon_Sounds\\UWP_Shot1.wav";
-            locationHorizontal = "Assets\\Sprites\\Bullet_Sprites\\UWP_Horizontal.png";
-            locationVertical = "Assets\\Sprites\\Bullet_Sprites\\UWP_Vertical.png";
+            name                = "UWP";
+            description         = "The UWP is a strong sniper rifle";
+            currentClip         = 0;
+            clipAmount          = 0;
+            clipMax             = 8;
+            damage              = 400;
+            accuracy            = 0;
+            fireTime            = 1500;
+            critChance          = 0.5;
+            critMultiplier      = 2;
+            weaponLevel         = 1;
+            range               = 1000;
+            reloadTime          = 2000;
+            shotSound           = "Weapon_Sounds\\UWP_Shot1.wav";
+            locationHorizontal  = "Assets\\Sprites\\Bullet_Sprites\\UWP_Horizontal.png";
+            locationVertical    = "Assets\\Sprites\\Bullet_Sprites\\UWP_Vertical.png";
 
-            ableToReload = false;
-            ableToFire = true;
-            fireCooldownDelta = 0;
+            ableToReload        = false;
+            ableToFire          = true;
+            fireCooldownDelta   = 0;
             reloadCooldownDelta = 2000;
         }
 
@@ -93,22 +95,22 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range);
                     projectile.SetLocation(locationVertical);
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range);
                     projectile.SetLocation(locationVertical);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(locationHorizontal);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(locationHorizontal);
                 }
 

@@ -6,48 +6,50 @@ namespace EindopdrachtUWP.Classes.Weapons
 {
     class Knettergun : Weapon
     {
-        public List<string> tags { get; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int currentClip { get; set; }
-        public int clipAmount { get; set; }
-        public int clipMax { get; set; }
-        public float damage { get; set; }
-        public float accuracy { get; set; }
-        public float fireTime { get; set; }
-        public double critChance { get; set; }
-        public double critMultiplier { get; set; }
-        public int weaponLevel { get; set; }
-        public string shotSound { get; set; }
-        public string reloadSound { get; set; }
-        public float reloadTime { get; set; }
-        protected float fireCooldownDelta;      //The remaining delta for shooting
-        protected float reloadCooldownDelta;    //The remaining delta for reloading
-        protected bool ableToFire;              //bool to check is you're able to fire again
-        protected bool ableToReload;            //bool to check is you're able to reload again
+        public List<string> tags        { get; }
+        public string name              { get; set; }
+        public string description       { get; set; }
+        public int currentClip          { get; set; }
+        public int clipAmount           { get; set; }
+        public int clipMax              { get; set; }
+        public float damage             { get; set; }
+        public float accuracy           { get; set; }
+        public float fireTime           { get; set; }
+        public double critChance        { get; set; }
+        public double critMultiplier    { get; set; }
+        public int weaponLevel          { get; set; }
+        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string shotSound         { get; set; }
+        public string reloadSound       { get; set; }
+        public float reloadTime         { get; set; }
+        protected float fireCooldownDelta;                  //The remaining delta for shooting
+        protected float reloadCooldownDelta;                //The remaining delta for reloading
+        protected bool ableToFire;                          //bool to check is you're able to fire again
+        protected bool ableToReload;                        //bool to check is you're able to reload again
         private string location;
 
         public Knettergun()
         {
             // constructor for the Knettergun class
-            name = "Knettergun";
-            description = "The Knettergun is a strong short ranged weapon, also known as a shotgun";
-            currentClip = 0;
-            clipAmount = 0;
-            clipMax = 6;
-            damage = 400;
-            accuracy = 3.3f;
-            fireTime = 3000;
-            critChance = 0.03;
-            critMultiplier = 1.2;
-            weaponLevel = 1;
-            reloadTime = 4000;
-            shotSound = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
-            location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
+            name                = "Knettergun";
+            description         = "The Knettergun is a strong short ranged weapon, also known as a shotgun";
+            currentClip         = 0;
+            clipAmount          = 0;
+            clipMax             = 6;
+            damage              = 400;
+            accuracy            = 3.3f;
+            fireTime            = 3000;
+            critChance          = 0.03;
+            critMultiplier      = 1.2;
+            weaponLevel         = 1;
+            range               = 1000;
+            reloadTime          = 4000;
+            shotSound           = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
+            location            = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
 
-            ableToReload = false;
-            ableToFire = true;
-            fireCooldownDelta = 0;
+            ableToReload        = false;
+            ableToFire          = true;
+            fireCooldownDelta   = 0;
             reloadCooldownDelta = 4000;
         }
 
@@ -98,7 +100,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop - height);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop - height, range);
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
@@ -113,7 +115,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop + height);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop + height, range);
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
@@ -128,7 +130,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft - height, fromTop + randomPositionOffset);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft - height, fromTop + randomPositionOffset, range);
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
@@ -143,7 +145,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + height, fromTop + randomPositionOffset);
+                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + height, fromTop + randomPositionOffset, range);
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
