@@ -28,6 +28,7 @@ namespace EindopdrachtUWP.Classes.Weapons
         protected bool ableToFire;              //bool to check is you're able to fire again
         protected bool ableToReload;            //bool to check is you're able to reload again
         private string location;
+        private float range;                    // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
 
         public DessertBeagle()
         {
@@ -44,6 +45,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             critMultiplier = 1.5;
             weaponLevel = 1;
             reloadTime = 3000;
+            range = 100;
             shotSound = "Weapon_Sounds\\Dessert_Beagle_Shot1.wav";
             location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
 
@@ -96,22 +98,22 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range);
                     projectile.SetLocation(location);
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range);
                     projectile.SetLocation(location);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(location);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range);
                     projectile.SetLocation(location);
                 }
 

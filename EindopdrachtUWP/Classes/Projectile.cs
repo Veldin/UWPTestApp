@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI;
 
@@ -9,18 +10,27 @@ public class Projectile : GameObject, MovableObject
     private float shotFromLeft;
     private float damage;
     private float movementSpeed;
+    private float distanceTillDestroyed = 1000;         // The distance that the projectile can move before it get's destroyed
 
     public string DeathSound { get; set; }
     public string MoveSound { get; set; }
 
     private List<GameObject> hitGameobject;
 
-    public Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float damage = 0, float shotFromLeft = 0, float shotFromTop = 0)
+    public Projectile(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float damage = 0, float shotFromLeft = 0, float shotFromTop = 0, float distanceTillDestroyed = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
         this.shotFromTop = shotFromTop;
         this.shotFromLeft = shotFromLeft;
         this.damage = damage;
+        this.distanceTillDestroyed = distanceTillDestroyed;
+
+        // If distanceTillDestroyed is still 0 set it on 1000
+        if (this.distanceTillDestroyed == 0)
+        {
+            this.distanceTillDestroyed = 1000;
+            Debug.WriteLine("Error: No distanceTillDestroyed is given so it is set to 1000");
+        }
 
         Target = new Target(shotFromLeft, shotFromTop);
 
@@ -186,41 +196,65 @@ public class Projectile : GameObject, MovableObject
         return false;
     }
 
+    /*********************************************************************************************
+     * In this function the movement of the projectile gets moved, a textbox of the damage is created
+     * and the projectile will be destroyed here.
+     * Delta is the difference in time between the previous tick en this tick (time elapsed).
+     * gameobjecs are all gameobject that exists.
+     ********************************************************************************************/
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
         SetNewTarget(gameObjects);
 
+        // Difference between location of projectile and target (direction) 
         float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
         float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);
 
+        // Distance that needs to be traveled
         float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
 
+        // Precentages that the movement is top or left
         float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
         float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
 
+        // Movement that the projectale is moving this tick
         float moveTopDistance = movementSpeed * (differenceTopPercent / 100);
         float moveLeftDistance = movementSpeed * (differenceLeftPercent / 100);
 
-        if (Target.FromLeft() > FromLeft)
+        // Move the projectile to the left or to the right
+        if (Target.FromLeft() > FromLeft)       // Projectile goes left
         {
             AddFromLeft((moveLeftDistance * delta) / 10000);
             Target.SetFromLeft(Target.FromLeft() + (moveLeftDistance * delta) / 10000);
         }
-        else
+        else                                    // Projectile goes right
         {
             AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
             Target.SetFromLeft(Target.FromLeft() + ((moveLeftDistance * delta) / 10000) * -1);
         }
 
-        if (Target.FromTop() > FromTop)
+        // Decrease the distanceTillDestroyed by the distance that the projectile has moved left or right
+        distanceTillDestroyed -= (moveLeftDistance * delta) / 10000;
+
+        // Move the projectile up or down
+        if (Target.FromTop() > FromTop)          // Projectile goes up
         {
             AddFromTop((moveTopDistance * delta) / 10000);
             Target.SetFromTop(Target.FromTop() + (moveTopDistance * delta) / 10000);
         }
-        else
+        else                                     // Projectile goes down
         {
             AddFromTop(((moveTopDistance * delta) / 10000) * -1);
             Target.SetFromTop(Target.FromTop() + ((moveTopDistance * delta) / 10000) * -1);
+        }
+
+        // Decrease the distanceTillDestroyed by the distance that the projectile has moved up or down
+        distanceTillDestroyed -= (moveTopDistance * delta) / 10000;
+
+        // Check if the distanceTillDestroyed is 0 or smaller. If that's the case tag the projectile as destroyed.
+        if (distanceTillDestroyed <= 0)
+        {
+            AddTag("destroyed");
         }
 
         if (HasTag("returning"))
