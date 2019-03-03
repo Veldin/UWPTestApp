@@ -241,8 +241,7 @@ public class Enemy : GameObject, MovableObject, Targetable
             }
 
             //Get the direction 
-            String newDirection;
-            bool directionChanged = false;
+            string newDirection;
 
             if (moveLeftDistance > moveTopDistance)
             {

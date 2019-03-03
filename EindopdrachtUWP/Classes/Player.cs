@@ -32,7 +32,7 @@ namespace UWPTestApp
         private List<Weapon> weapons;
         public Weapon activeWeapon;
 
-        private String direction;
+        private string direction;
         
         public float deltaForWalkingSound { get; set; }
         public float deltaForHealthLowSound { get; set; }
@@ -247,7 +247,7 @@ namespace UWPTestApp
 
             selectNextWeaponDelay -= delta;
 
-            String locationString = "Assets/Sprites/Player_Sprites/";
+            string locationString = "Assets/Sprites/Player_Sprites/";
 
             if (activeWeapon is ArrivaGun)
             {
@@ -307,7 +307,6 @@ namespace UWPTestApp
 
             float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
             float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
-
 
             float moveTopDistance = walkSpeed * (differenceTopPercent / 100);
             float moveLeftDistance = walkSpeed * (differenceLeftPercent / 100);

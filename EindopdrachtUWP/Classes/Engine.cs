@@ -384,16 +384,12 @@ namespace UWPTestApp
             {
                 MainPage.Current.getControls();
             }
-            else if (!paused && (!IsKeyPressed("Space") || !IsKeyPressed("GamepadView")))
-            {
-                MainPage.Current.removeControls();
-            }
 
             //Key to pauze the screen
             if (IsKeyPressed("Escape") || IsKeyPressed("GamepadMenu"))
             {
                 MainPage.Current.getMenu();
-                paused = true;
+                MainPage.Current.paused = true;
 
                 //Empty all keys that were pressed to cause the game to not register keys that were pressed bevore the pause
                 pressedKeys = new HashSet<String>();
