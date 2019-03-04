@@ -222,7 +222,7 @@ namespace UWPTestApp
             walkSpeed = speed;
         }
 
-        public bool Fire(String direction, List<GameObject> gameObjects)
+        public bool Fire(string direction, List<GameObject> gameObjects)
         {
             this.direction = direction;
             MainPage.Current.UpdateCurrentClip();
@@ -247,54 +247,54 @@ namespace UWPTestApp
 
             selectNextWeaponDelay -= delta;
 
-            string locationString = "Assets/Sprites/Player_Sprites/";
+            string locationstring = "Assets/Sprites/Player_Sprites/";
 
             if (activeWeapon is ArrivaGun)
             {
-                locationString += "Arriva_Gun";
+                locationstring += "Arriva_Gun";
             }
             else if (activeWeapon is Batarang)
             {
-                locationString += "Batarang";
+                locationstring += "Batarang";
             }
             else if (activeWeapon is BulletBill)
             {
-                locationString += "Bullet_Bill";
+                locationstring += "Bullet_Bill";
             }
             else if (activeWeapon is DessertBeagle)
             {
-                locationString += "Dessert_Beagle";
+                locationstring += "Dessert_Beagle";
             }
             else if (activeWeapon is FlameThrower)
             {
-                locationString += "Flamethrower";
+                locationstring += "Flamethrower";
             }
             else if (activeWeapon is HomersBullets)
             {
-                locationString += "Homers_Bullets";
+                locationstring += "Homers_Bullets";
             }
             else if (activeWeapon is KA74)
             {
-                locationString += "KA74";
+                locationstring += "KA74";
             }
             else if (activeWeapon is Knettergun)
             {
-                locationString += "Knetter_Gun";
+                locationstring += "Knetter_Gun";
             }
             else if (activeWeapon is UWP)
             {
-                locationString += "UWP";
+                locationstring += "UWP";
             }
             else if (activeWeapon is VLEKKannon)
             {
-                locationString += "VLEKKannon";
+                locationstring += "VLEKKannon";
             }
 
-            locationString += "_" + direction + ".png";
+            locationstring += "_" + direction + ".png";
 
-            if (locationString != Location)
+            if (locationstring != Location)
             {
-                Location = locationString;
+                Location = locationstring;
                 Sprite = null;
             }
 			
