@@ -14,13 +14,11 @@ namespace EindopdrachtUWP.Classes
         MediaElement soundTrack = new MediaElement();
         
         private bool mutedSFX = false;
-        private bool mutedMusic = false;
 
         public SoundController()
         {
             sounds = new Dictionary<string, Sound>();
             mutedSFX = false;
-            mutedMusic = false;
             soundTrack.Volume = 0.3;
             soundTrack.IsLooping = true;
             LoadSound("Soundtrack\\Soundtrack.wav", soundTrack);
@@ -115,7 +113,6 @@ namespace EindopdrachtUWP.Classes
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    mutedMusic = true;
                     soundTrack.Pause();
                 }
             );
@@ -126,7 +123,6 @@ namespace EindopdrachtUWP.Classes
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
                 {
-                    mutedMusic = false;
                     soundTrack.Play();
                 }
             );

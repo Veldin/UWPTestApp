@@ -8,7 +8,8 @@ public class Enemy : GameObject, MovableObject, Targetable
 {
     private float lifePoints; 
     private float maxLifePoints;
-    private float power; 
+    private float power;
+    private string direction;
 
     private float damage; 
     private bool ableToHit;

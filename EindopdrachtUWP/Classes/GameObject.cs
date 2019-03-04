@@ -26,7 +26,7 @@ namespace UWPTestApp
         protected float fromTop;
 
         //Objects can be facing top, right, bottom and left
-        public string direction { get; set; }
+        private string direction { get; set; }
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.

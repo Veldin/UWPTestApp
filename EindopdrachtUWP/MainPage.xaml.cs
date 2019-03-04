@@ -1,5 +1,4 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
-using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -480,7 +479,7 @@ namespace EindopdrachtUWP
             });
         }
 
-        void KeyDown(CoreWindow sender, KeyEventArgs args)
+        new void KeyDown(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyDown(args.VirtualKey.ToString());
         }

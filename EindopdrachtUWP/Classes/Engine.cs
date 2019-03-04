@@ -5,7 +5,6 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -13,10 +12,8 @@ using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Core;
 
-
 namespace UWPTestApp
 {
-
     class Engine
     {
         //Arraylist with all the gameObjects in the current game
@@ -33,11 +30,6 @@ namespace UWPTestApp
 
         //Holder for the canvasControl
         private CanvasControl canvasControl;
-
-        //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
-        private long delta;     //The lenght in time the last frame lasted (so we can use it to calculate speeds of things without slowing down due to low fps)
-        private long now;       //This is the time of the frame. (To calculate the delta)
-        private long then;      //This is the time of the previous draw frame. (To calculate the delta)
 
         //The max fps we want to run at
         private float fps;  //The set FPS limit
@@ -124,13 +116,7 @@ namespace UWPTestApp
             fps = 60;
             interfal = 1000 / fps; //1 second is 1000 ms.
 
-            //Set then to the current time to know when we started
-            then = Stopwatch.GetTimestamp();
-
             paused = true;
-
- 
-
         }
 
         public Player getPlayer() => player;
@@ -161,25 +147,6 @@ namespace UWPTestApp
         */
         public void Run()
         {
-            /*now = Stopwatch.GetTimestamp();
-            delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
-
-            if (delta > interfal)
-            {
-                then = now; //Remember when this frame was.
-
-                Logic(); //Run the logic of the simulation.
-
-                //Only draw the simulation if there is a known canvas.
-                if (canvasControl != null)
-                {
-                    Draw();
-                }
-            }
-
-            Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
-            Task.Run(() => Run());  //Schedule new Run() task
-            */
             LogicLoop();
             DrawLoopAsync();
         }
@@ -233,7 +200,6 @@ namespace UWPTestApp
             if (!paused && !MainPage.Current.game_over)
             {
                 HandleInGameMenuControls();
-
                 
                 //Move the camera
                 camera.OnTick();
@@ -273,8 +239,7 @@ namespace UWPTestApp
                     {
                         //Handle player input
                         Player player = gameObject as Player;
-
-
+                        
                         if (player is Player)
                         {
                             HandlePlayerWeaponControls(player);
@@ -530,8 +495,6 @@ namespace UWPTestApp
                     soundController.PlaySound(p2.HealthLowSound);
                     p2.deltaForHealthLowSound = 0;
                 }
-
-                p2.deltaForHealthLowSound += delta;
             }
 
             if (gameObjectCheck.HasTag("destroyed"))
@@ -574,7 +537,6 @@ namespace UWPTestApp
             }
         }
 
-
         /* CreateAllResourcesAsync */
         /*
          * To be able to use the sprites on a Canvas the sprites needs to be loaded as CanvasBitmaps.
@@ -609,7 +571,6 @@ namespace UWPTestApp
                         gameObject.Height + gameObject.HeightDrawOffset > 0
                     )
                     {
-
                         if (gameObject.Rectangle == null)
                         {
                             gameObject.Rectangle = new Rect(
@@ -626,8 +587,6 @@ namespace UWPTestApp
                            gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
                            gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
                         }
-
-                        
                         args.DrawingSession.DrawImage(
                         gameObject.Sprite,gameObject.rectangle);
                     }
@@ -654,7 +613,6 @@ namespace UWPTestApp
                         gameObject.Height + gameObject.HeightDrawOffset > 0
                     )
                     {
-
                         if (gameObject.Rectangle == null)
                         {
                             gameObject.Rectangle = new Rect(
@@ -671,8 +629,6 @@ namespace UWPTestApp
                             gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
                             gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
                         }
-
-
                         args.DrawingSession.DrawImage(
                         gameObject.Sprite, gameObject.rectangle);
                     }
@@ -711,7 +667,7 @@ namespace UWPTestApp
                         );
 
                         args.DrawingSession.FillRectangle(
-                            new Windows.Foundation.Rect(
+                            new Rect(
                                 gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
                                 gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
                                 (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
@@ -749,7 +705,7 @@ namespace UWPTestApp
                      */
 
                     args.DrawingSession.FillRectangle(
-                        new Windows.Foundation.Rect(
+                        new Rect(
                             gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
                             gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
                             (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
@@ -758,7 +714,7 @@ namespace UWPTestApp
                     );
 
                     args.DrawingSession.FillRectangle(
-                        new Windows.Foundation.Rect(
+                        new Rect(
                             gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
                             gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
                             (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
@@ -859,16 +815,8 @@ namespace UWPTestApp
             ArrayList loopList; 
             lock (gameObjects) //lock the gameobjects for duplication
             { 
-                //try
-                //{
-                    //Try to duplicate the arraylist.
-                    loopList = new ArrayList(gameObjects);
-                //}
-                //catch
-                //{
-                    //if it failes for any reason skip this frame.
-                //    return;
-                //}
+                //Try to duplicate the arraylist.
+                loopList = new ArrayList(gameObjects);
             }
 
             /* PREPARING THE SPRITES */

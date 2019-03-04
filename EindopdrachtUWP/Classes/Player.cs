@@ -365,8 +365,6 @@ namespace UWPTestApp
             gameObject.CollisionEffect(this);
             return true;
         }
-        
-
 
         float Targetable.FromTop()
         {
