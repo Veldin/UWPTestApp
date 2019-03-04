@@ -21,7 +21,7 @@ namespace UWPTestApp
     {
         //Arraylist with all the gameObjects in the current game
         private List<GameObject> gameObjects;
-        private HashSet<String> pressedKeys;
+        private HashSet<string> pressedKeys;
 
         //Holds the different scenes in the Engine! If a scene is loaded the objects in the scene are put in the gameObjects array!
         private List<Scene> scenes;
@@ -93,7 +93,7 @@ namespace UWPTestApp
             scenes = new List<Scene>();
             world = new World();
 
-            pressedKeys = new HashSet<String>();
+            pressedKeys = new HashSet<string>();
 
             player.AddTag("controllable");  //Make the player controllable
             gameObjects.Add(player); //Add the player to the gameObjects list
@@ -944,7 +944,7 @@ namespace UWPTestApp
          * Add the given key in the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public void KeyDown(String virtualKey)
+        public void KeyDown(string virtualKey)
         {
             pressedKeys.Add(virtualKey);
         }
@@ -955,7 +955,7 @@ namespace UWPTestApp
          * Remove the given key in the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public void KeyUp(String virtualKey)
+        public void KeyUp(string virtualKey)
         {
             pressedKeys.Remove(virtualKey);
         }
@@ -965,7 +965,7 @@ namespace UWPTestApp
          * Returns wheater the given key exists within the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public bool IsKeyPressed(String virtualKey)
+        public bool IsKeyPressed(string virtualKey)
         {
             return pressedKeys.Contains(virtualKey);
         }

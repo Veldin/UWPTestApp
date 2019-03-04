@@ -6,9 +6,9 @@ namespace EindopdrachtUWP.Classes
 {
     public interface Weapon
     {
-        List<String> tags {get;}
-        String name { get; set; }
-        String description { get; set; }
+        List<string> tags {get;}
+        string name { get; set; }
+        string description { get; set; }
         int currentClip { get; set; }
         int clipAmount { get; set; }
         int clipMax { get; set; }
@@ -18,8 +18,8 @@ namespace EindopdrachtUWP.Classes
         double critChance { get; set; }
         double critMultiplier { get; set; }
         int weaponLevel { get; set; }
-        String shotSound { get; set; }
-        String reloadSound { get; set; }
+        string shotSound { get; set; }
+        string reloadSound { get; set; }
         float reloadTime { get; set; }
         float range { get; set; }                    // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
 
@@ -32,7 +32,7 @@ namespace EindopdrachtUWP.Classes
          * The list gameObjects is where the projectile gets added to if the fire happens.
          * The direction is used to know what sprite to load.
         */
-        bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction);
+        bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, string direction);
 
         /* Reload */
         /*

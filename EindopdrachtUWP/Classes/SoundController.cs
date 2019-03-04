@@ -75,7 +75,7 @@ namespace EindopdrachtUWP.Classes
         }
 
         // Must be in another method (because of async)
-        private async void LoadSound(String filename, MediaElement sound)
+        private async void LoadSound(string filename, MediaElement sound)
         {
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
             Windows.Storage.StorageFile file = await folder.GetFileAsync("Sounds\\" + filename);

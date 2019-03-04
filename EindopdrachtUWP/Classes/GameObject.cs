@@ -26,7 +26,7 @@ namespace UWPTestApp
         protected float fromTop;
 
         //Objects can be facing top, right, bottom and left
-        public String direction { get; set; }
+        public string direction { get; set; }
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
@@ -45,7 +45,7 @@ namespace UWPTestApp
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         protected CanvasBitmap sprite;
 
-        protected String location;
+        protected string location;
 
         protected bool started;
 
@@ -99,7 +99,7 @@ namespace UWPTestApp
             set { sprite = value; }
         }
 
-        public String Location
+        public string Location
         {
             get { return location; }
             set { location = value; }
