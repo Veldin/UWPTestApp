@@ -94,15 +94,15 @@ public class Enemy : GameObject, MovableObject, Targetable
         return movementSpeed;
     }
 
-    public override bool CollitionEffect(GameObject gameObject) {
+    public override bool CollisionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid"))
         {
-            //We had this a recursive function first, that fired until there was no collition.
+            //We had this a recursive function first, that fired until there was no collision.
             //But this made them warp further due to them pushing eachother 
-            int maxCollitions = 9000;
-            while (IsColliding(gameObject) && maxCollitions > 0)
+            int maxCollisions = 9000;
+            while (IsColliding(gameObject) && maxCollisions > 0)
             {
-                //Check collition from the left or right.
+                //Check collision from the left or right.
                 if ((gameObject.FromLeft + gameObject.Width) >= (FromLeft + Width))
                 {
                     AddFromLeft(-1);
@@ -113,7 +113,7 @@ public class Enemy : GameObject, MovableObject, Targetable
                     AddFromLeft(1);
                 }
 
-                //Check collition from top or bottom.
+                //Check collision from top or bottom.
                 if ((gameObject.FromTop + gameObject.Height) >= (FromTop + Height))
                 {
                     AddFromTop(-1);
@@ -124,7 +124,7 @@ public class Enemy : GameObject, MovableObject, Targetable
                     AddFromTop(1);
                 }
 
-                maxCollitions--;
+                maxCollisions--;
             }
         }
 

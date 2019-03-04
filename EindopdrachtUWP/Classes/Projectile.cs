@@ -41,7 +41,7 @@ public class Projectile : GameObject, MovableObject
         movementSpeed = 700;
     }
 
-    public override bool CollitionEffect(GameObject gameObject)
+    public override bool CollisionEffect(GameObject gameObject)
     {
         Targetable targetable = gameObject as Targetable;
         if (targetable is Targetable)

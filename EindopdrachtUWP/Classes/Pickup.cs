@@ -363,11 +363,11 @@ namespace EindopdrachtUWP.Classes
             return true;
         }
 
-        /* CollitionEffect */
+        /* CollisionEffect */
         /*
          * If a player colides with an pickup the pickup should be picked up
         */
-        public override bool CollitionEffect(GameObject gameObject)
+        public override bool CollisionEffect(GameObject gameObject)
         {
             //If the pickup is taged to destroy do nothing
             if (HasTag("destroyed")) return true;

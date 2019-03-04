@@ -286,11 +286,11 @@ namespace UWPTestApp
         }
 
 
-        /* CollitionEffect */
+        /* CollisionEffect */
         /*
          * Effect that happens when this GameObject collides with the given object.
          * The argument is the given gameObject
         */
-        public abstract bool CollitionEffect(GameObject gameObject);
+        public abstract bool CollisionEffect(GameObject gameObject);
     }
 }

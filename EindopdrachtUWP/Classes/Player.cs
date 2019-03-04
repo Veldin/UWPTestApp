@@ -335,11 +335,11 @@ namespace UWPTestApp
             return true;
         }
 
-        public override bool CollitionEffect(GameObject gameObject)
+        public override bool CollisionEffect(GameObject gameObject)
         {
             if (gameObject.HasTag("solid"))
             {
-                //Check collition from the left or right.
+                //Check collision from the left or right.
                 if ((gameObject.FromLeft + gameObject.Width) > (FromLeft + Width))
                 {
                     AddFromLeft(-1);
@@ -349,7 +349,7 @@ namespace UWPTestApp
                     AddFromLeft(1);
                 }
 
-                //Check collition from top or bottom.
+                //Check collision from top or bottom.
                 if ((gameObject.FromTop + gameObject.Height) > (FromTop + Height))
                 {
                     AddFromTop(-1);
@@ -360,9 +360,9 @@ namespace UWPTestApp
                 }
             }
 
-            //If a player is coliding with an object their collitionEffect is triggered instantly and not after this resolves.
-            //This is so the collition of the enemy still goes even thought they are not colliding anymore.
-            gameObject.CollitionEffect(this);
+            //If a player is coliding with an object their CollisionEffect is triggered instantly and not after this resolves.
+            //This is so the collision of the enemy still goes even thought they are not colliding anymore.
+            gameObject.CollisionEffect(this);
             return true;
         }
         

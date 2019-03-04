@@ -219,7 +219,7 @@ namespace UWPTestApp
         /*
          * Logic function is called every frame. 
          * This method is used to handle how GameObjects should interect in the game.
-         * This includes Movement and Collition Detection.
+         * This includes Movement and Collision Detection.
          * Also the keybord controls are handled here.
         */
         private void Logic()
@@ -246,66 +246,72 @@ namespace UWPTestApp
                  * The gameObjects near the target have to do the full logic cycle.
                  */
 
-                IEnumerable<GameObject> nearObjects = from element in gameObjects 
-                                                where (Math.Abs(player.FromLeft - element.FromLeft) < 3001) &&
-                                                (Math.Abs(player.FromTop - element.FromTop) < 3001)
-                                                select element;
-
-                IEnumerable<GameObject> farObjects = from element in gameObjects
-                                                      where (Math.Abs(player.FromLeft - element.FromLeft) > 3000) ||
-                                                      (Math.Abs(player.FromTop - element.FromTop) > 3000)
-                                                      select element;
+                IEnumerable<GameObject> farObjects;
+                IEnumerable<GameObject> nearObjects;
 
                 if (MainPage.Current.paused)
                 {
                     farObjects = gameObjects;
+                    nearObjects = null;
+                }
+                else
+                {
+                    nearObjects = from element in gameObjects
+                                                          where (Math.Abs(player.FromLeft - element.FromLeft) < 3001) &&
+                                                          (Math.Abs(player.FromTop - element.FromTop) < 3001)
+                                                          select element;
+
+                    farObjects = from element in gameObjects
+                                 where (Math.Abs(player.FromLeft - element.FromLeft) > 3000) ||
+                                 (Math.Abs(player.FromTop - element.FromTop) > 3000)
+                                 select element;
+
+                    //Check if there are objects in the List to apply logic on
+                    //Apply the logic to all the bameObjects CURRENTLY in the List.
+                    //The new List makes a copy so the original arraylist can be modivied
+                    foreach (GameObject gameObject in new List<GameObject>(nearObjects))
+                    {
+                        //Handle player input
+                        Player player = gameObject as Player;
+
+
+                        if (player is Player)
+                        {
+                            HandlePlayerWeaponControls(player);
+                            HandlePlayerMovementControls(player);
+
+                            if (player.IsWalking)
+                            {
+                                if (player.deltaForWalkingSound > 1300)
+                                {
+                                    soundController.PlaySound(player.MoveSound);
+                                    player.deltaForWalkingSound = 0;
+                                }
+                                player.deltaForWalkingSound += 200;
+                            }
+                        }
+
+                        //gameObject.OnTick(gameObjects, delta);
+                        gameObject.OnTick(gameObjects);
+
+                        //For every object in this loop, loop trough all objects to check if they are coliding
+                        foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                        {
+                            //If the two objects are colliding
+                            if (gameObject.IsColliding(gameObjectCheck))
+                            {
+                                //Do the collision effect
+                                gameObject.CollisionEffect(gameObjectCheck);
+                                gameObjectCheck.CollisionEffect(gameObject);
+                            }
+                        }
+                    }
                 }
 
                 //Activate the query
                 foreach (GameObject GameObject in farObjects)
                 {
                     GameObject.SkipTick();
-                }
-
-                //Check if there are objects in the List to apply logic on
-                //Apply the logic to all the bameObjects CURRENTLY in the List.
-                //The new List makes a copy so the original arraylist can be modivied
-                foreach (GameObject gameObject in new List<GameObject>(nearObjects))
-                {
-                    //Handle player input
-                    Player player = gameObject as Player;
-
-                    
-                    if (player is Player)
-                    {
-                        HandlePlayerWeaponControls(player);
-                        HandlePlayerMovementControls(player);
-
-                        if (player.IsWalking)
-                        {
-                            if (player.deltaForWalkingSound > 1300)
-                            {
-                                soundController.PlaySound(player.MoveSound);
-                                player.deltaForWalkingSound = 0;
-                            }
-                            player.deltaForWalkingSound += 200;
-                        }
-                    }
-                    
-                    //gameObject.OnTick(gameObjects, delta);
-                    gameObject.OnTick(gameObjects);
-
-                    //For every object in this loop, loop trough all objects to check if they are coliding
-                    foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
-                    {
-                        //If the two objects are colliding
-                        if (gameObject.IsColliding(gameObjectCheck))
-                        {
-                            //Do the collition effect
-                            gameObject.CollitionEffect(gameObjectCheck);
-                            gameObjectCheck.CollitionEffect(gameObject);
-                        }
-                    }
                 }
 
                 //Handle the tags for each gameobject if there are any tags to handle

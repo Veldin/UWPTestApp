@@ -94,7 +94,7 @@ public class TextBox : GameObject, MovableObject
         }
     }
 
-    public override bool CollitionEffect(GameObject gameObject)
+    public override bool CollisionEffect(GameObject gameObject)
     {
         return true;
     }

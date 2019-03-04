@@ -20,7 +20,7 @@ namespace UWPTestApp
             return true;
         }
 
-        public override bool CollitionEffect(GameObject gameObject)
+        public override bool CollisionEffect(GameObject gameObject)
         {
             return true;
         }
