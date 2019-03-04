@@ -119,7 +119,14 @@ namespace EindopdrachtUWP.Classes.Weapons
                     projectile.AddTag("crit");
                 }
 
+
+                // Increases the damage of the projectile over time
+                projectile.AddTag("amplified");
+
+                // Increases the speed of the projectile over time
                 projectile.AddTag("speeding");
+
+                // Increases the movementspeed to 1200
                 projectile.setMovementSpeed(1200);
 
                 gameObjects.Add(projectile);

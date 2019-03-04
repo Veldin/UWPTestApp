@@ -53,7 +53,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             fireCooldownDelta   = 0;
             reloadCooldownDelta = 2000;
 
-            AddTag("homing");
+
         }
 
         public void AddTag(string tag)
@@ -126,7 +126,11 @@ namespace EindopdrachtUWP.Classes.Weapons
                     projectile.AddTag("crit");
                 }
 
+                // Make the projectile homing and speeding
                 projectile.AddTag("homing");
+                projectile.AddTag("speeding");
+
+                // Add the projectile to the gameObjects list
                 gameObjects.Add(projectile);
 
                 currentClip--;
