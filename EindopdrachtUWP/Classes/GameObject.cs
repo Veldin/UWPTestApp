@@ -229,6 +229,15 @@ namespace UWPTestApp
             return result;
         }
 
+        //Used to skip a tick, setting the 'then' to 'now' makes the object skip all the time that is passed between the two times.
+        public bool SkipTick()
+        {
+            now = Stopwatch.GetTimestamp();
+            then = now;
+
+            return true;
+        }
+
         /* distanceBetween */
         /*
          * returns the distance in units of the given gameobject to this gameobject.

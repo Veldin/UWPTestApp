@@ -128,6 +128,9 @@ namespace UWPTestApp
             then = Stopwatch.GetTimestamp();
 
             paused = true;
+
+ 
+
         }
 
         public Player getPlayer() => player;
@@ -231,10 +234,38 @@ namespace UWPTestApp
             {
                 HandleInGameMenuControls();
 
+                
+                //Move the camera
+                camera.OnTick();
+
+                /* 
+                 * 
+                 * Split the gameObjects in two lists, a list of gameObjects near the player and far away from the player
+                 * 
+                 * The gameObjects that are to far don't have to do anything exept update the timer. This is to save CPU power.
+                 * The gameObjects near the target have to do the full logic cycle.
+                 */
+
+                IEnumerable<GameObject> nearObjects = from element in gameObjects 
+                                                where (Math.Abs(player.FromLeft - element.FromLeft) < 3001) &&
+                                                (Math.Abs(player.FromTop - element.FromTop) < 3001)
+                                                select element;
+
+                IEnumerable<GameObject> farObjects = from element in gameObjects
+                                                      where (Math.Abs(player.FromLeft - element.FromLeft) > 3000) ||
+                                                      (Math.Abs(player.FromTop - element.FromTop) > 3000)
+                                                      select element;
+
+                //Activate the query
+                foreach (GameObject GameObject in farObjects)
+                {
+                    GameObject.SkipTick();
+                }
+
                 //Check if there are objects in the List to apply logic on
                 //Apply the logic to all the bameObjects CURRENTLY in the List.
                 //The new List makes a copy so the original arraylist can be modivied
-                foreach (GameObject gameObject in new List<GameObject>(gameObjects))
+                foreach (GameObject gameObject in new List<GameObject>(nearObjects))
                 {
                     //Handle player input
                     Player player = gameObject as Player;
@@ -262,9 +293,6 @@ namespace UWPTestApp
 
                     //gameObject.OnTick(gameObjects, delta);
                     gameObject.OnTick(gameObjects);
-
-                    //Move the camera
-                    camera.OnTick();
 
                     //For every object in this loop, loop trough all objects to check if they are coliding
                     foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
