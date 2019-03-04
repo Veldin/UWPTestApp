@@ -69,7 +69,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             return damage;
         }
 
-        public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, string direction)
+        public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
         {
             if (ableToReload && currentClip == 0)
             {

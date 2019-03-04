@@ -81,7 +81,7 @@ namespace EindopdrachtUWP
             {
                 game_Over_Screen_Black.Opacity = 0.75;
                 game_Over_Screen.Opacity = 1;
-                endScoreText.Text = currentScore.Tostring();
+                endScoreText.Text = currentScore.ToString();
                 viewbox.Opacity = 0;
                 game_over = true;
             }
@@ -271,13 +271,13 @@ namespace EindopdrachtUWP
                 
                 activeweapon.Text = engine.getPlayer().activeWeapon.name;
                 descripton.Text = engine.getPlayer().activeWeapon.description;
-                damage.Text = engine.getPlayer().activeWeapon.damage.Tostring();
-                clipSize.Text = engine.getPlayer().activeWeapon.clipMax.Tostring();
-                clipAmount.Text = engine.getPlayer().activeWeapon.clipAmount.Tostring();
+                damage.Text = engine.getPlayer().activeWeapon.damage.ToString();
+                clipSize.Text = engine.getPlayer().activeWeapon.clipMax.ToString();
+                clipAmount.Text = engine.getPlayer().activeWeapon.clipAmount.ToString();
                 critPercentage = engine.getPlayer().activeWeapon.critChance * 100;
-                critChance.Text = critPercentage.Tostring() + "%";
+                critChance.Text = critPercentage.ToString() + "%";
                 critMultiPercentage = engine.getPlayer().activeWeapon.critMultiplier * 100;
-                critMulti.Text = critMultiPercentage.Tostring() + "%";
+                critMulti.Text = critMultiPercentage.ToString() + "%";
             });
         }
 
@@ -288,8 +288,8 @@ namespace EindopdrachtUWP
             () =>
             {
                 currentScore += engine.getPlayer().GetLevel();
-                highscore.Text = currentScore.Tostring();
-                currentKills.Text = engine.getPlayer().Kills.Tostring();
+                highscore.Text = currentScore.ToString();
+                currentKills.Text = engine.getPlayer().Kills.ToString();
             });
         }
 
@@ -298,7 +298,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                CurrentKillstreak.Text = killstreak.Tostring();
+                CurrentKillstreak.Text = killstreak.ToString();
             });
         }
 
@@ -308,7 +308,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                currentLevel.Text = engine.getPlayer().GetLevel().Tostring();
+                currentLevel.Text = engine.getPlayer().GetLevel().ToString();
             });
         }
 
@@ -318,7 +318,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-               health.Text = engine.getPlayer().getHealth().Tostring() + "/" + engine.getPlayer().getMaxHealth().Tostring();
+               health.Text = engine.getPlayer().getHealth().ToString() + "/" + engine.getPlayer().getMaxHealth().ToString();
             });
         }
 
@@ -328,7 +328,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                armour.Text = engine.getPlayer().getArmour().Tostring() + "/" + engine.getPlayer().getMaxArmour().Tostring();
+                armour.Text = engine.getPlayer().getArmour().ToString() + "/" + engine.getPlayer().getMaxArmour().ToString();
             });
         }
 
@@ -338,8 +338,8 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                currentClip.Text = engine.getPlayer().activeWeapon.currentClip.Tostring() + "/" + engine.getPlayer().activeWeapon.clipMax.Tostring();
-                currentClipRight.Text = engine.getPlayer().activeWeapon.currentClip.Tostring() + "/" + engine.getPlayer().activeWeapon.clipMax.Tostring();
+                currentClip.Text = engine.getPlayer().activeWeapon.currentClip.ToString() + "/" + engine.getPlayer().activeWeapon.clipMax.ToString();
+                currentClipRight.Text = engine.getPlayer().activeWeapon.currentClip.ToString() + "/" + engine.getPlayer().activeWeapon.clipMax.ToString();
             });
         }
 
@@ -482,12 +482,12 @@ namespace EindopdrachtUWP
 
         void KeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            engine.KeyDown(args.VirtualKey.Tostring());
+            engine.KeyDown(args.VirtualKey.ToString());
         }
 
         void KeyUP(CoreWindow sender, KeyEventArgs args)
         {
-            engine.KeyUp(args.VirtualKey.Tostring());
+            engine.KeyUp(args.VirtualKey.ToString());
         }
 
         private void Grid_OnLoaded(object sender, RoutedEventArgs e)

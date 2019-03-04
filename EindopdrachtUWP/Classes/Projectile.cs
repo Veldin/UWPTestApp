@@ -274,7 +274,7 @@ public class Projectile : GameObject, MovableObject
         //If a projectile has the tag text it has been ordered to drop a textbox. This means the projectile hit a target.
         if (HasTag("text"))
         {
-            TextBox textBox = new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, Math.Round(damage, 2).Tostring(), 1000);
+            TextBox textBox = new TextBox(50, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, Math.Round(damage, 2).ToString(), 1000);
 
             if (HasTag("crit"))
             {
