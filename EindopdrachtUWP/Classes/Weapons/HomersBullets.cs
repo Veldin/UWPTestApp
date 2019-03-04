@@ -42,7 +42,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             critChance          = 0.2;
             critMultiplier      = 1.5;
             weaponLevel         = 1;
-            range               = 1000;
+            range               = 3000000;
             reloadTime          = 2000;
             tags                = new List<string>();
             shotSound           = "Weapon_Sounds\\Homers_Bullets_Shot1.wav";

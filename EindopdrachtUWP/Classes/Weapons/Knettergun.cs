@@ -42,7 +42,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             critChance          = 0.03;
             critMultiplier      = 1.2;
             weaponLevel         = 1;
-            range               = 1000;
+            range               = 125;
             reloadTime          = 4000;
             shotSound           = "Weapon_Sounds\\Knetter_Gun_Shot1.wav";
             location            = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
@@ -93,6 +93,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             // fire one bullet
             if (ableToFire && currentClip > 0)
             {
+               
 
                 if (direction == "Top")
                 {
@@ -100,12 +101,16 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop - height, range);
+                        Projectile projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop - height, range + random.Next(50));
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
                             projectile.AddTag("crit");
                         }
+
+                        // Randomizes the movementspeed of the shot Projectile 
+                        projectile.setMovementSpeed(650 + random.Next(100));
+
                         gameObjects.Add(projectile);
                     }
                 }
@@ -115,12 +120,16 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop + height, range);
+                        Projectile projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + randomPositionOffset, fromTop + height, range + random.Next(50));
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
                             projectile.AddTag("crit");
                         }
+
+                        // Randomizes the movementspeed of the shot Projectile 
+                        projectile.setMovementSpeed(650 + random.Next(100));
+
                         gameObjects.Add(projectile);
                     }
                 }
@@ -130,12 +139,16 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft - height, fromTop + randomPositionOffset, range);
+                        Projectile projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft - height, fromTop + randomPositionOffset, range + random.Next(50));
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
                             projectile.AddTag("crit");
                         }
+
+                        // Randomizes the movementspeed of the shot Projectile 
+                        projectile.setMovementSpeed(650 + random.Next(100));
+
                         gameObjects.Add(projectile);
                     }
                 }
@@ -145,15 +158,21 @@ namespace EindopdrachtUWP.Classes.Weapons
                     {
                         //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
                         float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
-                        var projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + height, fromTop + randomPositionOffset, range);
+                        Projectile projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage/12, fromLeft + height, fromTop + randomPositionOffset, range + random.Next(50));
                         projectile.SetLocation(location);
                         if (projectileDamage > damage)
                         {
                             projectile.AddTag("crit");
                         }
+
+                        // Randomizes the movementspeed of the shot Projectile 
+                        projectile.setMovementSpeed(650 + random.Next(100));
+
                         gameObjects.Add(projectile);
                     }
                 }
+
+                
 
                 currentClip--;
                 ableToFire = false;
