@@ -480,26 +480,6 @@ namespace EindopdrachtUWP
             });
         }
 
-        //public void enableSecondSpawner()
-        //{
-        //    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-        //       () =>
-        //       {
-        //           secondSpawner.Opacity = 1;
-
-        //       });
-        //}
-
-        //public void enableThirdSpawner()
-        //{
-        //    Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-        //       () =>
-        //       {
-        //           thirdSpawner.Opacity = 1;
-
-        //       });
-        //}
-
         void KeyDown(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyDown(args.VirtualKey.ToString());

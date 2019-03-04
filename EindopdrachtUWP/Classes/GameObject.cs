@@ -216,13 +216,14 @@ namespace UWPTestApp
         public bool OnTick(List<GameObject> gameObjects)
         {
             now = Stopwatch.GetTimestamp();
+            
             if (then == null)
             {
                 then = Stopwatch.GetTimestamp();
             }
             delta = (now - (long)then) / 1000 / 2;
 
-            bool result = OnTick(gameObjects, (float)delta);
+            bool result = OnTick(gameObjects, delta);
 
             then = now;
 
