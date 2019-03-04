@@ -256,6 +256,11 @@ namespace UWPTestApp
                                                       (Math.Abs(player.FromTop - element.FromTop) > 3000)
                                                       select element;
 
+                if (MainPage.Current.paused)
+                {
+                    farObjects = gameObjects;
+                }
+
                 //Activate the query
                 foreach (GameObject GameObject in farObjects)
                 {
@@ -276,7 +281,6 @@ namespace UWPTestApp
                         HandlePlayerWeaponControls(player);
                         HandlePlayerMovementControls(player);
 
-                        
                         if (player.IsWalking)
                         {
                             if (player.deltaForWalkingSound > 1300)
@@ -286,11 +290,8 @@ namespace UWPTestApp
                             }
                             player.deltaForWalkingSound += 200;
                         }
-                        
-                        
                     }
-
-
+                    
                     //gameObject.OnTick(gameObjects, delta);
                     gameObject.OnTick(gameObjects);
 
@@ -313,12 +314,7 @@ namespace UWPTestApp
                     handleTaggsGameObject(gameObjectCheck);
                 }
             }
-
         }
-
-      
-
-
 
         /* HandlePlayerWeaponControls */
         /* 
@@ -408,22 +404,15 @@ namespace UWPTestApp
         */
         private void HandleInGameMenuControls()
         {
-            if (!paused && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
-            {
-                MainPage.Current.getControls();
-            }
-
             //Key to pauze the screen
             if (IsKeyPressed("Escape") || IsKeyPressed("GamepadMenu"))
             {
                 MainPage.Current.getMenu();
-                MainPage.Current.paused = true;
 
                 //Empty all keys that were pressed to cause the game to not register keys that were pressed bevore the pause
-                pressedKeys = new HashSet<String>();
+                pressedKeys = new HashSet<string>();
 
                 Task.Delay(300).Wait();
-
             }
         }
 
@@ -433,7 +422,6 @@ namespace UWPTestApp
         */
         private void HandleMenuControls()
         {
-
             if (MainPage.Current.menuScreen && (IsKeyPressed("A") || IsKeyPressed("GamepadA")))
             {
                 MainPage.Current.removeMenu();
@@ -568,16 +556,6 @@ namespace UWPTestApp
                                     p4.IncreaseLevel();
                                     soundController.PlaySound("Generic_Sounds\\levelup.wav");
                                     MainPage.Current.UpdateLevel();
-                                    //if (p4.GetLevel() == 5)
-                                    //{
-                                    //    gameObjects.Add(new Spawner(10, 10, 110, 213, 0, 0, 0, 0, 5000, 25000));
-                                    //    MainPage.Current.enableSecondSpawner();
-                                    //}
-                                    //if (p4.GetLevel() == 10)
-                                    //{
-                                    //    gameObjects.Add(new Spawner(10, 10, 770, 400, 0, 0, 0, 0, 5000, 25000));
-                                    //    MainPage.Current.enableThirdSpawner();
-                                    //}
                                     break;
                                 }
                                 break;

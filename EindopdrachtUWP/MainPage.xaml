@@ -20,14 +20,6 @@
 
                 <!--Background and drawable Canvas-->
                 <Border Background="Gray"></Border>
-                <!--<Image x:Name="bg" Source="Assets\Sprites\Maps\Map1.png" Width="800" Height="600" HorizontalAlignment="Center"/>-->
-                <!--<Image x:Name="secondSpawner" Source="Assets\Sprites\Maps\Spawner.png" Width="56" Height="23" HorizontalAlignment="Left" Margin="135, -160, 0, 0" Opacity="0">
-                    <Image.RenderTransform>
-                        <RotateTransform Angle="90" />
-                    </Image.RenderTransform>
-                </Image>-->
-                <!--<Image x:Name="thirdSpawner" Source="Assets\Sprites\Maps\Spawner_left.png" Width="56" Height="23" HorizontalAlignment="Left" Margin="730, 210, 0, 0" Opacity="0">
-                </Image>-->
                 <Border Height="600" Width="60" Background="Gray" Margin="-60,0,0,0" HorizontalAlignment="Left" CornerRadius="5, 0, 0, 5"></Border>
                 <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center"/>
 
