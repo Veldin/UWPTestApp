@@ -580,13 +580,14 @@ namespace UWPTestApp
          * To be able to use the sprites on a Canvas the sprites needs to be loaded as CanvasBitmaps.
          * The first argument is the sender, the second is the list of gameObjects.
         */
-        private void CreateAllResourcesAsync(CanvasControl sender, ArrayList loopList)
+        private async void CreateAllResourcesAsync(CanvasControl sender, ArrayList loopList)
         {
             foreach (GameObject gameObject in loopList)
             {
                 if (gameObject != null && gameObject.Sprite == null)
                 {
-                    gameObject.CreateResourcesAsync(sender);
+                    // Get the sprite form the Texture class
+                    gameObject.Sprite = await Texture.GetTextureAsync(sender, gameObject.Location);       
                 }
             }
         }

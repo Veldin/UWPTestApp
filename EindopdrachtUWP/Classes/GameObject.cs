@@ -74,25 +74,6 @@ namespace UWPTestApp
             started = false;
         }
 
-        /* CreateResourcesAsync */
-        /*
-         * To be able to use the sprites on a Canvas the sprites needs to be loaded as CanvasBitmaps.
-         * The first argument is the CanvasControl.
-        */
-        public async Task CreateResourcesAsync(CanvasControl sender)
-        {
-            try
-            {
-                //Load the recource.
-                sprite = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///" + location));
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(location);
-                Debug.WriteLine(e.StackTrace);
-            }
-        }
-
         public CanvasBitmap Sprite
         {
             get { return sprite; }
