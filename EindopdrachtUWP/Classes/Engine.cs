@@ -28,6 +28,9 @@ namespace UWPTestApp
         private Scene scene;
 
         private World world;
+        private int blockFromLeft;
+        private int blockFromTop;
+
 
         private Camera camera;
 
@@ -92,16 +95,51 @@ namespace UWPTestApp
 
             scenes = new List<Scene>();
             world = new World();
+            blockFromLeft = 0;
+            blockFromTop = 0;
 
             pressedKeys = new HashSet<string>();
 
             player.AddTag("controllable");  //Make the player controllable
             gameObjects.Add(player); //Add the player to the gameObjects list
 
+            loadBlock(blockFromLeft, blockFromTop);
+
+            //Load Left
+            loadBlock(blockFromLeft - 1, blockFromTop);
+            loadBlock(blockFromLeft - 2, blockFromTop);
+            loadBlock(blockFromLeft - 3, blockFromTop);
+
+
+            //Load Right
+            loadBlock(blockFromLeft + 1, blockFromTop);
+            loadBlock(blockFromLeft + 2, blockFromTop);
+            loadBlock(blockFromLeft + 3, blockFromTop);
+
+
+            //Load Up
+            loadBlock(blockFromLeft, blockFromTop + 1);
+            loadBlock(blockFromLeft, blockFromTop + 2);
+            loadBlock(blockFromLeft, blockFromTop + 3);
+
+
+            //Load Down
+            loadBlock(blockFromLeft, blockFromTop - 1);
+            loadBlock(blockFromLeft, blockFromTop - 2);
+            loadBlock(blockFromLeft, blockFromTop - 3);
+
+
+            //Load sides
+            loadBlock(blockFromLeft - 1, blockFromTop + 1);
+            loadBlock(blockFromLeft + 1, blockFromTop - 1);
+            loadBlock(blockFromLeft - 1, blockFromTop - 1);
+            loadBlock(blockFromLeft + 1, blockFromTop + 1);
+
             //Load in the world
-            gameObjects.AddRange(world.StartingBlock.LoadScene());
+            //gameObjects.AddRange(world.StartingBlock.LoadScene());
 
             /* Manualy load some of the worldpieces */
+            /*
             gameObjects.AddRange(world.StartingBlock.Up.LoadScene());
             gameObjects.AddRange(world.StartingBlock.Up.Up.LoadScene());
 
@@ -119,6 +157,7 @@ namespace UWPTestApp
 
             gameObjects.AddRange(world.StartingBlock.Right.Down.LoadScene());
             gameObjects.AddRange(world.StartingBlock.Left.Down.LoadScene());
+            */
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -214,6 +253,57 @@ namespace UWPTestApp
             });
         }
 
+        public void loadBlock(int blockFromLeft, int blockFromTop)
+        {
+            WorldBlock needle = world.StartingBlock;
+
+            //If the from Left is more then 0 move the needle right and reduce the blocks from left
+            //do this until the needle is at the right place
+            if (blockFromLeft > 0)
+            {
+                while (blockFromLeft > 0)
+                {
+                    needle = needle.Right;
+                    blockFromLeft--;
+                }
+            }
+
+            //If the from Left is less then 0 move the needle left and increase the blocks from left
+            //do this until the needle is at the right place
+            if (blockFromLeft < 0)
+            {
+                while (blockFromLeft < 0)
+                {
+                    needle = needle.Left;
+                    blockFromLeft++;
+                }
+            }
+
+
+            if (blockFromTop > 0)
+            {
+                while (blockFromTop > 0)
+                {
+                    needle = needle.Down;
+                    blockFromTop--;
+                }
+            }
+
+            if (blockFromTop < 0)
+            {
+                while (blockFromTop < 0)
+                {
+                    needle = needle.Up;
+                    blockFromTop++;
+                }
+            }
+
+            //Now the needle is set where the player is. Load al adjecent rooms too
+            if (!needle.IsLoaded())
+            {
+                gameObjects.AddRange(needle.LoadScene());
+            }
+        }
 
         /* Logic */
         /*
@@ -256,14 +346,61 @@ namespace UWPTestApp
                 }
                 else
                 {
+
+                    if (
+                        blockFromLeft != (int)Math.Floor(player.FromLeft / world.StartingBlock.Width) 
+                        ||
+                        blockFromTop != (int)Math.Floor(player.FromTop / world.StartingBlock.Height)
+                    )
+                    {
+                        loadBlock(blockFromLeft, blockFromTop);
+
+                        //Load Left
+                        loadBlock(blockFromLeft - 1, blockFromTop);
+                        loadBlock(blockFromLeft - 2, blockFromTop);
+                        loadBlock(blockFromLeft - 3, blockFromTop);
+
+
+                        //Load Right
+                        loadBlock(blockFromLeft + 1, blockFromTop);
+                        loadBlock(blockFromLeft + 2, blockFromTop);
+                        loadBlock(blockFromLeft + 3, blockFromTop);
+
+
+                        //Load Up
+                        loadBlock(blockFromLeft, blockFromTop + 1);
+                        loadBlock(blockFromLeft, blockFromTop + 2);
+                        loadBlock(blockFromLeft, blockFromTop + 3);
+
+
+                        //Load Down
+                        loadBlock(blockFromLeft, blockFromTop - 1);
+                        loadBlock(blockFromLeft, blockFromTop - 2);
+                        loadBlock(blockFromLeft, blockFromTop - 3);
+
+
+                        //Load sides
+                        loadBlock(blockFromLeft - 1, blockFromTop + 1);
+                        loadBlock(blockFromLeft + 1, blockFromTop - 1);
+                        loadBlock(blockFromLeft - 1, blockFromTop - 1);
+                        loadBlock(blockFromLeft + 1, blockFromTop + 1);
+
+                        blockFromLeft = (int)Math.Floor(player.FromLeft / world.StartingBlock.Width);
+                        blockFromTop = (int)Math.Floor(player.FromTop / world.StartingBlock.Height);
+
+
+                    }
+
+
+
                     nearObjects = from element in gameObjects
-                                                          where (Math.Abs(player.FromLeft - element.FromLeft) < 3001) &&
-                                                          (Math.Abs(player.FromTop - element.FromTop) < 3001)
+                                                          where (Math.Abs(player.FromLeft - element.FromLeft) < 2001) &&
+                                                          (Math.Abs(player.FromTop - element.FromTop) < 2001)
                                                           select element;
 
                     farObjects = from element in gameObjects
-                                 where (Math.Abs(player.FromLeft - element.FromLeft) > 3000) ||
-                                 (Math.Abs(player.FromTop - element.FromTop) > 3000)
+                                 where (Math.Abs(player.FromLeft - element.FromLeft) > 2000) ||
+                                 (Math.Abs(player.FromTop - element.FromTop) > 2000)
                                  select element;
 
                     //Check if there are objects in the List to apply logic on
