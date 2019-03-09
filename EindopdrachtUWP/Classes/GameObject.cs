@@ -4,7 +4,9 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 
@@ -50,7 +52,7 @@ namespace UWPTestApp
         protected bool started;
 
         public Rect rectangle;
-
+        private Timer timer;
         public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
             tags = new ArrayList();

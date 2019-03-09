@@ -54,6 +54,7 @@ namespace UWPTestApp
 
         public Engine()
         {
+
             gameObjects = new List<GameObject>();
 
             soundController = new SoundController();
@@ -177,7 +178,8 @@ namespace UWPTestApp
                 }
             }
 
-            Task.Yield();  //Force this task to complete asynchronously (This way the main thread is not blocked by this task calling itself.
+            Task.Yield();  //Force this task to complete asynchronously (This way the main 
+            is not blocked by this task calling itself.
             Task.Run(() => Run());  //Schedule new Run() task
             */
             LogicLoop();
