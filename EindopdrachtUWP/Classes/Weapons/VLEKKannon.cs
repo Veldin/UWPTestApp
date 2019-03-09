@@ -45,7 +45,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             critChance          = 0.15;
             critMultiplier      = 1.5;
             weaponLevel         = 1;
-            range               = 1000;
+            range               = 600;
             reloadTime          = 2000;
             shotSound           = "Weapon_Sounds\\VLEK_Kannon_Shot1.wav";
             locationBottom      = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Bottom.png";
@@ -79,7 +79,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             return damage;
         }
 
-        public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
+        public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, string direction)
         {
             if (ableToReload && currentClip == 0)
             {
@@ -128,6 +128,16 @@ namespace EindopdrachtUWP.Classes.Weapons
                 {
                     projectile.AddTag("crit");
                 }
+
+                // Decreases the movementspeed over time
+                projectile.AddTag("slowing");
+
+
+                // Increases the damage of the projectile over time
+                projectile.AddTag("amplified");
+
+                // Increases the starting movementspeed to 900
+                projectile.setMovementSpeed(2500);
 
                 gameObjects.Add(projectile);
 

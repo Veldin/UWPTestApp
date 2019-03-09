@@ -42,7 +42,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             critChance          = 0.2;
             critMultiplier      = 1.5;
             weaponLevel         = 1;
-            range               = 1000;
+            range               = 3000000;
             reloadTime          = 2000;
             tags                = new List<string>();
             shotSound           = "Weapon_Sounds\\Homers_Bullets_Shot1.wav";
@@ -53,7 +53,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             fireCooldownDelta   = 0;
             reloadCooldownDelta = 2000;
 
-            AddTag("homing");
+
         }
 
         public void AddTag(string tag)
@@ -76,7 +76,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             return damage;
         }
 
-        public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, String direction)
+        public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, string direction)
         {
             if (ableToReload && currentClip == 0)
             {
@@ -126,7 +126,11 @@ namespace EindopdrachtUWP.Classes.Weapons
                     projectile.AddTag("crit");
                 }
 
+                // Make the projectile homing and speeding
                 projectile.AddTag("homing");
+                projectile.AddTag("speeding");
+
+                // Add the projectile to the gameObjects list
                 gameObjects.Add(projectile);
 
                 currentClip--;

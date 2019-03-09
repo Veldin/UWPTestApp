@@ -31,7 +31,7 @@ public class TextBox : GameObject, MovableObject
         return MovementSpeed;
     }
 
-    public String Text { get; set; }
+    public string Text { get; set; }
 
     public float Duration { get; set; }
 
@@ -94,7 +94,7 @@ public class TextBox : GameObject, MovableObject
         }
     }
 
-    public override bool CollitionEffect(GameObject gameObject)
+    public override bool CollisionEffect(GameObject gameObject)
     {
         return true;
     }

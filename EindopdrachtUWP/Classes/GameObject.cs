@@ -28,7 +28,7 @@ namespace UWPTestApp
         protected float fromTop;
 
         //Objects can be facing top, right, bottom and left
-        public String direction { get; set; }
+        public string direction { get; set; }
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
@@ -47,7 +47,7 @@ namespace UWPTestApp
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         protected CanvasBitmap sprite;
 
-        protected String location;
+        protected string location;
 
         protected bool started;
 
@@ -76,32 +76,13 @@ namespace UWPTestApp
             started = false;
         }
 
-        /* CreateResourcesAsync */
-        /*
-         * To be able to use the sprites on a Canvas the sprites needs to be loaded as CanvasBitmaps.
-         * The first argument is the CanvasControl.
-        */
-        public async Task CreateResourcesAsync(CanvasControl sender)
-        {
-            try
-            {
-                //Load the recource.
-                sprite = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///" + location));
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(location);
-                Debug.WriteLine(e.StackTrace);
-            }
-        }
-
         public CanvasBitmap Sprite
         {
             get { return sprite; }
             set { sprite = value; }
         }
 
-        public String Location
+        public string Location
         {
             get { return location; }
             set { location = value; }
@@ -288,11 +269,11 @@ namespace UWPTestApp
         }
 
 
-        /* CollitionEffect */
+        /* CollisionEffect */
         /*
          * Effect that happens when this GameObject collides with the given object.
          * The argument is the given gameObject
         */
-        public abstract bool CollitionEffect(GameObject gameObject);
+        public abstract bool CollisionEffect(GameObject gameObject);
     }
 }

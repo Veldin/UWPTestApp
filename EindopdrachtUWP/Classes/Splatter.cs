@@ -55,7 +55,7 @@ namespace UWPTestApp
             return true;
         }
 
-        public override bool CollitionEffect(GameObject gameObject)
+        public override bool CollisionEffect(GameObject gameObject)
         {
             //IF the blood splatter hits a wall reduce its size so it doesnt show on top of the wall.
             if(gameObject is Wall)

@@ -21,13 +21,16 @@ namespace UWPTestApp
     {
         //Arraylist with all the gameObjects in the current game
         private List<GameObject> gameObjects;
-        private HashSet<String> pressedKeys;
+        private HashSet<string> pressedKeys;
 
         //Holds the different scenes in the Engine! If a scene is loaded the objects in the scene are put in the gameObjects array!
         private List<Scene> scenes;
         private Scene scene;
 
         private World world;
+        private int blockFromLeft;
+        private int blockFromTop;
+
 
         private Camera camera;
 
@@ -93,16 +96,51 @@ namespace UWPTestApp
 
             scenes = new List<Scene>();
             world = new World();
+            blockFromLeft = 0;
+            blockFromTop = 0;
 
-            pressedKeys = new HashSet<String>();
+            pressedKeys = new HashSet<string>();
 
             player.AddTag("controllable");  //Make the player controllable
             gameObjects.Add(player); //Add the player to the gameObjects list
 
+            loadBlock(blockFromLeft, blockFromTop);
+
+            //Load Left
+            loadBlock(blockFromLeft - 1, blockFromTop);
+            loadBlock(blockFromLeft - 2, blockFromTop);
+            loadBlock(blockFromLeft - 3, blockFromTop);
+
+
+            //Load Right
+            loadBlock(blockFromLeft + 1, blockFromTop);
+            loadBlock(blockFromLeft + 2, blockFromTop);
+            loadBlock(blockFromLeft + 3, blockFromTop);
+
+
+            //Load Up
+            loadBlock(blockFromLeft, blockFromTop + 1);
+            loadBlock(blockFromLeft, blockFromTop + 2);
+            loadBlock(blockFromLeft, blockFromTop + 3);
+
+
+            //Load Down
+            loadBlock(blockFromLeft, blockFromTop - 1);
+            loadBlock(blockFromLeft, blockFromTop - 2);
+            loadBlock(blockFromLeft, blockFromTop - 3);
+
+
+            //Load sides
+            loadBlock(blockFromLeft - 1, blockFromTop + 1);
+            loadBlock(blockFromLeft + 1, blockFromTop - 1);
+            loadBlock(blockFromLeft - 1, blockFromTop - 1);
+            loadBlock(blockFromLeft + 1, blockFromTop + 1);
+
             //Load in the world
-            gameObjects.AddRange(world.StartingBlock.LoadScene());
+            //gameObjects.AddRange(world.StartingBlock.LoadScene());
 
             /* Manualy load some of the worldpieces */
+            /*
             gameObjects.AddRange(world.StartingBlock.Up.LoadScene());
             gameObjects.AddRange(world.StartingBlock.Up.Up.LoadScene());
 
@@ -120,6 +158,7 @@ namespace UWPTestApp
 
             gameObjects.AddRange(world.StartingBlock.Right.Down.LoadScene());
             gameObjects.AddRange(world.StartingBlock.Left.Down.LoadScene());
+            */
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -216,12 +255,63 @@ namespace UWPTestApp
             });
         }
 
+        public void loadBlock(int blockFromLeft, int blockFromTop)
+        {
+            WorldBlock needle = world.StartingBlock;
+
+            //If the from Left is more then 0 move the needle right and reduce the blocks from left
+            //do this until the needle is at the right place
+            if (blockFromLeft > 0)
+            {
+                while (blockFromLeft > 0)
+                {
+                    needle = needle.Right;
+                    blockFromLeft--;
+                }
+            }
+
+            //If the from Left is less then 0 move the needle left and increase the blocks from left
+            //do this until the needle is at the right place
+            if (blockFromLeft < 0)
+            {
+                while (blockFromLeft < 0)
+                {
+                    needle = needle.Left;
+                    blockFromLeft++;
+                }
+            }
+
+
+            if (blockFromTop > 0)
+            {
+                while (blockFromTop > 0)
+                {
+                    needle = needle.Down;
+                    blockFromTop--;
+                }
+            }
+
+            if (blockFromTop < 0)
+            {
+                while (blockFromTop < 0)
+                {
+                    needle = needle.Up;
+                    blockFromTop++;
+                }
+            }
+
+            //Now the needle is set where the player is. Load al adjecent rooms too
+            if (!needle.IsLoaded())
+            {
+                gameObjects.AddRange(needle.LoadScene());
+            }
+        }
 
         /* Logic */
         /*
          * Logic function is called every frame. 
          * This method is used to handle how GameObjects should interect in the game.
-         * This includes Movement and Collition Detection.
+         * This includes Movement and Collision Detection.
          * Also the keybord controls are handled here.
         */
         private void Logic()
@@ -248,66 +338,119 @@ namespace UWPTestApp
                  * The gameObjects near the target have to do the full logic cycle.
                  */
 
-                IEnumerable<GameObject> nearObjects = from element in gameObjects 
-                                                where (Math.Abs(player.FromLeft - element.FromLeft) < 3001) &&
-                                                (Math.Abs(player.FromTop - element.FromTop) < 3001)
-                                                select element;
-
-                IEnumerable<GameObject> farObjects = from element in gameObjects
-                                                      where (Math.Abs(player.FromLeft - element.FromLeft) > 3000) ||
-                                                      (Math.Abs(player.FromTop - element.FromTop) > 3000)
-                                                      select element;
+                IEnumerable<GameObject> farObjects;
+                IEnumerable<GameObject> nearObjects;
 
                 if (MainPage.Current.paused)
                 {
                     farObjects = gameObjects;
+                    nearObjects = null;
+                }
+                else
+                {
+
+                    if (
+                        blockFromLeft != (int)Math.Floor(player.FromLeft / world.StartingBlock.Width) 
+                        ||
+                        blockFromTop != (int)Math.Floor(player.FromTop / world.StartingBlock.Height)
+                    )
+                    {
+                        loadBlock(blockFromLeft, blockFromTop);
+
+                        //Load Left
+                        loadBlock(blockFromLeft - 1, blockFromTop);
+                        loadBlock(blockFromLeft - 2, blockFromTop);
+                        loadBlock(blockFromLeft - 3, blockFromTop);
+
+
+                        //Load Right
+                        loadBlock(blockFromLeft + 1, blockFromTop);
+                        loadBlock(blockFromLeft + 2, blockFromTop);
+                        loadBlock(blockFromLeft + 3, blockFromTop);
+
+
+                        //Load Up
+                        loadBlock(blockFromLeft, blockFromTop + 1);
+                        loadBlock(blockFromLeft, blockFromTop + 2);
+                        loadBlock(blockFromLeft, blockFromTop + 3);
+
+
+                        //Load Down
+                        loadBlock(blockFromLeft, blockFromTop - 1);
+                        loadBlock(blockFromLeft, blockFromTop - 2);
+                        loadBlock(blockFromLeft, blockFromTop - 3);
+
+
+                        //Load sides
+                        loadBlock(blockFromLeft - 1, blockFromTop + 1);
+                        loadBlock(blockFromLeft + 1, blockFromTop - 1);
+                        loadBlock(blockFromLeft - 1, blockFromTop - 1);
+                        loadBlock(blockFromLeft + 1, blockFromTop + 1);
+
+                        blockFromLeft = (int)Math.Floor(player.FromLeft / world.StartingBlock.Width);
+                        blockFromTop = (int)Math.Floor(player.FromTop / world.StartingBlock.Height);
+
+
+                    }
+
+
+
+                    nearObjects = from element in gameObjects
+                                                          where (Math.Abs(player.FromLeft - element.FromLeft) < 2001) &&
+                                                          (Math.Abs(player.FromTop - element.FromTop) < 2001)
+                                                          select element;
+
+                    farObjects = from element in gameObjects
+                                 where (Math.Abs(player.FromLeft - element.FromLeft) > 2000) ||
+                                 (Math.Abs(player.FromTop - element.FromTop) > 2000)
+                                 select element;
+
+                    //Check if there are objects in the List to apply logic on
+                    //Apply the logic to all the bameObjects CURRENTLY in the List.
+                    //The new List makes a copy so the original arraylist can be modivied
+                    foreach (GameObject gameObject in new List<GameObject>(nearObjects))
+                    {
+                        //Handle player input
+                        Player player = gameObject as Player;
+
+
+                        if (player is Player)
+                        {
+                            HandlePlayerWeaponControls(player);
+                            HandlePlayerMovementControls(player);
+
+                            if (player.IsWalking)
+                            {
+                                if (player.deltaForWalkingSound > 1300)
+                                {
+                                    soundController.PlaySound(player.MoveSound);
+                                    player.deltaForWalkingSound = 0;
+                                }
+                                player.deltaForWalkingSound += 200;
+                            }
+                        }
+
+                        //gameObject.OnTick(gameObjects, delta);
+                        gameObject.OnTick(gameObjects);
+
+                        //For every object in this loop, loop trough all objects to check if they are coliding
+                        foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                        {
+                            //If the two objects are colliding
+                            if (gameObject.IsColliding(gameObjectCheck))
+                            {
+                                //Do the collision effect
+                                gameObject.CollisionEffect(gameObjectCheck);
+                                gameObjectCheck.CollisionEffect(gameObject);
+                            }
+                        }
+                    }
                 }
 
                 //Activate the query
                 foreach (GameObject GameObject in farObjects)
                 {
                     GameObject.SkipTick();
-                }
-
-                //Check if there are objects in the List to apply logic on
-                //Apply the logic to all the bameObjects CURRENTLY in the List.
-                //The new List makes a copy so the original arraylist can be modivied
-                foreach (GameObject gameObject in new List<GameObject>(nearObjects))
-                {
-                    //Handle player input
-                    Player player = gameObject as Player;
-
-                    
-                    if (player is Player)
-                    {
-                        HandlePlayerWeaponControls(player);
-                        HandlePlayerMovementControls(player);
-
-                        if (player.IsWalking)
-                        {
-                            if (player.deltaForWalkingSound > 1300)
-                            {
-                                soundController.PlaySound(player.MoveSound);
-                                player.deltaForWalkingSound = 0;
-                            }
-                            player.deltaForWalkingSound += 200;
-                        }
-                    }
-                    
-                    //gameObject.OnTick(gameObjects, delta);
-                    gameObject.OnTick(gameObjects);
-
-                    //For every object in this loop, loop trough all objects to check if they are coliding
-                    foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
-                    {
-                        //If the two objects are colliding
-                        if (gameObject.IsColliding(gameObjectCheck))
-                        {
-                            //Do the collition effect
-                            gameObject.CollitionEffect(gameObjectCheck);
-                            gameObjectCheck.CollitionEffect(gameObject);
-                        }
-                    }
                 }
 
                 //Handle the tags for each gameobject if there are any tags to handle
@@ -576,13 +719,14 @@ namespace UWPTestApp
          * To be able to use the sprites on a Canvas the sprites needs to be loaded as CanvasBitmaps.
          * The first argument is the sender, the second is the list of gameObjects.
         */
-        private void CreateAllResourcesAsync(CanvasControl sender, ArrayList loopList)
+        private async void CreateAllResourcesAsync(CanvasControl sender, ArrayList loopList)
         {
             foreach (GameObject gameObject in loopList)
             {
                 if (gameObject != null && gameObject.Sprite == null)
                 {
-                    gameObject.CreateResourcesAsync(sender);
+                    // Get the sprite form the Texture class
+                    gameObject.Sprite = await Texture.GetTextureAsync(sender, gameObject.Location);       
                 }
             }
         }
@@ -940,7 +1084,7 @@ namespace UWPTestApp
          * Add the given key in the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public void KeyDown(String virtualKey)
+        public void KeyDown(string virtualKey)
         {
             pressedKeys.Add(virtualKey);
         }
@@ -951,7 +1095,7 @@ namespace UWPTestApp
          * Remove the given key in the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public void KeyUp(String virtualKey)
+        public void KeyUp(string virtualKey)
         {
             pressedKeys.Remove(virtualKey);
         }
@@ -961,7 +1105,7 @@ namespace UWPTestApp
          * Returns wheater the given key exists within the pressedKeys collection.
          * The argument is the given key represented as a string.
          */
-        public bool IsKeyPressed(String virtualKey)
+        public bool IsKeyPressed(string virtualKey)
         {
             return pressedKeys.Contains(virtualKey);
         }

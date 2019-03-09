@@ -222,7 +222,7 @@ namespace UWPTestApp
             walkSpeed = speed;
         }
 
-        public bool Fire(String direction, List<GameObject> gameObjects)
+        public bool Fire(string direction, List<GameObject> gameObjects)
         {
             this.direction = direction;
             MainPage.Current.UpdateCurrentClip();
@@ -247,54 +247,54 @@ namespace UWPTestApp
 
             selectNextWeaponDelay -= delta;
 
-            string locationString = "Assets/Sprites/Player_Sprites/";
+            string locationstring = "Assets/Sprites/Player_Sprites/";
 
             if (activeWeapon is ArrivaGun)
             {
-                locationString += "Arriva_Gun";
+                locationstring += "Arriva_Gun";
             }
             else if (activeWeapon is Batarang)
             {
-                locationString += "Batarang";
+                locationstring += "Batarang";
             }
             else if (activeWeapon is BulletBill)
             {
-                locationString += "Bullet_Bill";
+                locationstring += "Bullet_Bill";
             }
             else if (activeWeapon is DessertBeagle)
             {
-                locationString += "Dessert_Beagle";
+                locationstring += "Dessert_Beagle";
             }
             else if (activeWeapon is FlameThrower)
             {
-                locationString += "Flamethrower";
+                locationstring += "Flamethrower";
             }
             else if (activeWeapon is HomersBullets)
             {
-                locationString += "Homers_Bullets";
+                locationstring += "Homers_Bullets";
             }
             else if (activeWeapon is KA74)
             {
-                locationString += "KA74";
+                locationstring += "KA74";
             }
             else if (activeWeapon is Knettergun)
             {
-                locationString += "Knetter_Gun";
+                locationstring += "Knetter_Gun";
             }
             else if (activeWeapon is UWP)
             {
-                locationString += "UWP";
+                locationstring += "UWP";
             }
             else if (activeWeapon is VLEKKannon)
             {
-                locationString += "VLEKKannon";
+                locationstring += "VLEKKannon";
             }
 
-            locationString += "_" + direction + ".png";
+            locationstring += "_" + direction + ".png";
 
-            if (locationString != Location)
+            if (locationstring != Location)
             {
-                Location = locationString;
+                Location = locationstring;
                 Sprite = null;
             }
 			
@@ -335,11 +335,11 @@ namespace UWPTestApp
             return true;
         }
 
-        public override bool CollitionEffect(GameObject gameObject)
+        public override bool CollisionEffect(GameObject gameObject)
         {
             if (gameObject.HasTag("solid"))
             {
-                //Check collition from the left or right.
+                //Check collision from the left or right.
                 if ((gameObject.FromLeft + gameObject.Width) > (FromLeft + Width))
                 {
                     AddFromLeft(-1);
@@ -349,7 +349,7 @@ namespace UWPTestApp
                     AddFromLeft(1);
                 }
 
-                //Check collition from top or bottom.
+                //Check collision from top or bottom.
                 if ((gameObject.FromTop + gameObject.Height) > (FromTop + Height))
                 {
                     AddFromTop(-1);
@@ -360,9 +360,9 @@ namespace UWPTestApp
                 }
             }
 
-            //If a player is coliding with an object their collitionEffect is triggered instantly and not after this resolves.
-            //This is so the collition of the enemy still goes even thought they are not colliding anymore.
-            gameObject.CollitionEffect(this);
+            //If a player is coliding with an object their CollisionEffect is triggered instantly and not after this resolves.
+            //This is so the collision of the enemy still goes even thought they are not colliding anymore.
+            gameObject.CollisionEffect(this);
             return true;
         }
         

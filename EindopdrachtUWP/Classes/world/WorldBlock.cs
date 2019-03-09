@@ -18,9 +18,9 @@ namespace UWPTestApp
         private WorldBlock right;
 
         //Position of this block
-            //Position of the whole block, not in units!
-        private int fromLeft;
-        private int fromTop;
+        //Position of the whole block, not in units!
+        public int fromLeft;
+        public int fromTop;
 
         //Size of blocks in units
         public const int width = 800;
@@ -73,6 +73,20 @@ namespace UWPTestApp
             set { scene = value; }
         }
 
+        public int Width
+        {
+            get { return width; }
+        }
+
+        public int Height
+        {
+            get { return height; }
+        }
+
+        public bool IsLoaded()
+        {
+            return scene.Isloaded();
+        }
 
         /* 
          * Traverstion between objects is only done horizontaly on the zero-th line.
@@ -129,6 +143,7 @@ namespace UWPTestApp
                     {
                         left = new WorldBlock(null, null, null, this, Fromleft - 1, FromTop);
                     }
+
                     return left;
                 }
 
@@ -139,15 +154,15 @@ namespace UWPTestApp
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Down;
+                        needle = needle.Up;
                         fromTopNeedle--;
                     }
                     needle = needle.Left;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Up;
-                        fromTopNeedle++;
+                        needle = needle.Down;
+                        fromTopNeedle--;
                     }
                     return needle;
                 }
@@ -155,19 +170,18 @@ namespace UWPTestApp
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Up;
-                        fromTopNeedle--;
+                        needle = needle.Down;
+                        fromTopNeedle++;
                     }
                     needle = needle.Left;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Down;
+                        needle = needle.Up;
                         fromTopNeedle++;
                     }
                     return needle;
                 }
-
                 return left;
             }
             set
@@ -185,7 +199,7 @@ namespace UWPTestApp
                     while (fromTopNeedle > 0)
                     {
                         needle = needle.Down;
-                        fromTopNeedle++;
+                        fromTopNeedle--;
                     }
                     needle = needle.Left;
                     fromTopNeedle = fromTop;
@@ -202,7 +216,7 @@ namespace UWPTestApp
                     while (fromTopNeedle < 0)
                     {
                         needle = needle.Up;
-                        fromTopNeedle--;
+                        fromTopNeedle++;
                     }
                     needle = needle.Left;
                     fromTopNeedle = fromTop;
@@ -236,13 +250,15 @@ namespace UWPTestApp
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Down;
+                        needle = needle.Up;
+                        fromTopNeedle--;
                     }
                     needle = needle.Right;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Up;
+                        needle = needle.Down;
+                        fromTopNeedle--;
                     }
                     return needle;
                 }
@@ -251,13 +267,15 @@ namespace UWPTestApp
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Up;
+                        needle = needle.Down;
+                        fromTopNeedle++;
                     }
                     needle = needle.Right;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Down;
+                        needle = needle.Up;
+                        fromTopNeedle++;
                     }
                     return needle;
                 }

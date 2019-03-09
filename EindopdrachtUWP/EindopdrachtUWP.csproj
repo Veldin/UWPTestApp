@@ -105,6 +105,7 @@
     <Compile Include="Classes\Camera.cs" />
     <Compile Include="Classes\Pickup.cs" />
     <Compile Include="Classes\Sound.cs" />
+    <Compile Include="Classes\Texture.cs" />
     <Compile Include="Classes\Weapons\ArrivaGun.cs" />
     <Compile Include="Classes\Weapons\Batarang.cs" />
     <Compile Include="Classes\Weapons\BulletBill.cs" />

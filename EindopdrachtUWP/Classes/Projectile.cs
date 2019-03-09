@@ -41,7 +41,7 @@ public class Projectile : GameObject, MovableObject
         movementSpeed = 700;
     }
 
-    public override bool CollitionEffect(GameObject gameObject)
+    public override bool CollisionEffect(GameObject gameObject)
     {
         Targetable targetable = gameObject as Targetable;
         if (targetable is Targetable)
@@ -264,11 +264,27 @@ public class Projectile : GameObject, MovableObject
                 AddTag("destroyed");
             }
         }
-
+        
         if (HasTag("speeding"))
         {
             damage += (delta / 6);
             movementSpeed += (delta * 3f);
+        }
+
+        // Decreases the speed of the projectile over time
+        if (HasTag("slowing"))
+        {
+            movementSpeed -= (delta * 1f);
+            if (movementSpeed <= 450)
+            {
+                movementSpeed = 450;
+            }
+        }
+
+        // Increases the damage of the projectile over time
+         if (HasTag("amplified"))
+        {
+            damage += (delta / 6);
         }
 
         //If a projectile has the tag text it has been ordered to drop a textbox. This means the projectile hit a target.
