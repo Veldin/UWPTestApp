@@ -394,6 +394,8 @@ namespace UWPTestApp
                     }
 
                     //Lambda version to get all the gameobjects that are outside of the screen.
+                    //also tested with parralel but its slower. could become faster if there are enough enemies 
+                    //but most of the time it will be slower
                     nearObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) < 2001
                                                     && Math.Abs(player.FromTop - element.FromTop) < 2001).ToArray();
 
@@ -401,8 +403,8 @@ namespace UWPTestApp
                                                     || Math.Abs(player.FromTop - element.FromTop) > 2000).ToArray();
 
                     //Check if there are objects in the List to apply logic on
-                    //Apply the logic to all the bameObjects CURRENTLY in the List.
-                    //The new List makes a copy so the original arraylist can be modivied
+                    //Apply the logic to all the gameObjects CURRENTLY in the List.
+                    //The new List makes a copy so the original arraylist can be modified
                     foreach (GameObject gameObject in new List<GameObject>(nearObjects))
                     {
                         //Handle player input
