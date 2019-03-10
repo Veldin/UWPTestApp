@@ -393,17 +393,12 @@ namespace UWPTestApp
 
                     }
 
+                    //Lambda version to get all the gameobjects that are outside of the screen.
+                    nearObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) < 2001
+                                                    && Math.Abs(player.FromTop - element.FromTop) < 2001).ToArray();
 
-
-                    nearObjects = from element in gameObjects
-                                                          where (Math.Abs(player.FromLeft - element.FromLeft) < 2001) &&
-                                                          (Math.Abs(player.FromTop - element.FromTop) < 2001)
-                                                          select element;
-
-                    farObjects = from element in gameObjects
-                                 where (Math.Abs(player.FromLeft - element.FromLeft) > 2000) ||
-                                 (Math.Abs(player.FromTop - element.FromTop) > 2000)
-                                 select element;
+                    farObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) > 2000
+                                                    || Math.Abs(player.FromTop - element.FromTop) > 2000).ToArray();
 
                     //Check if there are objects in the List to apply logic on
                     //Apply the logic to all the bameObjects CURRENTLY in the List.
