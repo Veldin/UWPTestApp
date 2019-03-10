@@ -431,7 +431,7 @@ namespace UWPTestApp
                         gameObject.OnTick(gameObjects);
 
                         //For every object in this loop, loop trough all objects to check if they are coliding
-                        foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                        foreach (GameObject gameObjectCheck in new List<GameObject>(nearObjects))
                         {
                             //If the two objects are colliding
                             if (gameObject.IsColliding(gameObjectCheck))
