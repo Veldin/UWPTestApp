@@ -397,19 +397,23 @@ namespace UWPTestApp
                     //also tested with parralel but its slower. could become faster if there are enough enemies 
                     //but most of the time it will be slower
 
-                    /*
-                    activeObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) < 2001
-                                                    && Math.Abs(player.FromTop - element.FromTop) < 2001).ToArray();
-                    */
+                    //Lambda version to get all the gameobjects that are outside of the screen.
+                    //also implemented parallel when there are more than 1250 objects (which is where paralel became more efficient)
+                    if (gameObjects.Count() < 1250)
+                    {
+                        activeObjects = gameObjects.Where(element => element.IsActive(player) == true).ToList();
 
-                    /*
-                    inactiveObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) > 2000
-                                                    || Math.Abs(player.FromTop - element.FromTop) > 2000).ToArray();
-                    */
+                        inactiveObjects = gameObjects.Where(element => element.IsActive(player) != true).ToList();
+                    }
+                    else
+                    {
+                        activeObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) == true).ToList();
 
-                    activeObjects = gameObjects.Where(element => element.IsActive(player) == true).ToArray();
+                        inactiveObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) != true).ToList();
+                    }
+                    
 
-                    inactiveObjects = gameObjects.Where(element => element.IsActive(player) != true).ToArray();
+                    
 
                     //Check if there are objects in the List to apply logic on
                     //Apply the logic to all the gameObjects CURRENTLY in the List.
