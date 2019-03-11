@@ -321,7 +321,17 @@ namespace EindopdrachtUWP.Classes
 
         public override bool IsActive(GameObject gameObject)
         {
-            return true;
+            if (Math.Abs(gameObject.FromLeft - this.FromLeft) < 400)
+            {
+                return true;
+            }
+
+            if (Math.Abs(gameObject.FromTop - this.FromTop) < 400)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)

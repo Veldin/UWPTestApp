@@ -198,6 +198,7 @@ public class Projectile : GameObject, MovableObject
 
     public override bool IsActive(GameObject gameObject)
     {
+        //Projectiles are always active.
         return true;
     }
 

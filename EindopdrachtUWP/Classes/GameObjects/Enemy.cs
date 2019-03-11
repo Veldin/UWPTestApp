@@ -184,7 +184,17 @@ public class Enemy : GameObject, MovableObject, Targetable
 
     public override bool IsActive(GameObject gameObject)
     {
-        return true;
+        if (Math.Abs(gameObject.FromLeft - this.FromLeft) < 2001)
+        {
+            return true;
+        }
+
+        if (Math.Abs(gameObject.FromTop - this.FromTop) < 2001)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public override bool OnTick(List<GameObject> gameObjects, float delta)

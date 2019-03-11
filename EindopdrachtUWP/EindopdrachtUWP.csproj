@@ -103,7 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Camera.cs" />
-    <Compile Include="Classes\Pickup.cs" />
+    <Compile Include="Classes\GameObjects\Pickup.cs" />
     <Compile Include="Classes\Sound.cs" />
     <Compile Include="Classes\Texture.cs" />
     <Compile Include="Classes\Weapons\ArrivaGun.cs" />
@@ -118,20 +118,20 @@
     <Compile Include="Classes\Weapons\UWP.cs" />
     <Compile Include="Classes\Weapons\VLEKKannon.cs" />
     <Compile Include="Classes\Weapon.cs" />
-    <Compile Include="Classes\Enemy.cs" />
+    <Compile Include="Classes\GameObjects\Enemy.cs" />
     <Compile Include="Classes\Engine.cs" />
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\Message.cs" />
     <Compile Include="Classes\MovableObject.cs" />
-    <Compile Include="Classes\Player.cs" />
-    <Compile Include="Classes\Projectile.cs" />
+    <Compile Include="Classes\GameObjects\Player.cs" />
+    <Compile Include="Classes\GameObjects\Projectile.cs" />
     <Compile Include="Classes\world\Scene.cs" />
-    <Compile Include="Classes\Spawner.cs" />
-    <Compile Include="Classes\Splatter.cs" />
+    <Compile Include="Classes\GameObjects\Spawner.cs" />
+    <Compile Include="Classes\GameObjects\Splatter.cs" />
     <Compile Include="Classes\Target.cs" />
     <Compile Include="Classes\Targetable.cs" />
-    <Compile Include="Classes\TextBox.cs" />
-    <Compile Include="Classes\Wall.cs" />
+    <Compile Include="Classes\GameObjects\TextBox.cs" />
+    <Compile Include="Classes\GameObjects\Wall.cs" />
     <Compile Include="Classes\world\SceneFactory.cs" />
     <Compile Include="Classes\world\World.cs" />
     <Compile Include="Classes\world\WorldBlock.cs" />

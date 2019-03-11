@@ -31,6 +31,7 @@ namespace UWPTestApp
 
         public override bool IsActive(GameObject gameObject)
         {
+            //Splatter is always active
             return true;
         }
 

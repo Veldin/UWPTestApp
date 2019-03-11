@@ -338,13 +338,13 @@ namespace UWPTestApp
                  * The gameObjects near the target have to do the full logic cycle.
                  */
 
-                IEnumerable<GameObject> farObjects;
-                IEnumerable<GameObject> nearObjects;
+                IEnumerable<GameObject> inactiveObjects;
+                IEnumerable<GameObject> activeObjects;
 
                 if (MainPage.Current.paused)
                 {
-                    farObjects = gameObjects;
-                    nearObjects = null;
+                    inactiveObjects = gameObjects;
+                    activeObjects = null;
                 }
                 else
                 {
@@ -396,17 +396,25 @@ namespace UWPTestApp
                     //Lambda version to get all the gameobjects that are outside of the screen.
                     //also tested with parralel but its slower. could become faster if there are enough enemies 
                     //but most of the time it will be slower
-                    nearObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) < 2001
+
+                    /*
+                    activeObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) < 2001
                                                     && Math.Abs(player.FromTop - element.FromTop) < 2001).ToArray();
+                    */
 
-
-                    farObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) > 2000
+                    /*
+                    inactiveObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) > 2000
                                                     || Math.Abs(player.FromTop - element.FromTop) > 2000).ToArray();
+                    */
+
+                    activeObjects = gameObjects.Where(element => element.IsActive(player) == true).ToArray();
+
+                    inactiveObjects = gameObjects.Where(element => element.IsActive(player) != true).ToArray();
 
                     //Check if there are objects in the List to apply logic on
                     //Apply the logic to all the gameObjects CURRENTLY in the List.
                     //The new List makes a copy so the original arraylist can be modified
-                    foreach (GameObject gameObject in new List<GameObject>(nearObjects))
+                    foreach (GameObject gameObject in new List<GameObject>(activeObjects))
                     {
                         //Handle player input
                         Player player = gameObject as Player;
@@ -432,7 +440,7 @@ namespace UWPTestApp
                         gameObject.OnTick(gameObjects);
 
                         //For every object in this loop, loop trough all objects to check if they are coliding
-                        foreach (GameObject gameObjectCheck in new List<GameObject>(nearObjects))
+                        foreach (GameObject gameObjectCheck in new List<GameObject>(activeObjects))
                         {
                             //If the two objects are colliding
                             if (gameObject.IsColliding(gameObjectCheck))
@@ -446,7 +454,7 @@ namespace UWPTestApp
                 }
 
                 //Activate the query
-                foreach (GameObject GameObject in farObjects)
+                foreach (GameObject GameObject in inactiveObjects)
                 {
                     GameObject.SkipTick();
                 }
@@ -460,12 +468,12 @@ namespace UWPTestApp
         }
 
         /* HandlePlayerWeaponControls */
-        /* 
-            * Handles the player controls that have to do with movement.
-            * The player needs to have the tag "controllable" to be controlled. 
-            * This is done so control can be taken away. (during cutscenes, stunns/roots. ect)
-        */
-        private void HandlePlayerMovementControls(Player player)
+                    /* 
+                        * Handles the player controls that have to do with movement.
+                        * The player needs to have the tag "controllable" to be controlled. 
+                        * This is done so control can be taken away. (during cutscenes, stunns/roots. ect)
+                    */
+                    private void HandlePlayerMovementControls(Player player)
         {
             player.IsWalking = false;
 

@@ -15,6 +15,16 @@ namespace UWPTestApp
 
         public override bool IsActive(GameObject gameObject)
         {
+            //Only activate nearby walls need to have collition so are active
+            if (Math.Abs(gameObject.FromLeft - this.FromLeft) < 600)
+            {
+                return true;
+            }
+
+            if (Math.Abs(gameObject.FromTop - this.FromTop) < 600)
+            {
+                return true;
+            }
             return false;
         }
 

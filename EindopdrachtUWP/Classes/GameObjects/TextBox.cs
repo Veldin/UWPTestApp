@@ -43,6 +43,7 @@ public class TextBox : GameObject, MovableObject
 
     public override bool IsActive(GameObject gameObject)
     {
+        //Textboxes are always active
         return true;
     }
 
