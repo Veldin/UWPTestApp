@@ -393,21 +393,19 @@ namespace UWPTestApp
 
                     }
 
+                    //Lambda version to get all the gameobjects that are outside of the screen.
+                    //also tested with parralel but its slower. could become faster if there are enough enemies 
+                    //but most of the time it will be slower
+                    nearObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) < 2001
+                                                    && Math.Abs(player.FromTop - element.FromTop) < 2001).ToArray();
 
 
-                    nearObjects =   from element in gameObjects
-                                    where (Math.Abs(player.FromLeft - element.FromLeft) < 2001) &&
-                                    (Math.Abs(player.FromTop - element.FromTop) < 2001)
-                                    select element;
-
-                    farObjects =    from element in gameObjects
-                                     where (Math.Abs(player.FromLeft - element.FromLeft) > 2000) ||
-                                     (Math.Abs(player.FromTop - element.FromTop) > 2000)
-                                     select element;
+                    farObjects = gameObjects.Where(element => Math.Abs(player.FromLeft - element.FromLeft) > 2000
+                                                    || Math.Abs(player.FromTop - element.FromTop) > 2000).ToArray();
 
                     //Check if there are objects in the List to apply logic on
-                    //Apply the logic to all the bameObjects CURRENTLY in the List.
-                    //The new List makes a copy so the original arraylist can be modivied
+                    //Apply the logic to all the gameObjects CURRENTLY in the List.
+                    //The new List makes a copy so the original arraylist can be modified
                     foreach (GameObject gameObject in new List<GameObject>(nearObjects))
                     {
                         //Handle player input
@@ -434,7 +432,7 @@ namespace UWPTestApp
                         gameObject.OnTick(gameObjects);
 
                         //For every object in this loop, loop trough all objects to check if they are coliding
-                        foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
+                        foreach (GameObject gameObjectCheck in new List<GameObject>(nearObjects))
                         {
                             //If the two objects are colliding
                             if (gameObject.IsColliding(gameObjectCheck))
