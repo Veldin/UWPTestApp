@@ -29,6 +29,11 @@ namespace UWPTestApp
             location = "Assets/Sprites/Enemy_Sprites/Bloodsplatter"+ randomPositionOffset + ".png";
         }
 
+        public override bool IsActive(GameObject gameObject)
+        {
+            return true;
+        }
+
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
         public override bool OnTick(List<GameObject> gameObjects, float delta)

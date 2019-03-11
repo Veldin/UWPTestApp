@@ -196,6 +196,11 @@ public class Projectile : GameObject, MovableObject
         return false;
     }
 
+    public override bool IsActive(GameObject gameObject)
+    {
+        return true;
+    }
+
     /*********************************************************************************************
      * In this function the movement of the projectile gets moved, a textbox of the damage is created
      * and the projectile will be destroyed here.
@@ -328,4 +333,5 @@ public class Projectile : GameObject, MovableObject
     {
         return movementSpeed;
     }
+
 }

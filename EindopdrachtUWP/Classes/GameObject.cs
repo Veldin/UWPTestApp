@@ -213,15 +213,6 @@ namespace UWPTestApp
             return result;
         }
 
-        //Used to skip a tick, setting the 'then' to 'now' makes the object skip all the time that is passed between the two times.
-        public bool SkipTick()
-        {
-            now = Stopwatch.GetTimestamp();
-            then = now;
-
-            return true;
-        }
-
         /* distanceBetween */
         /*
          * returns the distance in units of the given gameobject to this gameobject.
@@ -244,6 +235,18 @@ namespace UWPTestApp
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
         public abstract bool OnTick(List<GameObject> gameObjects, float delta);
+
+        /* SkipTick */
+        /*
+         * Used to skip a tick, setting the 'then' to 'now' makes the object skip all the time that is passed between the two times.
+        */
+        public bool SkipTick()
+        {
+            now = Stopwatch.GetTimestamp();
+            then = now;
+
+            return true;
+        }
 
         /* IsColliding */
         /*
@@ -275,5 +278,12 @@ namespace UWPTestApp
          * The argument is the given gameObject
         */
         public abstract bool CollisionEffect(GameObject gameObject);
+
+        /* IsActive */
+        /*
+         * Returns true if the object should run the OnTick() this tick
+         * Returns false if the object should run the SkipTick() this tick
+        */
+        public abstract bool IsActive(GameObject gameObject);
     }
 }

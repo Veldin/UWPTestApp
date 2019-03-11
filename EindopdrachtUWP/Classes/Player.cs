@@ -229,6 +229,11 @@ namespace UWPTestApp
             return activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction);
         }
 
+        public override bool IsActive(GameObject gameObject)
+        {
+            return true;
+        }
+
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
 

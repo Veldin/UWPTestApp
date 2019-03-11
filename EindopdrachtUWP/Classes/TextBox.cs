@@ -41,6 +41,11 @@ public class TextBox : GameObject, MovableObject
 
     public Color Color { get; set; }
 
+    public override bool IsActive(GameObject gameObject)
+    {
+        return true;
+    }
+
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
         Duration -= delta;

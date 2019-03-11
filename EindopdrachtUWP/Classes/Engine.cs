@@ -395,15 +395,15 @@ namespace UWPTestApp
 
 
 
-                    nearObjects = from element in gameObjects
-                                                          where (Math.Abs(player.FromLeft - element.FromLeft) < 2001) &&
-                                                          (Math.Abs(player.FromTop - element.FromTop) < 2001)
-                                                          select element;
+                    nearObjects =   from element in gameObjects
+                                    where (Math.Abs(player.FromLeft - element.FromLeft) < 2001) &&
+                                    (Math.Abs(player.FromTop - element.FromTop) < 2001)
+                                    select element;
 
-                    farObjects = from element in gameObjects
-                                 where (Math.Abs(player.FromLeft - element.FromLeft) > 2000) ||
-                                 (Math.Abs(player.FromTop - element.FromTop) > 2000)
-                                 select element;
+                    farObjects =    from element in gameObjects
+                                     where (Math.Abs(player.FromLeft - element.FromLeft) > 2000) ||
+                                     (Math.Abs(player.FromTop - element.FromTop) > 2000)
+                                     select element;
 
                     //Check if there are objects in the List to apply logic on
                     //Apply the logic to all the bameObjects CURRENTLY in the List.
@@ -999,16 +999,16 @@ namespace UWPTestApp
             ArrayList loopList; 
             lock (gameObjects) //lock the gameobjects for duplication
             { 
-                //try
-                //{
+                try
+                {
                     //Try to duplicate the arraylist.
                     loopList = new ArrayList(gameObjects);
-                //}
-                //catch
-                //{
+                }
+                catch
+                {
                     //if it failes for any reason skip this frame.
-                //    return;
-                //}
+                    return;
+                }
             }
 
             /* PREPARING THE SPRITES */

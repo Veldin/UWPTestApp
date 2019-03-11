@@ -319,6 +319,11 @@ namespace EindopdrachtUWP.Classes
             return r;
         }
 
+        public override bool IsActive(GameObject gameObject)
+        {
+            return true;
+        }
+
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
             if (HasTag("popup"))
