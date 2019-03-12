@@ -38,7 +38,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             clipMax             = 10;
             damage              = 150;
             accuracy            = 0;
-            fireTime            = 1000;
+            fireTime            = 1500;
             critChance          = 0.2;
             critMultiplier      = 1.5;
             weaponLevel         = 1;
@@ -51,7 +51,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             ableToReload        = false;
             ableToFire          = true;
             fireCooldownDelta   = 0;
-            reloadCooldownDelta = 2000;
+            reloadCooldownDelta = 2500;
 
 
         }

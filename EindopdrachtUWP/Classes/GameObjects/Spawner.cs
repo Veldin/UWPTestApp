@@ -41,12 +41,12 @@ namespace UWPTestApp
         public override bool IsActive(GameObject gameObject)
         {
             //Only activate the spawners near the players so only near objects spawn zombies
-            if (Math.Abs(gameObject.FromLeft - this.FromLeft) < 600)
+            if (Math.Abs(gameObject.FromLeft - this.FromLeft) < 400)
             {
                 return true;
             }
 
-            if (Math.Abs(gameObject.FromTop - this.FromTop) < 600)
+            if (Math.Abs(gameObject.FromTop - this.FromTop) < 400)
             {
                 return true;
             }

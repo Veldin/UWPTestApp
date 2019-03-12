@@ -39,14 +39,14 @@ namespace EindopdrachtUWP.Classes.Weapons
             currentClip         = 0;
             clipAmount          = 0;
             clipMax             = 2;
-            damage              = 150;
+            damage              = 250;
             accuracy            = 0;
             fireTime            = 6000;
             critChance          = 0.25;
             critMultiplier      = 2;
             weaponLevel         = 1;
             range               = 1000;
-            reloadTime          = 3000;
+            reloadTime          = 8000;
             shotSound           = "Weapon_Sounds\\Arriva_Gun_Shot1.wav";
             locationBottom      = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Bottom.png";
             locationLeft        = "Assets\\Sprites\\Bullet_Sprites\\Arriva_Gun_Left.png";

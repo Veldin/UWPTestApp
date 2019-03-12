@@ -41,12 +41,12 @@ namespace EindopdrachtUWP.Classes.Weapons
             clipMax             = 25;
             damage              = 75;
             accuracy            = 1;
-            fireTime            = 250;
+            fireTime            = 100;
             critChance          = 0.15;
             critMultiplier      = 1.5;
             weaponLevel         = 1;
             range               = 600;
-            reloadTime          = 2000;
+            reloadTime          = 3000;
             shotSound           = "Weapon_Sounds\\VLEK_Kannon_Shot1.wav";
             locationBottom      = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Bottom.png";
             locationLeft        = "Assets\\Sprites\\Bullet_Sprites\\VLEK_Kannon_Left.png";

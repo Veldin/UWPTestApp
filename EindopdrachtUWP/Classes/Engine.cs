@@ -448,7 +448,15 @@ namespace UWPTestApp
 
         private void HandleOtherControls()
         {
-            if (IsKeyPressed("G") && IsKeyPressed("O") && IsKeyPressed("D"))
+
+            /*
+             * The block here enables cheats, they are activated by having certain keys pressed at the same time.
+             * Due to keyboard rollover this is not compatible with all keyboards.
+             */
+
+            /*
+
+            if (IsKeyPressed("G") && IsKeyPressed("O") && IsKeyPressed("D")) //God
             {
                 gameObjects.Add(new Pickup(15, 17, player.FromLeft, player.FromTop));
                 player.IncreaseMaxHealth(5);
@@ -457,7 +465,40 @@ namespace UWPTestApp
                 player.IncreaseMaxArmour(5);
                 player.IncreaseArmour(5);
             }
-            
+
+
+            if (IsKeyPressed("K") && IsKeyPressed("I") && IsKeyPressed("L")) //KILL
+            {
+                foreach (GameObject gameObjectCheck in new List<GameObject>(gameObjects))
+                {
+                    if (gameObjectCheck.IsActive(player) && gameObjectCheck is Enemy)
+                    {
+                        Enemy gameObjectEnemy = gameObjectCheck as Enemy;
+                        gameObjectEnemy.AddLifePoints(-1 * player.GetLevel());
+                    }
+                }
+            }
+
+
+            if (IsKeyPressed("R") && IsKeyPressed("A") && IsKeyPressed("I")&& IsKeyPressed("N")) //RAIN
+            {
+                Random random = new Random();
+                gameObjects.Add(new Splatter(random.Next(5, 15), random.Next(5, 15), random.Next((int)player.FromLeft - 400, (int)player.FromLeft + 400), random.Next((int)player.FromTop - 400, (int)player.FromTop + 400)));
+            }
+
+
+            if (IsKeyPressed("R") && IsKeyPressed("I") && IsKeyPressed("L")) //RILL*
+            {
+                Random random = new Random();
+                foreach (GameObject gameObjectCheck in new List<GameObject>(gameObjects))
+                {
+                    gameObjectCheck.AddFromLeft(random.Next(-2, 3));
+                    gameObjectCheck.AddFromTop(random.Next(-2, 3));
+                }
+            }
+             */
+
+
         }
 
         /* HandlePlayerWeaponControls */
