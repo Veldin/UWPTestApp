@@ -42,7 +42,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             critChance          = 0.05;
             critMultiplier      = 1.5;
             weaponLevel         = 1;
-            range               = 80;
+            range               = 90;
             reloadTime          = 3000;
             shotSound           = "Weapon_Sounds\\Flamethrower_Shot1.wav";
             location            = "Assets\\Sprites\\Bullet_Sprites\\Flamethrower1.png";
@@ -109,19 +109,19 @@ namespace EindopdrachtUWP.Classes.Weapons
 
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range + random.Next(40));
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range + random.Next(45));
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range + random.Next(40));
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range + random.Next(45));
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range + random.Next(40));
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range + random.Next(45));
                 }
                 else //Right
                 {
-                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range + random.Next(40));
+                    projectile = new Projectile(4, 4, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range + random.Next(45));
                 }
 
                 projectile.SetLocation(location);

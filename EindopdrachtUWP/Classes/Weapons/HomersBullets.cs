@@ -129,6 +129,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 // Make the projectile homing and speeding
                 projectile.AddTag("homing");
                 projectile.AddTag("speeding");
+                projectile.setMovementSpeed(200);
 
                 // Add the projectile to the gameObjects list
                 gameObjects.Add(projectile);

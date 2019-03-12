@@ -79,6 +79,11 @@ public class Enemy : GameObject, MovableObject, Targetable
         this.power = power;
     }
 
+    public void AddPower(float power)
+    {
+        this.power = power;
+    }
+
     public float GetPower()
     {
         return power;
@@ -87,6 +92,11 @@ public class Enemy : GameObject, MovableObject, Targetable
     void MovableObject.SetMovementSpeed(float speed)
     {
         movementSpeed = speed;
+    }
+
+    public void addMovementSpeed(float speed)
+    {
+        movementSpeed += speed;
     }
 
     float MovableObject.GetMovementSpeed()
@@ -326,6 +336,7 @@ public class Enemy : GameObject, MovableObject, Targetable
             int randomPositionOffsetTwo = 0;
 
             int randomSizeOffset = 0;
+
 
             for (int i = 0; i < 15; i++)
             {
