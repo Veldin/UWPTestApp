@@ -38,11 +38,11 @@ namespace UWPTestApp
         private CanvasControl canvasControl;
 
         //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
-        private long then;      //This is the time of the previous draw frame. (To calculate the delta)
+        private readonly long then;      //This is the time of the previous draw frame. (To calculate the delta)
 
         //The max fps we want to run at
-        private float fps;  //The set FPS limit
-        private float interfal; //Interfal that gets calculated based on the fps
+        private readonly float fps;  //The set FPS limit
+        private readonly float interfal; //Interfal that gets calculated based on the fps
 
         public bool Music { get; set; }
         public bool Effects { get; set; }
