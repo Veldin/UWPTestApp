@@ -5,7 +5,7 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml">
     <Grid>
         <Border Background="Gray"></Border>
-        <Grid x:Name="Startup" Background="#282828">
+        <Grid x:Name="startup" Background="#282828">
             <Image x:Name="startup_Image" Source="Assets\SplashScreen_new.png"/>
             <Image x:Name="presskey" Source="Assets\Sprites\Menu_Sprites\pressKey.png" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="800" Height="100" Margin="80"/>
         </Grid>
@@ -21,7 +21,7 @@
                 <!--Background and drawable Canvas-->
                 <Border Background="Gray"></Border>
                 <Border Height="600" Width="60" Background="Gray" Margin="-60,0,0,0" HorizontalAlignment="Left" CornerRadius="5, 0, 0, 5"></Border>
-                <canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center"/>
+                <canvas:CanvasControl x:Name="canvas" Draw="Canvas_Draw" Width="800" Height="600" ClearColor="Transparent" HorizontalAlignment="Center"/>
 
                 <!--Menu Sprites and locations-->
                 <canvas:CanvasControl x:Name="black" Width="800" Height="600" ClearColor="black" Opacity="0.75" HorizontalAlignment="Center"/>

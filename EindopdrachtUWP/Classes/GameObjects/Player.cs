@@ -25,18 +25,15 @@ namespace UWPTestApp
 
         public bool IsWalking { get; set; }
 
-        public float selectNextWeaponDelay { get; set; }
-        private float selectNextWeaponDelayMax;
+        public float SelectNextWeaponDelay { get; set; }
 
         //Gun stuff
         private List<Weapon> weapons;
         public Weapon activeWeapon;
-
-        private string direction;
         
-        public float deltaForWalkingSound { get; set; }
-        public float deltaForHealthLowSound { get; set; }
-
+        public float DeltaForWalkingSound { get; set; }
+        public float DeltaForHealthLowSound { get; set; }
+        public float SelectNextWeaponDelayMax { get; set; }
 
         public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
             : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
@@ -56,22 +53,23 @@ namespace UWPTestApp
             maxArmour = 150;
             level = 1;
             Kills = 0;
-            direction = "Bottom";
+            Direction = "Bottom";
 
-            selectNextWeaponDelayMax = 1000;
+            SelectNextWeaponDelayMax = 1000;
 
-            weapons = new List<Weapon>();
-
-            weapons.Add(new DessertBeagle());
-            weapons.Add(new KA74());
-            weapons.Add(new Knettergun());
-            weapons.Add(new UWP());
-            weapons.Add(new FlameThrower());
-            weapons.Add(new VLEKKannon());
-            weapons.Add(new BulletBill());
-            weapons.Add(new ArrivaGun());
-            weapons.Add(new Batarang());
-            weapons.Add(new HomersBullets());
+            weapons = new List<Weapon>
+            {
+                new DessertBeagle(),
+                new KA74(),
+                new Knettergun(),
+                new UWP(),
+                new FlameThrower(),
+                new VLEKKannon(),
+                new BulletBill(),
+                new ArrivaGun(),
+                new Batarang(),
+                new HomersBullets()
+            };
 
             activeWeapon = weapons[0];
 
@@ -79,10 +77,10 @@ namespace UWPTestApp
             //Target = new Target(this);
         }
 
-        public bool selectNextWeapon()
+        public bool SelectNextWeapon()
         {
             //If you recently switched weapons this is higher then 0
-            if (selectNextWeaponDelay > 0)
+            if (SelectNextWeaponDelay > 0)
             {
                 return false;
             }
@@ -96,19 +94,19 @@ namespace UWPTestApp
                 }else if (found)
                 {
                     activeWeapon = selected;
-                    selectNextWeaponDelay = selectNextWeaponDelayMax;
+                    SelectNextWeaponDelay = SelectNextWeaponDelayMax;
                     return true;
                 }
             }
             activeWeapon = weapons[0];
 
-            selectNextWeaponDelay = selectNextWeaponDelayMax;
+            SelectNextWeaponDelay = SelectNextWeaponDelayMax;
             return true;
         }
 
-        public bool selectPreviousWeapon()
+        public bool SelectPreviousWeapon()
         {
-            if (selectNextWeaponDelay > 0)
+            if (SelectNextWeaponDelay > 0)
             {
                 return false;
             }
@@ -125,13 +123,13 @@ namespace UWPTestApp
                     {
                         activeWeapon = weapons[i - 1];
                     }
-                    selectNextWeaponDelay = selectNextWeaponDelayMax;
+                    SelectNextWeaponDelay = SelectNextWeaponDelayMax;
                     return true;
                 }
             }
             activeWeapon = weapons[0];
 
-            selectNextWeaponDelay = selectNextWeaponDelayMax;
+            SelectNextWeaponDelay = SelectNextWeaponDelayMax;
             return true;
         }
 
@@ -150,7 +148,7 @@ namespace UWPTestApp
             {
                 AddTag("health_low");
             }
-            MainPage.Current.updateHealth();
+            MainPage.Current.UpdateHealth();
         }
 
         public void IncreaseArmour(float amount)
@@ -160,30 +158,30 @@ namespace UWPTestApp
             {
                 armour = maxArmour;
             }
-            MainPage.Current.updateArmour();
+            MainPage.Current.UpdateArmour();
         }
 
-        public void setArmour(float amount)
+        public void SetArmour(float amount)
         {
             armour = amount;
         }
 
-        public float getArmour()
+        public float GetArmour()
         {
             return armour;
         }
 
-        public float getMaxArmour()
+        public float GetMaxArmour()
         {
             return maxArmour;
         }
 
-        public float getHealth()
+        public float GetHealth()
         {
             return health;
         }
 
-        public float getMaxHealth()
+        public float GetMaxHealth()
         {
             return maxHealth;
         }
@@ -192,22 +190,22 @@ namespace UWPTestApp
         public void IncreaseLevel()
         {
             level++;
-            increaseMaxHealth(25);
-            increaseMaxArmour(25);
+            IncreaseMaxHealth(25);
+            IncreaseMaxArmour(25);
             IncreaseHealth(maxHealth);
             AddTag("levelup");
         }
 
-        public void increaseMaxHealth(float amount)
+        public void IncreaseMaxHealth(float amount)
         {
             maxHealth += amount;
-            MainPage.Current.updateHealth();
+            MainPage.Current.UpdateHealth();
         }
 
-        public void increaseMaxArmour(float amount)
+        public void IncreaseMaxArmour(float amount)
         {
             maxArmour += amount;
-            MainPage.Current.updateArmour();
+            MainPage.Current.UpdateArmour();
         }
 
         public int GetLevel() => level;
@@ -224,7 +222,7 @@ namespace UWPTestApp
 
         public bool Fire(string direction, List<GameObject> gameObjects)
         {
-            this.direction = direction;
+            this.Direction = direction;
             MainPage.Current.UpdateCurrentClip();
             return activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction);
         }
@@ -246,11 +244,11 @@ namespace UWPTestApp
             if (health <= 0)
             {
                 AddTag("destroyed");
-                MainPage.Current.muteMusic();
-                MainPage.Current.gameover();
+                MainPage.Current.MuteMusic();
+                MainPage.Current.Gameover();
             }
 
-            selectNextWeaponDelay -= delta;
+            SelectNextWeaponDelay -= delta;
 
             string locationstring = "Assets/Sprites/Player_Sprites/";
 
@@ -295,7 +293,7 @@ namespace UWPTestApp
                 locationstring += "VLEKKannon";
             }
 
-            locationstring += "_" + direction + ".png";
+            locationstring += "_" + Direction + ".png";
 
             if (locationstring != Location)
             {

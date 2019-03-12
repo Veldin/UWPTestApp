@@ -180,7 +180,7 @@ namespace EindopdrachtUWP.Classes.Weapons
             }
             if (currentClip == 0 && clipAmount == 0)
             {
-                MainPage.Current.weaponEmpty(name);
+                MainPage.Current.WeaponEmpty(name);
             }
             return false;
         }
@@ -193,7 +193,7 @@ namespace EindopdrachtUWP.Classes.Weapons
                 ableToFire = false;
                 clipAmount--;
                 currentClip = clipMax;
-                MainPage.Current.getWeaponStats();
+                MainPage.Current.GetWeaponStats();
                 MainPage.Current.UpdateCurrentClip();
                 ableToReload = false;
             }

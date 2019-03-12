@@ -38,16 +38,14 @@ namespace UWPTestApp
         private CanvasControl canvasControl;
 
         //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
-        private long delta;     //The lenght in time the last frame lasted (so we can use it to calculate speeds of things without slowing down due to low fps)
-        private long now;       //This is the time of the frame. (To calculate the delta)
         private long then;      //This is the time of the previous draw frame. (To calculate the delta)
 
         //The max fps we want to run at
         private float fps;  //The set FPS limit
         private float interfal; //Interfal that gets calculated based on the fps
 
-        public bool music { get; set; }
-        public bool effects { get; set; }
+        public bool Music { get; set; }
+        public bool Effects { get; set; }
 
         private bool paused;
 
@@ -90,8 +88,8 @@ namespace UWPTestApp
             }
 
             //Set states for the engine.
-            music = true;
-            effects = true;
+            Music = true;
+            Effects = true;
             paused = true;
 
             scenes = new List<Scene>();
@@ -104,61 +102,37 @@ namespace UWPTestApp
             player.AddTag("controllable");  //Make the player controllable
             gameObjects.Add(player); //Add the player to the gameObjects list
 
-            loadBlock(blockFromLeft, blockFromTop);
+            LoadBlock(blockFromLeft, blockFromTop);
 
             //Load Left
-            loadBlock(blockFromLeft - 1, blockFromTop);
-            loadBlock(blockFromLeft - 2, blockFromTop);
-            loadBlock(blockFromLeft - 3, blockFromTop);
+            LoadBlock(blockFromLeft - 1, blockFromTop);
+            LoadBlock(blockFromLeft - 2, blockFromTop);
+            LoadBlock(blockFromLeft - 3, blockFromTop);
 
 
             //Load Right
-            loadBlock(blockFromLeft + 1, blockFromTop);
-            loadBlock(blockFromLeft + 2, blockFromTop);
-            loadBlock(blockFromLeft + 3, blockFromTop);
+            LoadBlock(blockFromLeft + 1, blockFromTop);
+            LoadBlock(blockFromLeft + 2, blockFromTop);
+            LoadBlock(blockFromLeft + 3, blockFromTop);
 
 
             //Load Up
-            loadBlock(blockFromLeft, blockFromTop + 1);
-            loadBlock(blockFromLeft, blockFromTop + 2);
-            loadBlock(blockFromLeft, blockFromTop + 3);
+            LoadBlock(blockFromLeft, blockFromTop + 1);
+            LoadBlock(blockFromLeft, blockFromTop + 2);
+            LoadBlock(blockFromLeft, blockFromTop + 3);
 
 
             //Load Down
-            loadBlock(blockFromLeft, blockFromTop - 1);
-            loadBlock(blockFromLeft, blockFromTop - 2);
-            loadBlock(blockFromLeft, blockFromTop - 3);
+            LoadBlock(blockFromLeft, blockFromTop - 1);
+            LoadBlock(blockFromLeft, blockFromTop - 2);
+            LoadBlock(blockFromLeft, blockFromTop - 3);
 
 
             //Load sides
-            loadBlock(blockFromLeft - 1, blockFromTop + 1);
-            loadBlock(blockFromLeft + 1, blockFromTop - 1);
-            loadBlock(blockFromLeft - 1, blockFromTop - 1);
-            loadBlock(blockFromLeft + 1, blockFromTop + 1);
-
-            //Load in the world
-            //gameObjects.AddRange(world.StartingBlock.LoadScene());
-
-            /* Manualy load some of the worldpieces */
-            /*
-            gameObjects.AddRange(world.StartingBlock.Up.LoadScene());
-            gameObjects.AddRange(world.StartingBlock.Up.Up.LoadScene());
-
-            gameObjects.AddRange(world.StartingBlock.Down.LoadScene());
-            gameObjects.AddRange(world.StartingBlock.Down.Down.LoadScene());
-
-            gameObjects.AddRange(world.StartingBlock.Right.LoadScene());
-            gameObjects.AddRange(world.StartingBlock.Right.Right.LoadScene());
-
-            gameObjects.AddRange(world.StartingBlock.Left.LoadScene());
-            gameObjects.AddRange(world.StartingBlock.Left.Left.LoadScene());
-
-            gameObjects.AddRange(world.StartingBlock.Right.Up.LoadScene());
-            gameObjects.AddRange(world.StartingBlock.Left.Up.LoadScene());
-
-            gameObjects.AddRange(world.StartingBlock.Right.Down.LoadScene());
-            gameObjects.AddRange(world.StartingBlock.Left.Down.LoadScene());
-            */
+            LoadBlock(blockFromLeft - 1, blockFromTop + 1);
+            LoadBlock(blockFromLeft + 1, blockFromTop - 1);
+            LoadBlock(blockFromLeft - 1, blockFromTop - 1);
+            LoadBlock(blockFromLeft + 1, blockFromTop + 1);
 
             //Set the FPS and calculate the interfal!
             fps = 60;
@@ -173,7 +147,7 @@ namespace UWPTestApp
 
         }
 
-        public Player getPlayer() => player;
+        public Player GetPlayer() => player;
         public SoundController GetSoundController => soundController;
 
         /* LoadScene() */
@@ -255,7 +229,7 @@ namespace UWPTestApp
             });
         }
 
-        public void loadBlock(int blockFromLeft, int blockFromTop)
+        public void LoadBlock(int blockFromLeft, int blockFromTop)
         {
             WorldBlock needle = world.StartingBlock;
 
@@ -355,37 +329,37 @@ namespace UWPTestApp
                         blockFromTop != (int)Math.Floor(player.FromTop / world.StartingBlock.Height)
                     )
                     {
-                        loadBlock(blockFromLeft, blockFromTop);
+                        LoadBlock(blockFromLeft, blockFromTop);
 
                         //Load Left
-                        loadBlock(blockFromLeft - 1, blockFromTop);
-                        loadBlock(blockFromLeft - 2, blockFromTop);
-                        loadBlock(blockFromLeft - 3, blockFromTop);
+                        LoadBlock(blockFromLeft - 1, blockFromTop);
+                        LoadBlock(blockFromLeft - 2, blockFromTop);
+                        LoadBlock(blockFromLeft - 3, blockFromTop);
 
 
                         //Load Right
-                        loadBlock(blockFromLeft + 1, blockFromTop);
-                        loadBlock(blockFromLeft + 2, blockFromTop);
-                        loadBlock(blockFromLeft + 3, blockFromTop);
+                        LoadBlock(blockFromLeft + 1, blockFromTop);
+                        LoadBlock(blockFromLeft + 2, blockFromTop);
+                        LoadBlock(blockFromLeft + 3, blockFromTop);
 
 
                         //Load Up
-                        loadBlock(blockFromLeft, blockFromTop + 1);
-                        loadBlock(blockFromLeft, blockFromTop + 2);
-                        loadBlock(blockFromLeft, blockFromTop + 3);
+                        LoadBlock(blockFromLeft, blockFromTop + 1);
+                        LoadBlock(blockFromLeft, blockFromTop + 2);
+                        LoadBlock(blockFromLeft, blockFromTop + 3);
 
 
                         //Load Down
-                        loadBlock(blockFromLeft, blockFromTop - 1);
-                        loadBlock(blockFromLeft, blockFromTop - 2);
-                        loadBlock(blockFromLeft, blockFromTop - 3);
+                        LoadBlock(blockFromLeft, blockFromTop - 1);
+                        LoadBlock(blockFromLeft, blockFromTop - 2);
+                        LoadBlock(blockFromLeft, blockFromTop - 3);
 
 
                         //Load sides
-                        loadBlock(blockFromLeft - 1, blockFromTop + 1);
-                        loadBlock(blockFromLeft + 1, blockFromTop - 1);
-                        loadBlock(blockFromLeft - 1, blockFromTop - 1);
-                        loadBlock(blockFromLeft + 1, blockFromTop + 1);
+                        LoadBlock(blockFromLeft - 1, blockFromTop + 1);
+                        LoadBlock(blockFromLeft + 1, blockFromTop - 1);
+                        LoadBlock(blockFromLeft - 1, blockFromTop - 1);
+                        LoadBlock(blockFromLeft + 1, blockFromTop + 1);
 
                         blockFromLeft = (int)Math.Floor(player.FromLeft / world.StartingBlock.Width);
                         blockFromTop = (int)Math.Floor(player.FromTop / world.StartingBlock.Height);
@@ -432,12 +406,12 @@ namespace UWPTestApp
 
                             if (player.IsWalking)
                             {
-                                if (player.deltaForWalkingSound > 1300)
+                                if (player.DeltaForWalkingSound > 1300)
                                 {
                                     soundController.PlaySound(player.MoveSound);
-                                    player.deltaForWalkingSound = 0;
+                                    player.DeltaForWalkingSound = 0;
                                 }
-                                player.deltaForWalkingSound += 200;
+                                player.DeltaForWalkingSound += 200;
                             }
                         }
 
@@ -467,7 +441,7 @@ namespace UWPTestApp
                 //Handle the tags for each gameobject if there are any tags to handle
                 foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                 {
-                    handleTaggsGameObject(gameObjectCheck);
+                    HandleTaggsGameObject(gameObjectCheck);
                 }
             }
         }
@@ -477,10 +451,10 @@ namespace UWPTestApp
             if (IsKeyPressed("G") && IsKeyPressed("O") && IsKeyPressed("D"))
             {
                 gameObjects.Add(new Pickup(15, 17, player.FromLeft, player.FromTop));
-                player.increaseMaxHealth(5);
+                player.IncreaseMaxHealth(5);
                 player.IncreaseHealth(5);
 
-                player.increaseMaxArmour(5);
+                player.IncreaseMaxArmour(5);
                 player.IncreaseArmour(5);
             }
             
@@ -577,7 +551,7 @@ namespace UWPTestApp
             //Key to pauze the screen
             if (IsKeyPressed("Escape") || IsKeyPressed("GamepadMenu"))
             {
-                MainPage.Current.getMenu();
+                MainPage.Current.GetMenu();
 
                 //Empty all keys that were pressed to cause the game to not register keys that were pressed bevore the pause
                 pressedKeys = new HashSet<string>();
@@ -594,36 +568,36 @@ namespace UWPTestApp
         {
             if (MainPage.Current.menuScreen && (IsKeyPressed("A") || IsKeyPressed("GamepadA")))
             {
-                MainPage.Current.removeMenu();
+                MainPage.Current.RemoveMenu();
                 paused = false;
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("B") || IsKeyPressed("GamepadB")))
             {
-                if (music)
+                if (Music)
                 {
-                    MainPage.Current.muteMusic();
-                    music = false;
+                    MainPage.Current.MuteMusic();
+                    Music = false;
                 }
                 else
                 {
-                    MainPage.Current.unmuteMusic();
-                    music = true;
+                    MainPage.Current.UnmuteMusic();
+                    Music = true;
                 }
                 Task.Delay(300).Wait();
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("Y") || IsKeyPressed("GamepadY")))
             {
-                if (effects)
+                if (Effects)
                 {
-                    MainPage.Current.muteEffect();
-                    effects = false;
+                    MainPage.Current.MuteEffect();
+                    Effects = false;
                 }
                 else
                 {
-                    MainPage.Current.unmuteEffect();
-                    effects = true;
+                    MainPage.Current.UnmuteEffect();
+                    Effects = true;
                 }
                 Task.Delay(300).Wait();
             }
@@ -635,40 +609,40 @@ namespace UWPTestApp
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
             {
-                MainPage.Current.getInfo();
+                MainPage.Current.GetInfo();
                 Task.Delay(300).Wait();
             }
             else if (MainPage.Current.infoScreen && !MainPage.Current.controle && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
             {
-                MainPage.Current.getControls();
+                MainPage.Current.GetControls();
                 Task.Delay(300).Wait();
             }
 
             else if (MainPage.Current.controle && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
             {
-                MainPage.Current.removeControls();
+                MainPage.Current.RemoveControls();
                 Task.Delay(300).Wait();
             }
             else if (MainPage.Current.infoScreen && !MainPage.Current.controle && (IsKeyPressed("Enter") || IsKeyPressed("GamepadMenu")))
             {
-                MainPage.Current.removeInfo();
+                MainPage.Current.RemoveInfo();
                 Task.Delay(300).Wait();
             }
 
             if (MainPage.Current.menuScreen && (IsKeyPressed("X") || IsKeyPressed("GamepadX")))
             {
-                MainPage.Current.getAbout();
+                MainPage.Current.GetAbout();
                 Task.Delay(300).Wait();
             }
             else if (MainPage.Current.aboutScreen && (IsKeyPressed("X") || IsKeyPressed("GamepadX")))
             {
-                MainPage.Current.removeAbout();
+                MainPage.Current.RemoveAbout();
                 Task.Delay(300).Wait();
             }
 
             if (MainPage.Current.activeStartup && pressedKeys.Count() > 0)
             {
-                MainPage.Current.startup();
+                MainPage.Current.Startup();
                 Task.Delay(300).Wait();
             }
         }
@@ -679,7 +653,7 @@ namespace UWPTestApp
          * The logic of those tags is done here.
          * This method is called in Logic();
         */
-        private void handleTaggsGameObject(GameObject gameObjectCheck)
+        private void HandleTaggsGameObject(GameObject gameObjectCheck)
         {
             if (gameObjectCheck.HasTag("hit") && gameObjectCheck is Player p1)
             {
@@ -689,13 +663,11 @@ namespace UWPTestApp
 
             if (gameObjectCheck.HasTag("health_low") && gameObjectCheck is Player p2)
             {
-                if (p2.deltaForHealthLowSound > 4000)
+                if (p2.DeltaForHealthLowSound > 4000)
                 {
                     soundController.PlaySound(p2.HealthLowSound);
-                    p2.deltaForHealthLowSound = 0;
+                    p2.DeltaForHealthLowSound = 0;
                 }
-
-                p2.deltaForHealthLowSound += delta;
             }
 
             if (gameObjectCheck.HasTag("destroyed"))
@@ -707,7 +679,7 @@ namespace UWPTestApp
                 else if (gameObjectCheck is Player p3)
                 {
                     soundController.PlaySound(p3.DeathSound);
-                    MainPage.Current.gameover();
+                    MainPage.Current.Gameover();
                 }
                 else if (gameObjectCheck is MovableObject mo)
                 {
@@ -718,9 +690,9 @@ namespace UWPTestApp
                             if (getPlayer is Player p4)
                             {
                                 p4.Kills++;
-                                MainPage.Current.updateHighscore();
+                                MainPage.Current.UpdateHighscore();
                                 MainPage.Current.killstreak++;
-                                MainPage.Current.updateKillstreak();
+                                MainPage.Current.UpdateKillstreak();
                                 if (p4.Kills > 5 * (p4.GetLevel() * (p4.GetLevel() * 0.3)))
                                 {
                                     p4.IncreaseLevel();
@@ -910,7 +882,7 @@ namespace UWPTestApp
                 if (player is Player)
                 {
                     //Calculate the percentage health left
-                    float percentage = 1 + ((player.getHealth() - player.getMaxHealth()) / player.getMaxHealth());
+                    float percentage = 1 + ((player.GetHealth() - player.GetMaxHealth()) / player.GetMaxHealth());
 
                     if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
                     //(this also stops devided by 0 errors while the user wont see the health left)
@@ -956,7 +928,7 @@ namespace UWPTestApp
                 if (gameObject is Player)
                 {
                     //Calculate the percentage armour left
-                    float percentage = 1 + ((player.getArmour() - player.getMaxArmour()) / player.getMaxArmour());
+                    float percentage = 1 + ((player.GetArmour() - player.GetMaxArmour()) / player.GetMaxArmour());
 
                     if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
                     //(this also stops devided by 0 errors while the user wont see the health left)
@@ -1083,13 +1055,13 @@ namespace UWPTestApp
          */
         public void NextWeapon(Player player)
         {
-            player.selectNextWeapon();
+            player.SelectNextWeapon();
             while (player.activeWeapon.GetAmmo() <= 0)
             {
-                player.selectNextWeaponDelay = 0;
-                player.selectNextWeapon();
+                player.SelectNextWeaponDelay = 0;
+                player.SelectNextWeapon();
             }
-            player.selectNextWeaponDelay = 1000;
+            player.SelectNextWeaponDelay = 1000;
             MainPage.Current.UpdateWeapon();
         }
 
@@ -1102,13 +1074,13 @@ namespace UWPTestApp
          */
         public void PreviousWeapon(Player player)
         {
-            player.selectPreviousWeapon();
+            player.SelectPreviousWeapon();
             while (player.activeWeapon.GetAmmo() <= 0)
             {
-                player.selectNextWeaponDelay = 0;
-                player.selectPreviousWeapon();
+                player.SelectNextWeaponDelay = 0;
+                player.SelectPreviousWeapon();
             }
-            player.selectNextWeaponDelay = 1000;
+            player.SelectNextWeaponDelay = 1000;
             MainPage.Current.UpdateWeapon();
         }
 

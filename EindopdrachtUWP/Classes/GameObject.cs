@@ -28,7 +28,7 @@ namespace UWPTestApp
         protected float fromTop;
 
         //Objects can be facing top, right, bottom and left
-        public string direction { get; set; }
+        public string Direction { get; set; }
 
         //Offset where to draw the gameObject in the game.
         //The Sprite can be bigger or smaller then the hitbox.
@@ -52,7 +52,7 @@ namespace UWPTestApp
         protected bool started;
 
         public Rect rectangle;
-        private Timer timer;
+
         public GameObject(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         {
             tags = new ArrayList();

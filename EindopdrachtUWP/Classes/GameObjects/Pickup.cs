@@ -406,10 +406,10 @@ namespace EindopdrachtUWP.Classes
                             else
                             {
                                 w.clipAmount+= 20;
-                                MainPage.Current.getWeaponStats();
+                                MainPage.Current.GetWeaponStats();
                                 MainPage.Current.UpdateCurrentClip();
                             }
-                            MainPage.Current.weaponAmmo(weaponName);
+                            MainPage.Current.WeaponAmmo(weaponName);
                             break;
                         }
                     }
@@ -423,7 +423,7 @@ namespace EindopdrachtUWP.Classes
                         if (w.name.Equals(weaponName))
                         {
                             w.Upgrade();
-                            MainPage.Current.getWeaponStats();
+                            MainPage.Current.GetWeaponStats();
                             MainPage.Current.UpdateCurrentClip();
                             break;
                         }
@@ -432,12 +432,12 @@ namespace EindopdrachtUWP.Classes
                 else if (type.Equals(ArmourUp)) //If this pickup contains Armour
                 {
                     player.IncreaseArmour(amount);
-                    MainPage.Current.updateArmour();
+                    MainPage.Current.UpdateArmour();
                 }
                 else if (type.Equals(HealthUp)) //If this pickup contains Health
                 {
                     player.IncreaseHealth(amount);
-                    MainPage.Current.updateHealth();
+                    MainPage.Current.UpdateHealth();
                 }
                 AddTag("destroyed");
                 AddTag("popup");

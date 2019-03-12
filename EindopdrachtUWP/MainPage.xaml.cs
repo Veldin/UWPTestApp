@@ -35,7 +35,7 @@ namespace EindopdrachtUWP
             Current = this;
 
             Window.Current.CoreWindow.KeyDown += KeyDown;
-            Window.Current.CoreWindow.KeyUp += KeyUP;
+            Window.Current.CoreWindow.KeyUp += KeyUp;
 
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
 
@@ -59,7 +59,7 @@ namespace EindopdrachtUWP
             killstreak = 0;
             paused = true;           
             
-            getWeaponStats();
+            GetWeaponStats();
             currentClip.Text = "12/12";
             currentClipRight.Text = "12/12";
 
@@ -68,13 +68,13 @@ namespace EindopdrachtUWP
             highscore.Text = "0";
             CurrentKillstreak.Text = "0";
 
-            updateHealth();
-            updateArmour();
+            UpdateHealth();
+            UpdateArmour();
 
             engine.Run();
         }
 
-        public void gameover()
+        public void Gameover()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -88,7 +88,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void muteMusic()
+        public void MuteMusic()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -99,7 +99,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void unmuteMusic()
+        public void UnmuteMusic()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -110,7 +110,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void muteEffect()
+        public void MuteEffect()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -121,7 +121,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void unmuteEffect()
+        public void UnmuteEffect()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -132,7 +132,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void removeMenu()
+        public void RemoveMenu()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -149,7 +149,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void getMenu()
+        public void GetMenu()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -158,11 +158,11 @@ namespace EindopdrachtUWP
                     stats.Opacity = 0;
                     statImage.Opacity = 1;
                     black.Opacity = 0.75;
-                    if (engine.music)
+                    if (engine.Music)
                     {
                         musicCheck.Opacity = 1;
                     }
-                    if (engine.effects)
+                    if (engine.Effects)
                     {
                         effectCheck.Opacity = 1;
                     }
@@ -172,7 +172,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void removeInfo()
+        public void RemoveInfo()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -186,7 +186,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void getInfo()
+        public void GetInfo()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -200,7 +200,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void removeAbout()
+        public void RemoveAbout()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -213,12 +213,12 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void startup()
+        public void Startup()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                Startup.Opacity = 0;
+                startup.Opacity = 0;
                 startup_Image.Opacity = 0;
                 viewbox.Opacity = 1;
                 activeStartup = false;
@@ -227,7 +227,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void getAbout()
+        public void GetAbout()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -240,7 +240,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void getControls()
+        public void GetControls()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -251,7 +251,7 @@ namespace EindopdrachtUWP
             );
         }
 
-        public void removeControls()
+        public void RemoveControls()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -263,37 +263,37 @@ namespace EindopdrachtUWP
         }
 
         //Every time the stats of a weapon are altered this function is called to display the stats correctly
-        public void getWeaponStats()
+        public void GetWeaponStats()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
                 
-                activeweapon.Text = engine.getPlayer().activeWeapon.name;
-                descripton.Text = engine.getPlayer().activeWeapon.description;
-                damage.Text = engine.getPlayer().activeWeapon.damage.ToString();
-                clipSize.Text = engine.getPlayer().activeWeapon.clipMax.ToString();
-                clipAmount.Text = engine.getPlayer().activeWeapon.clipAmount.ToString();
-                critPercentage = engine.getPlayer().activeWeapon.critChance * 100;
+                activeweapon.Text = engine.GetPlayer().activeWeapon.name;
+                descripton.Text = engine.GetPlayer().activeWeapon.description;
+                damage.Text = engine.GetPlayer().activeWeapon.damage.ToString();
+                clipSize.Text = engine.GetPlayer().activeWeapon.clipMax.ToString();
+                clipAmount.Text = engine.GetPlayer().activeWeapon.clipAmount.ToString();
+                critPercentage = engine.GetPlayer().activeWeapon.critChance * 100;
                 critChance.Text = critPercentage.ToString() + "%";
-                critMultiPercentage = engine.getPlayer().activeWeapon.critMultiplier * 100;
+                critMultiPercentage = engine.GetPlayer().activeWeapon.critMultiplier * 100;
                 critMulti.Text = critMultiPercentage.ToString() + "%";
             });
         }
 
         //Every time a zombie gets killed this function is called. It adds the current player level to the score and displays the score and amount of kills
-        public void updateHighscore()
+        public void UpdateHighscore()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                currentScore += engine.getPlayer().GetLevel();
+                currentScore += engine.GetPlayer().GetLevel();
                 highscore.Text = currentScore.ToString();
-                currentKills.Text = engine.getPlayer().Kills.ToString();
+                currentKills.Text = engine.GetPlayer().Kills.ToString();
             });
         }
 
-        public void updateKillstreak()
+        public void UpdateKillstreak()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -308,27 +308,27 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                currentLevel.Text = engine.getPlayer().GetLevel().ToString();
+                currentLevel.Text = engine.GetPlayer().GetLevel().ToString();
             });
         }
 
         //Every time the health of the player is altered this function is called to display the correct amount of healthpoints
-        public void updateHealth()
+        public void UpdateHealth()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-               health.Text = engine.getPlayer().getHealth().ToString() + "/" + engine.getPlayer().getMaxHealth().ToString();
+               health.Text = engine.GetPlayer().GetHealth().ToString() + "/" + engine.GetPlayer().GetMaxHealth().ToString();
             });
         }
 
         //Every time the armour of the player is altered this function is called to display the correct amount of armourpoints
-        public void updateArmour()
+        public void UpdateArmour()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                armour.Text = engine.getPlayer().getArmour().ToString() + "/" + engine.getPlayer().getMaxArmour().ToString();
+                armour.Text = engine.GetPlayer().GetArmour().ToString() + "/" + engine.GetPlayer().GetMaxArmour().ToString();
             });
         }
 
@@ -338,15 +338,15 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                currentClip.Text = engine.getPlayer().activeWeapon.currentClip.ToString() + "/" + engine.getPlayer().activeWeapon.clipMax.ToString();
-                currentClipRight.Text = engine.getPlayer().activeWeapon.currentClip.ToString() + "/" + engine.getPlayer().activeWeapon.clipMax.ToString();
+                currentClip.Text = engine.GetPlayer().activeWeapon.currentClip.ToString() + "/" + engine.GetPlayer().activeWeapon.clipMax.ToString();
+                currentClipRight.Text = engine.GetPlayer().activeWeapon.currentClip.ToString() + "/" + engine.GetPlayer().activeWeapon.clipMax.ToString();
             });
         }
 
         //Every time you switch a weapon this function is called to display the correct weapon and place the selector at the right weapon
         public void UpdateWeapon()
         {
-            weapon = engine.getPlayer().activeWeapon.name;
+            weapon = engine.GetPlayer().activeWeapon.name;
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
@@ -394,12 +394,12 @@ namespace EindopdrachtUWP
                         break;
                 }
             });
-            getWeaponStats();
+            GetWeaponStats();
             UpdateCurrentClip();
         }
 
         //When the amount of ammo of a weapon is not 0 this function displays the weapon
-        public void weaponAmmo(string weapon)
+        public void WeaponAmmo(string weapon)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -440,7 +440,7 @@ namespace EindopdrachtUWP
         }
 
         //When the amount of ammo of a weapon is 0 this function displays the weapon
-        public void weaponEmpty(string weapon)
+        public void WeaponEmpty(string weapon)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
@@ -480,12 +480,12 @@ namespace EindopdrachtUWP
             });
         }
 
-        void KeyDown(CoreWindow sender, KeyEventArgs args)
+        new void KeyDown(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyDown(args.VirtualKey.ToString());
         }
 
-        void KeyUP(CoreWindow sender, KeyEventArgs args)
+        new void KeyUp(CoreWindow sender, KeyEventArgs args)
         {
             engine.KeyUp(args.VirtualKey.ToString());
         }
@@ -495,7 +495,7 @@ namespace EindopdrachtUWP
 
         }
 
-        private void canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
+        private void Canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             engine.DrawEvent(sender, args);
         }

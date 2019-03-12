@@ -23,7 +23,6 @@ namespace EindopdrachtUWP.Classes
         private Windows.Storage.StorageFolder folder;
 
         private bool mutedSFX = false;
-        private bool mutedMusic = false;
 
         private bool initialized = false;
 
@@ -35,7 +34,6 @@ namespace EindopdrachtUWP.Classes
             sounds = new Dictionary<string, AudioFileInputNode>();
             waitTillInitialized = new List<string>();
             mutedSFX = false;
-            mutedMusic = false;
             InitializeSoundSystem();
         }
 

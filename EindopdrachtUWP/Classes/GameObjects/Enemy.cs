@@ -144,28 +144,28 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             if (ableToHit)
             {
-                if (player.getArmour() <= 0)
+                if (player.GetArmour() <= 0)
                 {
                     player.IncreaseHealth(GetPower() * damage * -1);
                     ableToHit = false;
-                    MainPage.Current.updateHealth();
+                    MainPage.Current.UpdateHealth();
                 }
                 else
                 {
                     player.IncreaseArmour(GetPower() * damage * -1);
-                    if(player.getArmour() < 0)
+                    if(player.GetArmour() < 0)
                     {
-                        player.IncreaseHealth(player.getArmour());
-                        player.setArmour(0);
-                        MainPage.Current.updateHealth();
+                        player.IncreaseHealth(player.GetArmour());
+                        player.SetArmour(0);
+                        MainPage.Current.UpdateHealth();
                     }
                     ableToHit = false;
-                    MainPage.Current.updateArmour();
+                    MainPage.Current.UpdateArmour();
                 }
                 player.AddTag("hit");
             }
             MainPage.Current.killstreak = 0;
-            MainPage.Current.updateKillstreak();
+            MainPage.Current.UpdateKillstreak();
         }
         return true;
     }
@@ -311,7 +311,7 @@ public class Enemy : GameObject, MovableObject, Targetable
                 }
             }
 
-            if (newDirection.Equals(direction))
+            if (newDirection.Equals(Direction))
             {
                 
             }
@@ -323,7 +323,7 @@ public class Enemy : GameObject, MovableObject, Targetable
                     Location = "Assets/Sprites/Enemy_Sprites/Enemy2_" + newDirection + ".png";
                 }
                 Sprite = null;
-                direction = newDirection;
+                Direction = newDirection;
             }
         }
 
