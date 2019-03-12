@@ -171,6 +171,8 @@ public class Projectile : GameObject, MovableObject
                     if (targetable != null)
                     {
                         Target = new Target(targetable);
+                        Target.SetTarget(0,0);
+ 
                         return true;
                     }
                 }

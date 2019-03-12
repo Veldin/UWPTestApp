@@ -79,28 +79,38 @@ namespace UWPTestApp
                     }
                 }
 
-                RemainingCooldownDelta = (cooldownDelta / playerLevel);
-                if (RemainingCooldownDelta < 1000) remainingCooldownDelta++;
+                RemainingCooldownDelta = (cooldownDelta / (playerLevel / 3));
+
+                if (RemainingCooldownDelta < 1000) RemainingCooldownDelta = 1000;
                 
                 //Spawn a gameobject!
                 float spawnSizeWidth = 15;
                 float spawnSizeHight = 15;
                 Random rand = new Random();
-                float enemySize = rand.Next(10, 15);
+                float enemySize = rand.Next(10, 15) + (float)(playerLevel * 1.7);
                 float spawnFromLeft = FromLeft + (Width / 2) - (spawnSizeWidth / 2);
                 float spawnFromTop = FromTop + (Height / 2) - (spawnSizeHight / 2);
 
                 Enemy enemy = new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10);
+                enemy.addMovementSpeed((float)(playerLevel * 1.5));
 
-                //Give a pickup to some enemies
+                //Give a pickup to some enemies (and make them stronger)
                 Random random = new Random();
                 if(random.Next(0,6) > 3)
-                {
+                {   //Strong enemy
                     enemy.AddTag("droppickup");
+                    enemy.SetPower(1.0f + (0.1f * playerLevel));
+                    enemy.SetLifePoints(375 + (30 * playerLevel));
+                    enemy.addMovementSpeed((float)(playerLevel * 0.5));
+                }
+                else
+                {   //Normal enemy
+                    enemy.SetPower( 2.0f + ( 0.15f * playerLevel ) );
+                    enemy.SetLifePoints(275 + ( 25 * playerLevel ) );
                 }
 
-                enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
-                enemy.SetLifePoints(275 + ( 25 * playerLevel ) );
+                //enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
+                //enemy.SetLifePoints(275 + ( 25 * playerLevel ) );
                 gameObjects.Add(enemy);
             }
             else

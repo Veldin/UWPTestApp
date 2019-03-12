@@ -428,6 +428,7 @@ namespace UWPTestApp
                         {
                             HandlePlayerWeaponControls(player);
                             HandlePlayerMovementControls(player);
+                            HandleOtherControls();
 
                             if (player.IsWalking)
                             {
@@ -471,13 +472,27 @@ namespace UWPTestApp
             }
         }
 
+        private void HandleOtherControls()
+        {
+            if (IsKeyPressed("G") && IsKeyPressed("O") && IsKeyPressed("D"))
+            {
+                gameObjects.Add(new Pickup(15, 17, player.FromLeft, player.FromTop));
+                player.increaseMaxHealth(5);
+                player.IncreaseHealth(5);
+
+                player.increaseMaxArmour(5);
+                player.IncreaseArmour(5);
+            }
+            
+        }
+
         /* HandlePlayerWeaponControls */
-                    /* 
-                        * Handles the player controls that have to do with movement.
-                        * The player needs to have the tag "controllable" to be controlled. 
-                        * This is done so control can be taken away. (during cutscenes, stunns/roots. ect)
-                    */
-                    private void HandlePlayerMovementControls(Player player)
+        /* 
+        * Handles the player controls that have to do with movement.
+        * The player needs to have the tag "controllable" to be controlled. 
+        * This is done so control can be taken away. (during cutscenes, stunns/roots. ect)
+        */
+        private void HandlePlayerMovementControls(Player player)
         {
             player.IsWalking = false;
 
@@ -706,7 +721,7 @@ namespace UWPTestApp
                                 MainPage.Current.updateHighscore();
                                 MainPage.Current.killstreak++;
                                 MainPage.Current.updateKillstreak();
-                                if (p4.Kills > 5 * (p4.GetLevel() * p4.GetLevel()))
+                                if (p4.Kills > 5 * (p4.GetLevel() * (p4.GetLevel() * 0.3)))
                                 {
                                     p4.IncreaseLevel();
                                     soundController.PlaySound("Generic_Sounds\\levelup.wav");
@@ -823,8 +838,16 @@ namespace UWPTestApp
                         }
 
 
-                        args.DrawingSession.DrawImage(
-                        gameObject.Sprite, gameObject.rectangle);
+                        try
+                        {
+                            args.DrawingSession.DrawImage(
+                            gameObject.Sprite, gameObject.rectangle);
+                        }
+                        catch
+                        {
+                            //if it failes for any reason skip this frame.
+                
+                        }
                     }
                 }
             }
