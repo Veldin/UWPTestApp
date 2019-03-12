@@ -13,19 +13,21 @@ namespace EindopdrachtUWP.Classes
     class SoundController
     {
         //private Dictionary<string, Sound> sounds;
-        private Dictionary<String, AudioFileInputNode> sounds;
+        private Dictionary<string, AudioFileInputNode> sounds;
 
         public AudioGraph graph;
         private AudioFileInputNode backgroundMusicFileInput;
         private AudioSubmixNode submixNode;
         private AudioDeviceOutputNode deviceOutput;
-        
+        private Windows.Storage.StorageFile file;
+        private Windows.Storage.StorageFolder folder;
+
         private bool mutedSFX = false;
         private bool mutedMusic = false;
 
         private bool initialized = false;
 
-        private List<String> waitTillInitialized;
+        private List<string> waitTillInitialized;
 
 
         public SoundController()
@@ -34,10 +36,10 @@ namespace EindopdrachtUWP.Classes
             waitTillInitialized = new List<string>();
             mutedSFX = false;
             mutedMusic = false;
-            this.initializeSoundSystem();
+            InitializeSoundSystem();
         }
 
-        private async void initializeSoundSystem()
+        private async void InitializeSoundSystem()
         {
             await CreateAudioGraph();
 
@@ -48,14 +50,14 @@ namespace EindopdrachtUWP.Classes
                 backgroundMusicFileInput.Dispose();
             }
 
-            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
-            Windows.Storage.StorageFile file = await folder.GetFileAsync("Sounds\\" + "Soundtrack\\Soundtrack.wav");
+            folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
+            file = await folder.GetFileAsync("Sounds\\" + "Soundtrack\\Soundtrack.wav");
 
             CreateAudioFileInputNodeResult fileInputNodeResult = await graph.CreateFileInputNodeAsync(file);
             if (fileInputNodeResult.Status != AudioFileNodeCreationStatus.Success)
             {
                 // Cannot read file
-                Debug.WriteLine(String.Format("Cannot read input file because {0}", fileInputNodeResult.Status.ToString()));
+                Debug.WriteLine("Cannot read input file because {0}", fileInputNodeResult.Status.ToString());
                 return;
             }
                 
@@ -63,15 +65,13 @@ namespace EindopdrachtUWP.Classes
             backgroundMusicFileInput.OutgoingGain = 0.3;
             backgroundMusicFileInput.AddOutgoingConnection(deviceOutput);
 
-
             graph.Start();
             initialized = true;
 
-            foreach(String filename in waitTillInitialized)
+            foreach(string filename in waitTillInitialized)
             {
                 AddSound(filename);
             }
-
         }
 
         public void AddSound(string sound, double volume = 0.8)
@@ -90,12 +90,12 @@ namespace EindopdrachtUWP.Classes
 
         public void PlaySound(string sound)
         {
-            if(sounds == null || sounds[sound] == null || mutedSFX)
+            if (sounds == null || sounds[sound] == null || mutedSFX)
             {
                 return;
             }
             
-            if(sounds[sound].OutgoingConnections.Count == 1)
+            if (sounds[sound].OutgoingConnections.Count == 1)
             {
                 sounds[sound].Reset();
             }
@@ -103,49 +103,39 @@ namespace EindopdrachtUWP.Classes
             {
                 sounds[sound].AddOutgoingConnection(submixNode);
             }
-            
         }
         
-        private async void LoadSound(String filename)
+        private async void LoadSound(string filename)
         {
-            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
-            Debug.WriteLine("test1");
-            Windows.Storage.StorageFile file = await folder.GetFileAsync("Sounds\\" + filename);
+            folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
+            file = await folder.GetFileAsync("Sounds\\" + filename);
 
-            Debug.WriteLine("test2");
             //Debug.WriteLine(graph == null);
             if (graph == null) {
-                initializeSoundSystem();
+                InitializeSoundSystem();
             }
             CreateAudioFileInputNodeResult fileInputNodeResult = await graph.CreateFileInputNodeAsync(file);
-            Debug.WriteLine("test3");
             if (fileInputNodeResult.Status != AudioFileNodeCreationStatus.Success)
             {
                 // Cannot read file
-                Debug.WriteLine(String.Format("Cannot read input file because {0}", fileInputNodeResult.Status.ToString()));
+                Debug.WriteLine("Cannot read input file because {0}", fileInputNodeResult.Status.ToString());
                 return;
             }
-
-            Debug.WriteLine("test4");
+            
             sounds.Add(filename, fileInputNodeResult.FileInputNode);
-            Debug.WriteLine("test5");
             sounds[filename].OutgoingGain = 1;
-            Debug.WriteLine("test6");
-
-            Debug.WriteLine(String.Format("Added sound {0}", filename));
         }
-        
 
-        public void muteSFX()
+        public void MuteSFX()
         {
             mutedSFX = true;
         }
-        public void unMuteSFX()
+        public void UnMuteSFX()
         {
             mutedSFX = false;
         }
 
-        public void muteMusic()
+        public void MuteMusic()
         {
             if (backgroundMusicFileInput.OutgoingConnections.Count == 1)
             {
@@ -153,7 +143,7 @@ namespace EindopdrachtUWP.Classes
             }
         }
 
-        public void unMuteMusic()
+        public void UnMuteMusic()
         {
             if (backgroundMusicFileInput.OutgoingConnections.Count == 0)
             {
@@ -161,7 +151,6 @@ namespace EindopdrachtUWP.Classes
                 backgroundMusicFileInput.Reset();
             }
         }
-
 
         private async Task CreateAudioGraph()
         {
@@ -172,7 +161,7 @@ namespace EindopdrachtUWP.Classes
             if (result.Status != AudioGraphCreationStatus.Success)
             {
                 // Cannot create graph
-                Debug.WriteLine(String.Format("AudioGraph Creation Error because {0}", result.Status.ToString()));
+                Debug.WriteLine("AudioGraph Creation Error because {0}", result.Status.ToString());
                 return;
             }
             
@@ -184,7 +173,7 @@ namespace EindopdrachtUWP.Classes
             if (deviceOutputNodeResult.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // Cannot create device output node
-                Debug.WriteLine(String.Format("Device Output unavailable because {0}", deviceOutputNodeResult.Status.ToString()));
+                Debug.WriteLine("Device Output unavailable because {0}", deviceOutputNodeResult.Status.ToString());
                 return;
             }
 
@@ -192,10 +181,6 @@ namespace EindopdrachtUWP.Classes
 
             submixNode = graph.CreateSubmixNode();
             submixNode.AddOutgoingConnection(deviceOutput);
-
-            Debug.WriteLine("Device Output Node successfully created");
-
         }
-
     }
 }
