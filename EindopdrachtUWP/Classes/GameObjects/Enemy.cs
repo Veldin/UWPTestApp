@@ -47,7 +47,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         ableToHit = true;
         damageCountDownTimerMax = 3000;
 
-        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.png";
+        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.gif";
 
         Random r = new Random();
         DeathSound = DeathSounds[r.Next(9)];
@@ -317,10 +317,10 @@ public class Enemy : GameObject, MovableObject, Targetable
             }
             else
             {
-                Location = "Assets/Sprites/Enemy_Sprites/Enemy_" + newDirection + ".png";
+                Location = "Assets/Sprites/Enemy_Sprites/Enemy_" + newDirection + ".gif";
                 if (HasTag("droppickup"))
                 {
-                    Location = "Assets/Sprites/Enemy_Sprites/Enemy2_" + newDirection + ".png";
+                    Location = "Assets/Sprites/Enemy_Sprites/Enemy2_" + newDirection + ".gif";
                 }
                 Sprite = null;
                 Direction = newDirection;
