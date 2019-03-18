@@ -74,7 +74,6 @@ namespace UWPTestApp
             activeWeapon = weapons[0];
 
             Target = new Target(FromLeft, FromTop);
-            //Target = new Target(this);
         }
 
         public bool SelectNextWeapon()
@@ -222,7 +221,7 @@ namespace UWPTestApp
 
         public bool Fire(string direction, List<GameObject> gameObjects)
         {
-            this.Direction = direction;
+            Direction = direction;
             MainPage.Current.UpdateCurrentClip();
             return activeWeapon.Fire(fromLeft + (width / 2), fromTop + (height / 2), width, height, gameObjects, direction);
         }
@@ -234,6 +233,7 @@ namespace UWPTestApp
 
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
+            DeltaForHealthLowSound += delta * 2;
 
             if (HasTag("levelup"))
             {

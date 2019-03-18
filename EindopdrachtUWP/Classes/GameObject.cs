@@ -18,7 +18,7 @@ namespace UWPTestApp
         protected ArrayList tags;
 
         //Target!
-        private Target target;
+        protected Target target;
 
         //Location where this gameObject is within the game.
         //This is also used for the hitbox 
