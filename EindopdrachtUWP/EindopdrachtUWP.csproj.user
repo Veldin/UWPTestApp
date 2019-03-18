@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <SplashScreenSource>D:\AdvanceWars\UWPTestApp\EindopdrachtUWP\Assets\SplashScreen_DotT.png</SplashScreenSource>
-    <AppIconSource>C:\Users\Rick\Documents\GitHub\UWPTestApp\EindopdrachtUWP\Assets\StoreLogo.png</AppIconSource>
+    <AppIconSource>D:\AdvanceWars\UWPTestApp\EindopdrachtUWP\Assets\StoreLogo.png</AppIconSource>
     <AppxPackageIsForStore>False</AppxPackageIsForStore>
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>x64</AppxBuildConfigurationSelection>
