@@ -5,7 +5,7 @@
     <UseEmulator>true</UseEmulator>
   </PropertyGroup>
   <PropertyGroup>
-    <SplashScreenSource>C:\Users\Rick\Documents\GitHub\UWPTestApp\EindopdrachtUWP\Assets\SplashScreen_new.png</SplashScreenSource>
+    <SplashScreenSource>D:\AdvanceWars\UWPTestApp\EindopdrachtUWP\Assets\SplashScreen_DotT.png</SplashScreenSource>
     <AppIconSource>C:\Users\Rick\Documents\GitHub\UWPTestApp\EindopdrachtUWP\Assets\StoreLogo.png</AppIconSource>
     <AppxPackageIsForStore>False</AppxPackageIsForStore>
     <AppxShowAllApps>False</AppxShowAllApps>
