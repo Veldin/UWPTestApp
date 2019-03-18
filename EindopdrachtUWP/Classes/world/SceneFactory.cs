@@ -59,7 +59,7 @@ namespace UWPTestApp
             List<GameObject> Objects = new List<GameObject>();
 
             //Go for 100 passes trough, every pass makes a room and sees if its fits.
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 100; i++)
             {
                 int newObject_Width = random.Next(3, 7);
                 int newObject_Height= random.Next(3, 7);

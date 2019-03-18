@@ -1,4 +1,6 @@
-﻿public class Target
+﻿using UWPTestApp;
+
+public class Target
 {
     private float fromTop;
     private float fromLeft;

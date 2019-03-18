@@ -79,7 +79,7 @@ namespace UWPTestApp
                     }
                 }
 
-                RemainingCooldownDelta = (cooldownDelta / (playerLevel / 3));
+                RemainingCooldownDelta = (cooldownDelta / (playerLevel / 4));
 
                 if (RemainingCooldownDelta < 1000) RemainingCooldownDelta = 1000;
                 
@@ -87,7 +87,7 @@ namespace UWPTestApp
                 float spawnSizeWidth = 15;
                 float spawnSizeHight = 15;
                 Random rand = new Random();
-                float enemySize = rand.Next(10, 15) + (float)(playerLevel * 1.7);
+                float enemySize = rand.Next(10, 15) + (float)(150 * (playerLevel / 100));
                 float spawnFromLeft = FromLeft + (Width / 2) - (spawnSizeWidth / 2);
                 float spawnFromTop = FromTop + (Height / 2) - (spawnSizeHight / 2);
 

@@ -31,7 +31,6 @@ namespace UWPTestApp
         private int blockFromLeft;
         private int blockFromTop;
 
-
         private Camera camera;
 
         //Holder for the canvasControl
@@ -48,6 +47,8 @@ namespace UWPTestApp
         public bool Effects { get; set; }
 
         private bool paused;
+
+        private bool enableCheats;
 
         private SoundController soundController;
 
@@ -142,8 +143,7 @@ namespace UWPTestApp
             then = Stopwatch.GetTimestamp();
 
             paused = true;
-
- 
+            enableCheats = false;
 
         }
 
@@ -454,9 +454,16 @@ namespace UWPTestApp
              * Due to keyboard rollover this is not compatible with all keyboards.
              */
 
-            /*
+            
 
-            if (IsKeyPressed("G") && IsKeyPressed("O") && IsKeyPressed("D")) //God
+            if (IsKeyPressed("192") && !enableCheats) // 192 is the ` key
+            {
+                enableCheats = true;
+
+                gameObjects.Add(new TextBox(50, 50, player.FromLeft, player.FromTop - 20, 0, 0, 0, 0, "Done", 1000));
+            }
+            
+            if (IsKeyPressed("Number1") && enableCheats) //Spawn pickup on frame
             {
                 gameObjects.Add(new Pickup(15, 17, player.FromLeft, player.FromTop));
                 player.IncreaseMaxHealth(5);
@@ -466,8 +473,7 @@ namespace UWPTestApp
                 player.IncreaseArmour(5);
             }
 
-
-            if (IsKeyPressed("K") && IsKeyPressed("I") && IsKeyPressed("L")) //KILL
+            if (IsKeyPressed("Number2") && enableCheats) //KILL
             {
                 foreach (GameObject gameObjectCheck in new List<GameObject>(gameObjects))
                 {
@@ -479,15 +485,24 @@ namespace UWPTestApp
                 }
             }
 
-
-            if (IsKeyPressed("R") && IsKeyPressed("A") && IsKeyPressed("I")&& IsKeyPressed("N")) //RAIN
+            if (IsKeyPressed("Number3") && enableCheats) //RAIN
             {
                 Random random = new Random();
-                gameObjects.Add(new Splatter(random.Next(5, 15), random.Next(5, 15), random.Next((int)player.FromLeft - 400, (int)player.FromLeft + 400), random.Next((int)player.FromTop - 400, (int)player.FromTop + 400)));
+                for (int i = 0; i < 2; i++) { 
+                    gameObjects.Add(
+                        new Splatter(
+                            random.Next(2, 9),
+                            random.Next(2, 9),
+                            random.Next((int)player.FromLeft - 400, (int)player.FromLeft + 400) + (random.Next(-200, 200) / 1000),
+                            random.Next((int)player.FromTop - 400, (int)player.FromTop + 400) + (random.Next(-200, 200) / 1000)
+                        )
+                    );
+                }
+                
             }
 
 
-            if (IsKeyPressed("R") && IsKeyPressed("I") && IsKeyPressed("L")) //RILL*
+            if (IsKeyPressed("Number4") && enableCheats) //EarthQuake
             {
                 Random random = new Random();
                 foreach (GameObject gameObjectCheck in new List<GameObject>(gameObjects))
@@ -496,7 +511,6 @@ namespace UWPTestApp
                     gameObjectCheck.AddFromTop(random.Next(-2, 3));
                 }
             }
-             */
 
 
         }
