@@ -10,18 +10,18 @@ namespace UWPTestApp
         {
             AddTag("solid"); //Walls are solid, all of the time! (But don't have to be if you remove the tag!)
 
-            Location = "Assets/Sprites/Pixel.png";
+            Location = string.Format("Assets/Sprites/Buildings/{0}x{1}.png", width / 32, height / 32);
         }
 
         public override bool IsActive(GameObject gameObject)
         {
             //Only activate nearby walls need to have collition so are active
-            if (Math.Abs(gameObject.FromLeft - this.FromLeft) < 600)
+            if (Math.Abs(gameObject.FromLeft - FromLeft) < 600)
             {
                 return true;
             }
 
-            if (Math.Abs(gameObject.FromTop - this.FromTop) < 600)
+            if (Math.Abs(gameObject.FromTop - FromTop) < 600)
             {
                 return true;
             }
