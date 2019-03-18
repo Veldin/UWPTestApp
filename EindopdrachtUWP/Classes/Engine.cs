@@ -69,7 +69,7 @@ namespace UWPTestApp
             soundController.AddSound(player.DeathSound);
             soundController.AddSound(player.HitSound);
             soundController.AddSound(player.MoveSound, 0.4);
-            soundController.AddSound(player.HealthLowSound, 0.2);
+            soundController.AddSound(player.HealthLowSound, 1.0);
             soundController.AddSound("Generic_Sounds\\levelup.wav", 1);
 
             foreach (Weapon weapon in player.GetWeapons())
