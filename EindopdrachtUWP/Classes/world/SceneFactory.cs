@@ -72,12 +72,62 @@ namespace UWPTestApp
                 {
                     tiles = addRoom(tiles, left, top, newObject_Width, newObject_Height);
 
+                    //Ad the actual structure in the gameobject list
                     Objects.Add(new Wall(
                         newObject_Width * tilesize,
                         newObject_Height * tilesize,
                         left * tilesize,
                         top * tilesize,
                         0, 0, 0, 0));
+
+                    //To add some visual clearaty of where the buildings are, buildings spawn different versions of walls
+
+                    switch (random.Next(0, 5))
+                    {
+                        case 0:
+                            Objects.Add(new Background(
+                            (newObject_Width + 1) * tilesize,
+                            (newObject_Height + 1) * tilesize,
+                            (left) * tilesize,
+                            (top - 1) * tilesize,
+                            0, 0, 0, 0));
+                            break;
+                        case 1:
+                            Objects.Add(new Background(
+                            (newObject_Width + 1) * tilesize,
+                            (newObject_Height + 1) * tilesize,
+                            (left - 1) * tilesize,
+                            (top) * tilesize,
+                            0, 0, 0, 0));
+                            break;
+                        case 2:
+                            Objects.Add(new Background(
+                            (newObject_Width + 1) * tilesize,
+                            (newObject_Height + 1) * tilesize,
+                            (left - 1) * tilesize,
+                            (top - 1) * tilesize,
+                            0, 0, 0, 0));
+                            break;
+                        case 3:
+                            Objects.Add(new Background(
+                            (newObject_Width + 1) * tilesize,
+                            (newObject_Height + 1) * tilesize,
+                            (left) * tilesize,
+                            (top) * tilesize,
+                            0, 0, 0, 0));
+                            break;
+                        default:
+                            Objects.Add(new Background(
+                            (newObject_Width + 1) * tilesize,
+                            (newObject_Height + 1) * tilesize,
+                            (left - 1) * tilesize,
+                            (top - 1) * tilesize,
+                            0, 0, 0, 0));
+                            break;
+                    }
+
+                    
+
                 }
             }
 

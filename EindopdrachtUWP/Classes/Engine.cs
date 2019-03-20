@@ -335,24 +335,32 @@ namespace UWPTestApp
                         LoadBlock(blockFromLeft - 1, blockFromTop);
                         LoadBlock(blockFromLeft - 2, blockFromTop);
                         LoadBlock(blockFromLeft - 3, blockFromTop);
+                        LoadBlock(blockFromLeft - 4, blockFromTop);
+
 
 
                         //Load Right
                         LoadBlock(blockFromLeft + 1, blockFromTop);
                         LoadBlock(blockFromLeft + 2, blockFromTop);
                         LoadBlock(blockFromLeft + 3, blockFromTop);
+                        LoadBlock(blockFromLeft + 4, blockFromTop);
+
 
 
                         //Load Up
                         LoadBlock(blockFromLeft, blockFromTop + 1);
                         LoadBlock(blockFromLeft, blockFromTop + 2);
                         LoadBlock(blockFromLeft, blockFromTop + 3);
+                        LoadBlock(blockFromLeft, blockFromTop + 4);
+
 
 
                         //Load Down
                         LoadBlock(blockFromLeft, blockFromTop - 1);
                         LoadBlock(blockFromLeft, blockFromTop - 2);
                         LoadBlock(blockFromLeft, blockFromTop - 3);
+                        LoadBlock(blockFromLeft, blockFromTop - 4);
+
 
 
                         //Load sides
@@ -360,6 +368,21 @@ namespace UWPTestApp
                         LoadBlock(blockFromLeft + 1, blockFromTop - 1);
                         LoadBlock(blockFromLeft - 1, blockFromTop - 1);
                         LoadBlock(blockFromLeft + 1, blockFromTop + 1);
+
+                        LoadBlock(blockFromLeft - 1, blockFromTop + 2);
+                        LoadBlock(blockFromLeft + 1, blockFromTop - 2);
+                        LoadBlock(blockFromLeft - 1, blockFromTop - 2);
+                        LoadBlock(blockFromLeft + 1, blockFromTop + 2);
+                        
+                        LoadBlock(blockFromLeft - 2, blockFromTop + 1);
+                        LoadBlock(blockFromLeft + 2, blockFromTop - 1);
+                        LoadBlock(blockFromLeft - 2, blockFromTop - 1);
+                        LoadBlock(blockFromLeft + 2, blockFromTop + 1);
+
+                        LoadBlock(blockFromLeft - 2, blockFromTop + 2);
+                        LoadBlock(blockFromLeft + 2, blockFromTop - 2);
+                        LoadBlock(blockFromLeft - 2, blockFromTop - 2);
+                        LoadBlock(blockFromLeft + 2, blockFromTop + 2);
 
                         blockFromLeft = (int)Math.Floor(player.FromLeft / world.StartingBlock.Width);
                         blockFromTop = (int)Math.Floor(player.FromTop / world.StartingBlock.Height);

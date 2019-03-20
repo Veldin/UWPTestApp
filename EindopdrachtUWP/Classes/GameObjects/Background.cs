@@ -11,7 +11,18 @@ namespace UWPTestApp
         public Background(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
-            Location = "Assets/Sprites/Maps/BG.png";
+            
+            if (width != 800 && height != 600)
+            {
+                Location = string.Format("Assets/Sprites/Maps/Sidewalks/{0}x{1}.gif", width / 32, height / 32);
+                Location = string.Format("Assets/Sprites/pixel.png");
+
+            }
+            else
+            {
+                Location = "Assets/Sprites/Maps/BG.png";
+            }
+            
         }
 
         public override bool IsActive(GameObject gameObject)
