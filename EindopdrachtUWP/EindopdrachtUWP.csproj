@@ -103,6 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Camera.cs" />
+    <Compile Include="Classes\GameObjects\Background.cs" />
     <Compile Include="Classes\GameObjects\Pickup.cs" />
     <Compile Include="Classes\Texture.cs" />
     <Compile Include="Classes\Weapons\ArrivaGun.cs" />
@@ -287,6 +288,7 @@
     <Content Include="Assets\Sprites\Hotbar_Sprites\KnetterGun_Hotbar_Sprite.png" />
     <Content Include="Assets\Sprites\Hotbar_Sprites\UWP_Hotbar_Sprite.png" />
     <Content Include="Assets\Sprites\Hotbar_Sprites\VLEKKannon_Hotbar_Sprite.png" />
+    <Content Include="Assets\Sprites\Maps\BG.png" />
     <Content Include="Assets\Sprites\Maps\brokedowncar.png" />
     <Content Include="Assets\Sprites\Maps\car.png" />
     <Content Include="Assets\Sprites\Maps\Map1.png" />

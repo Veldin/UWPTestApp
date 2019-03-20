@@ -783,6 +783,51 @@ namespace UWPTestApp
             }
         }
 
+        /* DrawAllBackgroundSprites */
+        /*
+         * Draws every sprite of which the class is Background.
+         * The first argument is the canvasDrawEventArgs (containing data from the draw event).
+         * The second is the list of gameObjects.
+        */
+        private void DrawAllBackgroundSprites(CanvasDrawEventArgs args, ArrayList loopList)
+        {
+            foreach (GameObject gameObject in loopList)
+            {
+                if (gameObject != null && gameObject.Sprite != null && gameObject is Background)
+                {
+
+                    //Drawing requires the sides to be non-negative
+                    if (
+                        gameObject.Width + gameObject.WidthDrawOffset > 0 &&
+                        gameObject.Height + gameObject.HeightDrawOffset > 0
+                    )
+                    {
+
+                        if (gameObject.Rectangle == null)
+                        {
+                            gameObject.Rectangle = new Rect(
+                                gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
+                                gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
+                                gameObject.Width + gameObject.WidthDrawOffset,
+                                gameObject.Height + gameObject.HeightDrawOffset
+                            );
+                        }
+                        else
+                        {
+                           gameObject.rectangle.X = gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset();
+                           gameObject.rectangle.Y = gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset();
+                           gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
+                           gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
+                        }
+
+                        
+                        args.DrawingSession.DrawImage(
+                        gameObject.Sprite,gameObject.rectangle);
+                    }
+                }
+            }
+        }
+
         /* DrawAllSplatterSprites */
         /*
          * Draws every sprite of which the class is splatter.
@@ -827,17 +872,17 @@ namespace UWPTestApp
             }
         }
 
-        /* DrawAllNonSplatterSprites */
+        /* DrawAllOtherSprites */
         /*
-         * Draws every sprite of which the class is NOT splatter.
+         * Draws every sprite of which the class is NOT splatte or background.
          * The first argument is the canvasDrawEventArgs (containing data from the draw event).
          * The second is the list of gameObjects.
         */
-        private void DrawAllNonSplatterSprites(CanvasDrawEventArgs args, ArrayList loopList)
+        private void DrawAllOtherSprites(CanvasDrawEventArgs args, ArrayList loopList)
         {
             foreach (GameObject gameObject in loopList)
             {
-                if (gameObject != null && gameObject.Sprite != null && !(gameObject is Splatter))
+                if (gameObject != null && gameObject.Sprite != null && !(gameObject is Splatter) && !(gameObject is Background))
                 {
 
                     //Drawing requires the sides to be non-negative
@@ -1082,11 +1127,14 @@ namespace UWPTestApp
             //Load the sprite in this canvasControl so it is usable later
             CreateAllResourcesAsync(sender, loopList);
 
-            //Draw the splatter first so all other sprites are drawn upon it. (making the splater apear on the ground)
+            //Draw the background first so all other sprites are drawn upon it.
+            DrawAllBackgroundSprites(args, loopList);
+
+            //Draw the splatter second so all other sprites are drawn upon it. (making the splater apear on the ground)
             DrawAllSplatterSprites(args, loopList);
 
             //Draw the loaded sprites on the correct location
-            DrawAllNonSplatterSprites(args, loopList);
+            DrawAllOtherSprites(args, loopList);
 
             //Drawing Enemy Healthbars
             DrawAllEnemyHealthBars(args, loopList);

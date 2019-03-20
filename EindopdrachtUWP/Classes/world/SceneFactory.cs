@@ -58,6 +58,8 @@ namespace UWPTestApp
             bool[,] tiles = new bool[width / tilesize, height / tilesize];
             List<GameObject> Objects = new List<GameObject>();
 
+            Objects.Add(new Background(800, 600, 0, 0));
+
             //Go for 100 passes trough, every pass makes a room and sees if its fits.
             for (int i = 0; i < 100; i++)
             {
@@ -83,6 +85,7 @@ namespace UWPTestApp
             if (random.Next(0, 10) > 5) {  
                 Objects.Add(new Spawner(10, 10, 400, 300, 0, 0, 0, 0, random.Next(0, 14000), random.Next(14000, 50000)));
             }
+
 
             Objects.Add(new Spawner(10, 10, random.Next(0, width), random.Next(0, height), 0, 0, 0, 0, random.Next(0, 14000), random.Next(14000, 50000)));
 
