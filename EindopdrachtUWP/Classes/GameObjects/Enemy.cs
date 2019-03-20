@@ -36,28 +36,37 @@ public class Enemy : GameObject, MovableObject, Targetable
     public Enemy(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
-        AddTag("hostile");
-        AddTag("solid");
+        AddTag("hostile");  //This gameobject is hostyle
+        AddTag("solid");    //This gameobject has collition
 
-        //Default movespeed and lifePoints
+        //Default statistics
         movementSpeed = 190;
         lifePoints = 300;
         damage = 50;
         maxLifePoints = lifePoints;
-        ableToHit = true;
-        damageCountDownTimerMax = 3000;
 
+        //After every attack the attack goes on cooldown.
+        ableToHit = true;
+        damageCountDownTimerMax = 2500;
+
+        //Set default sprite
         Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.gif";
 
         Random r = new Random();
+
+        //Get a deathsound
         DeathSound = DeathSounds[r.Next(9)];
     }
-
+    
+    /*
+     * Used to set the lifepoints, also sets max lifepoints
+     */
     public void SetLifePoints(float life)
     {
         lifePoints = life;
         maxLifePoints = life;
     }
+
 
     public void AddLifePoints(float life)
     {
@@ -105,11 +114,11 @@ public class Enemy : GameObject, MovableObject, Targetable
     }
 
     public override bool CollisionEffect(GameObject gameObject) {
-        if (gameObject.HasTag("solid"))
+        if (gameObject.HasTag("solid")) //Check if the gameobject should be considered solid
         {
             //We had this a recursive function first, that fired until there was no collision.
-            //But this made them warp further due to them pushing eachother 
-            int maxCollisions = 9000;
+            //But this made them warp further due to them pushing eachother so a maxCollisions is set.
+            int maxCollisions = 900;
             while (IsColliding(gameObject) && maxCollisions > 0)
             {
                 //Check collision from the left or right.
@@ -209,6 +218,8 @@ public class Enemy : GameObject, MovableObject, Targetable
 
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
+
+        //After every attack the attack goes on cooldown.
         if (damageCountDownTimer - delta < 0)
         {
             damageCountDownTimer = damageCountDownTimerMax;
@@ -224,7 +235,9 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             getThenSetTarget(gameObjects);
         }
-        else
+
+        //This is not an if-else so it reavaluates target after the getThenSetTarget()
+        if (Target != null)
         {
             //The difference between the target and this object
             float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
@@ -313,7 +326,7 @@ public class Enemy : GameObject, MovableObject, Targetable
 
             if (newDirection.Equals(Direction))
             {
-                
+
             }
             else
             {
@@ -352,7 +365,7 @@ public class Enemy : GameObject, MovableObject, Targetable
             //check if this enemy has a pickup to drop
             if (HasTag("droppickup"))
             {
-                gameObjects.Add(new Pickup(15, 17, FromLeft, FromTop));
+                gameObjects.Add(new Pickup(15, 17, FromLeft, FromTop)); //Drop a pickup (this is a random pickup)
                 RemoveTag("droppickup");
             }
             
