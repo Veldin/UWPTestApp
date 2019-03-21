@@ -117,7 +117,7 @@
     <Compile Include="Classes\SoundController.cs" />
     <Compile Include="Classes\Weapons\UWP.cs" />
     <Compile Include="Classes\Weapons\VLEKKannon.cs" />
-    <Compile Include="Classes\Weapon.cs" />
+    <Compile Include="Classes\IWeapon.cs" />
     <Compile Include="Classes\GameObjects\Enemy.cs" />
     <Compile Include="Classes\Engine.cs" />
     <Compile Include="Classes\GameObject.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="Classes\GameObjects\Spawner.cs" />
     <Compile Include="Classes\GameObjects\Splatter.cs" />
     <Compile Include="Classes\Target.cs" />
-    <Compile Include="Classes\Targetable.cs" />
+    <Compile Include="Classes\ITargetable.cs" />
     <Compile Include="Classes\GameObjects\TextBox.cs" />
     <Compile Include="Classes\GameObjects\Wall.cs" />
     <Compile Include="Classes\world\SceneFactory.cs" />
