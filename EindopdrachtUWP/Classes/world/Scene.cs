@@ -5,6 +5,11 @@ namespace UWPTestApp
 {
     class Scene
     {
+        /*
+         * Scenes are lists of gameObjects together with a bool that signals whether or not it has been loaded.
+         * A Scene is considered loaded if LoadScene() was called bevore.
+         */
+
         private List<GameObject> gameObjects;
         private bool loaded;
 

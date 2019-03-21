@@ -3,12 +3,13 @@ using System.Diagnostics;
 
 namespace UWPTestApp
 {
-    /*
-     * WorldBlock is responcable for a small part of the world that is able to load independelty.
-     * This way the whole map does not have to load at once, but parts can be loading on their own.
-     */
     class WorldBlock
     {
+        /*
+         * Every WorldBlock is responcable for a small part of the world that is able to load independelty.
+         * This way the whole map does not have to load at once, but parts can be loading on their own.
+         */
+
         private Scene scene;
 
         //Other blocks adjacent to this block

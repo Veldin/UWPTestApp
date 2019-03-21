@@ -2,6 +2,10 @@
 {
     class World
     {
+        /* 
+        * Used to create and store a worldBlock.
+        */
+
         private WorldBlock startingBlock;
 
         public World()

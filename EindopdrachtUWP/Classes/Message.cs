@@ -2,6 +2,10 @@
 {
     class Message
     {
+        /* 
+            * Used to save a string at a location fromTop and fromLeft.
+        */
+
         private string text;
         private float fromTop;
         private float fromLeft;

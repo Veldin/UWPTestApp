@@ -86,42 +86,42 @@ namespace UWPTestApp
                     {
                         case 0:
                             Objects.Add(new Background(
-                            (newObject_Width + 1) * tilesize,
-                            (newObject_Height + 1) * tilesize,
+                            (newObject_Width + 0.5f) * tilesize,
+                            (newObject_Height + 0.5f) * tilesize,
                             (left) * tilesize,
-                            (top - 1) * tilesize,
+                            (top - 0.5f) * tilesize,
                             0, 0, 0, 0));
                             break;
                         case 1:
                             Objects.Add(new Background(
-                            (newObject_Width + 1) * tilesize,
-                            (newObject_Height + 1) * tilesize,
-                            (left - 1) * tilesize,
+                            (newObject_Width + 0.5f) * tilesize,
+                            (newObject_Height + 0.5f) * tilesize,
+                            (left - 0.5f) * tilesize,
                             (top) * tilesize,
                             0, 0, 0, 0));
                             break;
                         case 2:
                             Objects.Add(new Background(
-                            (newObject_Width + 1) * tilesize,
-                            (newObject_Height + 1) * tilesize,
-                            (left - 1) * tilesize,
-                            (top - 1) * tilesize,
+                            (newObject_Width + 0.5f) * tilesize,
+                            (newObject_Height + 0.5f) * tilesize,
+                            (left - 0.5f) * tilesize,
+                            (top - 0.5f) * tilesize,
                             0, 0, 0, 0));
                             break;
                         case 3:
                             Objects.Add(new Background(
-                            (newObject_Width + 1) * tilesize,
-                            (newObject_Height + 1) * tilesize,
+                            (newObject_Width + 0.5f) * tilesize,
+                            (newObject_Height + 0.5f) * tilesize,
                             (left) * tilesize,
                             (top) * tilesize,
                             0, 0, 0, 0));
                             break;
                         default:
                             Objects.Add(new Background(
-                            (newObject_Width + 1) * tilesize,
-                            (newObject_Height + 1) * tilesize,
-                            (left - 1) * tilesize,
-                            (top - 1) * tilesize,
+                            (newObject_Width + 0.5f) * tilesize,
+                            (newObject_Height + 0.5f) * tilesize,
+                            (left - 0.5f) * tilesize,
+                            (top - 0.5f) * tilesize,
                             0, 0, 0, 0));
                             break;
                     }

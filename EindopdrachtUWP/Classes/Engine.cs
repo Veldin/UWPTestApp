@@ -191,14 +191,17 @@ namespace UWPTestApp
                 }
             }
 
-            Task.Yield();  //Force this task to complete asynchronously (This way the main 
-            is not blocked by this task calling itself.
+            Task.Yield();  //Force this task to complete asynchronously (This way the main is not blocked by this task calling itself.
             Task.Run(() => Run());  //Schedule new Run() task
             */
             LogicLoop();
             DrawLoopAsync();
         }
 
+        /* LogicLoop() */
+        /* 
+            * Calls the Logic method and instandaniusly creates a task that calls itelf if the logic method is completed.
+        */
         public async void LogicLoop()
         {
             await Task.Run(() => {
@@ -207,6 +210,11 @@ namespace UWPTestApp
             LogicLoop();
         }
 
+        /* DrawLoopAsync() */
+        /* 
+            * Calls the Draw method and create a delayed that lasts as long as the interfal is.
+            * Doing this limits the FPS to the given FPS (which is used to calculate the interval beforehand)
+        */
         public async Task DrawLoopAsync()
         {
             //Only draw the simulation if there is a known canvas.
@@ -229,6 +237,10 @@ namespace UWPTestApp
             });
         }
 
+        /* LoadBlock() */
+        /* 
+            *Get the gameobjects at a certain location and set that worldblock on Loaded.
+        */
         public void LoadBlock(int blockFromLeft, int blockFromTop)
         {
             WorldBlock needle = world.StartingBlock;
@@ -290,8 +302,6 @@ namespace UWPTestApp
         */
         private void Logic()
         {
-            //TaskLogicTwo();
-
             paused = MainPage.Current.paused;
 
             HandleMenuControls();
@@ -309,6 +319,8 @@ namespace UWPTestApp
                  * Split the gameObjects in two lists, a list of gameObjects near the player and far away from the player
                  * 
                  * The gameObjects that are to far don't have to do anything exept update the timer. This is to save CPU power.
+                 * If the game is paused all gameobjects are considered inactive.
+                 * 
                  * The gameObjects near the target have to do the full logic cycle.
                  */
 
@@ -322,7 +334,7 @@ namespace UWPTestApp
                 }
                 else
                 {
-
+                    //if the blockFromLeft/Top are not the same as the currenty calculated blockFromLeft/Top
                     if (
                         blockFromLeft != (int)Math.Floor(player.FromLeft / world.StartingBlock.Width) 
                         ||
@@ -384,18 +396,16 @@ namespace UWPTestApp
                         LoadBlock(blockFromLeft - 2, blockFromTop - 2);
                         LoadBlock(blockFromLeft + 2, blockFromTop + 2);
 
+                        //Set the blockFromLeft/Top for the next logic loop
                         blockFromLeft = (int)Math.Floor(player.FromLeft / world.StartingBlock.Width);
                         blockFromTop = (int)Math.Floor(player.FromTop / world.StartingBlock.Height);
-
-
                     }
 
                     //Lambda version to get all the gameobjects that are outside of the screen.
                     //also tested with parralel but its slower. could become faster if there are enough enemies 
                     //but most of the time it will be slower
 
-                    //Lambda version to get all the gameobjects that are outside of the screen.
-                    //also implemented parallel when there are more than 1250 objects (which is where paralel became more efficient)
+                    //also implemented parallel when there are more than 1250 objects (which is where paralel became more efficient in our tests)
                     if (gameObjects.Count() < 1250)
                     {
                         activeObjects = gameObjects.Where(element => element.IsActive(player) == true).ToList();
@@ -408,8 +418,6 @@ namespace UWPTestApp
 
                         inactiveObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) != true).ToList();
                     }
-                    
-
                     
 
                     //Check if there are objects in the List to apply logic on
@@ -438,7 +446,7 @@ namespace UWPTestApp
                             }
                         }
 
-                        //gameObject.OnTick(gameObjects, delta);
+                        //Call the OnTick on every activeObject
                         gameObject.OnTick(gameObjects);
 
                         //For every object in this loop, loop trough all objects to check if they are coliding
@@ -447,7 +455,7 @@ namespace UWPTestApp
                             //If the two objects are colliding
                             if (gameObject.IsColliding(gameObjectCheck))
                             {
-                                //Do the collision effect
+                                //Do the collision effect on both objects
                                 gameObject.CollisionEffect(gameObjectCheck);
                                 gameObjectCheck.CollisionEffect(gameObject);
                             }
@@ -455,7 +463,7 @@ namespace UWPTestApp
                     }
                 }
 
-                //Activate the query
+                //All the inactiveObject should skip the Ontick
                 foreach (GameObject GameObject in inactiveObjects)
                 {
                     GameObject.SkipTick();
@@ -477,9 +485,7 @@ namespace UWPTestApp
              * Due to keyboard rollover this is not compatible with all keyboards.
              */
 
-            
-
-            if (IsKeyPressed("192") && !enableCheats) // 192 is the ` key
+            if (IsKeyPressed("192") && !enableCheats) // 192 is the ` key, this is used to activate cheats
             {
                 enableCheats = true;
 
@@ -547,6 +553,8 @@ namespace UWPTestApp
         private void HandlePlayerMovementControls(Player player)
         {
             player.IsWalking = false;
+
+            //Players have to have the tag controllable, else they dont listen to the keyboard.
 
             if (player.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
             {
@@ -1147,7 +1155,7 @@ namespace UWPTestApp
              * After drawing the sprites the UI elements (health and armour bars) are drawn so they are always visable on top.
             */
 
-            //Load the sprite in this canvasControl so it is usable later
+            //Load the sprite in this canvasControl so they are usable later
             CreateAllResourcesAsync(sender, loopList);
 
             //Draw the background first so all other sprites are drawn upon it.
