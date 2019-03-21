@@ -118,7 +118,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             //We had this a recursive function first, that fired until there was no collision.
             //But this made them warp further due to them pushing eachother so a maxCollisions is set.
-            int maxCollisions = 900;
+            int maxCollisions = 90;
             while (IsColliding(gameObject) && maxCollisions > 0)
             {
                 //Check collision from the left or right.
