@@ -1,13 +1,8 @@
-﻿using EindopdrachtUWP;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using Microsoft.Graphics.Canvas;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using Windows.Foundation;
 
 namespace UWPTestApp
@@ -41,12 +36,11 @@ namespace UWPTestApp
         //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
         private long delta;     //The lenght in time the last frame lasted (so we can use it to calculate speeds of things without slowing down due to low fps)
         private long now;       //This is the time of the frame. (To calculate the delta)
-        private long? then;      //This is the time of the previous draw frame. (To calculate the delta)
+        private long? then;     //This is the time of the previous draw frame. (To calculate the delta)
 
         //The sprite location and the CanvasBitmap are stored seperatly
         //This is so the location gets changed more times in a frame the canvasBitmap doesn't have to get loaded more then once a frame.
         protected CanvasBitmap sprite;
-
         protected string location;
 
         protected bool started;
@@ -72,7 +66,6 @@ namespace UWPTestApp
 
             //Set then to the current time to know when we started
             then = null;
-
             started = false;
         }
 
@@ -138,24 +131,24 @@ namespace UWPTestApp
 
         //Methods to add ammounts to fields that have to do with positioning of the GameOgject.
         //They also return the new number so we can use them to calculate with instandly.
-        public float AddWidth(float width) {
-            this.width += width;
-            return this.width;
+        public float AddWidth(float width)
+        {
+            return this.width += width;
         }
 
-        public float AddHeight(float height) {
-            this.height += height;
-            return this.height;
+        public float AddHeight(float height)
+        {
+            return this.height += height;
         }
 
-        public float AddFromTop(float fromTop) {
-            this.fromTop += fromTop;
-            return this.fromTop;
+        public float AddFromTop(float fromTop)
+        {
+            return this.fromTop += fromTop;
         }
 
-        public float AddFromLeft(float fromLeft) {
-            this.fromLeft += fromLeft;
-            return this.fromLeft;
+        public float AddFromLeft(float fromLeft)
+        {
+            return this.fromLeft += fromLeft;
         }
 
         //Getters and setters for the fields that have to do with positioning in the canvas.
@@ -199,7 +192,7 @@ namespace UWPTestApp
         public bool OnTick(List<GameObject> gameObjects)
         {
             now = Stopwatch.GetTimestamp();
-            
+
             if (then == null)
             {
                 then = Stopwatch.GetTimestamp();
@@ -212,25 +205,6 @@ namespace UWPTestApp
 
             return result;
         }
-
-        /* distanceBetween */
-        /*
-         * returns the distance in units of the given gameobject to this gameobject.
-         * This can be used for deciding weater or not a unit is in an area. (Forexample within a camera's vision or within a render range)
-        */
-        public float DistanceBetween(GameObject gameObject)
-        {
-            float differenceLeftAbs = Math.Abs((gameObject.FromLeft + (gameObject.Width / 2)) - (this.FromLeft + (this.Width / 2)));
-            float differenceTopAbs = Math.Abs((gameObject.FromTop + (gameObject.Height / 2)) - (this.FromLeft + (this.Height / 2)));
-
-            float totalDifferenceAbs = differenceLeftAbs + differenceTopAbs;
-
-            float differenceTopPercent = differenceTopAbs / (totalDifferenceAbs / 100);
-            float differenceLeftPercent = differenceLeftAbs / (totalDifferenceAbs / 100);
-
-            return ((differenceTopAbs * (differenceTopPercent / 100)) + (differenceLeftAbs * (differenceLeftPercent / 100)));
-        }
-
 
         //Any object can edit the gameObjects of the game while the logic is running.
         //And Also get the delta for timed events.
@@ -261,7 +235,7 @@ namespace UWPTestApp
                 return false;
             }
 
-            if (FromLeft < gameObject.FromLeft + gameObject.width  && FromLeft + Width > gameObject.FromLeft)
+            if (FromLeft < gameObject.FromLeft + gameObject.width && FromLeft + Width > gameObject.FromLeft)
             {
                 if (FromTop < gameObject.FromTop + gameObject.height && FromTop + Height > gameObject.FromTop)
                 {
@@ -270,7 +244,6 @@ namespace UWPTestApp
             }
             return false;
         }
-
 
         /* CollisionEffect */
         /*

@@ -7,30 +7,27 @@ using System.Linq;
 
 namespace UWPTestApp
 {
-    public class Player : GameObject, MovableObject, Targetable
+    public class Player : GameObject, ITargetable
     {
-        private float walkSpeed;
-        private float maxHealth;
-        private float health;
-        private float maxArmour;
-        private float armour;
+        private readonly float walkSpeed;
+        public float MaxHealth { get; set; }
+        public float Health { get; set; }
+        public float MaxArmour { get; set; }
+        public float Armour { get; set; }
         private int level;
 
         public int Kills { get; set; }
-
         public string DeathSound { get; set; }
         public string MoveSound { get; set; }
         public string HitSound { get; set; }
         public string HealthLowSound { get; set; }
-
         public bool IsWalking { get; set; }
-
         public float SelectNextWeaponDelay { get; set; }
 
         //Gun stuff
-        private List<Weapon> weapons;
-        public Weapon activeWeapon;
-        
+        private List<IWeapon> weapons;
+        public IWeapon activeWeapon;
+
         public float DeltaForWalkingSound { get; set; }
         public float DeltaForHealthLowSound { get; set; }
         public float SelectNextWeaponDelayMax { get; set; }
@@ -38,26 +35,23 @@ namespace UWPTestApp
         public Player(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
             : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
-
             AddTag("solid");
-
             DeathSound = "Generic_Sounds\\Player_Death_Sound.wav";
             MoveSound = "Generic_Sounds\\Player_Movement_Sound.wav";
             HitSound = "Generic_Sounds\\Player_Hit_Sound.wav";
             HealthLowSound = "Generic_Sounds\\Health_Low_Sound.wav";
 
             walkSpeed = 300;
-            health = 300;
-            maxHealth = 300;
-            armour = 0;
-            maxArmour = 150;
+            Health = 300;
+            MaxHealth = 300;
+            Armour = 0;
+            MaxArmour = 150;
             level = 1;
             Kills = 0;
             Direction = "Bottom";
-
             SelectNextWeaponDelayMax = 1000;
 
-            weapons = new List<Weapon>
+            weapons = new List<IWeapon>
             {
                 new DessertBeagle(),
                 new KA74(),
@@ -70,7 +64,6 @@ namespace UWPTestApp
                 new Batarang(),
                 new HomersBullets()
             };
-
             activeWeapon = weapons[0];
 
             Target = new Target(FromLeft, FromTop);
@@ -85,12 +78,13 @@ namespace UWPTestApp
             }
 
             bool found = false;
-            foreach (Weapon selected in weapons)
+            foreach (IWeapon selected in weapons)
             {
                 if (activeWeapon == selected)
                 {
                     found = true;
-                }else if (found)
+                }
+                else if (found)
                 {
                     activeWeapon = selected;
                     SelectNextWeaponDelay = SelectNextWeaponDelayMax;
@@ -109,7 +103,7 @@ namespace UWPTestApp
             {
                 return false;
             }
-            
+
             for (int i = 0; i < weapons.Count(); i++)
             {
                 if (activeWeapon == weapons[i])
@@ -127,23 +121,23 @@ namespace UWPTestApp
                 }
             }
             activeWeapon = weapons[0];
-
             SelectNextWeaponDelay = SelectNextWeaponDelayMax;
             return true;
         }
 
         public void IncreaseHealth(float amount)
         {
-            health += amount;
-            if (health > maxHealth)
+            Health += amount;
+            if (Health > MaxHealth)
             {
-                health = maxHealth;
+                Health = MaxHealth;
             }
-            if (HasTag("health_low") && health >= 100)
+
+            if (HasTag("health_low") && Health >= 100)
             {
                 RemoveTag("health_low");
             }
-            else if (!HasTag("health_low") && health < 100)
+            else if (!HasTag("health_low") && Health < 100)
             {
                 AddTag("health_low");
             }
@@ -152,37 +146,12 @@ namespace UWPTestApp
 
         public void IncreaseArmour(float amount)
         {
-            armour += amount;
-            if (armour > maxArmour)
+            Armour += amount;
+            if (Armour > MaxArmour)
             {
-                armour = maxArmour;
+                Armour = MaxArmour;
             }
             MainPage.Current.UpdateArmour();
-        }
-
-        public void SetArmour(float amount)
-        {
-            armour = amount;
-        }
-
-        public float GetArmour()
-        {
-            return armour;
-        }
-
-        public float GetMaxArmour()
-        {
-            return maxArmour;
-        }
-
-        public float GetHealth()
-        {
-            return health;
-        }
-
-        public float GetMaxHealth()
-        {
-            return maxHealth;
         }
 
         //Every x amount of kills the player is leveled. Their max HP gets increased by 25, HP is filled to max and visuals get updated.
@@ -191,33 +160,23 @@ namespace UWPTestApp
             level++;
             IncreaseMaxHealth(25);
             IncreaseMaxArmour(25);
-            IncreaseHealth(maxHealth);
+            IncreaseHealth(MaxHealth);
             AddTag("levelup");
         }
 
         public void IncreaseMaxHealth(float amount)
         {
-            maxHealth += amount;
+            MaxHealth += amount;
             MainPage.Current.UpdateHealth();
         }
 
         public void IncreaseMaxArmour(float amount)
         {
-            maxArmour += amount;
+            MaxArmour += amount;
             MainPage.Current.UpdateArmour();
         }
 
         public int GetLevel() => level;
-
-        float MovableObject.GetMovementSpeed()
-        {
-            return walkSpeed;
-        }
-        
-        void MovableObject.SetMovementSpeed(float speed)
-        {
-            walkSpeed = speed;
-        }
 
         public bool Fire(string direction, List<GameObject> gameObjects)
         {
@@ -237,11 +196,11 @@ namespace UWPTestApp
 
             if (HasTag("levelup"))
             {
-                gameObjects.Add (new TextBox(75, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, "Level Up!", 1000));
+                gameObjects.Add(new TextBox(75, 50, fromLeft, fromTop - 20, 0, 0, 0, 0, "Level Up!", 1000));
                 RemoveTag("levelup");
             }
 
-            if (health <= 0)
+            if (Health <= 0)
             {
                 AddTag("destroyed");
                 MainPage.Current.MuteMusic();
@@ -293,14 +252,14 @@ namespace UWPTestApp
                 locationstring += "VLEKKannon";
             }
 
-            locationstring += "_" + Direction + ".png";
+            locationstring += "_" + Direction + ".gif";
 
             if (locationstring != Location)
             {
                 Location = locationstring;
                 Sprite = null;
             }
-			
+
             activeWeapon.OnTick(delta);
 
             float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
@@ -319,7 +278,7 @@ namespace UWPTestApp
             {
                 AddFromLeft((moveLeftDistance * delta) / 10000);
             }
-            else if(Target.FromLeft() < FromLeft) 
+            else if (Target.FromLeft() < FromLeft)
             {
                 AddFromLeft(((moveLeftDistance * delta) / 10000) * -1);
             }
@@ -328,13 +287,13 @@ namespace UWPTestApp
             {
                 AddFromTop((moveTopDistance * delta) / 10000);
             }
-            else if(Target.FromTop() < FromTop)
+            else if (Target.FromTop() < FromTop)
             {
                 AddFromTop(((moveTopDistance * delta) / 10000) * -1);
             }
 
             //Reset the target to the current location, So if no buttons are pressed no movement is done
-            Target.SetTarget(fromLeft,fromTop);
+            Target.SetTarget(fromLeft, fromTop);
             return true;
         }
 
@@ -362,31 +321,28 @@ namespace UWPTestApp
                     AddFromTop(1);
                 }
             }
-
             //If a player is coliding with an object their CollisionEffect is triggered instantly and not after this resolves.
             //This is so the collision of the enemy still goes even thought they are not colliding anymore.
             gameObject.CollisionEffect(this);
             return true;
         }
-        
 
-
-        float Targetable.FromTop()
+        float ITargetable.FromTop()
         {
             return FromTop;
         }
 
-        float Targetable.FromLeft()
+        float ITargetable.FromLeft()
         {
             return FromLeft;
         }
 
-        public List<Weapon> GetWeapons()
+        public List<IWeapon> GetWeapons()
         {
             return weapons;
         }
 
-        public Weapon GetActiveWeapon()
+        public IWeapon GetActiveWeapon()
         {
             return activeWeapon;
         }

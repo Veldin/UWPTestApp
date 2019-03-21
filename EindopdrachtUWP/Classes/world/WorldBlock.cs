@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace UWPTestApp
 {
@@ -9,8 +8,7 @@ namespace UWPTestApp
          * Every WorldBlock is responcable for a small part of the world that is able to load independelty.
          * This way the whole map does not have to load at once, but parts can be loading on their own.
          */
-
-        private Scene scene;
+        protected Scene scene;
 
         //Other blocks adjacent to this block
         private WorldBlock up;
@@ -30,13 +28,11 @@ namespace UWPTestApp
         //Call used to create a worldblock with no adjacent rooms on the 0,0 position
         public WorldBlock() : this(null, null, null, null, 0, 0)
         {
-
         }
 
         /*
          * up, down left and right given set the rooms that are up down left or right.
          * This way the traversion does not have to be done again but is stored in the worldblock itself.
-         * 
          */
         public WorldBlock(WorldBlock up, WorldBlock down, WorldBlock left, WorldBlock right, int fromLeft, int fromTop)
         {
@@ -45,12 +41,6 @@ namespace UWPTestApp
             this.fromTop = fromTop;
 
             Scene = SceneFactory.GetScene(width, height);
-        }
-
-        //Make this block with a specivic scene
-        public WorldBlock(Scene scene)
-        {
-            Scene = scene;
         }
 
         public List<GameObject> LoadScene()
@@ -64,7 +54,6 @@ namespace UWPTestApp
                 gameObject.FromLeft = gameObject.FromLeft + (fromLeft * width);
                 gameObject.FromTop = gameObject.FromTop + (fromTop * height);
             }
-
             return gameObjects;
         }
 
@@ -109,10 +98,10 @@ namespace UWPTestApp
          *  2   [ ] [ ] [ ] [ ] [ ]
          */
 
-
         public WorldBlock Up
         {
-            get {
+            get
+            {
                 if (up is null)
                 {
                     up = new WorldBlock(null, this, null, null, Fromleft, FromTop - 1);
@@ -137,51 +126,52 @@ namespace UWPTestApp
 
         public WorldBlock Left
         {
-            get {
+            get
+            {
                 if (fromTop == 0)
                 {
                     if (left is null)
                     {
                         left = new WorldBlock(null, null, null, this, Fromleft - 1, FromTop);
                     }
-
                     return left;
                 }
 
-                WorldBlock needle = this;
+                WorldBlock currentBlock = this;
 
                 if (fromTop > 0)
                 {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                         fromTopNeedle--;
                     }
-                    needle = needle.Left;
+                    currentBlock = currentBlock.Left;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                         fromTopNeedle--;
                     }
-                    return needle;
+                    return currentBlock;
                 }
-                else if(fromTop < 0){
+                else if (fromTop < 0)
+                {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                         fromTopNeedle++;
                     }
-                    needle = needle.Left;
+                    currentBlock = currentBlock.Left;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                         fromTopNeedle++;
                     }
-                    return needle;
+                    return currentBlock;
                 }
                 return left;
             }
@@ -192,41 +182,41 @@ namespace UWPTestApp
                     Left = value;
                 }
 
-                WorldBlock needle = this;
+                WorldBlock currentBlock = this;
 
                 if (fromTop > 0)
                 {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                         fromTopNeedle--;
                     }
-                    needle = needle.Left;
+                    currentBlock = currentBlock.Left;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                         fromTopNeedle--;
                     }
-                    needle = value;
+                    currentBlock = value;
                 }
                 else if (fromTop < 0)
                 {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                         fromTopNeedle++;
                     }
-                    needle = needle.Left;
+                    currentBlock = currentBlock.Left;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                         fromTopNeedle++;
                     }
-                    needle = value;
+                    currentBlock = value;
                 }
             }
         }
@@ -244,82 +234,82 @@ namespace UWPTestApp
                     return right;
                 }
 
-                WorldBlock needle = this;
+                WorldBlock currentBlock = this;
 
                 if (fromTop > 0)
                 {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                         fromTopNeedle--;
                     }
-                    needle = needle.Right;
+                    currentBlock = currentBlock.Right;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                         fromTopNeedle--;
                     }
-                    return needle;
+                    return currentBlock;
                 }
                 else if (fromTop < 0)
                 {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                         fromTopNeedle++;
                     }
-                    needle = needle.Right;
+                    currentBlock = currentBlock.Right;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                         fromTopNeedle++;
                     }
-                    return needle;
+                    return currentBlock;
                 }
-
                 return right;
             }
-            set {
+            set
+            {
                 if (fromTop == 0)
                 {
                     Right = value;
                 }
 
-                WorldBlock needle = this;
+                WorldBlock currentBlock = this;
 
                 if (fromTop > 0)
                 {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                     }
-                    needle = needle.Right;
+                    currentBlock = currentBlock.Right;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle > 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                     }
-                    needle = value;
+                    currentBlock = value;
                 }
                 else if (fromTop < 0)
                 {
                     int fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Up;
+                        currentBlock = currentBlock.Up;
                     }
-                    needle = needle.Right;
+                    currentBlock = currentBlock.Right;
                     fromTopNeedle = fromTop;
                     while (fromTopNeedle < 0)
                     {
-                        needle = needle.Down;
+                        currentBlock = currentBlock.Down;
                     }
-                    needle = value;
+                    currentBlock = value;
                 }
             }
         }

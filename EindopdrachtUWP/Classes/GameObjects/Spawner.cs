@@ -7,7 +7,7 @@ namespace UWPTestApp
     {
         protected float beginDelta;                 //The delta till this spawner starts.
         protected float totalDelta;                 //The time this spawner is alive.
-        protected float cooldownDelta;              //The max delta it takes to spawn the next, after it spawned a guy.
+        protected readonly float cooldownDelta;              //The max delta it takes to spawn the next, after it spawned a guy.
         protected float remainingCooldownDelta;     //the delta it takes to spawn the next.
 
         public Spawner(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0, float beginDelta = 3000, float cooldownDelta = 4000)
@@ -15,21 +15,15 @@ namespace UWPTestApp
         {
             this.beginDelta = beginDelta;
             this.cooldownDelta = cooldownDelta;
-            this.remainingCooldownDelta = 0;
+            remainingCooldownDelta = 0;
 
-            Location = "Assets/Sprites/Maps/Spawner.png";
+            Location = "Assets/Sprites/Maps/Spawner.gif";
         }
 
         public float BeginDelta
         {
             get { return beginDelta; }
             set { beginDelta = value; }
-        }
-
-        public float CooldownDelta
-        {
-            get { return cooldownDelta; }
-            set { cooldownDelta = value; }
         }
 
         public float RemainingCooldownDelta
@@ -50,7 +44,6 @@ namespace UWPTestApp
             {
                 return true;
             }
-
             return false;
         }
 
@@ -58,7 +51,7 @@ namespace UWPTestApp
         //And Also get the delta for timed events.
         public override bool OnTick(List<GameObject> gameObjects, float delta)
         {
-            if (BeginDelta > 0 )
+            if (BeginDelta > 0)
             {
                 BeginDelta = (BeginDelta - delta);
                 return true;
@@ -82,7 +75,7 @@ namespace UWPTestApp
                 RemainingCooldownDelta = (cooldownDelta / (playerLevel / 4));
 
                 if (RemainingCooldownDelta < 1000) RemainingCooldownDelta = 1000;
-                
+
                 //Spawn a gameobject!
                 float spawnSizeWidth = 15;
                 float spawnSizeHight = 15;
@@ -92,25 +85,22 @@ namespace UWPTestApp
                 float spawnFromTop = FromTop + (Height / 2) - (spawnSizeHight / 2);
 
                 Enemy enemy = new Enemy(enemySize, enemySize, spawnFromLeft, spawnFromTop, 0, 10, 0, -10);
-                enemy.addMovementSpeed((float)(playerLevel * 1.5));
+                enemy.AddMovementSpeed((float)(playerLevel * 1.5));
 
                 //Give a pickup to some enemies (and make them stronger)
                 Random random = new Random();
-                if(random.Next(0,6) > 3)
+                if (random.Next(0, 6) > 3)
                 {   //Strong enemy
                     enemy.AddTag("droppickup");
-                    enemy.SetPower(1.0f + (0.1f * playerLevel));
-                    enemy.SetLifePoints(375 + (30 * playerLevel));
-                    enemy.addMovementSpeed((float)(playerLevel * 0.5));
+                    enemy.Power = 1.0f + (0.1f * playerLevel);
+                    enemy.LifePoints = 375 + (30 * playerLevel);
+                    enemy.AddMovementSpeed((float)(playerLevel * 0.5));
                 }
                 else
                 {   //Normal enemy
-                    enemy.SetPower( 2.0f + ( 0.15f * playerLevel ) );
-                    enemy.SetLifePoints(275 + ( 25 * playerLevel ) );
+                    enemy.Power = 2.0f + (0.15f * playerLevel);
+                    enemy.LifePoints = 275 + (25 * playerLevel);
                 }
-
-                //enemy.SetPower( 1.0f + ( 0.1f * playerLevel ) );
-                //enemy.SetLifePoints(275 + ( 25 * playerLevel ) );
                 gameObjects.Add(enemy);
             }
             else

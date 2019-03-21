@@ -4,16 +4,16 @@ using System;
 using System.Collections.Generic;
 using UWPTestApp;
 
-public class Enemy : GameObject, MovableObject, Targetable
+public class Enemy : GameObject, ITargetable
 {
-    private float lifePoints; 
-    private float maxLifePoints;
-    private float power; 
-
-    private float damage; 
+    private float lifePoints;
+    public float MaxLifePoints { get; set; }
+    protected float power;
+    private readonly float damage;
+    private float movementSpeed;
     private bool ableToHit;
     private float damageCountDownTimer;
-    private float damageCountDownTimerMax;
+    private readonly float damageCountDownTimerMax;
 
     public string DeathSound { get; set; }
     public string MoveSound { get; set; }
@@ -31,8 +31,6 @@ public class Enemy : GameObject, MovableObject, Targetable
         "Enemy_Sounds\\Zombie_Death9.wav",
     };
 
-    private float movementSpeed;
-
     public Enemy(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
     {
@@ -41,9 +39,9 @@ public class Enemy : GameObject, MovableObject, Targetable
 
         //Default statistics
         movementSpeed = 190;
-        lifePoints = 300;
+        LifePoints = 300;
         damage = 50;
-        maxLifePoints = lifePoints;
+        MaxLifePoints = LifePoints;
 
         //After every attack the attack goes on cooldown.
         ableToHit = true;
@@ -52,68 +50,42 @@ public class Enemy : GameObject, MovableObject, Targetable
         //Set default sprite
         Location = "Assets/Sprites/Enemy_Sprites/Enemy_Bottom.gif";
 
-        Random r = new Random();
-
         //Get a deathsound
-        DeathSound = DeathSounds[r.Next(9)];
+        Random rand = new Random();
+        DeathSound = DeathSounds[rand.Next(9)];
     }
-    
+
     /*
      * Used to set the lifepoints, also sets max lifepoints
      */
-    public void SetLifePoints(float life)
+    public float LifePoints
     {
-        lifePoints = life;
-        maxLifePoints = life;
+        get { return lifePoints; }
+        set
+        {
+            lifePoints = value;
+            MaxLifePoints = value;
+        }
     }
-
 
     public void AddLifePoints(float life)
     {
         lifePoints += life;
     }
 
-    public float GetLifePoints()
+    public float Power
     {
-        return lifePoints;
+        get { return power; }
+        set { power = value; }
     }
 
-    public float GetMaxLifePoints()
+    public void AddMovementSpeed(float movementSpeed)
     {
-        return maxLifePoints;
+        this.movementSpeed += movementSpeed;
     }
 
-    public void SetPower(float power)
+    public override bool CollisionEffect(GameObject gameObject)
     {
-        this.power = power;
-    }
-
-    public void AddPower(float power)
-    {
-        this.power = power;
-    }
-
-    public float GetPower()
-    {
-        return power;
-    }
-
-    void MovableObject.SetMovementSpeed(float speed)
-    {
-        movementSpeed = speed;
-    }
-
-    public void addMovementSpeed(float speed)
-    {
-        movementSpeed += speed;
-    }
-
-    float MovableObject.GetMovementSpeed()
-    {
-        return movementSpeed;
-    }
-
-    public override bool CollisionEffect(GameObject gameObject) {
         if (gameObject.HasTag("solid")) //Check if the gameobject should be considered solid
         {
             //We had this a recursive function first, that fired until there was no collision.
@@ -142,7 +114,6 @@ public class Enemy : GameObject, MovableObject, Targetable
                 {
                     AddFromTop(1);
                 }
-
                 maxCollisions--;
             }
         }
@@ -153,19 +124,19 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             if (ableToHit)
             {
-                if (player.GetArmour() <= 0)
+                if (player.Armour <= 0)
                 {
-                    player.IncreaseHealth(GetPower() * damage * -1);
+                    player.IncreaseHealth(Power * damage * -1);
                     ableToHit = false;
                     MainPage.Current.UpdateHealth();
                 }
                 else
                 {
-                    player.IncreaseArmour(GetPower() * damage * -1);
-                    if(player.GetArmour() < 0)
+                    player.IncreaseArmour(Power * damage * -1);
+                    if (player.Armour < 0)
                     {
-                        player.IncreaseHealth(player.GetArmour());
-                        player.SetArmour(0);
+                        player.IncreaseHealth(player.Armour);
+                        player.Armour = 0;
                         MainPage.Current.UpdateHealth();
                     }
                     ableToHit = false;
@@ -179,7 +150,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         return true;
     }
 
-    private bool getThenSetTarget(List<GameObject> gameObjects)
+    private bool GetThenSetTarget(List<GameObject> gameObjects)
     {
         //return false;
         foreach (GameObject gameObject in gameObjects)
@@ -187,8 +158,8 @@ public class Enemy : GameObject, MovableObject, Targetable
             Player player = gameObject as Player;
             if (player is Player)
             {
-                Targetable targetable = player as Targetable;
-                if (targetable is Targetable)
+                ITargetable targetable = player as ITargetable;
+                if (targetable is ITargetable)
                 {
                     if (targetable != null)
                     {
@@ -212,13 +183,11 @@ public class Enemy : GameObject, MovableObject, Targetable
         {
             return true;
         }
-
         return false;
     }
 
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
-
         //After every attack the attack goes on cooldown.
         if (damageCountDownTimer - delta < 0)
         {
@@ -233,7 +202,7 @@ public class Enemy : GameObject, MovableObject, Targetable
         //If you don't have a target, try to find one!
         if (Target == null)
         {
-            getThenSetTarget(gameObjects);
+            GetThenSetTarget(gameObjects);
         }
 
         //This is not an if-else so it reavaluates target after the getThenSetTarget()
@@ -286,7 +255,6 @@ public class Enemy : GameObject, MovableObject, Targetable
                 if (facingLeft)
                 {
                     newDirection = "Right";
-
                     WidthDrawOffset = width / 2;
                     HeightDrawOffset = 0;
                     FromTopDrawOffset = 0;
@@ -295,7 +263,6 @@ public class Enemy : GameObject, MovableObject, Targetable
                 else
                 {
                     newDirection = "Left";
-
                     WidthDrawOffset = width / 2;
                     HeightDrawOffset = 0;
                     FromTopDrawOffset = 0;
@@ -307,7 +274,6 @@ public class Enemy : GameObject, MovableObject, Targetable
                 if (facingTop)
                 {
                     newDirection = "Bottom";
-
                     WidthDrawOffset = 0;
                     HeightDrawOffset = width / 2;
                     FromTopDrawOffset = 0;
@@ -316,7 +282,6 @@ public class Enemy : GameObject, MovableObject, Targetable
                 else
                 {
                     newDirection = "Top";
-
                     WidthDrawOffset = 0;
                     HeightDrawOffset = width / 2;
                     FromTopDrawOffset = width / 2 * -1;
@@ -326,7 +291,6 @@ public class Enemy : GameObject, MovableObject, Targetable
 
             if (newDirection.Equals(Direction))
             {
-
             }
             else
             {
@@ -341,21 +305,17 @@ public class Enemy : GameObject, MovableObject, Targetable
         }
 
         //Check dead
-        if (lifePoints <= 0)
+        if (LifePoints <= 0)
         {
             Random random = new Random();
-
             int randomPositionOffsetOne = 0;
             int randomPositionOffsetTwo = 0;
-
             int randomSizeOffset = 0;
-
 
             for (int i = 0; i < 15; i++)
             {
                 randomPositionOffsetOne = random.Next((int)width * -1, (int)width);
                 randomPositionOffsetTwo = random.Next((int)width * -1, (int)width);
-
                 randomSizeOffset = random.Next(((int)width * 75 / 100), ((int)width));
 
                 gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
@@ -368,8 +328,6 @@ public class Enemy : GameObject, MovableObject, Targetable
                 gameObjects.Add(new Pickup(15, 17, FromLeft, FromTop)); //Drop a pickup (this is a random pickup)
                 RemoveTag("droppickup");
             }
-            
-
             AddTag("destroyed");
         }
 
@@ -384,16 +342,15 @@ public class Enemy : GameObject, MovableObject, Targetable
             gameObjects.Add(new Splatter(randomSizeOffset, randomSizeOffset, fromLeft + (width / 2) + randomPositionOffsetOne, fromTop + (height / 2) + randomPositionOffsetTwo));
             RemoveTag("splatter");
         }
-
-
         return true;
     }
 
-    float Targetable.FromTop(){
+    float ITargetable.FromTop()
+    {
         return FromTop;
     }
 
-    float Targetable.FromLeft()
+    float ITargetable.FromLeft()
     {
         return FromLeft;
     }

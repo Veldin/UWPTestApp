@@ -5,8 +5,7 @@
         /* 
         * Used to create and store a worldBlock.
         */
-
-        private WorldBlock startingBlock;
+        protected WorldBlock startingBlock;
 
         public World()
         {

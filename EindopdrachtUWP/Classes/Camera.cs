@@ -1,24 +1,23 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace UWPTestApp
 {
     public class Camera
     {
-        private float fromLeft;
-        private float fromTop;
-        private Target target;
+        protected float fromLeft;
+        protected float fromTop;
+        protected readonly Target target;
 
         //For timekeeping (we need to know when the last frame happend when the next frame happens and the delta between)
         private long delta;     //The lenght in time the last frame lasted (so we can use it to calculate speeds of things without slowing down due to low fps)
         private long now;       //This is the time of the frame. (To calculate the delta)
-        private long? then;      //This is the time of the previous draw frame. (To calculate the delta)
+        private long? then;     //This is the time of the previous draw frame. (To calculate the delta)
 
         public Camera(Target target)
         {
             this.target = target;
-            this.fromLeft = target.FromLeft();
-            this.fromTop = target.FromTop();
+            fromLeft = target.FromLeft();
+            fromTop = target.FromTop();
         }
 
         public bool OnTick()
@@ -60,13 +59,6 @@ namespace UWPTestApp
         {
             get { return fromTop; }
             set { fromTop = value; }
-        }
-
-        //Target that the camera is moving towards
-        public Target Target
-        {
-            get { return target; }
-            set { target = value; }
         }
     }
 }

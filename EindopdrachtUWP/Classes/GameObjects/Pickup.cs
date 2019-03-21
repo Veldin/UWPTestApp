@@ -36,117 +36,117 @@ namespace EindopdrachtUWP.Classes
         private const string HealthUp = "HealthUp";
 
         //Dictionary containing the sprites.
-        private Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
+        private readonly Dictionary<string, string[]> sprites = new Dictionary<string, string[]>()
         {
             { AmmunitionArrivaGun, new string[]
             {
-                "Ammo_Pickups\\Arriva_Gun_Ammo_Right.png",
-                "Ammo_Pickups\\Arriva_Gun_Ammo_Left.png"
+                "Ammo_Pickups\\Arriva_Gun_Ammo_Right.gif",
+                "Ammo_Pickups\\Arriva_Gun_Ammo_Left.gif"
             }},
             { AmmunitionBatarang, new string[]
             {
-                "Ammo_Pickups\\Batarang_Ammo_Right.png",
-                "Ammo_Pickups\\Batarang_Ammo_Left.png"
+                "Ammo_Pickups\\Batarang_Ammo_Right.gif",
+                "Ammo_Pickups\\Batarang_Ammo_Left.gif"
             }},
             { AmmunitionBulletBill, new string[]
             {
-                "Ammo_Pickups\\Bullet_Bill_Ammo_Right.png",
-                "Ammo_Pickups\\Bullet_Bill_Ammo_Left.png"
+                "Ammo_Pickups\\Bullet_Bill_Ammo_Right.gif",
+                "Ammo_Pickups\\Bullet_Bill_Ammo_Left.gif"
             }},
             { AmmunitionDessertBeagle, new string[]
             {
-                "Ammo_Pickups\\Dessert_Beagle_Ammo_Right.png",
-                "Ammo_Pickups\\Dessert_Beagle_Ammo_Left.png"
+                "Ammo_Pickups\\Dessert_Beagle_Ammo_Right.gif",
+                "Ammo_Pickups\\Dessert_Beagle_Ammo_Left.gif"
             }},
             { AmmunitionFlameThrower, new string[]
             {
-                "Ammo_Pickups\\Flame_Thrower_Ammo_Right.png",
-                "Ammo_Pickups\\Flame_Thrower_Ammo_Left.png"
+                "Ammo_Pickups\\Flame_Thrower_Ammo_Right.gif",
+                "Ammo_Pickups\\Flame_Thrower_Ammo_Left.gif"
             }},
             { AmmunitionHomersBullets, new string[]
             {
-                "Ammo_Pickups\\Homers_Bullets_Ammo_Left.png",
-                "Ammo_Pickups\\Homers_Bullets_Ammo_Right.png"
+                "Ammo_Pickups\\Homers_Bullets_Ammo_Left.gif",
+                "Ammo_Pickups\\Homers_Bullets_Ammo_Right.gif"
             }},
             { AmmunitionKa74, new string[]
             {
-                "Ammo_Pickups\\KA74_Ammo_Right.png",
-                "Ammo_Pickups\\KA74_Ammo_Left.png"
+                "Ammo_Pickups\\KA74_Ammo_Right.gif",
+                "Ammo_Pickups\\KA74_Ammo_Left.gif"
             }},
             { AmmunitionKnettergun, new string[]
             {
-                "Ammo_Pickups\\Knetter_Gun_Ammo_Left.png",
-                "Ammo_Pickups\\Knetter_Gun_Ammo_Right.png"
+                "Ammo_Pickups\\Knetter_Gun_Ammo_Left.gif",
+                "Ammo_Pickups\\Knetter_Gun_Ammo_Right.gif"
             }},
             { AmmunitionUwp, new string[]
             {
-                "Ammo_Pickups\\UWP_Ammo_Right.png",
-                "Ammo_Pickups\\UWP_Ammo_Left.png"
+                "Ammo_Pickups\\UWP_Ammo_Right.gif",
+                "Ammo_Pickups\\UWP_Ammo_Left.gif"
             }},
             { AmmunitionVlekKannon, new string[]
             {
-                "Ammo_Pickups\\VLEKKannon_Ammo_Right.png",
-                "Ammo_Pickups\\VLEKKannon_Ammo_Left.png"
+                "Ammo_Pickups\\VLEKKannon_Ammo_Right.gif",
+                "Ammo_Pickups\\VLEKKannon_Ammo_Left.gif"
             }},
             { UpgradeArrivaGun, new string[]
             {
-                "Weapon_Upgrades\\Arriva_Gun_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\Arriva_Gun_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\Arriva_Gun_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\Arriva_Gun_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeBatarang, new string[]
             {
-                "Weapon_Upgrades\\Batarang_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\Batarang_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\Batarang_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\Batarang_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeBulletBill, new string[]
             {
-                "Weapon_Upgrades\\Bullet_Bill_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\Bullet_Bill_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\Bullet_Bill_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\Bullet_Bill_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeDessertBeagle, new string[]
             {
-                "Weapon_Upgrades\\Dessert_Beagle_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\Dessert_Beagle_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\Dessert_Beagle_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\Dessert_Beagle_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeFlameThrower, new string[]
             {
-                "Weapon_Upgrades\\Flame_Thrower_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\Flame_Thrower_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\Flame_Thrower_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\Flame_Thrower_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeHomersBullets, new string[]
             {
-                "Weapon_Upgrades\\Homers_Bullets_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\Homers_Bullets_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\Homers_Bullets_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\Homers_Bullets_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeKa74, new string[]
             {
-                "Weapon_Upgrades\\KA74_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\KA74_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\KA74_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\KA74_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeKnettergun, new string[]
             {
-                "Weapon_Upgrades\\Knetter_Gun_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\Knetter_Gun_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\Knetter_Gun_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\Knetter_Gun_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeUwp, new string[]
             {
-                "Weapon_Upgrades\\UWP_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\UWP_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\UWP_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\UWP_Upgrade_Pickup_Left.gif"
             }},
             { UpgradeVlekKannon, new string[]
             {
-                "Weapon_Upgrades\\VLEKKannon_Upgrade_Pickup_Right.png",
-                "Weapon_Upgrades\\VLEKKannon_Upgrade_Pickup_Left.png"
+                "Weapon_Upgrades\\VLEKKannon_Upgrade_Pickup_Right.gif",
+                "Weapon_Upgrades\\VLEKKannon_Upgrade_Pickup_Left.gif"
             }},
             { ArmourUp, new string[]
             {
-                "Armour_Pickup_Right.png",
-                "Armour_Pickup_Left.png"
+                "Armour_Pickup_Right.gif",
+                "Armour_Pickup_Left.gif"
             }},
             { HealthUp, new string[]
             {
-                "Health_Pickup_Right.png",
-                "Health_Pickup_Left.png"
+                "Health_Pickup_Right.gif",
+                "Health_Pickup_Left.gif"
             }}
         };
 
@@ -164,7 +164,7 @@ namespace EindopdrachtUWP.Classes
         private const string pickUpUpgradeSound = "Generic_Sounds\\Weapon_Upgrade_Sound.wav";
         private const string pickUpArmourSound = "Generic_Sounds\\Armour_Pickup_Sound.wav";
         private const string pickUpHealthSound = "Generic_Sounds\\Health_Pickup_Sound.wav";
-        
+
         //The delta this pickup exists.
         private float totalDelta = 0;
 
@@ -172,21 +172,20 @@ namespace EindopdrachtUWP.Classes
         private CanvasBitmap rightSprite;
         private CanvasBitmap leftSprite;
 
-        public Pickup(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0) : 
+        public Pickup(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0) :
             base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
-
             Random rand = new Random();
-            int r = rand.Next(21); //Get a number from 0 to 21
+            int pickupNumber = rand.Next(21); //Get a number from 0 to 21
 
-            //THe random number dictates the type
-            SetType(r);
+            //The random number dictates the type
+            SetType(pickupNumber);
 
             //Set the pickup sound
             SetSound();
 
             //Load the default sprite
-            this.Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][0];
+            Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][0];
         }
 
         /* SetSound */
@@ -222,10 +221,9 @@ namespace EindopdrachtUWP.Classes
          * Sets the type of pickup. (What it's supposed to do on pickup)
          * A number between 0 and 21 is expected. Any other number will be treated the same as 21
         */
-        private int SetType(int r)
+        private int SetType(int pickupNumber)
         {
-
-            switch (r)
+            switch (pickupNumber)
             {
                 case 0:
                     type = AmmunitionArrivaGun;
@@ -315,8 +313,7 @@ namespace EindopdrachtUWP.Classes
                     amount = 100;
                     break;
             }
-
-            return r;
+            return pickupNumber;
         }
 
         public override bool IsActive(GameObject gameObject)
@@ -330,7 +327,6 @@ namespace EindopdrachtUWP.Classes
             {
                 return true;
             }
-
             return false;
         }
 
@@ -350,14 +346,14 @@ namespace EindopdrachtUWP.Classes
             {
                 if (rightSprite == null && sprite != null)
                 {
-                    //CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png"))
+                    //CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.gif"))
                     rightSprite = sprite;
                     sprite = null;
                     Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][1];
                 }
                 else if (leftSprite == null && sprite != null)
                 {
-                    //CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.png"))
+                    //CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Sprites/Player_Sprites/Arriva_Gun_Bottom.gif"))
                     leftSprite = sprite;
                     Location = "Assets\\Sprites\\Pickup_Sprites\\" + sprites[type][1];
                 }
@@ -395,17 +391,17 @@ namespace EindopdrachtUWP.Classes
                 {
                     string weaponName = type.Remove(0, 10);
 
-                    foreach (var w in player.GetWeapons())
+                    foreach (IWeapon weapon in player.GetWeapons())
                     {
-                        if (w.name.Equals(weaponName))
+                        if (weapon.Name.Equals(weaponName))
                         {
-                            if (w.clipAmount >= 5)
+                            if (weapon.ClipAmount >= 5)
                             {
-                                w.currentClip = w.clipMax;
+                                weapon.CurrentClip = weapon.ClipMax;
                             }
                             else
                             {
-                                w.clipAmount+= 20;
+                                weapon.ClipAmount += 20;
                                 MainPage.Current.GetWeaponStats();
                                 MainPage.Current.UpdateCurrentClip();
                             }
@@ -417,12 +413,11 @@ namespace EindopdrachtUWP.Classes
                 else if (type.Contains("Upgrade")) //If this pickup contains an Upgrade
                 {
                     string weaponName = type.Remove(0, 7);
-
-                    foreach (var w in player.GetWeapons())
+                    foreach (IWeapon weapon in player.GetWeapons())
                     {
-                        if (w.name.Equals(weaponName))
+                        if (weapon.Name.Equals(weaponName))
                         {
-                            w.Upgrade();
+                            weapon.Upgrade();
                             MainPage.Current.GetWeaponStats();
                             MainPage.Current.UpdateCurrentClip();
                             break;
@@ -441,17 +436,16 @@ namespace EindopdrachtUWP.Classes
                 }
                 AddTag("destroyed");
                 AddTag("popup");
-
             }
             return true;
         }
 
-        public string getPickUpSound()
+        public string GetPickUpSound()
         {
             return pickUpSound;
         }
 
-        public static string[] getSounds()
+        public static string[] GetSounds()
         {
             return new string[]
             {

@@ -1,34 +1,26 @@
-﻿using UWPTestApp;
-
-public class Target
+﻿public class Target
 {
     /* 
         * Target is used to store an 2d location in the game.
         * Can also store a Targetable object.
-        * 
         * If a Targetable is set the fromTop() and fomLeft() methods return the Targetable's fromTop and fromLeft instead of its own.
     */
 
     private float fromTop;
     private float fromLeft;
-    private Targetable target;
+    private ITargetable target;
 
-    public Target(Targetable target)
+    public Target(ITargetable target)
     {
         this.target = target;
-        this.fromTop = 0;
-        this.fromLeft = 0;
+        fromTop = 0;
+        fromLeft = 0;
     }
 
     public Target(float fromLeft, float fromTop)
     {
         this.fromTop = fromTop;
         this.fromLeft = fromLeft;
-    }
-
-    public void SetTarget(Targetable target)
-    {
-        this.target = target;
     }
 
     public void SetTarget(float fromLeft, float fromTop)
@@ -47,14 +39,14 @@ public class Target
         this.fromTop = fromTop;
     }
 
-    public void AddFromLeft(float value)
+    public void AddFromLeft(float fromLeft)
     {
-        this.fromLeft += value;
+        this.fromLeft += fromLeft;
     }
 
-    public void AddFromTop(float value)
+    public void AddFromTop(float fromTop)
     {
-        this.fromTop += value;
+        this.fromTop += fromTop;
     }
 
     /* FromTop() */

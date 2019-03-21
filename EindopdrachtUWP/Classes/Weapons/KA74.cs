@@ -4,61 +4,60 @@ using UWPTestApp;
 
 namespace EindopdrachtUWP.Classes.Weapons
 {
-    class KA74 : Weapon
+    class KA74 : IWeapon
     {
-        public List<string> tags        { get; }
-        public string name              { get; set; }
-        public string description       { get; set; }
-        public int currentClip          { get; set; }
-        public int clipAmount           { get; set; }
-        public int clipMax              { get; set; }
-        public float damage             { get; set; }
-        public float accuracy           { get; set; }
-        public float fireTime           { get; set; }
-        public float fireTimer          { get; set; }
-        public double critChance        { get; set; }
-        public double critMultiplier    { get; set; }
-        public int weaponLevel          { get; set; }
-        public string shotSound         { get; set; }
-        public float range              { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
-        public string reloadSound       { get; set; }
-        public float reloadTime         { get; set; }
-        public float reloadTimer        { get; set; }
+        public List<string> Tags { get; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int CurrentClip { get; set; }
+        public int ClipAmount { get; set; }
+        public int ClipMax { get; set; }
+        public float Damage { get; set; }
+        public float Accuracy { get; set; }
+        public float FireTime { get; set; }
+        public float fireTimer { get; set; }
+        public double CritChance { get; set; }
+        public double CritMultiplier { get; set; }
+        public int WeaponLevel { get; set; }
+        public string ShotSound { get; set; }
+        public float Range { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        public string ReloadSound { get; set; }
+        public float ReloadTime { get; set; }
         protected float fireCooldownDelta;                  //The remaining delta for shooting
         protected float reloadCooldownDelta;                //The remaining delta for reloading
         protected bool ableToFire;                          //bool to check is you're able to fire again
         protected bool ableToReload;                        //bool to check is you're able to reload again
-        private string location;
+        private readonly string location;
 
         public KA74()
         {
             // constructor for the KA74 class
-            name                = "KA74";
-            description         = "The KA74 is a strong ranged machine gun, also known as the Kalasjnikov";
-            currentClip         = 0;
-            clipAmount          = 0;
-            clipMax             = 30;
-            damage              = 50;
-            accuracy            = 1.5f;
-            fireTime            = 300;
-            critChance          = 0.05;
-            critMultiplier      = 1.25;
-            weaponLevel         = 1;
-            range               = 1000;
-            reloadTime          = 2000;
-            shotSound           = "Weapon_Sounds\\KA74_Shot1.wav";
-            location            = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.png";
+            Name = "KA74";
+            Description = "The KA74 is a strong ranged machine gun, also known as the Kalasjnikov";
+            CurrentClip = 0;
+            ClipAmount = 0;
+            ClipMax = 30;
+            Damage = 50;
+            Accuracy = 1.5f;
+            FireTime = 300;
+            CritChance = 0.05;
+            CritMultiplier = 1.25;
+            WeaponLevel = 1;
+            Range = 1000;
+            ReloadTime = 2000;
+            ShotSound = "Weapon_Sounds\\KA74_Shot1.wav";
+            location = "Assets\\Sprites\\Bullet_Sprites\\Projectile_Sprite.gif";
 
-            ableToReload        = false;
-            ableToFire          = true;
-            fireCooldownDelta   = 0;
+            ableToReload = false;
+            ableToFire = true;
+            fireCooldownDelta = 0;
             reloadCooldownDelta = 2000;
         }
 
         public void AddTag(string tag)
         {
             // add a tag to the tags list
-            tags.Add(tag);
+            Tags.Add(tag);
         }
 
         private float getProjectileDamage(float damage, float change, float multiplier, Random random)
@@ -67,73 +66,65 @@ namespace EindopdrachtUWP.Classes.Weapons
             if (random.Next(0, 101) < (change * 100))
             {
                 damage = damage * multiplier;
-
-                //If it was a crit call this function again to be able to have double, tripple, quad, ect crits.
-//                return getProjectileDamage(damage, change, multiplier, random);
             }
-
             return damage;
         }
 
         public bool Fire(float fromLeft, float fromTop, float width, float height, List<GameObject> gameObjects, string direction)
         {
-            if (ableToReload && currentClip == 0)
+            if (ableToReload && CurrentClip == 0)
             {
                 Reload();
             }
-
-            //Random random = new Random(Guid.NewGuid().GetHashCode());
-            //float randomPositionOffset = (random.Next(0, (int)accuracy * (int)accuracy)) ;
-            //randomPositionOffset = randomPositionOffset - accuracy * (accuracy) / 2;
 
             Random random = new Random();
             //Random.next first int is inclusive the second is excusive, due to this the half of the accuracy devided by 2 is added.
             //Get a number between the accuracy and the accuracy * -1.
             //The random.next can only give ints back, this means its always rounded. To counter this the ints given are multiplied by 100, and the results devided by 100
-            float randomPositionOffset = (random.Next((int)(accuracy * -1) * 100, (int)accuracy * 100) + accuracy / 2) / 100;
+            float randomPositionOffset = (random.Next((int)(Accuracy * -1) * 100, (int)Accuracy * 100) + Accuracy / 2) / 100;
 
-            float projectileDamage = getProjectileDamage((float)damage, (float)critChance, (float)critMultiplier, random);
+            float projectileDamage = getProjectileDamage((float)Damage, (float)CritChance, (float)CritMultiplier, random);
 
             // fire one bullet
-            if (ableToFire && currentClip > 0)
+            if (ableToFire && CurrentClip > 0)
             {
                 Projectile projectile;
-
                 if (direction == "Top")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, range);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop - height, Range);
                     projectile.SetLocation(location);
                 }
                 else if (direction == "Bottom")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, range);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + randomPositionOffset, fromTop + height, Range);
                     projectile.SetLocation(location);
                 }
                 else if (direction == "Left")
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, range);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft - height, fromTop + randomPositionOffset, Range);
                     projectile.SetLocation(location);
                 }
                 else //Right
                 {
-                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, range);
+                    projectile = new Projectile(3, 3, fromLeft, fromTop, 0, 0, 0, 0, projectileDamage, fromLeft + height, fromTop + randomPositionOffset, Range);
                     projectile.SetLocation(location);
                 }
 
-                if (projectileDamage > damage)
+                if (projectileDamage > Damage)
                 {
                     projectile.AddTag("crit");
                 }
 
                 gameObjects.Add(projectile);
 
-                currentClip--;
+                CurrentClip--;
                 ableToFire = false;
                 return true;
             }
-            if (currentClip == 0 && clipAmount == 0)
+
+            if (CurrentClip == 0 && ClipAmount == 0)
             {
-                MainPage.Current.WeaponEmpty(name);
+                MainPage.Current.WeaponEmpty(Name);
             }
             return false;
         }
@@ -141,11 +132,11 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Reload()
         {
             // reload this weapon, but only if you have enough clips
-            if (ableToReload && clipAmount > 0)
+            if (ableToReload && ClipAmount > 0)
             {
                 ableToFire = false;
-                clipAmount--;
-                currentClip = clipMax;
+                ClipAmount--;
+                CurrentClip = ClipMax;
                 MainPage.Current.GetWeaponStats();
                 MainPage.Current.UpdateCurrentClip();
                 ableToReload = false;
@@ -155,30 +146,29 @@ namespace EindopdrachtUWP.Classes.Weapons
         public void Upgrade()
         {
             // upgrade weapon level for a stronger weapon
-            weaponLevel++;
-            damage += 5;
-            fireTime *= 0.99f;
-            clipMax += 5;
-            reloadTime *= 0.99f;
-            critChance += 0.01;
-            if (critChance > 0.75)
+            WeaponLevel++;
+            Damage += 5;
+            FireTime *= 0.99f;
+            ClipMax += 5;
+            ReloadTime *= 0.99f;
+            CritChance += 0.01;
+            if (CritChance > 0.75)
             {
-                critChance = 0.75;
+                CritChance = 0.75;
             }
-            critMultiplier += 0.1;
+            CritMultiplier += 0.1;
         }
 
         public int GetAmmo()
         {
-            return clipAmount * clipMax + currentClip;
+            return ClipAmount * ClipMax + CurrentClip;
         }
 
         public bool OnTick(float delta)
         {
-
             if (fireCooldownDelta - delta < 0)
             {
-                fireCooldownDelta = fireTime;
+                fireCooldownDelta = FireTime;
                 ableToFire = true;
             }
             else
@@ -188,15 +178,14 @@ namespace EindopdrachtUWP.Classes.Weapons
 
             if (reloadCooldownDelta - delta < 0)
             {
-                reloadCooldownDelta = reloadTime;
+                reloadCooldownDelta = ReloadTime;
                 ableToReload = true;
                 ableToFire = true;
             }
-            else if (currentClip <= 0)
+            else if (CurrentClip <= 0)
             {
                 reloadCooldownDelta -= delta;
             }
-
             return true;
         }
     }

@@ -25,35 +25,35 @@
 
                 <!--Menu Sprites and locations-->
                 <canvas:CanvasControl x:Name="black" Width="800" Height="600" ClearColor="black" Opacity="0.75" HorizontalAlignment="Center"/>
-                <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.png" Height="600" HorizontalAlignment="Center"/>
+                <Image x:Name="menu" Source="Assets\Sprites\Menu_Sprites\Complete_Menu.gif" Height="600" HorizontalAlignment="Center"/>
                 <Image x:Name="musicCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="369,449,408,115"/>
                 <Image x:Name="effectCheck" Source="Assets\Sprites\Menu_Sprites\Blood_Check.png" Width="36" Height="36" Margin="498,449,279,115"/>
                 <Image x:Name="info" Source="Assets\Sprites\Menu_Sprites\Complete_Info.png" Height="600" HorizontalAlignment="Center"/>
                 <TextBlock x:Name="infoText" Text="Press Space/Back to show controls" Foreground="white" Height="10" Width="200" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0,0, 40" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="9"/>
-                <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.png" Height="600" HorizontalAlignment="Center"/>
-                <Image x:Name="controls" Source="Assets\Sprites\Menu_Sprites\controls.png" Height="600" HorizontalAlignment="Center" Opacity="0"/>
+                <Image x:Name="about" Source="Assets\Sprites\Menu_Sprites\Complete_About.gif" Height="600" HorizontalAlignment="Center"/>
+                <Image x:Name="controls" Source="Assets\Sprites\Menu_Sprites\controls.gif" Height="600" HorizontalAlignment="Center" Opacity="0"/>
 
                 <!--Hotbar Sprites and locations-->
-                <Image x:Name="hotbar" Source="Assets\Sprites\Hotbar_Sprites\Hotbar.png" Height="600" HorizontalAlignment="Left" Margin="-55,0,0,0"/>
+                <Image x:Name="hotbar" Source="Assets\Sprites\Hotbar_Sprites\Hotbar.gif" Height="600" HorizontalAlignment="Left" Margin="-55,0,0,0"/>
 
                 <!--Opaque grayscale weapon sprites-->
-                <Image x:Name="empty_dessert_beagle" Source="Assets\Sprites\Hotbar_Sprites\Empty_Dessert_Beagle_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="0"/>
-                <Image x:Name="empty_ka74" Source="Assets\Sprites\Hotbar_Sprites\Empty_KA74_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="1"/>
-                <Image x:Name="empty_knettergun" Source="Assets\Sprites\Hotbar_Sprites\Empty_KnetterGun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="1"/>
-                <Image x:Name="empty_uwp" Source="Assets\Sprites\Hotbar_Sprites\Empty_UWP_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-180,0,0" Opacity="1"/>
-                <Image x:Name="empty_flamethrower" Source="Assets\Sprites\Hotbar_Sprites\Empty_Flame_Thrower_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,-60,0,0" Opacity="1"/>
-                <Image x:Name="empty_vlekkannon" Source="Assets\Sprites\Hotbar_Sprites\Empty_VLEKKannon_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,60,0,0" Opacity="1"/>
-                <Image x:Name="empty_bullet_bill" Source="Assets\Sprites\Hotbar_Sprites\Empty_Bullet_Bill_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,180,0,0" Opacity="1" />
-                <Image x:Name="empty_arriva_gun" Source="Assets\Sprites\Hotbar_Sprites\Empty_Arriva_Gun_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,300,0,0" Opacity="1"/>
-                <Image x:Name="empty_batarang" Source="Assets\Sprites\Hotbar_Sprites\Empty_Batarang_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="1"/>
-                <Image x:Name="empty_homers_bullets" Source="Assets\Sprites\Hotbar_Sprites\Empty_Homers_Bullets_Hotbar_Sprite.png" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="1"/>
+                <Image x:Name="empty_dessert_beagle" Source="Assets\Sprites\Hotbar_Sprites\Empty_Dessert_Beagle_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,-540,0,0" Opacity="0"/>
+                <Image x:Name="empty_ka74" Source="Assets\Sprites\Hotbar_Sprites\Empty_KA74_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,-420,0,0" Opacity="1"/>
+                <Image x:Name="empty_knettergun" Source="Assets\Sprites\Hotbar_Sprites\Empty_KnetterGun_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,-300,0,0" Opacity="1"/>
+                <Image x:Name="empty_uwp" Source="Assets\Sprites\Hotbar_Sprites\Empty_UWP_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,-180,0,0" Opacity="1"/>
+                <Image x:Name="empty_flamethrower" Source="Assets\Sprites\Hotbar_Sprites\Empty_Flame_Thrower_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,-60,0,0" Opacity="1"/>
+                <Image x:Name="empty_vlekkannon" Source="Assets\Sprites\Hotbar_Sprites\Empty_VLEKKannon_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,60,0,0" Opacity="1"/>
+                <Image x:Name="empty_bullet_bill" Source="Assets\Sprites\Hotbar_Sprites\Empty_Bullet_Bill_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,180,0,0" Opacity="1" />
+                <Image x:Name="empty_arriva_gun" Source="Assets\Sprites\Hotbar_Sprites\Empty_Arriva_Gun_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,300,0,0" Opacity="1"/>
+                <Image x:Name="empty_batarang" Source="Assets\Sprites\Hotbar_Sprites\Empty_Batarang_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,420,0,0" Opacity="1"/>
+                <Image x:Name="empty_homers_bullets" Source="Assets\Sprites\Hotbar_Sprites\Empty_Homers_Bullets_Hotbar_Sprite.gif" HorizontalAlignment="Left" Margin="-55,540,0,0" Opacity="1"/>
 
                 <!--Weapon Selector-->
                 <Image x:Name="selected" Source="Assets\Sprites\Hotbar_Sprites\Active_Weapon_Selector.png" HorizontalAlignment="Left" Margin="-55,-540,0,0"/>
                 <TextBlock x:Name="currentClip" Foreground="white" Height="20" Width="30" TextAlignment="Center" HorizontalAlignment="Left"  Margin="-30,-490,0,0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="8"/>
                 <TextBlock x:Name="health" Foreground="Red" Height="20" Width="75" TextAlignment="Right" HorizontalAlignment="Left"  Margin="710, -560, 0, 0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="16"/>
                 <TextBlock x:Name="armour" Foreground="Blue" Height="20" Width="75" TextAlignment="Right" HorizontalAlignment="Left"  Margin="710, -520, 0, 0" FontFamily="Assets\lunchds.ttf#Lunchtime Doubly So" FontSize="16"/>
-                <Image x:Name="statImage" Source="Assets\Sprites\Menu_Sprites\stats.png" Height="600" Width="200" Margin="800, 0,-220,0" Stretch="Fill"/>
+                <Image x:Name="statImage" Source="Assets\Sprites\Menu_Sprites\stats.gif" Height="600" Width="200" Margin="800, 0,-220,0" Stretch="Fill"/>
 
                 <Grid x:Name="stats" Height="600" Width="200" Margin="800, 0,-220,0" CornerRadius="5">
 

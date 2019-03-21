@@ -4,10 +4,10 @@ using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI;
 
-public class Projectile : GameObject, MovableObject
+public class Projectile : GameObject
 {
-    private float shotFromTop;
-    private float shotFromLeft;
+    private readonly float shotFromTop;
+    private readonly float shotFromLeft;
     private float damage;
     private float movementSpeed;
     private float distanceTillDestroyed = 1000;         // The distance that the projectile can move before it get's destroyed
@@ -36,15 +36,15 @@ public class Projectile : GameObject, MovableObject
 
         hitGameobject = new List<GameObject>();
 
-        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Top.png";
+        Location = "Assets/Sprites/Enemy_Sprites/Enemy_Top.gif";
 
         movementSpeed = 700;
     }
 
     public override bool CollisionEffect(GameObject gameObject)
     {
-        Targetable targetable = gameObject as Targetable;
-        if (targetable is Targetable)
+        ITargetable targetable = gameObject as ITargetable;
+        if (targetable is ITargetable)
         {
             Enemy enemy = gameObject as Enemy;
             if (enemy is Enemy)
@@ -54,12 +54,8 @@ public class Projectile : GameObject, MovableObject
                 {
                     enemy.AddLifePoints(damage * -1);
                     enemy.AddTag("splatter");
-
-                 
                     AddTag("text");
-                   
                 }
-
                 hitGameobject.Add(enemy);
                 return true;
             }
@@ -79,8 +75,8 @@ public class Projectile : GameObject, MovableObject
     public bool SetNewHomingTarget(List<GameObject> gameObjects)
     {
         //to find the nearest target there needs to be a target to compare to.
-        Targetable nearestTarget = null;
-        float nearestTotalDifferenceAbs = 0; 
+        ITargetable nearestTarget = null;
+        float nearestTotalDifferenceAbs = 0;
 
         //Loop trough the gameObjects to check for potential targets
         foreach (GameObject gameObject in gameObjects)
@@ -88,8 +84,8 @@ public class Projectile : GameObject, MovableObject
             Enemy enemy = gameObject as Enemy;
             if (enemy is Enemy)
             {
-                Targetable targetable = enemy as Targetable;
-                if (targetable is Targetable)
+                ITargetable targetable = enemy as ITargetable;
+                if (targetable is ITargetable)
                 {
                     if (targetable != null)
                     {
@@ -104,7 +100,7 @@ public class Projectile : GameObject, MovableObject
                             nearestTarget = targetable;
                             nearestTotalDifferenceAbs = totalDifferenceAbs;
                         }
-                        else if(totalDifferenceAbs < nearestTotalDifferenceAbs) //If this target is closer then the last
+                        else if (totalDifferenceAbs < nearestTotalDifferenceAbs) //If this target is closer then the last
                         {
                             //Set the target
                             nearestTarget = targetable;
@@ -122,25 +118,21 @@ public class Projectile : GameObject, MovableObject
             Target = new Target(nearestTarget);
             return true;
         }
-
         return false;
     }
 
-    public void setMovementSpeed(float movementSpeed)
+    public void SetMovementSpeed(float movementSpeed)
     {
         this.movementSpeed = movementSpeed;
     }
 
     public bool SetNewCurvedTarget(List<GameObject> gameObjects)
     {
-        
-
         foreach (GameObject gameObject in gameObjects)
         {
             Player player = gameObject as Player;
             if (player is Player)
             {
-
                 float differenceLeftAbs = Math.Abs(player.FromLeft - FromLeft);
                 float differenceTopAbs = Math.Abs(player.FromTop - FromTop);
 
@@ -149,36 +141,32 @@ public class Projectile : GameObject, MovableObject
                 if (totalDifferenceAbs > 120)
                 {
                     AddTag("returning");
-                    return targetPlayer(gameObjects);
+                    return TargetPlayer(gameObjects);
                 }
             }
         }
-
-
         return false;
     }
 
-    public bool targetPlayer(List<GameObject> gameObjects)
+    public bool TargetPlayer(List<GameObject> gameObjects)
     {
         foreach (GameObject gameObject in gameObjects)
         {
             Player player = gameObject as Player;
             if (player is Player)
             {
-                Targetable targetable = player as Targetable;
-                if (targetable is Targetable)
+                ITargetable targetable = player as ITargetable;
+                if (targetable is ITargetable)
                 {
                     if (targetable != null)
                     {
                         Target = new Target(targetable);
-                        Target.SetTarget(0,0);
- 
+                        Target.SetTarget(0, 0);
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
 
@@ -188,13 +176,11 @@ public class Projectile : GameObject, MovableObject
         {
             SetNewHomingTarget(gameObjects);
         }
-
-
+    
         if (HasTag("curved"))
         {
             SetNewCurvedTarget(gameObjects);
         }
-
         return false;
     }
 
@@ -267,12 +253,12 @@ public class Projectile : GameObject, MovableObject
 
         if (HasTag("returning"))
         {
-            if(totalDifferenceAbs < 5)
+            if (totalDifferenceAbs < 5)
             {
                 AddTag("destroyed");
             }
         }
-        
+
         if (HasTag("speeding"))
         {
             damage += (delta / 6);
@@ -290,7 +276,7 @@ public class Projectile : GameObject, MovableObject
         }
 
         // Increases the damage of the projectile over time
-         if (HasTag("amplified"))
+        if (HasTag("amplified"))
         {
             damage += (delta / 6);
         }
@@ -318,7 +304,6 @@ public class Projectile : GameObject, MovableObject
             RemoveTag("text");
             gameObjects.Add(textBox);
         }
-
         return true;
     }
 
@@ -326,15 +311,4 @@ public class Projectile : GameObject, MovableObject
     {
         Location = location;
     }
-
-    void MovableObject.SetMovementSpeed(float speed)
-    {
-        movementSpeed = speed;
-    }
-
-    float MovableObject.GetMovementSpeed()
-    {
-        return movementSpeed;
-    }
-
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
-using System.Diagnostics;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -57,8 +56,8 @@ namespace EindopdrachtUWP
             activeStartup = true;
             currentScore = 0;
             killstreak = 0;
-            paused = true;           
-            
+            paused = true;
+
             GetWeaponStats();
             currentClip.Text = "12/12";
             currentClipRight.Text = "12/12";
@@ -190,7 +189,7 @@ namespace EindopdrachtUWP
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
-                { 
+                {
                     info.Opacity = 1;
                     infoText.Opacity = 1;
                     menu.Opacity = 0;
@@ -268,15 +267,15 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                
-                activeweapon.Text = engine.GetPlayer().activeWeapon.name;
-                descripton.Text = engine.GetPlayer().activeWeapon.description;
-                damage.Text = engine.GetPlayer().activeWeapon.damage.ToString();
-                clipSize.Text = engine.GetPlayer().activeWeapon.clipMax.ToString();
-                clipAmount.Text = engine.GetPlayer().activeWeapon.clipAmount.ToString();
-                critPercentage = engine.GetPlayer().activeWeapon.critChance * 100;
+
+                activeweapon.Text = engine.GetPlayer().activeWeapon.Name;
+                descripton.Text = engine.GetPlayer().activeWeapon.Description;
+                damage.Text = engine.GetPlayer().activeWeapon.Damage.ToString();
+                clipSize.Text = engine.GetPlayer().activeWeapon.ClipMax.ToString();
+                clipAmount.Text = engine.GetPlayer().activeWeapon.ClipAmount.ToString();
+                critPercentage = engine.GetPlayer().activeWeapon.CritChance * 100;
                 critChance.Text = critPercentage.ToString() + "%";
-                critMultiPercentage = engine.GetPlayer().activeWeapon.critMultiplier * 100;
+                critMultiPercentage = engine.GetPlayer().activeWeapon.CritMultiplier * 100;
                 critMulti.Text = critMultiPercentage.ToString() + "%";
             });
         }
@@ -318,7 +317,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-               health.Text = engine.GetPlayer().GetHealth().ToString() + "/" + engine.GetPlayer().GetMaxHealth().ToString();
+                health.Text = engine.GetPlayer().Health.ToString() + "/" + engine.GetPlayer().MaxHealth.ToString();
             });
         }
 
@@ -328,7 +327,7 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                armour.Text = engine.GetPlayer().GetArmour().ToString() + "/" + engine.GetPlayer().GetMaxArmour().ToString();
+                armour.Text = engine.GetPlayer().Armour.ToString() + "/" + engine.GetPlayer().MaxArmour.ToString();
             });
         }
 
@@ -338,15 +337,15 @@ namespace EindopdrachtUWP
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                currentClip.Text = engine.GetPlayer().activeWeapon.currentClip.ToString() + "/" + engine.GetPlayer().activeWeapon.clipMax.ToString();
-                currentClipRight.Text = engine.GetPlayer().activeWeapon.currentClip.ToString() + "/" + engine.GetPlayer().activeWeapon.clipMax.ToString();
+                currentClip.Text = engine.GetPlayer().activeWeapon.CurrentClip.ToString() + "/" + engine.GetPlayer().activeWeapon.ClipMax.ToString();
+                currentClipRight.Text = engine.GetPlayer().activeWeapon.CurrentClip.ToString() + "/" + engine.GetPlayer().activeWeapon.ClipMax.ToString();
             });
         }
 
         //Every time you switch a weapon this function is called to display the correct weapon and place the selector at the right weapon
         public void UpdateWeapon()
         {
-            weapon = engine.GetPlayer().activeWeapon.name;
+            weapon = engine.GetPlayer().activeWeapon.Name;
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {

@@ -13,10 +13,8 @@ using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Core;
 
-
 namespace UWPTestApp
 {
-
     class Engine
     {
         //Arraylist with all the gameObjects in the current game
@@ -50,13 +48,12 @@ namespace UWPTestApp
 
         private bool enableCheats;
 
-        private SoundController soundController;
+        protected SoundController soundController;
 
         private Player player;
 
         public Engine()
         {
-
             gameObjects = new List<GameObject>();
 
             soundController = new SoundController();
@@ -73,12 +70,12 @@ namespace UWPTestApp
             soundController.AddSound(player.HealthLowSound, 1.0);
             soundController.AddSound("Generic_Sounds\\levelup.wav", 1);
 
-            foreach (Weapon weapon in player.GetWeapons())
+            foreach (IWeapon weapon in player.GetWeapons())
             {
-                soundController.AddSound(weapon.shotSound);
+                soundController.AddSound(weapon.ShotSound);
             }
 
-            foreach (string pickupSound in Pickup.getSounds())
+            foreach (string pickupSound in Pickup.GetSounds())
             {
                 soundController.AddSound(pickupSound);
             }
@@ -110,24 +107,20 @@ namespace UWPTestApp
             LoadBlock(blockFromLeft - 2, blockFromTop);
             LoadBlock(blockFromLeft - 3, blockFromTop);
 
-
             //Load Right
             LoadBlock(blockFromLeft + 1, blockFromTop);
             LoadBlock(blockFromLeft + 2, blockFromTop);
             LoadBlock(blockFromLeft + 3, blockFromTop);
-
 
             //Load Up
             LoadBlock(blockFromLeft, blockFromTop + 1);
             LoadBlock(blockFromLeft, blockFromTop + 2);
             LoadBlock(blockFromLeft, blockFromTop + 3);
 
-
             //Load Down
             LoadBlock(blockFromLeft, blockFromTop - 1);
             LoadBlock(blockFromLeft, blockFromTop - 2);
             LoadBlock(blockFromLeft, blockFromTop - 3);
-
 
             //Load sides
             LoadBlock(blockFromLeft - 1, blockFromTop + 1);
@@ -144,7 +137,6 @@ namespace UWPTestApp
 
             paused = true;
             enableCheats = false;
-
         }
 
         public Player GetPlayer() => player;
@@ -175,25 +167,6 @@ namespace UWPTestApp
         */
         public void Run()
         {
-            /*now = Stopwatch.GetTimestamp();
-            delta = (now - then) / 1000; //Defide by 1000 to get the delta in MS
-
-            if (delta > interfal)
-            {
-                then = now; //Remember when this frame was.
-
-                Logic(); //Run the logic of the simulation.
-
-                //Only draw the simulation if there is a known canvas.
-                if (canvasControl != null)
-                {
-                    Draw();
-                }
-            }
-
-            Task.Yield();  //Force this task to complete asynchronously (This way the main is not blocked by this task calling itself.
-            Task.Run(() => Run());  //Schedule new Run() task
-            */
             LogicLoop();
             DrawLoopAsync();
         }
@@ -204,7 +177,8 @@ namespace UWPTestApp
         */
         public async void LogicLoop()
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 Logic();
             });
             LogicLoop();
@@ -232,7 +206,8 @@ namespace UWPTestApp
         private void Draw()
         {
             CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () => {
+            () =>
+            {
                 canvasControl.Invalidate();
             });
         }
@@ -243,7 +218,7 @@ namespace UWPTestApp
         */
         public void LoadBlock(int blockFromLeft, int blockFromTop)
         {
-            WorldBlock needle = world.StartingBlock;
+            WorldBlock startingBlock = world.StartingBlock;
 
             //If the from Left is more then 0 move the needle right and reduce the blocks from left
             //do this until the needle is at the right place
@@ -251,7 +226,7 @@ namespace UWPTestApp
             {
                 while (blockFromLeft > 0)
                 {
-                    needle = needle.Right;
+                    startingBlock = startingBlock.Right;
                     blockFromLeft--;
                 }
             }
@@ -262,17 +237,16 @@ namespace UWPTestApp
             {
                 while (blockFromLeft < 0)
                 {
-                    needle = needle.Left;
+                    startingBlock = startingBlock.Left;
                     blockFromLeft++;
                 }
             }
-
 
             if (blockFromTop > 0)
             {
                 while (blockFromTop > 0)
                 {
-                    needle = needle.Down;
+                    startingBlock = startingBlock.Down;
                     blockFromTop--;
                 }
             }
@@ -281,15 +255,15 @@ namespace UWPTestApp
             {
                 while (blockFromTop < 0)
                 {
-                    needle = needle.Up;
+                    startingBlock = startingBlock.Up;
                     blockFromTop++;
                 }
             }
 
             //Now the needle is set where the player is. Load al adjecent rooms too
-            if (!needle.IsLoaded())
+            if (!startingBlock.IsLoaded())
             {
-                gameObjects.AddRange(needle.LoadScene());
+                gameObjects.AddRange(startingBlock.LoadScene());
             }
         }
 
@@ -310,12 +284,10 @@ namespace UWPTestApp
             {
                 HandleInGameMenuControls();
 
-                
                 //Move the camera
                 camera.OnTick();
 
                 /* 
-                 * 
                  * Split the gameObjects in two lists, a list of gameObjects near the player and far away from the player
                  * 
                  * The gameObjects that are to far don't have to do anything exept update the timer. This is to save CPU power.
@@ -336,7 +308,7 @@ namespace UWPTestApp
                 {
                     //if the blockFromLeft/Top are not the same as the currenty calculated blockFromLeft/Top
                     if (
-                        blockFromLeft != (int)Math.Floor(player.FromLeft / world.StartingBlock.Width) 
+                        blockFromLeft != (int)Math.Floor(player.FromLeft / world.StartingBlock.Width)
                         ||
                         blockFromTop != (int)Math.Floor(player.FromTop / world.StartingBlock.Height)
                     )
@@ -349,15 +321,11 @@ namespace UWPTestApp
                         LoadBlock(blockFromLeft - 3, blockFromTop);
                         LoadBlock(blockFromLeft - 4, blockFromTop);
 
-
-
                         //Load Right
                         LoadBlock(blockFromLeft + 1, blockFromTop);
                         LoadBlock(blockFromLeft + 2, blockFromTop);
                         LoadBlock(blockFromLeft + 3, blockFromTop);
                         LoadBlock(blockFromLeft + 4, blockFromTop);
-
-
 
                         //Load Up
                         LoadBlock(blockFromLeft, blockFromTop + 1);
@@ -365,15 +333,11 @@ namespace UWPTestApp
                         LoadBlock(blockFromLeft, blockFromTop + 3);
                         LoadBlock(blockFromLeft, blockFromTop + 4);
 
-
-
                         //Load Down
                         LoadBlock(blockFromLeft, blockFromTop - 1);
                         LoadBlock(blockFromLeft, blockFromTop - 2);
                         LoadBlock(blockFromLeft, blockFromTop - 3);
                         LoadBlock(blockFromLeft, blockFromTop - 4);
-
-
 
                         //Load sides
                         LoadBlock(blockFromLeft - 1, blockFromTop + 1);
@@ -385,7 +349,7 @@ namespace UWPTestApp
                         LoadBlock(blockFromLeft + 1, blockFromTop - 2);
                         LoadBlock(blockFromLeft - 1, blockFromTop - 2);
                         LoadBlock(blockFromLeft + 1, blockFromTop + 2);
-                        
+
                         LoadBlock(blockFromLeft - 2, blockFromTop + 1);
                         LoadBlock(blockFromLeft + 2, blockFromTop - 1);
                         LoadBlock(blockFromLeft - 2, blockFromTop - 1);
@@ -401,24 +365,22 @@ namespace UWPTestApp
                         blockFromTop = (int)Math.Floor(player.FromTop / world.StartingBlock.Height);
                     }
 
-                    //Lambda version to get all the gameobjects that are outside of the screen.
-                    //also tested with parralel but its slower. could become faster if there are enough enemies 
-                    //but most of the time it will be slower
-
-                    //also implemented parallel when there are more than 1250 objects (which is where paralel became more efficient in our tests)
+                    /*
+                     * Lambda version to get all the gameobjects that are outside of the screen.
+                     * also tested with parralel but its slower. could become faster if there are enough enemies 
+                     * but most of the time it will be slower
+                     * also implemented parallel when there are more than 1250 objects (which is where paralel became more efficient in our tests)
+                     */
                     if (gameObjects.Count() < 1250)
                     {
                         activeObjects = gameObjects.Where(element => element.IsActive(player) == true).ToList();
-
                         inactiveObjects = gameObjects.Where(element => element.IsActive(player) != true).ToList();
                     }
                     else
                     {
                         activeObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) == true).ToList();
-
                         inactiveObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) != true).ToList();
                     }
-                    
 
                     //Check if there are objects in the List to apply logic on
                     //Apply the logic to all the gameObjects CURRENTLY in the List.
@@ -427,7 +389,6 @@ namespace UWPTestApp
                     {
                         //Handle player input
                         Player player = gameObject as Player;
-
 
                         if (player is Player)
                         {
@@ -479,7 +440,6 @@ namespace UWPTestApp
 
         private void HandleOtherControls()
         {
-
             /*
              * The block here enables cheats, they are activated by having certain keys pressed at the same time.
              * Due to keyboard rollover this is not compatible with all keyboards.
@@ -488,16 +448,14 @@ namespace UWPTestApp
             if (IsKeyPressed("192") && !enableCheats) // 192 is the ` key, this is used to activate cheats
             {
                 enableCheats = true;
-
                 gameObjects.Add(new TextBox(50, 50, player.FromLeft, player.FromTop - 20, 0, 0, 0, 0, "Done", 1000));
             }
-            
+
             if (IsKeyPressed("Number1") && enableCheats) //Spawn pickup on frame
             {
                 gameObjects.Add(new Pickup(15, 17, player.FromLeft, player.FromTop));
                 player.IncreaseMaxHealth(5);
                 player.IncreaseHealth(5);
-
                 player.IncreaseMaxArmour(5);
                 player.IncreaseArmour(5);
             }
@@ -514,10 +472,11 @@ namespace UWPTestApp
                 }
             }
 
-            if (IsKeyPressed("Number3") && enableCheats) //RAIN
+            if (IsKeyPressed("Number3") && enableCheats) //Bloodrain
             {
                 Random random = new Random();
-                for (int i = 0; i < 2; i++) { 
+                for (int i = 0; i < 2; i++)
+                {
                     gameObjects.Add(
                         new Splatter(
                             random.Next(2, 9),
@@ -527,9 +486,7 @@ namespace UWPTestApp
                         )
                     );
                 }
-                
             }
-
 
             if (IsKeyPressed("Number4") && enableCheats) //EarthQuake
             {
@@ -540,8 +497,6 @@ namespace UWPTestApp
                     gameObjectCheck.AddFromTop(random.Next(-2, 3));
                 }
             }
-
-
         }
 
         /* HandlePlayerWeaponControls */
@@ -553,7 +508,6 @@ namespace UWPTestApp
         private void HandlePlayerMovementControls(Player player)
         {
             player.IsWalking = false;
-
             //Players have to have the tag controllable, else they dont listen to the keyboard.
 
             if (player.HasTag("controllable") && (IsKeyPressed("S") || IsKeyPressed("GamepadLeftThumbstickDown")))
@@ -601,28 +555,28 @@ namespace UWPTestApp
             {
                 if (player.Fire("Right", gameObjects))
                 {
-                    soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                    soundController.PlaySound(player.GetActiveWeapon().ShotSound);
                 }
             }
             else if (player.HasTag("controllable") && (IsKeyPressed("Up") || IsKeyPressed("GamepadRightThumbstickUp")))
             {
                 if (player.Fire("Top", gameObjects))
                 {
-                    soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                    soundController.PlaySound(player.GetActiveWeapon().ShotSound);
                 }
             }
             else if (player.HasTag("controllable") && (IsKeyPressed("Down") || IsKeyPressed("GamepadRightThumbstickDown")))
             {
                 if (player.Fire("Bottom", gameObjects))
                 {
-                    soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                    soundController.PlaySound(player.GetActiveWeapon().ShotSound);
                 }
             }
             else if (player.HasTag("controllable") && (IsKeyPressed("Left") || IsKeyPressed("GamepadRightThumbstickLeft")))
             {
                 if (player.Fire("Left", gameObjects))
                 {
-                    soundController.PlaySound(player.GetActiveWeapon().shotSound);
+                    soundController.PlaySound(player.GetActiveWeapon().ShotSound);
                 }
             }
         }
@@ -703,7 +657,6 @@ namespace UWPTestApp
                 MainPage.Current.GetControls();
                 Task.Delay(300).Wait();
             }
-
             else if (MainPage.Current.controle && (IsKeyPressed("Space") || IsKeyPressed("GamepadView")))
             {
                 MainPage.Current.RemoveControls();
@@ -760,16 +713,16 @@ namespace UWPTestApp
             {
                 if (gameObjectCheck is Pickup pickup)
                 {
-                    soundController.PlaySound(pickup.getPickUpSound());
+                    soundController.PlaySound(pickup.GetPickUpSound());
                 }
                 else if (gameObjectCheck is Player p3)
                 {
                     soundController.PlaySound(p3.DeathSound);
                     MainPage.Current.Gameover();
                 }
-                else if (gameObjectCheck is MovableObject mo)
+                else if (gameObjectCheck is ITargetable targetable)
                 {
-                    if (mo is Enemy enemy)
+                    if (targetable is Enemy enemy)
                     {
                         foreach (var getPlayer in new ArrayList(gameObjects))
                         {
@@ -796,7 +749,6 @@ namespace UWPTestApp
             }
         }
 
-
         /* CreateAllResourcesAsync */
         /*
          * To be able to use the sprites on a Canvas the sprites needs to be loaded as CanvasBitmaps.
@@ -809,7 +761,7 @@ namespace UWPTestApp
                 if (gameObject != null && gameObject.Sprite == null)
                 {
                     // Get the sprite form the Texture class
-                    gameObject.Sprite = await Texture.GetTextureAsync(sender, gameObject.Location);       
+                    gameObject.Sprite = await Texture.GetTextureAsync(sender, gameObject.Location);
                 }
             }
         }
@@ -826,14 +778,9 @@ namespace UWPTestApp
             {
                 if (gameObject != null && gameObject.Sprite != null && gameObject is Background)
                 {
-
                     //Drawing requires the sides to be non-negative
-                    if (
-                        gameObject.Width + gameObject.WidthDrawOffset > 0 &&
-                        gameObject.Height + gameObject.HeightDrawOffset > 0
-                    )
+                    if (gameObject.Width + gameObject.WidthDrawOffset > 0 && gameObject.Height + gameObject.HeightDrawOffset > 0)
                     {
-
                         if (gameObject.Rectangle == null)
                         {
                             gameObject.Rectangle = new Rect(
@@ -845,15 +792,14 @@ namespace UWPTestApp
                         }
                         else
                         {
-                           gameObject.rectangle.X = gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset();
-                           gameObject.rectangle.Y = gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset();
-                           gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
-                           gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
+                            gameObject.rectangle.X = gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset();
+                            gameObject.rectangle.Y = gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset();
+                            gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
+                            gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
                         }
 
-                        
                         args.DrawingSession.DrawImage(
-                        gameObject.Sprite,gameObject.rectangle);
+                        gameObject.Sprite, gameObject.rectangle);
                     }
                 }
             }
@@ -872,57 +818,8 @@ namespace UWPTestApp
                 if (gameObject != null && gameObject.Sprite != null && gameObject is Splatter)
                 {
                     //Drawing requires the sides to be non-negative
-                    if (
-                        gameObject.Width + gameObject.WidthDrawOffset > 0 &&
-                        gameObject.Height + gameObject.HeightDrawOffset > 0
-                    )
+                    if (gameObject.Width + gameObject.WidthDrawOffset > 0 && gameObject.Height + gameObject.HeightDrawOffset > 0)
                     {
-
-                        if (gameObject.Rectangle == null)
-                        {
-                            gameObject.Rectangle = new Rect(
-                                gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
-                                gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
-                                gameObject.Width + gameObject.WidthDrawOffset,
-                                gameObject.Height + gameObject.HeightDrawOffset
-                            );
-                        }
-                        else
-                        {
-                           gameObject.rectangle.X = gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset();
-                           gameObject.rectangle.Y = gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset();
-                           gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
-                           gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
-                        }
-
-                        
-                        args.DrawingSession.DrawImage(
-                        gameObject.Sprite,gameObject.rectangle);
-                    }
-                }
-            }
-        }
-
-        /* DrawAllOtherSprites */
-        /*
-         * Draws every sprite of which the class is NOT splatte or background.
-         * The first argument is the canvasDrawEventArgs (containing data from the draw event).
-         * The second is the list of gameObjects.
-        */
-        private void DrawAllOtherSprites(CanvasDrawEventArgs args, ArrayList loopList)
-        {
-            foreach (GameObject gameObject in loopList)
-            {
-                if (gameObject != null && gameObject.Sprite != null && !(gameObject is Splatter) && !(gameObject is Background))
-                {
-
-                    //Drawing requires the sides to be non-negative
-                    if (
-                        gameObject.Width + gameObject.WidthDrawOffset > 0 &&
-                        gameObject.Height + gameObject.HeightDrawOffset > 0
-                    )
-                    {
-
                         if (gameObject.Rectangle == null)
                         {
                             gameObject.Rectangle = new Rect(
@@ -940,8 +837,46 @@ namespace UWPTestApp
                             gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
                         }
 
+                        args.DrawingSession.DrawImage(
+                        gameObject.Sprite, gameObject.rectangle);
+                    }
+                }
+            }
+        }
 
-                        try
+        /* DrawAllOtherSprites */
+        /*
+         * Draws every sprite of which the class is NOT splatte or background.
+         * The first argument is the canvasDrawEventArgs (containing data from the draw event).
+         * The second is the list of gameObjects.
+        */
+        private void DrawAllOtherSprites(CanvasDrawEventArgs args, ArrayList loopList)
+        {
+            foreach (GameObject gameObject in loopList)
+            {
+                if (gameObject != null && gameObject.Sprite != null && !(gameObject is Splatter) && !(gameObject is Background))
+                {
+                    //Drawing requires the sides to be non-negative
+                    if (gameObject.Width + gameObject.WidthDrawOffset > 0 && gameObject.Height + gameObject.HeightDrawOffset > 0)
+                    {
+                        if (gameObject.Rectangle == null)
+                        {
+                            gameObject.Rectangle = new Rect(
+                                gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset(),
+                                gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset(),
+                                gameObject.Width + gameObject.WidthDrawOffset,
+                                gameObject.Height + gameObject.HeightDrawOffset
+                            );
+                        }
+                        else
+                        {
+                            gameObject.rectangle.X = gameObject.FromLeft + gameObject.FromLeftDrawOffset + camera.LeftOffset();
+                            gameObject.rectangle.Y = gameObject.FromTop + gameObject.FromTopDrawOffset + camera.TopOffset();
+                            gameObject.rectangle.Width = gameObject.Width + gameObject.WidthDrawOffset;
+                            gameObject.rectangle.Height = gameObject.Height + gameObject.HeightDrawOffset;
+                        }
+
+                        try // try to draw the rectangle to the canvas
                         {
                             args.DrawingSession.DrawImage(
                             gameObject.Sprite, gameObject.rectangle);
@@ -949,7 +884,6 @@ namespace UWPTestApp
                         catch
                         {
                             //if it failes for any reason skip this frame.
-                
                         }
                     }
                 }
@@ -969,29 +903,29 @@ namespace UWPTestApp
                 Enemy enemy = gameObject as Enemy;
                 if (enemy is Enemy)
                 {
-                    if (enemy.GetLifePoints() < enemy.GetMaxLifePoints())
+                    if (enemy.LifePoints < enemy.MaxLifePoints)
                     {
                         //Calculate the percentage health left
-                        float percentage = 1 + ((enemy.GetLifePoints() - enemy.GetMaxLifePoints()) / enemy.GetMaxLifePoints());
+                        float percentage = 1 + ((enemy.LifePoints - enemy.MaxLifePoints) / enemy.MaxLifePoints);
 
                         if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
                         //(this also stops devided by 0 errors while the user wont see the health left)
 
                         args.DrawingSession.FillRectangle(
                             new Rect(
-                                gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
-                                gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
-                                (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
-                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                                gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(),   //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),     //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5),                          //The healthbar is 1/5th bigger then the target
+                                gameObject.Height / 5),                                             //The healthbar is 1/5th the size of the target
                             Colors.Red
                         );
 
                         args.DrawingSession.FillRectangle(
-                            new Windows.Foundation.Rect(
-                                gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
-                                gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
-                                (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
-                                gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            new Rect(
+                                gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(),   //The healthbar starts 1/5th left from the target
+                                gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),     //The healthbar starts 1/5th above from the target
+                                (gameObject.Width + gameObject.Width / 5) * percentage,             //Draw only the health left!
+                                gameObject.Height / 5),                                             //The healthbar is 1/5th the size of the target
                             Colors.Green
                         );
                     }
@@ -1013,7 +947,7 @@ namespace UWPTestApp
                 if (player is Player)
                 {
                     //Calculate the percentage health left
-                    float percentage = 1 + ((player.GetHealth() - player.GetMaxHealth()) / player.GetMaxHealth());
+                    float percentage = 1 + ((player.Health - player.MaxHealth) / player.MaxHealth);
 
                     if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
                     //(this also stops devided by 0 errors while the user wont see the health left)
@@ -1025,26 +959,25 @@ namespace UWPTestApp
                      */
 
                     args.DrawingSession.FillRectangle(
-                        new Windows.Foundation.Rect(
-                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
-                            gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
-                            (gameObject.Width + gameObject.Width / 5),  //The healthbar is 1/5th bigger then the target
-                            gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                        new Rect(
+                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(),   //The healthbar starts 1/5th left from the target
+                            gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),     //The healthbar starts 1/5th above from the target
+                            (gameObject.Width + gameObject.Width / 5),                          //The healthbar is 1/5th bigger then the target
+                            gameObject.Height / 5),                                             //The healthbar is 1/5th the size of the target
                         Colors.Red
                     );
 
                     args.DrawingSession.FillRectangle(
-                        new Windows.Foundation.Rect(
-                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The healthbar starts 1/5th left from the target
-                            gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),  //The healthbar starts 1/5th above from the target
-                            (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the health left!
-                            gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                        new Rect(
+                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(),   //The healthbar starts 1/5th left from the target
+                            gameObject.FromTop - gameObject.Width / 2 + camera.TopOffset(),     //The healthbar starts 1/5th above from the target
+                            (gameObject.Width + gameObject.Width / 5) * percentage,             //Draw only the health left!
+                            gameObject.Height / 5),                                             //The healthbar is 1/5th the size of the target
                         Colors.Green
                     );
                 }
             }
         }
-
 
         /* DrawAllPlayerArmourBars */
         /*
@@ -1059,18 +992,17 @@ namespace UWPTestApp
                 if (gameObject is Player)
                 {
                     //Calculate the percentage armour left
-                    float percentage = 1 + ((player.GetArmour() - player.GetMaxArmour()) / player.GetMaxArmour());
+                    float percentage = 1 + ((player.Armour - player.MaxArmour) / player.MaxArmour);
 
                     if (percentage < 0) { percentage = 0.1f; } //If the target has negative health here, put the percentage on 0.1. 
-                    //(this also stops devided by 0 errors while the user wont see the health left)
-
+                                                               //(this also stops devided by 0 errors while the user wont see the health left)
 
                     args.DrawingSession.FillRectangle(
                         new Rect(
-                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(), //The armourbar starts 1/5th left from the target
+                            gameObject.FromLeft - gameObject.Width / 5 + camera.LeftOffset(),   //The armourbar starts 1/5th left from the target
                             gameObject.FromTop - gameObject.Width / 3.33 + camera.TopOffset(),  //The armourbar starts 1/5th above from the target
-                            (gameObject.Width + gameObject.Width / 5) * percentage, //Draw only the armour left!
-                            gameObject.Height / 5), //The healthbar is 1/5th the size of the target
+                            (gameObject.Width + gameObject.Width / 5) * percentage,             //Draw only the armour left!
+                            gameObject.Height / 5),                                             //The healthbar is 1/5th the size of the target
                         Colors.Blue
                     );
                 }
@@ -1091,7 +1023,6 @@ namespace UWPTestApp
                 if (textBox is TextBox)
                 {
                     //If the class is a textBox draw text on the location of the object.
-
                     args.DrawingSession.DrawText(
                         textBox.Text,
                         new Rect(
@@ -1132,9 +1063,9 @@ namespace UWPTestApp
 
             //Create a new arraylist used to hold the gameobjects for this loop.
             //The copy is made so it does the ontick methods on all the objects even the onces destroyed in the proces.
-            ArrayList loopList; 
+            ArrayList loopList;
             lock (gameObjects) //lock the gameobjects for duplication
-            { 
+            {
                 try
                 {
                     //Try to duplicate the arraylist.
@@ -1228,8 +1159,7 @@ namespace UWPTestApp
             pressedKeys.Add(virtualKey);
         }
 
-
-        /* KeyDown */
+        /* KeyUp */
         /* 
          * Remove the given key in the pressedKeys collection.
          * The argument is the given key represented as a string.
@@ -1250,5 +1180,3 @@ namespace UWPTestApp
         }
     }
 }
- 
- 

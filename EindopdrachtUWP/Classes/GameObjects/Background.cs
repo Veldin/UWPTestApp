@@ -1,8 +1,4 @@
-﻿using EindopdrachtUWP;
-using EindopdrachtUWP.Classes;
-using System;
-using System.Collections.Generic;
-using UWPTestApp;
+﻿using System.Collections.Generic;
 
 namespace UWPTestApp
 {
@@ -11,18 +7,15 @@ namespace UWPTestApp
         public Background(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
         {
-            
             if (width != 800 && height != 600)
             {
                 Location = string.Format("Assets/Sprites/Maps/Sidewalks/{0}x{1}.gif", width / 32, height / 32);
-                Location = string.Format("Assets/Sprites/pixel.png");
-
+                Location = "Assets/Sprites/pixel.gif";
             }
             else
             {
                 Location = "Assets/Sprites/Maps/BG.png";
             }
-            
         }
 
         public override bool IsActive(GameObject gameObject)

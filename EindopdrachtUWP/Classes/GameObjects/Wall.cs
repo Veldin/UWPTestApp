@@ -10,7 +10,7 @@ namespace UWPTestApp
         {
             AddTag("solid"); //Walls are solid, all of the time! (But don't have to be if you remove the tag!)
 
-            Location = string.Format("Assets/Sprites/Buildings/{0}x{1}.png", width / 32, height / 32);
+            Location = string.Format("Assets/Sprites/Buildings/{0}x{1}.gif", width / 32, height / 32);
         }
 
         public override bool IsActive(GameObject gameObject)

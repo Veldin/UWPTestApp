@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace UWPTestApp
 {
@@ -9,15 +8,8 @@ namespace UWPTestApp
          * Scenes are lists of gameObjects together with a bool that signals whether or not it has been loaded.
          * A Scene is considered loaded if LoadScene() was called bevore.
          */
-
         private List<GameObject> gameObjects;
         private bool loaded;
-
-        public Scene()
-        {
-            gameObjects = new List<GameObject>();
-            loaded = false;
-        }
 
         public Scene(List<GameObject> gameObjects)
         {

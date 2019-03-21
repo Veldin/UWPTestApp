@@ -1,4 +1,4 @@
-﻿public interface Targetable
+﻿public interface ITargetable
 {
     float FromTop();
     float FromLeft();

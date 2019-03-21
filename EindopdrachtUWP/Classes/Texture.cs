@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EindopdrachtUWP.Classes
@@ -18,10 +17,10 @@ namespace EindopdrachtUWP.Classes
          * in the textures dictionary to be used anywere else in the application.
          * ********************************************************************/
         public static async Task AddTexturesAsync(CanvasControl sender, string location)
-        {   
+        {
             // Define the new texture
             CanvasBitmap sprite;
-            
+
             // Try to load the new texture
             try
             {
@@ -36,9 +35,9 @@ namespace EindopdrachtUWP.Classes
                 // Give feedback about the exeption
                 Debug.WriteLine(location);
                 Debug.WriteLine(e.StackTrace);
+                Debug.WriteLine("TEST");
             }
         }
-
 
         /**********************************************************************
          * This function returns the texture. If the texture does not yet exist
@@ -58,17 +57,16 @@ namespace EindopdrachtUWP.Classes
                 {
                     // Return the requested texture
                     return textures[location];
-
-                } else
+                }
+                else
                 {
                     // Give feedback that a texture is missing
                     Debug.WriteLine("Texture is missing", location);
 
                     // Return null
                     return null;
-                }   
+                }
             }
-
             // Return the requested texture
             return textures[location];
         }

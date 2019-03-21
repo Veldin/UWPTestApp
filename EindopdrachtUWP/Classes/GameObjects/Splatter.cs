@@ -6,11 +6,11 @@ namespace UWPTestApp
     public class Splatter : GameObject
     {
         private float duration;
-        private float minDuration;
-        private float maxDuration;
+        private readonly float minDuration;
+        private readonly float maxDuration;
 
-        private float startHeight;
-        private float startWidth;
+        private readonly float startHeight;
+        private readonly float startWidth;
 
         public Splatter(float width, float height, float fromLeft, float fromTop, float widthDrawOffset = 0, float heightDrawOffset = 0, float fromLeftDrawOffset = 0, float fromTopDrawOffset = 0)
         : base(width, height, fromLeft, fromTop, widthDrawOffset, heightDrawOffset, fromLeftDrawOffset, fromTopDrawOffset)
@@ -25,8 +25,8 @@ namespace UWPTestApp
             Random random = new Random(Guid.NewGuid().GetHashCode());
             duration = random.Next((int)minDuration, (int)maxDuration);
 
-            int randomPositionOffset = random.Next(1,19);
-            location = "Assets/Sprites/Enemy_Sprites/Bloodsplatter"+ randomPositionOffset + ".png";
+            int randomPositionOffset = random.Next(1, 19);
+            location = "Assets/Sprites/Enemy_Sprites/Bloodsplatter" + randomPositionOffset + ".png";
         }
 
         public override bool IsActive(GameObject gameObject)
@@ -44,7 +44,7 @@ namespace UWPTestApp
             {
                 AddTag("destroyed");
             }
-            
+
             //Animation for the despawning.
             AddHeight((height / duration) * -1);
             AddWidth((width / duration) * -1);
@@ -64,13 +64,13 @@ namespace UWPTestApp
         public override bool CollisionEffect(GameObject gameObject)
         {
             //IF the blood splatter hits a wall reduce its size so it doesnt show on top of the wall.
-            if(gameObject is Wall)
+            if (gameObject is Wall)
             {
                 AddHeight(-1);
 
                 if (Height < 2)
                 {
-                    //If the height is below 1, remove the blood splatter.
+                    //If the height is below 2, remove the blood splatter.
                     AddTag("destroyed");
                 }
             }

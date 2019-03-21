@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UWPTestApp;
 using Windows.UI;
 
-public class TextBox : GameObject, MovableObject
+public class TextBox : GameObject
 {
     private float maxDuration;
 
@@ -19,16 +19,6 @@ public class TextBox : GameObject, MovableObject
         Color = Colors.White;
 
         Target = new Target(fromLeft, fromTop - 1000);
-    }
-
-    void MovableObject.SetMovementSpeed(float speed)
-    {
-        MovementSpeed = speed;
-    }
-
-    float MovableObject.GetMovementSpeed()
-    {
-        return MovementSpeed;
     }
 
     public string Text { get; set; }
@@ -50,7 +40,6 @@ public class TextBox : GameObject, MovableObject
     public override bool OnTick(List<GameObject> gameObjects, float delta)
     {
         Duration -= delta;
-
         float percentage = ((Duration - maxDuration) / maxDuration) * 200;
 
         if (Duration < 0)
@@ -59,15 +48,13 @@ public class TextBox : GameObject, MovableObject
         }
 
         Target.AddFromLeft(delta / 1000);
-
-        actMovement(delta);
-
         Target.AddFromLeft(percentage);
 
+        ActMovement(delta);
         return true;
     }
 
-    private void actMovement(float delta)
+    private void ActMovement(float delta)
     {
         float differenceLeftAbs = Math.Abs(Target.FromLeft() - FromLeft);
         float differenceTopAbs = Math.Abs(Target.FromTop() - FromTop);

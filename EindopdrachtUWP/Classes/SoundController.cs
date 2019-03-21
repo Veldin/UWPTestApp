@@ -4,9 +4,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Media.Audio;
 using Windows.Media.Render;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace EindopdrachtUWP.Classes
 {
@@ -27,7 +24,6 @@ namespace EindopdrachtUWP.Classes
         private bool initialized = false;
 
         private List<string> waitTillInitialized;
-
 
         public SoundController()
         {
@@ -58,7 +54,7 @@ namespace EindopdrachtUWP.Classes
                 Debug.WriteLine("Cannot read input file because {0}", fileInputNodeResult.Status.ToString());
                 return;
             }
-                
+
             backgroundMusicFileInput = fileInputNodeResult.FileInputNode;
             backgroundMusicFileInput.OutgoingGain = 0.3;
             backgroundMusicFileInput.AddOutgoingConnection(deviceOutput);
@@ -66,7 +62,7 @@ namespace EindopdrachtUWP.Classes
             graph.Start();
             initialized = true;
 
-            foreach(string filename in waitTillInitialized)
+            foreach (string filename in waitTillInitialized)
             {
                 AddSound(filename);
             }
@@ -92,7 +88,7 @@ namespace EindopdrachtUWP.Classes
             {
                 return;
             }
-            
+
             if (sounds[sound].OutgoingConnections.Count == 1)
             {
                 sounds[sound].Reset();
@@ -102,14 +98,15 @@ namespace EindopdrachtUWP.Classes
                 sounds[sound].AddOutgoingConnection(submixNode);
             }
         }
-        
+
         private async void LoadSound(string filename)
         {
             folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
             file = await folder.GetFileAsync("Sounds\\" + filename);
 
             //Debug.WriteLine(graph == null);
-            if (graph == null) {
+            if (graph == null)
+            {
                 InitializeSoundSystem();
             }
             CreateAudioFileInputNodeResult fileInputNodeResult = await graph.CreateFileInputNodeAsync(file);
@@ -119,7 +116,7 @@ namespace EindopdrachtUWP.Classes
                 Debug.WriteLine("Cannot read input file because {0}", fileInputNodeResult.Status.ToString());
                 return;
             }
-            
+
             sounds.Add(filename, fileInputNodeResult.FileInputNode);
             sounds[filename].OutgoingGain = 1;
         }
@@ -162,7 +159,7 @@ namespace EindopdrachtUWP.Classes
                 Debug.WriteLine("AudioGraph Creation Error because {0}", result.Status.ToString());
                 return;
             }
-            
+
             graph = result.Graph;
 
             // Create a device output node

@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UWPTestApp;
 
 namespace EindopdrachtUWP.Classes
 {
-    public interface Weapon
+    public interface IWeapon
     {
-        List<string> tags {get;}
-        string name { get; set; }
-        string description { get; set; }
-        int currentClip { get; set; }
-        int clipAmount { get; set; }
-        int clipMax { get; set; }
-        float damage { get; set; }
-        float accuracy { get; set; }
-        float fireTime { get; set; }
-        double critChance { get; set; }
-        double critMultiplier { get; set; }
-        int weaponLevel { get; set; }
-        string shotSound { get; set; }
-        string reloadSound { get; set; }
-        float reloadTime { get; set; }
-        float range { get; set; }                    // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
+        List<string> Tags { get; }
+        string Name { get; set; }
+        string Description { get; set; }
+        int CurrentClip { get; set; }
+        int ClipAmount { get; set; }
+        int ClipMax { get; set; }
+        float Damage { get; set; }
+        float Accuracy { get; set; }
+        float FireTime { get; set; }
+        double CritChance { get; set; }
+        double CritMultiplier { get; set; }
+        int WeaponLevel { get; set; }
+        string ShotSound { get; set; }
+        string ReloadSound { get; set; }
+        float ReloadTime { get; set; }
+        float Range { get; set; }        // The range of the gun (this is the distanceTillDestroyed value of all projectiles from this gun)
 
         /* Fire */
         /*
@@ -40,7 +39,7 @@ namespace EindopdrachtUWP.Classes
         */
         void Reload();
 
-        /* Reload */
+        /* Upgrade*/
         /*
          * Orderes the weapon to upgrade.
         */
