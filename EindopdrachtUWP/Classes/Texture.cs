@@ -17,7 +17,7 @@ namespace EindopdrachtUWP.Classes
          * in the textures dictionary to be used anywere else in the application.
          * ********************************************************************/
         public static async Task AddTexturesAsync(CanvasControl sender, string location)
-        {
+        {  
             // Define the new texture
             CanvasBitmap sprite;
 
@@ -26,6 +26,9 @@ namespace EindopdrachtUWP.Classes
             {
                 //Load the recource.
                 sprite = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///" + location));
+
+                // Make sure the location does not exist yet
+                if (textures.Keys.Contains(location)) { return; }
 
                 // Add new texture to the dictionary
                 textures.Add(location, sprite);
