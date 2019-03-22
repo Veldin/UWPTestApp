@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.Devices.Enumeration;
 using Windows.Media.Audio;
 using Windows.Media.Render;
 
@@ -51,7 +52,7 @@ namespace EindopdrachtUWP.Classes
             if (fileInputNodeResult.Status != AudioFileNodeCreationStatus.Success)
             {
                 // Cannot read file
-                Debug.WriteLine("Cannot read input file because {0}", fileInputNodeResult.Status.ToString());
+                Debug.WriteLine(string.Format("Cannot read input file because {0}", fileInputNodeResult.Status.ToString()));
                 return;
             }
 
@@ -113,7 +114,7 @@ namespace EindopdrachtUWP.Classes
             if (fileInputNodeResult.Status != AudioFileNodeCreationStatus.Success)
             {
                 // Cannot read file
-                Debug.WriteLine("Cannot read input file because {0}", fileInputNodeResult.Status.ToString());
+                Debug.WriteLine(string.Format("Cannot read input file because {0}", fileInputNodeResult.Status.ToString()));
                 return;
             }
 
@@ -156,7 +157,7 @@ namespace EindopdrachtUWP.Classes
             if (result.Status != AudioGraphCreationStatus.Success)
             {
                 // Cannot create graph
-                Debug.WriteLine("AudioGraph Creation Error because {0}", result.Status.ToString());
+                Debug.WriteLine(string.Format("AudioGraph Creation Error because {0}", result.Status.ToString()));
                 return;
             }
 
@@ -168,7 +169,7 @@ namespace EindopdrachtUWP.Classes
             if (deviceOutputNodeResult.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // Cannot create device output node
-                Debug.WriteLine("Device Output unavailable because {0}", deviceOutputNodeResult.Status.ToString());
+                Debug.WriteLine(string.Format("Device Output unavailable because {0}", deviceOutputNodeResult.Status.ToString()));
                 return;
             }
 

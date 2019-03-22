@@ -35,7 +35,6 @@ namespace EindopdrachtUWP.Classes
                 // Give feedback about the exeption
                 Debug.WriteLine(location);
                 Debug.WriteLine(e.StackTrace);
-                Debug.WriteLine("TEST");
             }
         }
 
