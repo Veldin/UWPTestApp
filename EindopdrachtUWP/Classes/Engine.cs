@@ -52,6 +52,12 @@ namespace UWPTestApp
 
         private Player player;
 
+        private int logicLooped = 0;
+        private int currentFPS = 0;
+        private long fpsTimer = 0;
+
+        public static bool showThreadingDifference = true;
+
         public Engine()
         {
             gameObjects = new List<GameObject>();
@@ -137,6 +143,7 @@ namespace UWPTestApp
 
             paused = true;
             enableCheats = false;
+
         }
 
         public Player GetPlayer() => player;
@@ -167,8 +174,17 @@ namespace UWPTestApp
         */
         public void Run()
         {
-            LogicLoop();
-            DrawLoopAsync();
+            if (MainPage.Current.threading)
+            {
+                LogicLoop();
+                DrawLoopAsync();
+            }
+            else
+            {
+
+                Logic(); //Run the logic of the simulation.
+
+            }
         }
 
         /* LogicLoop() */
@@ -276,12 +292,45 @@ namespace UWPTestApp
         */
         private void Logic()
         {
+
             paused = MainPage.Current.paused;
 
             HandleMenuControls();
 
             if (!paused && !MainPage.Current.game_over)
             {
+                if(currentFPS == 0)
+                {
+                    currentFPS = 1;
+                    fpsTimer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                }
+                if(DateTimeOffset.Now.ToUnixTimeMilliseconds() - fpsTimer < 1000)
+                {
+                    currentFPS++;
+                }
+                else
+                {
+                    MainPage.Current.UpdateFPS(currentFPS);
+                    fpsTimer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                    currentFPS = 0;
+                }
+                
+
+                
+                //if (fpsTimer == 0)
+                //{
+                //    fpsTimer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                //}
+                //logicLooped++;
+                //if (logicLooped == 1000)
+                //{
+                //    Debug.WriteLine("Time it takes: " + (DateTimeOffset.Now.ToUnixTimeMilliseconds() - fpsTimer));
+
+                //}
+                //else if (logicLooped > 100)
+                //{
+                //    return;
+                //}
                 HandleInGameMenuControls();
 
                 //Move the camera
@@ -434,6 +483,19 @@ namespace UWPTestApp
                 foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                 {
                     HandleTaggsGameObject(gameObjectCheck);
+                }
+            }
+
+            if (!MainPage.Current.threading)
+            {
+                //Only draw the simulation if there is a known canvas.
+                if (canvasControl != null)
+                {
+                    Draw();
+                }
+                else
+                {
+                    Task.Run(() => Run());
                 }
             }
         }
@@ -1109,6 +1171,11 @@ namespace UWPTestApp
 
             //Drawing textBoxes
             DrawAllTextBoxes(args, loopList);
+
+            if (!MainPage.Current.threading)
+            {
+                Logic();
+            }
         }
 
         /* NextWeapon */

@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using System;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using UWPTestApp;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -26,8 +27,33 @@ namespace EindopdrachtUWP
         private double critMultiPercentage;
         private string weapon;
 
+        public bool threading = true;
+
         public MainPage()
         {
+            AskWithOrWithoutThreading();
+        }
+
+        private async void AskWithOrWithoutThreading()
+        {
+            ContentDialog test = new ContentDialog
+            {
+                Title = "Met of zonder threading?",
+                Content = "U kunt de game starten met threading en zonder threading, zodat u kunt zien of threading zinvol is of niet.",
+                CloseButtonText = "Zonder threading",
+                PrimaryButtonText = "Met threading"
+            };
+
+            ContentDialogResult result = await test.ShowAsync();
+
+            threading = result == ContentDialogResult.Primary;
+
+            Init();
+
+        }
+        private void Init()
+        {
+
             engine = new Engine();
 
             InitializeComponent();
@@ -69,10 +95,9 @@ namespace EindopdrachtUWP
 
             UpdateHealth();
             UpdateArmour();
-
+            
             engine.Run();
         }
-
         public void Gameover()
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -476,6 +501,16 @@ namespace EindopdrachtUWP
                     default:
                         break;
                 }
+            });
+        }
+
+        public void UpdateFPS(int fps)
+        {
+
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                CurrentFPS.Text = fps.ToString();
             });
         }
 
