@@ -52,7 +52,7 @@ namespace UWPTestApp
 
         private Player player;
 
-        private int logicLooped = 0;
+        // Current fps and the fps timer to calculate the fps
         private int currentFPS = 0;
         private long fpsTimer = 0;
 
@@ -174,15 +174,17 @@ namespace UWPTestApp
         */
         public void Run()
         {
+            // With or without threading
             if (MainPage.Current.threading)
             {
+                // Run logic and draw in seperate threads
                 LogicLoop();
                 DrawLoopAsync();
             }
             else
             {
-
-                Logic(); //Run the logic of the simulation.
+                // Run without threading
+                Logic();
 
             }
         }
@@ -315,22 +317,7 @@ namespace UWPTestApp
                     currentFPS = 0;
                 }
                 
-
                 
-                //if (fpsTimer == 0)
-                //{
-                //    fpsTimer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                //}
-                //logicLooped++;
-                //if (logicLooped == 1000)
-                //{
-                //    Debug.WriteLine("Time it takes: " + (DateTimeOffset.Now.ToUnixTimeMilliseconds() - fpsTimer));
-
-                //}
-                //else if (logicLooped > 100)
-                //{
-                //    return;
-                //}
                 HandleInGameMenuControls();
 
                 //Move the camera
@@ -488,13 +475,14 @@ namespace UWPTestApp
 
             if (!MainPage.Current.threading)
             {
-                //Only draw the simulation if there is a known canvas.
+                // Draw game
                 if (canvasControl != null)
                 {
                     Draw();
                 }
                 else
                 {
+                    // Run again when there's no draw
                     Task.Run(() => Run());
                 }
             }
@@ -1174,6 +1162,7 @@ namespace UWPTestApp
 
             if (!MainPage.Current.threading)
             {
+                // Do the logic
                 Logic();
             }
         }
