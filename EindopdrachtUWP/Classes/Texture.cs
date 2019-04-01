@@ -16,7 +16,7 @@ namespace EindopdrachtUWP.Classes
          * This funcion loads the texture from the local directery and sets it
          * in the textures dictionary to be used anywere else in the application.
          * ********************************************************************/
-        public static async Task AddTexturesAsync(CanvasControl sender, string location)
+        private static async Task AddTexturesAsync(CanvasControl sender, string location)
         {  
             // Define the new texture
             CanvasBitmap sprite;
