@@ -8,7 +8,7 @@ using UWPTestApp;
 
 namespace EindopdrachtUWP
 {
-    static public class tests
+    static public class Tests
     {
         public static void activeObjectsTest()
         {
