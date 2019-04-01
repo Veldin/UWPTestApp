@@ -52,6 +52,12 @@ namespace UWPTestApp
 
         private Player player;
 
+        // Current fps and the fps timer to calculate the fps
+        private int currentFPS = 0;
+        private long fpsTimer = 0;
+
+        public static bool showThreadingDifference = true;
+
         public Engine()
         {
             gameObjects = new List<GameObject>();
@@ -137,6 +143,7 @@ namespace UWPTestApp
 
             paused = true;
             enableCheats = false;
+
         }
 
         public Player GetPlayer() => player;
@@ -167,8 +174,19 @@ namespace UWPTestApp
         */
         public void Run()
         {
-            LogicLoop();
-            DrawLoopAsync();
+            // With or without threading
+            if (MainPage.Current.threading)
+            {
+                // Run logic and draw in seperate threads
+                LogicLoop();
+                DrawLoopAsync();
+            }
+            else
+            {
+                // Run without threading
+                Logic();
+
+            }
         }
 
         /* LogicLoop() */
@@ -276,12 +294,30 @@ namespace UWPTestApp
         */
         private void Logic()
         {
+
             paused = MainPage.Current.paused;
 
             HandleMenuControls();
 
             if (!paused && !MainPage.Current.game_over)
             {
+                if(currentFPS == 0)
+                {
+                    currentFPS = 1;
+                    fpsTimer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                }
+                if(DateTimeOffset.Now.ToUnixTimeMilliseconds() - fpsTimer < 1000)
+                {
+                    currentFPS++;
+                }
+                else
+                {
+                    MainPage.Current.UpdateFPS(currentFPS);
+                    fpsTimer = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                    currentFPS = 0;
+                }
+                
+                
                 HandleInGameMenuControls();
 
                 //Move the camera
@@ -434,6 +470,20 @@ namespace UWPTestApp
                 foreach (GameObject gameObjectCheck in new ArrayList(gameObjects))
                 {
                     HandleTaggsGameObject(gameObjectCheck);
+                }
+            }
+
+            if (!MainPage.Current.threading)
+            {
+                // Draw game
+                if (canvasControl != null)
+                {
+                    Draw();
+                }
+                else
+                {
+                    // Run again when there's no draw
+                    Task.Run(() => Run());
                 }
             }
         }
@@ -1109,6 +1159,12 @@ namespace UWPTestApp
 
             //Drawing textBoxes
             DrawAllTextBoxes(args, loopList);
+
+            if (!MainPage.Current.threading)
+            {
+                // Do the logic
+                Logic();
+            }
         }
 
         /* NextWeapon */
