@@ -56,7 +56,7 @@ namespace UWPTestApp
         private int currentFPS = 0;
         private long fpsTimer = 0;
 
-        public static bool showThreadingDifference = true;
+        //public static bool showThreadingDifference = true;
 
         public Engine()
         {
@@ -332,8 +332,8 @@ namespace UWPTestApp
                  * The gameObjects near the target have to do the full logic cycle.
                  */
 
-                IEnumerable<GameObject> inactiveObjects;
-                IEnumerable<GameObject> activeObjects;
+                List<GameObject> inactiveObjects;
+                List<GameObject> activeObjects;
 
                 if (MainPage.Current.paused)
                 {
@@ -401,21 +401,44 @@ namespace UWPTestApp
                         blockFromTop = (int)Math.Floor(player.FromTop / world.StartingBlock.Height);
                     }
 
-                    /*
-                     * Lambda version to get all the gameobjects that are outside of the screen.
-                     * also tested with parralel but its slower. could become faster if there are enough enemies 
-                     * but most of the time it will be slower
-                     * also implemented parallel when there are more than 1250 objects (which is where paralel became more efficient in our tests)
-                     */
-                    if (gameObjects.Count() < 1250)
+
+
+                    if (MainPage.Current.threading) //If threading is enbled
                     {
-                        activeObjects = gameObjects.Where(element => element.IsActive(player) == true).ToList();
-                        inactiveObjects = gameObjects.Where(element => element.IsActive(player) != true).ToList();
+                        /*
+                         * Lambda version to get all the gameobjects that are outside of the screen.
+                         * also tested with parralel but its slower. could become faster if there are enough enemies 
+                         * but most of the time it will be slower
+                         * also implemented parallel when there are more than 1250 objects (which is where paralel became more efficient in our tests)
+                         */
+                        if (gameObjects.Count() < 1250)
+                        {
+                            activeObjects = gameObjects.Where(element => element.IsActive(player) == true).ToList();
+                            inactiveObjects = gameObjects.Where(element => element.IsActive(player) != true).ToList();
+                        }
+                        else
+                        {
+                            activeObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) == true).ToList();
+                            inactiveObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) != true).ToList();
+                        }
                     }
-                    else
+                    else // Old version without threading
                     {
-                        activeObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) == true).ToList();
-                        inactiveObjects = gameObjects.AsParallel().Where(element => element.IsActive(player) != true).ToList();
+                        activeObjects = new List<GameObject>();
+                        inactiveObjects = new List<GameObject>();
+
+                        //Foreach trough the gameobjects
+                        foreach (GameObject gameObject in gameObjects)
+                        {
+                            if (gameObject.IsActive(player))
+                            {
+                                activeObjects.Add(gameObject);
+                            }
+                            else
+                            {
+                                inactiveObjects.Add(gameObject);
+                            }
+                        }
                     }
 
                     //Check if there are objects in the List to apply logic on

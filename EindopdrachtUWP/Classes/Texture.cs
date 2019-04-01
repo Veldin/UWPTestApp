@@ -51,8 +51,18 @@ namespace EindopdrachtUWP.Classes
             // Check if the dictionary has the key already
             if (!textures.Keys.Contains(location))
             {
-                // Get the new texture and set it in the dictionary
-                await AddTexturesAsync(sender, location);
+
+                if (MainPage.Current.threading) //If threading is enbled
+                {
+                    // Get the new texture and set it in the dictionary
+                    await AddTexturesAsync(sender, location);
+
+                }
+                {
+                    // Get the new texture and set it in the dictionary
+                    AddTexturesAsync(sender, location);
+                }
+
 
                 // Check if the new texture is set in the dictionary  
                 if (textures.Keys.Contains(location))

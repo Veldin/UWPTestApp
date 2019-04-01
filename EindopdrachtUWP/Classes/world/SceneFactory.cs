@@ -11,13 +11,16 @@ namespace UWPTestApp
 
         private static bool[,] AddRoom(bool[,] tiles, int left, int top, int width, int height)
         {
-            int leftNeedle = left;
+            int leftNeedle = left;
+
             while (leftNeedle < left + width)
             {
-                int topNeedle = top;
+                int topNeedle = top;
+
                 while (topNeedle < top + height)
                 {
-                    tiles[leftNeedle, topNeedle] = true;                    topNeedle++;
+                    tiles[leftNeedle, topNeedle] = true;
+                    topNeedle++;
                 }
                 leftNeedle++;
             }
@@ -28,7 +31,8 @@ namespace UWPTestApp
         {
             int leftNeedle = left - 1;
             while (leftNeedle < left + width + 1)
-            {                int topNeedle = top - 1;
+            {
+                int topNeedle = top - 1;
                 while (topNeedle < top + height + 1)
                 {
                     //Check out of bounds
@@ -36,12 +40,14 @@ namespace UWPTestApp
                     {
                         topNeedle++;
                         continue;
-                    }
+                    }
+
                     if (topNeedle > tiles.GetLength(1) || topNeedle < 0)
                     {
                         topNeedle++;
                         continue;
-                    }
+                    }
+
                     if (tiles[leftNeedle, topNeedle]) //if this square is true, return false (aka no place)
                     {
                         return false;
@@ -79,51 +85,6 @@ namespace UWPTestApp
                         left * tilesize,
                         top * tilesize,
                         0, 0, 0, 0));
-
-                    //To add some visual clearaty of where the buildings are, buildings spawn different versions of walls
-                    switch (random.Next(0, 5))
-                    {
-                        case 0:
-                            Objects.Add(new Background(
-                            (newObject_Width + 0.5f) * tilesize,
-                            (newObject_Height + 0.5f) * tilesize,
-                            (left) * tilesize,
-                            (top - 0.5f) * tilesize,
-                            0, 0, 0, 0));
-                            break;
-                        case 1:
-                            Objects.Add(new Background(
-                            (newObject_Width + 0.5f) * tilesize,
-                            (newObject_Height + 0.5f) * tilesize,
-                            (left - 0.5f) * tilesize,
-                            (top) * tilesize,
-                            0, 0, 0, 0));
-                            break;
-                        case 2:
-                            Objects.Add(new Background(
-                            (newObject_Width + 0.5f) * tilesize,
-                            (newObject_Height + 0.5f) * tilesize,
-                            (left - 0.5f) * tilesize,
-                            (top - 0.5f) * tilesize,
-                            0, 0, 0, 0));
-                            break;
-                        case 3:
-                            Objects.Add(new Background(
-                            (newObject_Width + 0.5f) * tilesize,
-                            (newObject_Height + 0.5f) * tilesize,
-                            (left) * tilesize,
-                            (top) * tilesize,
-                            0, 0, 0, 0));
-                            break;
-                        default:
-                            Objects.Add(new Background(
-                            (newObject_Width + 0.5f) * tilesize,
-                            (newObject_Height + 0.5f) * tilesize,
-                            (left - 0.5f) * tilesize,
-                            (top - 0.5f) * tilesize,
-                            0, 0, 0, 0));
-                            break;
-                    }
                 }
             }
 
